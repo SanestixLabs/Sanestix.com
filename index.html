@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanestix - AI Automation & Software</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0B0F14;
+            color: #E5E7EB;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: none;
+            animation: pageSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes pageSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            background: rgba(11, 15, 20, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+            transition: all 0.3s;
+        }
+
+        nav.scrolled {
+            padding: 1rem 5%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3B82F6, #06B6D4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #E5E7EB;
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #3B82F6, #06B6D4);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-btn {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #3B82F6, #06B6D4);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-btn:hover::before {
+            left: 100%;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 0 5%;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.15;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.3) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.15; transform: scale(1); }
+            50% { opacity: 0.25; transform: scale(1.05); }
+        }
+
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .particle {
+            position: absolute;
+            background: linear-gradient(135deg, #3B82F6, #06B6D4);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-100px) translateX(50px); }
+            50% { transform: translateY(-200px) translateX(-30px); }
+            75% { transform: translateY(-100px) translateX(-50px); }
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff, #3B82F6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: #9CA3AF;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.4s backwards;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 1rem 2.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3B82F6, #06B6D4);
+            border: none;
+            color: white;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-primary:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #3B82F6;
+            color: #3B82F6;
+        }
+
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #3B82F6, #06B6D4);
+            transition: left 0.5s;
+            z-index: -1;
+        }
+
+        .btn-secondary:hover::before {
+            left: 0;
+        }
+
+        .btn-secondary:hover {
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .section {
+            padding: 6rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff, #3B82F6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #9CA3AF;
+            margin-bottom: 4rem;
+            font-size: 1.2rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.2s forwards;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: rgba(31, 41, 55, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.6s;
+        }
+
+        .service-card:hover::before {
+            transform: scale(1);
+        }
+
+        .service-card:nth-child(1) { animation-delay: 0.1s; }
+        .service-card:nth-child(2) { animation-delay: 0.2s; }
+        .service-card:nth-child(3) { animation-delay: 0.3s; }
+        .service-card:nth-child(4) { animation-delay: 0.4s; }
+        .service-card:nth-child(5) { animation-delay: 0.5s; }
+
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #3B82F6;
+            box-shadow: 0 20px 60px rgba(59, 130, 246, 0.3);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3B82F6, #06B6D4);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .service-card:hover .service-icon {
+            transform: rotateY(360deg);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .service-card p {
+            color: #9CA3AF;
+            line-height: 1.7;
+        }
+
+        .case-study {
+            background: rgba(31, 41, 55, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .case-study:hover {
+            transform: translateX(10px);
+            border-color: #3B82F6;
+        }
+
+        .case-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, #3B82F6, #06B6D4);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .case-study h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .case-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3B82F6, #06B6D4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .metric-label {
+            color: #9CA3AF;
+            font-size: 0.9rem;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(31, 41, 55, 0.5);
+            padding: 3rem;
+            border-radius: 16px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #E5E7EB;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.875rem;
+            background: rgba(11, 15, 20, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 8px;
+            color: #E5E7EB;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3B82F6;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        footer {
+            background: rgba(11, 15, 20, 0.9);
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 3rem 5%;
+            text-align: center;
+            color: #9CA3AF;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-ctas {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <div class="nav-content">
+            <div class="logo" onclick="navigateTo('home')">SANESTIX</div>
+            <ul class="nav-links">
+                <li><a onclick="navigateTo('home')">Home</a></li>
+                <li><a onclick="navigateTo('services')">Services</a></li>
+                <li><a onclick="navigateTo('case-studies')">Case Studies</a></li>
+                <li><a onclick="navigateTo('about')">About</a></li>
+                <li><a onclick="navigateTo('contact')">Contact</a></li>
+            </ul>
+            <button class="cta-btn" onclick="navigateTo('contact')">Get Started</button>
+        </div>
+    </nav>
+
+    <div id="home" class="page active">
+        <section class="hero">
+            <div class="hero-bg"></div>
+            <div class="particles">
+                <div class="particle" style="width: 4px; height: 4px; top: 20%; left: 10%; animation-delay: 0s;"></div>
+                <div class="particle" style="width: 6px; height: 6px; top: 60%; left: 80%; animation-delay: 2s;"></div>
+                <div class="particle" style="width: 3px; height: 3px; top: 40%; left: 60%; animation-delay: 4s;"></div>
+                <div class="particle" style="width: 5px; height: 5px; top: 80%; left: 30%; animation-delay: 6s;"></div>
+            </div>
+            <div class="hero-content">
+                <h1>Automate Smarter. Scale Faster.</h1>
+                <p class="hero-subtitle">We build AI-powered automation and software solutions that transform how businesses operate.</p>
+                <div class="hero-ctas">
+                    <button class="btn-primary" onclick="navigateTo('contact')">Book a Free Consultation</button>
+                    <button class="btn-secondary" onclick="navigateTo('services')">View Services</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="services" class="page">
+        <section class="section" style="padding-top: 120px;">
+            <h2 class="section-title">Our Services</h2>
+            <p class="section-subtitle">Solutions that drive efficiency and growth</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🤖</div>
+                    <h3>AI Automation</h3>
+                    <p>Workflow automation using n8n, Zapier, and Make. AI agents & chatbots that work 24/7. Process optimization that transforms your operations.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💻</div>
+                    <h3>Custom Software Development</h3>
+                    <p>Web apps, dashboards, and SaaS platforms built with scalability, performance, and user experience in mind.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔗</div>
+                    <h3>System Integrations</h3>
+                    <p>CRM integrations, RESTful APIs, and payment pipelines that connect your entire tech stack seamlessly.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💡</div>
+                    <h3>AI Consulting</h3>
+                    <p>Strategic automation planning, business process audits, and scaling systems for long-term success.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">A proven process from concept to deployment</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">1</div>
+                    <h3>Discovery & Analysis</h3>
+                    <p>We analyze your needs, business goals, and current processes to identify automation opportunities.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">2</div>
+                    <h3>Strategy & Design</h3>
+                    <p>Custom solution design tailored to your specific requirements and long-term vision.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">3</div>
+                    <h3>Build & Integrate</h3>
+                    <p>Automation development and seamless integration with your existing systems.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">4</div>
+                    <h3>Test & Optimize</h3>
+                    <p>Rigorous testing and performance tuning to ensure everything works flawlessly.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">5</div>
+                    <h3>Deploy & Support</h3>
+                    <p>Smooth launch with comprehensive training and ongoing support for your team.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="case-studies" class="page">
+        <section class="section" style="padding-top: 120px;">
+            <h2 class="section-title">Case Studies</h2>
+            <p class="section-subtitle">Real results for real businesses</p>
+            
+            <div class="case-study">
+                <span class="case-tag">SaaS • Automation</span>
+                <h3>Lead Automation System</h3>
+                <p style="color: #9CA3AF; margin-bottom: 1rem;">A growing SaaS company needed to automate their lead qualification and follow-up process to scale their sales operations.</p>
+                <p style="color: #9CA3AF; margin-bottom: 2rem;"><strong>Solution:</strong> Built an intelligent automation system using n8n that scored leads, triggered personalized email sequences, and integrated with their CRM.</p>
+                <div class="case-metrics">
+                    <div class="metric">
+                        <div class="metric-value">80%</div>
+                        <div class="metric-label">Time Saved</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">3x</div>
+                        <div class="metric-label">Lead Response Rate</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">45%</div>
+                        <div class="metric-label">Conversion Increase</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-study" style="animation-delay: 0.2s;">
+                <span class="case-tag">E-commerce • AI</span>
+                <h3>AI Customer Support Chatbot</h3>
+                <p style="color: #9CA3AF; margin-bottom: 1rem;">An e-commerce brand struggled with high support volume and slow response times during peak seasons.</p>
+                <p style="color: #9CA3AF; margin-bottom: 2rem;"><strong>Solution:</strong> Deployed an AI-powered chatbot that handles common queries, order tracking, and product recommendations 24/7.</p>
+                <div class="case-metrics">
+                    <div class="metric">
+                        <div class="metric-value">70%</div>
+                        <div class="metric-label">Queries Automated</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">24/7</div>
+                        <div class="metric-label">Availability</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">92%</div>
+                        <div class="metric-label">Customer Satisfaction</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-study" style="animation-delay: 0.4s;">
+                <span class="case-tag">Agency • Integration</span>
+                <h3>Multi-Platform Workflow Integration</h3>
+                <p style="color: #9CA3AF; margin-bottom: 1rem;">A digital agency needed to connect their project management, billing, and client communication tools.</p>
+                <p style="color: #9CA3AF; margin-bottom: 2rem;"><strong>Solution:</strong> Created custom API integrations that synced data across platforms and automated invoicing workflows.</p>
+                <div class="case-metrics">
+                    <div class="metric">
+                        <div class="metric-value">15hrs</div>
+                        <div class="metric-label">Saved Weekly</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">100%</div>
+                        <div class="metric-label">Data Accuracy</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">$30k</div>
+                        <div class="metric-label">Annual Savings</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="about" class="page">
+        <section class="section" style="padding-top: 120px;">
+            <h2 class="section-title">About Sanestix</h2>
+            <p class="section-subtitle">Building intelligent systems that work 24/7</p>
+            
+            <div style="max-width: 800px; margin: 0 auto 4rem; text-align: center;">
+                <p style="font-size: 1.2rem; color: #9CA3AF; line-height: 1.8; margin-bottom: 2rem;">
+                    We're a team of automation engineers and software developers obsessed with solving real business problems using AI and intelligent systems.
+                </p>
+                <p style="font-size: 1.1rem; color: #9CA3AF; line-height: 1.8;">
+                    Our mission is simple: help businesses automate workflows, integrate AI, and build smart software solutions that save time, reduce costs, and drive growth.
+                </p>
+            </div>
+
+            <h3 class="section-title" style="font-size: 2rem; margin-top: 4rem;">Why Choose Sanestix</h3>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🎯</div>
+                    <h3>Business-First Approach</h3>
+                    <p>We focus on solving real problems and driving measurable results, not just implementing tech for tech's sake.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">⚡</div>
+                    <h3>Experienced Team</h3>
+                    <p>Expert automation engineers with proven track records in AI, workflow optimization, and software development.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔒</div>
+                    <h3>Scalable & Secure</h3>
+                    <p>Built for growth with enterprise-grade security, reliability, and performance at every layer.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🤝</div>
+                    <h3>Long-Term Partners</h3>
+                    <p>We're here for the journey with continuous support, strategic guidance, and ongoing optimization.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="contact" class="page">
+        <section class="section" style="padding-top: 120px;">
+            <h2 class="section-title">Let's Automate Your Business</h2>
+            <p class="section-subtitle">Get in touch to start your transformation</p>
+            <form class="contact-form" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="company">Company</label>
+                    <input type="text" id="company">
+                </div>
+                <div class="form-group">
+                    <label for="message">Project Details</label>
+                    <textarea id="message" required></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">Send Message</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Sanestix. Building intelligent systems that work 24/7.</p>
+    </footer>
+
+    <script>
+        function navigateTo(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            alert('Thanks for reaching out! We\'ll get back to you soon.');
+            e.target.reset();
+        }
+
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
