@@ -525,6 +525,18 @@
     </style>
 </head>
 <body>
+    <div class="mobile-overlay" id="mobileOverlay" onclick="toggleMobileMenu()"></div>
+    
+    <div class="mobile-menu" id="mobileMenu">
+        <ul>
+            <li><a onclick="navigateTo('home'); toggleMobileMenu()">Home</a></li>
+            <li><a onclick="navigateTo('services'); toggleMobileMenu()">Services</a></li>
+            <li><a onclick="navigateTo('case-studies'); toggleMobileMenu()">Case Studies</a></li>
+            <li><a onclick="navigateTo('about'); toggleMobileMenu()">About</a></li>
+            <li><a onclick="navigateTo('contact'); toggleMobileMenu()">Contact</a></li>
+        </ul>
+    </div>
+
     <nav id="navbar">
         <div class="nav-content">
             <div class="logo" onclick="navigateTo('home')">SANESTIX</div>
@@ -536,6 +548,7 @@
                 <li><a onclick="navigateTo('contact')">Contact</a></li>
             </ul>
             <button class="cta-btn" onclick="navigateTo('contact')">Get Started</button>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
         </div>
     </nav>
 
@@ -757,7 +770,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 Sanestix. Building intelligent systems that work 24/7.</p>
+        <p>&copy; 2026 Sanestix. Building intelligent systems that work 24/7.</p>
     </footer>
 
     <script>
@@ -766,6 +779,13 @@
             pages.forEach(page => page.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('mobileOverlay');
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
         }
 
         function handleSubmit(e) {
