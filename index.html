@@ -840,3 +840,29 @@
     <div id="contact" class="page">
         <section class="section" style="padding-top: 120px;">
             <h2 class="section-title">Let's Automate Your Business</h2>
+
+            <footer>
+    <p>&copy; 2026 Sanestix. Building intelligent systems that work 24/7.</p>
+</footer>
+
+<script>
+    function navigateTo(pageId) {
+        const pages = document.querySelectorAll('.page');
+        pages.forEach(page => page.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobileMenu');
+        const overlay = document.getElementById('mobileOverlay');
+        menu.classList.toggle('active');
+        overlay.classList.toggle('active');
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        alert('Thanks for reaching out! We\'ll get back to you soon.');
+        e.target.reset();
+    }
+</script>
