@@ -675,87 +675,150 @@
             }
             
             .hero {
-                padding: 0 4%;
-                min-height: 90vh;
+                padding: 100px 5% 40px;
+                min-height: 100vh;
+            }
+
+            .hero-content {
+                padding-top: 20px;
+            }
+
+            h1 {
+                font-size: 2.2rem !important;
+                line-height: 1.2;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem !important;
+                margin-bottom: 2rem !important;
             }
 
             .hero-ctas {
                 flex-direction: column;
                 align-items: stretch;
+                gap: 1rem;
             }
 
             .btn-primary, .btn-secondary {
                 width: 100%;
                 text-align: center;
+                padding: 1rem 1.5rem;
             }
 
             .section {
-                padding: 3rem 4%;
+                padding: 3rem 5%;
+            }
+
+            .section-title {
+                font-size: 2rem !important;
+                margin-bottom: 0.5rem;
+            }
+
+            .section-subtitle {
+                font-size: 1rem;
+                margin-bottom: 2rem;
             }
 
             .services-grid {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
 
             .service-card {
-                padding: 2rem;
+                padding: 2rem 1.5rem;
+            }
+
+            .service-card h3 {
+                font-size: 1.4rem;
             }
 
             .contact-form {
-                padding: 2rem;
+                padding: 2rem 1.5rem;
             }
 
             .stats-section {
                 grid-template-columns: repeat(2, 1fr);
-                padding: 2rem;
+                padding: 2rem 1.5rem;
                 gap: 1.5rem;
+                margin-top: 2.5rem;
             }
 
             .stat-number {
                 font-size: 2.5rem;
             }
 
+            .stat-label {
+                font-size: 0.85rem;
+            }
+
             .features-grid {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .feature-item {
+                padding: 1.5rem;
+            }
+
+            .feature-item h4 {
+                font-size: 1.2rem;
             }
 
             .case-study {
-                padding: 2rem;
+                padding: 2rem 1.5rem;
+            }
+
+            .case-study h3 {
+                font-size: 1.5rem;
             }
 
             .case-metrics {
                 grid-template-columns: 1fr;
-                gap: 1rem;
+                gap: 1.5rem;
+            }
+
+            .metric-value {
+                font-size: 2rem;
             }
         }
 
         @media (max-width: 480px) {
             nav {
-                padding: 1rem 4%;
+                padding: 1rem 5%;
             }
 
             .logo {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
             }
 
             h1 {
-                font-size: 2rem;
+                font-size: 1.8rem !important;
             }
 
             .hero-subtitle {
-                font-size: 1rem;
+                font-size: 0.95rem !important;
+            }
+
+            .hero {
+                padding: 90px 5% 30px;
+            }
+
+            .section {
+                padding: 2.5rem 5%;
             }
 
             .section-title {
-                font-size: 1.8rem;
+                font-size: 1.6rem !important;
             }
 
             .stats-section {
                 grid-template-columns: 1fr;
+                padding: 1.5rem;
+                gap: 1.5rem;
             }
 
             .stat-number {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
 
             .service-icon {
@@ -764,13 +827,53 @@
                 font-size: 1.5rem;
             }
 
+            .service-card {
+                padding: 1.5rem;
+            }
+
             .service-card h3 {
-                font-size: 1.3rem;
+                font-size: 1.25rem;
             }
 
             .btn-primary, .btn-secondary {
-                padding: 0.875rem 2rem;
+                padding: 0.875rem 1.5rem;
                 font-size: 1rem;
+            }
+
+            .feature-icon {
+                font-size: 2rem;
+            }
+
+            .feature-item {
+                padding: 1.25rem;
+            }
+
+            .case-tag {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .mobile-menu {
+                width: 85%;
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            h1 {
+                font-size: 1.5rem !important;
+            }
+
+            .hero-subtitle {
+                font-size: 0.9rem !important;
+            }
+
+            .stat-number {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.4rem !important;
             }
         }
     </style>
