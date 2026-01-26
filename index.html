@@ -52,13 +52,11 @@
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #3B82F6, #06B6D4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            cursor: pointer;
-        }
+               height: 40px; /* Adjust based on your logo */
+               width: auto;
+               cursor: pointer;
+               object-fit: contain;
+         }
 
         .nav-links {
             display: flex;
@@ -508,7 +506,7 @@
             }
 
             .logo {
-                font-size: 1.3rem;
+                height: 32px;
             }
 
             h1 {
@@ -557,7 +555,7 @@
 
     <nav id="navbar">
         <div class="nav-content">
-            <div class="logo" onclick="navigateTo('home')">SANESTIX</div>
+            <img src="Adobe Express-file.png" alt="Sanestix" class="logo" onclick="navigateTo('home')">
             <ul class="nav-links">
                 <li><a onclick="navigateTo('home')">Home</a></li>
                 <li><a onclick="navigateTo('services')">Services</a></li>
