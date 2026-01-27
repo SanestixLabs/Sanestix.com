@@ -829,6 +829,142 @@
             margin-top: 4rem;
         }
 
+        /* GLOBAL LEADERSHIP SECTION */
+        .leadership-section {
+            padding: 4rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .leadership-container {
+            position: relative;
+            margin-top: 3rem;
+        }
+
+        .leadership-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .leader-card {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(59, 130, 246, 0.05));
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        .leader-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: scan 4s linear infinite;
+        }
+
+        .leader-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            border-color: #3B82F6;
+            box-shadow: 0 20px 60px rgba(59, 130, 246, 0.4);
+        }
+
+        .leader-image-wrapper {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid rgba(59, 130, 246, 0.5);
+            background: linear-gradient(135deg, #3B82F6, #06B6D4);
+            padding: 4px;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .leader-card:hover .leader-image-wrapper {
+            border-color: #3B82F6;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+            transform: scale(1.05);
+        }
+
+        .leader-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(6, 182, 212, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #3B82F6;
+        }
+
+        .leader-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ffffff, #3B82F6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            z-index: 1;
+        }
+
+        .leader-title {
+            color: #9CA3AF;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .leader-linkedin {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(6, 182, 212, 0.2));
+            border: 2px solid rgba(59, 130, 246, 0.4);
+            border-radius: 50px;
+            color: #3B82F6;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .leader-linkedin:hover {
+            background: linear-gradient(135deg, #3B82F6, #06B6D4);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(59, 130, 246, 0.5);
+        }
+
+        .leader-linkedin svg {
+            width: 20px;
+            height: 20px;
+        }
+
         .social-links {
             display: flex;
             justify-content: center;
@@ -947,6 +1083,20 @@
 
             .section {
                 padding: 3rem 6%;
+            }
+
+            .leadership-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .leader-image-wrapper {
+                width: 150px;
+                height: 150px;
+            }
+
+            .leader-name {
+                font-size: 1.3rem;
             }
 
             .section-title {
@@ -1154,6 +1304,50 @@
                 </div>
             </div>
         </section>
+
+        <!-- Global Leadership Section -->
+        <section class="leadership-section">
+            <h2 class="section-title">Our Global Leadership</h2>
+            <p class="section-subtitle">Meet the visionaries driving innovation at Sanestix</p>
+            
+            <div class="leadership-container">
+                <div class="leadership-grid">
+                    <!-- Leader 1: Saad Faisal -->
+                    <div class="leader-card">
+                        <div class="leader-image-wrapper">
+                            <div class="leader-image">
+                                SF
+                            </div>
+                        </div>
+                        <h3 class="leader-name">Saad Faisal</h3>
+                        <p class="leader-title">Founder & CEO</p>
+                        <a href="https://www.linkedin.com/in/saad-faisal" target="_blank" rel="noopener noreferrer" class="leader-linkedin">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                            LinkedIn
+                        </a>
+                    </div>
+
+                    <!-- Leader 2: Abdul Wahab Siddiqui -->
+                    <div class="leader-card">
+                        <div class="leader-image-wrapper">
+                            <div class="leader-image">
+                                AW
+                            </div>
+                        </div>
+                        <h3 class="leader-name">Abdul Wahab Siddiqui</h3>
+                        <p class="leader-title">Co-Founder & COO</p>
+                        <a href="https://www.linkedin.com/in/abdul-wahab-siddiqui" target="_blank" rel="noopener noreferrer" class="leader-linkedin">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                            LinkedIn
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 
     <div id="services" class="page">
@@ -1353,6 +1547,50 @@
                 <p id="formStatus" style="margin-top: 1rem; text-align: center; color: #3B82F6; display: none;"></p>
             </form>
         </section>
+
+        <!-- Global Leadership Section -->
+        <section class="leadership-section">
+            <h2 class="section-title">Our Global Leadership</h2>
+            <p class="section-subtitle">Meet the visionaries driving innovation at Sanestix</p>
+            
+            <div class="leadership-container">
+                <div class="leadership-grid">
+                    <!-- Leader 1: Saad Faisal -->
+                    <div class="leader-card">
+                        <div class="leader-image-wrapper">
+                            <div class="leader-image">
+                                SF
+                            </div>
+                        </div>
+                        <h3 class="leader-name">Saad Faisal</h3>
+                        <p class="leader-title">Founder & CEO</p>
+                        <a href="https://www.linkedin.com/in/saad-faisal" target="_blank" rel="noopener noreferrer" class="leader-linkedin">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                            LinkedIn
+                        </a>
+                    </div>
+
+                    <!-- Leader 2: Abdul Wahab Siddiqui -->
+                    <div class="leader-card">
+                        <div class="leader-image-wrapper">
+                            <div class="leader-image">
+                                AW
+                            </div>
+                        </div>
+                        <h3 class="leader-name">Abdul Wahab Siddiqui</h3>
+                        <p class="leader-title">Co-Founder & COO</p>
+                        <a href="https://www.linkedin.com/in/abdul-wahab-siddiqui" target="_blank" rel="noopener noreferrer" class="leader-linkedin">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                            LinkedIn
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 
     <footer>
@@ -1495,7 +1733,7 @@
             const formData = new FormData(form);
             
             // Replace this URL with your Google Apps Script Web App URL
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbzr8XZsUdZiSYx0bvhi2tLXPkdqynrdNO8CFDvM11RQLq-4OeBsO__D13YgVA1u07lE/exec';
+            const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
             
             fetch(scriptURL, {
                 method: 'POST',
