@@ -13,23 +13,57 @@
 
         html {
             font-size: 16px;
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-            background: #0B0F14;
+            background: linear-gradient(135deg, #000000 0%, #0a0e1a 50%, #000814 100%);
+            background-attachment: fixed;
             color: #E5E7EB;
             line-height: 1.6;
             overflow-x: hidden;
             min-height: 100vh;
         }
 
+        /* Animated gradient background overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.06) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
         .page {
             display: none;
+            animation: fadeIn 0.6s ease-in-out;
         }
 
         .page.active {
             display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         nav {
@@ -37,10 +71,21 @@
             top: 0;
             width: 100%;
             padding: 1rem 5%;
-            background: rgba(11, 15, 20, 0.98);
+            background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(20px);
             z-index: 1000;
-            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.15);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
         }
 
         .nav-content {
@@ -49,14 +94,22 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            z-index: 1;
         }
 
         .logo {
-               height: 100px; /* Adjust based on your logo */
-               width: auto;
-               cursor: pointer;
-               object-fit: contain;
-         }
+            height: 100px;
+            width: auto;
+            cursor: pointer;
+            object-fit: contain;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.5));
+        }
 
         .nav-links {
             display: flex;
@@ -68,11 +121,28 @@
             color: #E5E7EB;
             text-decoration: none;
             cursor: pointer;
-            transition: color 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3B82F6, #06B6D4);
+            transition: width 0.3s ease;
         }
 
         .nav-links a:hover {
             color: #3B82F6;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .cta-btn {
@@ -83,11 +153,30 @@
             color: white;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-btn:hover::before {
+            left: 100%;
         }
 
         .cta-btn:hover {
             transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(59, 130, 246, 0.5);
         }
 
         .mobile-menu-btn {
@@ -99,6 +188,12 @@
             cursor: pointer;
             padding: 0.5rem;
             line-height: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
+            color: #3B82F6;
         }
 
         .mobile-overlay {
@@ -108,8 +203,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             z-index: 998;
+            animation: fadeIn 0.3s ease;
         }
 
         .mobile-overlay.active {
@@ -122,11 +218,12 @@
             right: -100%;
             width: 280px;
             height: 100%;
-            background: #0B0F14;
+            background: linear-gradient(180deg, #000000 0%, #0a0e1a 100%);
             z-index: 999;
-            transition: right 0.3s ease;
+            transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             border-left: 1px solid rgba(59, 130, 246, 0.2);
             overflow-y: auto;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.8);
         }
 
         .mobile-menu.active {
@@ -140,6 +237,25 @@
 
         .mobile-menu li {
             margin-bottom: 2rem;
+            opacity: 0;
+            animation: slideInRight 0.5s ease forwards;
+        }
+
+        .mobile-menu.active li:nth-child(1) { animation-delay: 0.1s; }
+        .mobile-menu.active li:nth-child(2) { animation-delay: 0.2s; }
+        .mobile-menu.active li:nth-child(3) { animation-delay: 0.3s; }
+        .mobile-menu.active li:nth-child(4) { animation-delay: 0.4s; }
+        .mobile-menu.active li:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .mobile-menu a {
@@ -149,6 +265,12 @@
             cursor: pointer;
             display: block;
             padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: #3B82F6;
+            transform: translateX(10px);
         }
 
         .hero {
@@ -158,6 +280,7 @@
             justify-content: center;
             padding: 120px 5% 60px;
             position: relative;
+            z-index: 1;
         }
 
         .hero-content {
@@ -166,17 +289,44 @@
             width: 100%;
         }
 
+        .hero-content > * {
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        .hero-content > *:nth-child(1) { animation-delay: 0.2s; }
+        .hero-content > *:nth-child(2) { animation-delay: 0.4s; }
+        .hero-content > *:nth-child(3) { animation-delay: 0.6s; }
+        .hero-content > *:nth-child(4) { animation-delay: 0.8s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         h1 {
             font-size: 3rem;
             font-weight: 800;
             margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #ffffff, #3B82F6);
+            background: linear-gradient(135deg, #ffffff, #3B82F6, #06B6D4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             line-height: 1.2;
             display: inline-block;
             width: 100%;
+            background-size: 200% auto;
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
         }
 
         .hero-subtitle {
@@ -200,19 +350,49 @@
             font-weight: 600;
             font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             border: none;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-primary {
             background: linear-gradient(135deg, #3B82F6, #06B6D4);
             color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
         }
 
         .btn-secondary {
-            background: transparent;
+            background: rgba(59, 130, 246, 0.1);
             border: 2px solid #3B82F6;
             color: #3B82F6;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(59, 130, 246, 0.2);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
         }
 
         .stats-section {
@@ -221,13 +401,20 @@
             gap: 2rem;
             margin-top: 3rem;
             padding: 2.5rem;
-            background: rgba(31, 41, 55, 0.3);
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(59, 130, 246, 0.05));
             border-radius: 16px;
             border: 1px solid rgba(59, 130, 246, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
         }
 
         .stat-item {
             text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px);
         }
 
         .stat-number {
@@ -239,6 +426,11 @@
             background-clip: text;
             margin-bottom: 0.5rem;
             display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover .stat-number {
+            transform: scale(1.1);
         }
 
         .stat-label {
@@ -250,6 +442,8 @@
             padding: 4rem 5%;
             max-width: 1400px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         .section-title {
@@ -262,6 +456,7 @@
             background-clip: text;
             display: inline-block;
             width: 100%;
+            animation: fadeInUp 0.8s ease-out;
         }
 
         .section-subtitle {
@@ -269,6 +464,7 @@
             color: #9CA3AF;
             margin-bottom: 3rem;
             font-size: 1.1rem;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
         }
 
         .features-grid, .services-grid {
@@ -279,20 +475,47 @@
 
         .feature-item, .service-card {
             padding: 2rem;
-            background: rgba(31, 41, 55, 0.5);
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(59, 130, 246, 0.03));
             border: 1px solid rgba(59, 130, 246, 0.2);
             border-radius: 12px;
-            transition: all 0.3s;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        .feature-item::before, .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .feature-item:hover::before, .service-card:hover::before {
+            opacity: 1;
         }
 
         .feature-item:hover, .service-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px) scale(1.02);
             border-color: #3B82F6;
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.3);
         }
 
         .feature-icon, .service-icon {
             font-size: 2.5rem;
             margin-bottom: 1rem;
+            transition: transform 0.4s ease;
+        }
+
+        .feature-item:hover .feature-icon,
+        .service-card:hover .service-icon {
+            transform: scale(1.2) rotate(5deg);
         }
 
         .service-icon {
@@ -305,25 +528,57 @@
             justify-content: center;
             font-size: 2rem;
             margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
         }
 
         .feature-item h4, .service-card h3 {
             font-size: 1.3rem;
             margin-bottom: 0.75rem;
             color: #fff;
+            position: relative;
+            z-index: 1;
         }
 
         .feature-item p, .service-card p {
             color: #9CA3AF;
             line-height: 1.6;
+            position: relative;
+            z-index: 1;
         }
 
         .case-study {
-            background: rgba(31, 41, 55, 0.5);
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(59, 130, 246, 0.05));
             border: 1px solid rgba(59, 130, 246, 0.2);
             border-radius: 16px;
             padding: 2.5rem;
             margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            animation: fadeInUp 0.8s ease-out backwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .case-study::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .case-study:hover::before {
+            opacity: 1;
+        }
+
+        .case-study:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.2);
+            border-color: #3B82F6;
         }
 
         .case-tag {
@@ -333,11 +588,16 @@
             border-radius: 20px;
             font-size: 0.9rem;
             margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
+            position: relative;
+            z-index: 1;
         }
 
         .case-study h3 {
             font-size: 1.8rem;
             margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
         }
 
         .case-metrics {
@@ -345,10 +605,17 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
             margin-top: 2rem;
+            position: relative;
+            z-index: 1;
         }
 
         .metric {
             text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .metric:hover {
+            transform: scale(1.1);
         }
 
         .metric-value {
@@ -367,32 +634,51 @@
         .contact-form {
             max-width: 600px;
             margin: 0 auto;
-            background: rgba(31, 41, 55, 0.5);
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(59, 130, 246, 0.05));
             padding: 2.5rem;
             border-radius: 16px;
             border: 1px solid rgba(59, 130, 246, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 0.8s ease-out;
         }
 
         .form-group {
             margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease-out backwards;
         }
+
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+        .form-group:nth-child(4) { animation-delay: 0.4s; }
 
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
             color: #E5E7EB;
+            font-weight: 500;
         }
 
         .form-group input,
         .form-group textarea {
             width: 100%;
             padding: 0.875rem;
-            background: rgba(11, 15, 20, 0.8);
+            background: rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(59, 130, 246, 0.3);
             border-radius: 8px;
             color: #E5E7EB;
             font-family: inherit;
             font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3B82F6;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            background: rgba(0, 0, 0, 0.7);
         }
 
         .form-group textarea {
@@ -401,12 +687,33 @@
         }
 
         footer {
-            background: rgba(11, 15, 20, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             border-top: 1px solid rgba(59, 130, 246, 0.2);
             padding: 2rem 5%;
             text-align: center;
             color: #9CA3AF;
+            position: relative;
+            z-index: 1;
+            margin-top: 4rem;
         }
+
+        /* Stagger animations for grids */
+        .features-grid .feature-item:nth-child(1),
+        .services-grid .service-card:nth-child(1) { animation-delay: 0.1s; }
+        .features-grid .feature-item:nth-child(2),
+        .services-grid .service-card:nth-child(2) { animation-delay: 0.2s; }
+        .features-grid .feature-item:nth-child(3),
+        .services-grid .service-card:nth-child(3) { animation-delay: 0.3s; }
+        .features-grid .feature-item:nth-child(4),
+        .services-grid .service-card:nth-child(4) { animation-delay: 0.4s; }
+        .features-grid .feature-item:nth-child(5),
+        .services-grid .service-card:nth-child(5) { animation-delay: 0.5s; }
+        .features-grid .feature-item:nth-child(6),
+        .services-grid .service-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .case-study:nth-child(1) { animation-delay: 0.1s; }
+        .case-study:nth-child(2) { animation-delay: 0.3s; }
+        .case-study:nth-child(3) { animation-delay: 0.5s; }
 
         /* MOBILE RESPONSIVE */
         @media (max-width: 768px) {
@@ -838,59 +1145,54 @@
     <div id="contact" class="page">
         <section class="section" style="padding-top: 120px;">
             <h2 class="section-title">Let's Automate Your Business</h2>
-            <function_calls>
-<invoke name="artifacts">
-<parameter name="command">update</parameter>
-<parameter name="id">sanestix-website</parameter>
-<parameter name="old_str">            <h2 class="section-title">Let's Automate Your Business</h2>
-</parameter>
-<parameter name="new_str">            <h2 class="section-title">Let's Automate Your Business</h2>
-<p class="section-subtitle">Get in touch to start your transformation</p>
-<form class="contact-form" onsubmit="handleSubmit(event)">
-<div class="form-group">
-<label for="name">Name</label>
-<input type="text" id="name" required>
-</div>
-<div class="form-group">
-<label for="email">Email</label>
-<input type="email" id="email" required>
-</div>
-<div class="form-group">
-<label for="company">Company</label>
-<input type="text" id="company">
-</div>
-<div class="form-group">
-<label for="message">Project Details</label>
-<textarea id="message" required></textarea>
-</div>
-<button type="submit" class="btn-primary" style="width: 100%;">Send Message</button>
-</form>
-</section>
-</div>
+            <p class="section-subtitle">Get in touch to start your transformation</p>
+            
+            <form class="contact-form" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="company">Company</label>
+                    <input type="text" id="company">
+                </div>
+                <div class="form-group">
+                    <label for="message">Project Details</label>
+                    <textarea id="message" required></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">Send Message</button>
+            </form>
+        </section>
+    </div>
 
-            <footer>
-    <p>&copy; 2026 Sanestix. Building intelligent systems that work 24/7.</p>
-</footer>
+    <footer>
+        <p>&copy; 2026 Sanestix. Building intelligent systems that work 24/7.</p>
+    </footer>
 
-<script>
-    function navigateTo(pageId) {
-        const pages = document.querySelectorAll('.page');
-        pages.forEach(page => page.classList.remove('active'));
-        document.getElementById(pageId).classList.add('active');
-        window.scrollTo({top: 0, behavior: 'smooth'});
-    }
+    <script>
+        function navigateTo(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
 
-    function toggleMobileMenu() {
-        const menu = document.getElementById('mobileMenu');
-        const overlay = document.getElementById('mobileOverlay');
-        menu.classList.toggle('active');
-        overlay.classList.toggle('active');
-    }
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('mobileOverlay');
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        alert('Thanks for reaching out! We\'ll get back to you soon.');
-        e.target.reset();
-    }
-</script>
-
+        function handleSubmit(e) {
+            e.preventDefault();
+            alert('Thanks for reaching out! We\'ll get back to you soon.');
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>
