@@ -1332,31 +1332,32 @@
             <h2 class="section-title">Let's Automate Your Business</h2>
             <p class="section-subtitle">Get in touch to start your transformation</p>
             
-            <form class="contact-form" onsubmit="handleSubmit(event)">
+            <form class="contact-form" id="contactForm" onsubmit="handleSubmit(event)">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" id="name" required>
+                    <input type="text" id="name" name="name" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" required>
+                    <input type="email" id="email" name="email" required>
                 </div>
                 <div class="form-group">
                     <label for="company">Company</label>
-                    <input type="text" id="company">
+                    <input type="text" id="company" name="company">
                 </div>
                 <div class="form-group">
                     <label for="message">Project Details</label>
-                    <textarea id="message" required></textarea>
+                    <textarea id="message" name="message" required></textarea>
                 </div>
-                <button type="submit" class="btn-primary" style="width: 100%;">Send Message</button>
+                <button type="submit" class="btn-primary" id="submitBtn" style="width: 100%;">Send Message</button>
+                <p id="formStatus" style="margin-top: 1rem; text-align: center; color: #3B82F6; display: none;"></p>
             </form>
         </section>
     </div>
 
     <footer>
         <div class="social-links">
-            <a href="https://www.facebook.com/14M3fAXpuSW/" target="_blank" rel="noopener noreferrer" class="social-link" title="Facebook">
+            <a href="https://www.facebook.com/share/14M3fAXpuSW/" target="_blank" rel="noopener noreferrer" class="social-link" title="Facebook">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                 </svg>
@@ -1368,7 +1369,7 @@
                 </svg>
             </a>
             
-            <a href="https://www.linkedin.com/#/#" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn">
+            <a href="https://www.linkedin.com/company/yourcompany" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                 </svg>
@@ -1478,8 +1479,51 @@
 
         function handleSubmit(e) {
             e.preventDefault();
-            alert('Thanks for reaching out! We\'ll get back to you soon.');
-            e.target.reset();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const formStatus = document.getElementById('formStatus');
+            const form = document.getElementById('contactForm');
+            
+            // Disable button and show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            formStatus.style.display = 'block';
+            formStatus.textContent = 'Sending your message...';
+            formStatus.style.color = '#3B82F6';
+            
+            // Get form data
+            const formData = new FormData(form);
+            
+            // Replace this URL with your Google Apps Script Web App URL
+            const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+            
+            fetch(scriptURL, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                // Success
+                formStatus.textContent = '✓ Thank you! Your message has been sent successfully.';
+                formStatus.style.color = '#10B981';
+                form.reset();
+                
+                // Re-enable button after 3 seconds
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Send Message';
+                    formStatus.style.display = 'none';
+                }, 3000);
+            })
+            .catch(error => {
+                // Error
+                console.error('Error!', error.message);
+                formStatus.textContent = '✗ Oops! Something went wrong. Please try again.';
+                formStatus.style.color = '#EF4444';
+                
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+            });
         }
     </script>
 </body>
