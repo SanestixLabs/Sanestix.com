@@ -712,40 +712,71 @@
             z-index: 2;
         }
 
-        .leadership-slider {
-            position: relative;
-            margin-top: 3rem;
-            overflow: hidden;
-        }
-
-        .leadership-track {
-            display: flex;
+        .leadership-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
             gap: 3rem;
-            transition: transform 0.5s ease;
+            margin-top: 4rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .leader-card {
-            min-width: 400px;
-            flex-shrink: 0;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(59, 130, 246, 0.03));
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(59, 130, 246, 0.05));
+            border: 2px solid rgba(59, 130, 246, 0.2);
+            border-radius: 24px;
             overflow: hidden;
-            transition: all 0.4s ease;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .leader-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.1));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .leader-card:hover::before {
+            opacity: 1;
         }
 
         .leader-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-15px);
             border-color: #3B82F6;
-            box-shadow: 0 20px 50px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 25px 60px rgba(59, 130, 246, 0.5);
         }
 
         .leader-image-container {
             width: 100%;
-            height: 450px;
+            height: 500px;
             overflow: hidden;
             position: relative;
-            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
+        }
+
+        .leader-image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .leader-card:hover .leader-image-overlay {
+            opacity: 1;
         }
 
         .leader-image {
@@ -753,91 +784,130 @@
             height: 100%;
             object-fit: cover;
             object-position: center;
-            transition: transform 0.5s ease;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: grayscale(0.2);
         }
 
         .leader-card:hover .leader-image {
-            transform: scale(1.05);
+            transform: scale(1.08);
+            filter: grayscale(0);
         }
 
         .leader-info {
-            padding: 2rem;
+            padding: 2.5rem;
             text-align: center;
+            position: relative;
+            z-index: 3;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.98));
         }
 
         .leader-name {
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: #fff;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
+            margin-bottom: 0.75rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ffffff, #e0e7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .leader-title {
             color: #3B82F6;
+            margin-bottom: 1rem;
+            font-size: 1.15rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .leader-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #3B82F6, #06B6D4);
+            border-radius: 2px;
+        }
+
+        .leader-bio {
+            color: #9CA3AF;
+            font-size: 0.95rem;
+            line-height: 1.7;
             margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-            font-weight: 500;
+            padding: 0 1rem;
         }
 
         .leader-linkedin {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.8rem 1.5rem;
-            background: rgba(59, 130, 246, 0.1);
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(6, 182, 212, 0.1));
             border: 2px solid #3B82F6;
-            border-radius: 10px;
+            border-radius: 12px;
             color: #3B82F6;
             text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1.05rem;
+            font-weight: 700;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .leader-linkedin::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .leader-linkedin:hover::before {
+            left: 100%;
         }
 
         .leader-linkedin:hover {
-            background: #3B82F6;
+            background: linear-gradient(135deg, #3B82F6, #06B6D4);
             color: white;
-            transform: translateY(-3px);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.5);
         }
 
         .leader-linkedin svg {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             fill: currentColor;
+            transition: transform 0.3s ease;
         }
 
-        .slider-controls {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .slider-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(59, 130, 246, 0.1);
-            border: 2px solid #3B82F6;
-            color: #3B82F6;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .slider-btn:hover {
-            background: #3B82F6;
-            color: white;
+        .leader-linkedin:hover svg {
             transform: scale(1.1);
         }
 
-        .slider-btn svg {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
+        .leader-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #3B82F6, #06B6D4);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
         }
 
         /* Footer */
@@ -975,12 +1045,30 @@
                 grid-template-columns: 1fr;
             }
 
+            .leadership-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
             .leader-card {
-                min-width: 300px;
+                max-width: 500px;
+                margin: 0 auto;
             }
 
             .leader-image-container {
-                height: 350px;
+                height: 400px;
+            }
+
+            .leader-name {
+                font-size: 1.6rem;
+            }
+
+            .leader-title {
+                font-size: 1rem;
+            }
+
+            .leader-bio {
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -1292,7 +1380,7 @@
                     <div class="tech-icon">
                         <svg><use href="#icon-ai"></use></svg>
                     </div>
-                    <div class="tech-name">OpenAI GPT-4</div>
+                    <div class="tech-name">OpenAI GPT-5.2</div>
                 </div>
                 <div class="tech-item">
                     <div class="tech-icon">
@@ -1460,55 +1548,46 @@
 
         <!-- Leadership -->
         <section class="leadership-section">
-            <h2 class="section-title">Our Global Leadership</h2>
-            <p class="section-subtitle">Meet the visionaries driving innovation at Sanestix</p>
+            <h2 class="section-title">Meet Our Leadership Team</h2>
+            <p class="section-subtitle">The visionaries driving innovation and transforming businesses worldwide</p>
             
-            <div class="leadership-slider">
-                <div class="leadership-track" id="leadershipTrack">
-                    <div class="leader-card">
-                        <div class="leader-image-container">
-                            <img src="SaadPfpWhite.png" alt="Saad Faisal" class="leader-image">
-                        </div>
-                        <div class="leader-info">
-                            <h3 class="leader-name">Saad Faisal</h3>
-                            <p class="leader-title">Founder & CEO</p>
-                            <a href="https://www.linkedin.com/in/saadfaisalqureshi" target="_blank" rel="noopener noreferrer" class="leader-linkedin">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                                </svg>
-                                LinkedIn
-                            </a>
-                        </div>
+            <div class="leadership-container">
+                <div class="leader-card">
+                    <div class="leader-image-container">
+                        <div class="leader-badge">Founder & CEO</div>
+                        <img src="SaadPfpWhite.png" alt="Saad Faisal - Founder & CEO" class="leader-image">
+                        <div class="leader-image-overlay"></div>
                     </div>
-
-                    <div class="leader-card">
-                        <div class="leader-image-container">
-                            <img src="AbdulWahabPfpWhite.png" alt="Abdul Wahab Siddiqi" class="leader-image">
-                        </div>
-                        <div class="leader-info">
-                            <h3 class="leader-name">Abdul Wahab Siddiqi</h3>
-                            <p class="leader-title">Co-Founder & COO</p>
-                            <a href="https://www.linkedin.com/in/abdulwahabsiddiqi" target="_blank" rel="noopener noreferrer" class="leader-linkedin">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                                </svg>
-                                LinkedIn
-                            </a>
-                        </div>
+                    <div class="leader-info">
+                        <h3 class="leader-name">Saad Faisal</h3>
+                        <p class="leader-title">Founder & Chief Executive Officer</p>
+                        <p class="leader-bio">Leading Sanestix with a vision to revolutionize business automation through AI. Passionate about building systems that scale and deliver measurable results for clients worldwide.</p>
+                        <a href="https://www.linkedin.com/in/saadfaisalqureshi" target="_blank" rel="noopener noreferrer" class="leader-linkedin">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                            Connect on LinkedIn
+                        </a>
                     </div>
                 </div>
 
-                <div class="slider-controls">
-                    <button class="slider-btn" onclick="slideLeaders('prev')">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
-                        </svg>
-                    </button>
-                    <button class="slider-btn" onclick="slideLeaders('next')">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
-                        </svg>
-                    </button>
+                <div class="leader-card">
+                    <div class="leader-image-container">
+                        <div class="leader-badge">Co-Founder & COO</div>
+                        <img src="AbdulWahabPfpWhite.png" alt="Abdul Wahab Siddiqi - Co-Founder & COO" class="leader-image">
+                        <div class="leader-image-overlay"></div>
+                    </div>
+                    <div class="leader-info">
+                        <h3 class="leader-name">Abdul Wahab Siddiqi</h3>
+                        <p class="leader-title">Co-Founder & Chief Operating Officer</p>
+                        <p class="leader-bio">Orchestrating operational excellence and driving strategic growth. Dedicated to ensuring every client receives solutions that transform their business operations and accelerate success.</p>
+                        <a href="https://www.linkedin.com/in/abdulwahabsiddiqi" target="_blank" rel="noopener noreferrer" class="leader-linkedin">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                            Connect on LinkedIn
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1660,22 +1739,6 @@
             if (!isActive) {
                 faqItem.classList.add('active');
             }
-        }
-
-        // Leadership Slider
-        let currentSlide = 0;
-        const track = document.getElementById('leadershipTrack');
-        const cards = document.querySelectorAll('.leader-card');
-
-        function slideLeaders(direction) {
-            if (direction === 'next') {
-                currentSlide = (currentSlide + 1) % cards.length;
-            } else {
-                currentSlide = (currentSlide - 1 + cards.length) % cards.length;
-            }
-            
-            const offset = -currentSlide * (cards[0].offsetWidth + 48); // 48 = gap
-            track.style.transform = `translateX(${offset}px)`;
         }
 
         // Smooth scroll for anchor links
