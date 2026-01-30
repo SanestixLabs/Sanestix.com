@@ -1863,7 +1863,7 @@
                         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                         </svg>
-                        <a href="mailto:sanestix@gmail.com">sanestix@gmail.com</a>
+                        <a href="/cdn-cgi/l/email-protection#4b382a252e383f22330b2c262a222765282426"><span class="__cf_email__" data-cfemail="daa9bbb4bfa9aeb3a29abdb7bbb3b6f4b9b5b7">[email&#160;protected]</span></a>
                     </div>
                 </div>
             </div>
@@ -1874,7 +1874,7 @@
         </div>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Particle system
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
@@ -1972,25 +1972,25 @@
             
             const formMessage = document.getElementById('formMessage');
             const form = document.getElementById('contactForm');
-            
-            // Get form data
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                company: document.getElementById('company').value,
-                message: document.getElementById('message').value
-            };
-            
-            // Show loading state
             const submitBtn = form.querySelector('.submit-btn');
             const originalText = submitBtn.textContent;
+            
+            // Show loading state
             submitBtn.textContent = 'Sending...';
             submitBtn.disabled = true;
             
-            // Simulate form submission (replace with actual API call)
-            // For production, replace this with your actual form submission endpoint
-            setTimeout(() => {
+            // Get form data
+            const formData = new FormData(form);
+            
+            // Google Apps Script URL
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzr8XZsUdZiSYx0bvhi2tLXPkdqynrdNO8CFDvM11RQLq-4OeBsO__D13YgVA1u07lE/exec';
+            
+            // Submit to Google Sheets
+            fetch(scriptURL, { 
+                method: 'POST', 
+                body: formData 
+            })
+            .then(response => {
                 // Show success message
                 formMessage.textContent = 'Thank you for your message! We\'ll get back to you within 24 hours.';
                 formMessage.className = 'form-message success';
@@ -2008,17 +2008,25 @@
                     formMessage.style.display = 'none';
                 }, 5000);
                 
-                // Log form data (in production, send to backend)
-                console.log('Form submitted:', formData);
+                console.log('Form submitted successfully to Google Sheets');
+            })
+            .catch(error => {
+                // Show error message
+                formMessage.textContent = 'Oops! Something went wrong. Please try again or email us directly at sanestix@gmail.com';
+                formMessage.className = 'form-message error';
+                formMessage.style.display = 'block';
                 
-                // Optional: Send to your backend
-                // fetch('/api/contact', {
-                //     method: 'POST',
-                //     headers: { 'Content-Type': 'application/json' },
-                //     body: JSON.stringify(formData)
-                // });
+                // Reset button
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
                 
-            }, 1500);
+                console.error('Error submitting form:', error);
+                
+                // Hide error message after 7 seconds
+                setTimeout(() => {
+                    formMessage.style.display = 'none';
+                }, 7000);
+            });
             
             return false;
         }
