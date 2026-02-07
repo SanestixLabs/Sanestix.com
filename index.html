@@ -87,14 +87,25 @@
             align-items: center;
         }
 
+        /* Updated Logo Styling for Image */
         .logo {
             height: 45px;
             cursor: pointer;
             transition: transform 0.3s ease;
         }
 
+        .logo img {
+            height: 100%;
+            width: auto;
+        }
+
         .logo:hover {
             transform: scale(1.05);
+        }
+
+        /* Fallback SVG Logo (if no image) */
+        .logo svg {
+            height: 100%;
         }
 
         .nav-links {
@@ -670,12 +681,30 @@
             box-shadow: 0 20px 50px rgba(59, 130, 246, 0.3);
         }
 
+        /* Updated Team Avatar Styling for Images */
         .team-avatar {
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
             margin: 0 auto 1.5rem;
+            overflow: hidden;
+            border: 3px solid rgba(59, 130, 246, 0.3);
+            transition: border-color 0.3s ease;
+        }
+
+        .team-card:hover .team-avatar {
+            border-color: #3B82F6;
+        }
+
+        .team-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Fallback for text initials */
+        .team-avatar.initials {
+            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1070,15 +1099,22 @@
     <!-- Navigation -->
     <nav id="navbar">
         <div class="nav-content">
-            <svg class="logo" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#8B5CF6;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-                <text x="10" y="35" font-family="Arial, sans-serif" font-size="32" font-weight="800" fill="url(#logoGradient)">Sanestix</text>
-            </svg>
+            <!-- Logo: Replace with your image -->
+            <div class="logo">
+                <!-- Option 1: Use PNG image (uncomment when you have the image) -->
+                <!-- <img src="images/sanestix-logo.png" alt="Sanestix Logo"> -->
+                
+                <!-- Option 2: Fallback SVG (current) -->
+                <svg viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#8B5CF6;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <text x="10" y="35" font-family="Arial, sans-serif" font-size="32" font-weight="800" fill="url(#logoGradient)">Sanestix</text>
+                </svg>
+            </div>
             
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
@@ -1407,7 +1443,14 @@
 
         <div class="team-grid">
             <div class="team-card fade-in">
-                <div class="team-avatar">SF</div>
+                <!-- Team Photo: Replace with actual image -->
+                <div class="team-avatar">
+                    
+                 <img src="images/SaadFaisal.jpeg" alt="Saad Faisal Qureshi">
+                    
+                    <!-- Option 2: Fallback initials (current) -->
+                    <div class="initials">SF</div>
+                </div>
                 <h3 class="team-name">Saad Faisal Qureshi</h3>
                 <p class="team-role">Co-Founder & CEO</p>
                 <p class="team-description">Visionary entrepreneur with expertise in AI and business automation. Leading Sanestix to revolutionize customer engagement.</p>
@@ -1420,7 +1463,14 @@
             </div>
 
             <div class="team-card fade-in">
-                <div class="team-avatar">AW</div>
+                <!-- Team Photo: Replace with actual image -->
+                <div class="team-avatar">
+                   
+                   <img src="images/abwbsid2.jpg" alt="Abdul Wahab Siddiqi"> 
+                    
+                    <!-- Option 2: Fallback initials (current) -->
+                    <div class="initials">AW</div>
+                </div>
                 <h3 class="team-name">Abdul Wahab Siddiqi</h3>
                 <p class="team-role">Co-Founder & COO</p>
                 <p class="team-description">Technology expert passionate about building scalable automation solutions that drive real business results.</p>
@@ -1613,12 +1663,12 @@
                         </svg>
                     </a>
                     <a href="https://x.com/sanestix_" class="social-link" title="X (Twitter)" target="_blank" rel="noopener noreferrer">
-                        <svg class="social-icon" viewBox="0 0 24 24" fill="#000000">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="#FFFFFF">
                             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                         </svg>
                     </a>
                     <a href="https://threads.net/@sanestix" class="social-link" title="Threads" target="_blank" rel="noopener noreferrer">
-                        <svg class="social-icon" viewBox="0 0 24 24" fill="#000000">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="#FFFFFF">
                             <path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.781 3.631 2.695 6.541 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a13.853 13.853 0 011.072-.035l.17.002v1.989c-.305 0-.64.004-.973.027-1.223.083-2.111.405-2.641.958-.485.505-.73 1.132-.691 1.766.039.644.34 1.205.846 1.579.498.369 1.205.555 2.038.536 1.232-.07 2.151-.516 2.731-1.325.594-.828.867-2.01.811-3.514l-.002-.137v-3.874c.005-.024.015-.047.03-.068.015-.02.038-.034.064-.042.025-.008.051-.008.076 0 .026.009.049.024.065.044.016.02.026.045.029.071l.002 3.877c.012.296.04.588.082.874.043.286.103.565.18.838.08.274.176.54.288.8.112.259.243.508.39.746.148.238.316.463.503.673.186.211.394.407.622.588.228.18.478.344.748.49.27.147.563.275.876.382.314.108.647.194.998.258.352.064.72.11 1.103.14.383.03.78.043 1.19.04h.008c1.624-.03 3.013-.434 4.127-1.204 1.114-.77 1.922-1.84 2.404-3.181.478-1.327.655-2.865.53-4.577-.125-1.713-.546-3.183-1.254-4.377-.708-1.194-1.688-2.124-2.914-2.767-1.226-.643-2.674-.98-4.309-1.003z"/>
                         </svg>
                     </a>
