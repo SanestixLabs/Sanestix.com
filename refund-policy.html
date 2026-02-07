@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Refund Policy - Sanestix</title>
-    <meta name="description" content="Sanestix Refund Policy - Our commitment to customer satisfaction and refund terms.">
+    <meta name="description" content="Sanestix Refund Policy - Our refund and cancellation terms.">
     <style>
         * {
             margin: 0;
@@ -23,6 +23,32 @@
             max-width: 900px;
             margin: 0 auto;
             padding: 4rem 2rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            color: #3B82F6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+            border-color: #3B82F6;
+            transform: translateX(-5px);
+        }
+
+        .back-icon {
+            width: 20px;
+            height: 20px;
         }
 
         h1 {
@@ -76,302 +102,165 @@
             color: #60A5FA;
         }
 
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
-            border: 2px solid rgba(59, 130, 246, 0.3);
-            border-radius: 10px;
-            margin-bottom: 2rem;
-            transition: all 0.3s ease;
-        }
-
-        .back-link:hover {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
-            border-color: #3B82F6;
-        }
-
         .highlight-box {
             background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.05));
             border-left: 4px solid #3B82F6;
             padding: 1.5rem;
             margin: 2rem 0;
-            border-radius: 8px;
+            border-radius: 5px;
         }
 
-        .success-box {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.05));
-            border-left: 4px solid #10B981;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            border-radius: 8px;
+        footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+            text-align: center;
+            color: #9CA3AF;
         }
 
-        strong {
-            color: #fff;
-        }
-
-        .timeline {
-            margin: 2rem 0;
-        }
-
-        .timeline-item {
+        .footer-links {
+            margin-top: 1rem;
             display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .timeline-number {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
+            gap: 2rem;
             justify-content: center;
-            font-weight: bold;
-            flex-shrink: 0;
+            flex-wrap: wrap;
         }
 
-        .timeline-content {
-            flex: 1;
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 2rem 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="sanestix-automation-redesign.html" class="back-link">← Back to Home</a>
+        <a href="index.html" class="back-link">
+            <svg class="back-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Back to Home
+        </a>
 
         <h1>Refund Policy</h1>
-        <p class="last-updated">Last Updated: February 6, 2026</p>
+        <p class="last-updated">Last Updated: February 7, 2025</p>
 
-        <div class="success-box">
-            <p><strong>Our Commitment:</strong> At Sanestix, customer satisfaction is our priority. We're committed to providing high-quality automation services and fair refund policies.</p>
-        </div>
-
-        <h2>1. Money-Back Guarantee</h2>
-        
-        <h3>14-Day Satisfaction Guarantee</h3>
-        <p>We offer a <strong>14-day money-back guarantee</strong> for first-time subscribers. If you're not satisfied with our services within the first 14 days of your initial subscription, you can request a full refund.</p>
-
-        <p><strong>Conditions for 14-Day Guarantee:</strong></p>
-        <ul>
-            <li>Valid only for new customers on their first subscription</li>
-            <li>Refund request must be submitted within 14 days of initial payment</li>
-            <li>You must have attempted to use the service and contacted support for assistance</li>
-            <li>Account must not have violated our Terms of Service</li>
-            <li>Does not apply to custom development or one-time setup fees</li>
-        </ul>
-
-        <h2>2. Refund Eligibility</h2>
-        
-        <h3>Situations Eligible for Refunds:</h3>
-        
         <div class="highlight-box">
-            <ul>
-                <li><strong>Service Failure:</strong> If we fail to provide the core features promised and cannot resolve the issue within a reasonable timeframe</li>
-                <li><strong>Technical Issues:</strong> Persistent technical problems that prevent you from using our services, despite support efforts</li>
-                <li><strong>Billing Errors:</strong> Duplicate charges or incorrect billing amounts</li>
-                <li><strong>Unauthorized Charges:</strong> Charges made without your authorization</li>
-                <li><strong>Service Downtime:</strong> Extended service outages exceeding our SLA commitments (for Enterprise plans)</li>
-            </ul>
+            <p><strong>Customer Satisfaction Guaranteed.</strong> We want you to be happy with our services. This Refund Policy outlines the terms for requesting refunds and cancellations.</p>
         </div>
 
-        <h3>Situations NOT Eligible for Refunds:</h3>
-        
+        <h2>1. 14-Day Money-Back Guarantee</h2>
+        <p>We offer a 14-day money-back guarantee for new customers. If you're not satisfied with our services within the first 14 days of your initial subscription, you can request a full refund.</p>
+
+        <h3>1.1 Eligibility</h3>
         <ul>
-            <li>Change of mind after the 14-day guarantee period</li>
-            <li>Lack of use or failure to activate the service</li>
-            <li>Account suspension or termination due to Terms of Service violations</li>
-            <li>Third-party platform restrictions (WhatsApp, Instagram, Shopify limitations)</li>
-            <li>Renewal charges when you failed to cancel before the renewal date</li>
-            <li>Custom development work that has been completed</li>
-            <li>One-time setup fees after setup has been completed</li>
+            <li>First-time subscribers only</li>
+            <li>Request must be made within 14 days of initial purchase</li>
+            <li>Applicable to monthly and annual plans</li>
+            <li>One refund per customer</li>
         </ul>
 
-        <h2>3. Refund Process</h2>
-        
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-number">1</div>
-                <div class="timeline-content">
-                    <h3>Submit Request</h3>
-                    <p>Contact our support team via email at <a href="mailto:support@sanestix.com">support@sanestix.com</a> or WhatsApp at <a href="tel:+923014422951">+92-301-4422951</a></p>
-                    <p><strong>Include:</strong> Account email, order number, reason for refund request, and supporting details</p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-number">2</div>
-                <div class="timeline-content">
-                    <h3>Review Process</h3>
-                    <p>Our team will review your request within 2-3 business days and may reach out for additional information or to attempt to resolve the issue</p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-number">3</div>
-                <div class="timeline-content">
-                    <h3>Decision Notification</h3>
-                    <p>You will receive an email notification with our decision and explanation within 5 business days of request submission</p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-number">4</div>
-                <div class="timeline-content">
-                    <h3>Refund Processing</h3>
-                    <p>If approved, refunds are processed within 7-10 business days to your original payment method</p>
-                </div>
-            </div>
-        </div>
-
-        <h2>4. Partial Refunds</h2>
-        
-        <p>In certain circumstances, we may offer partial refunds:</p>
-        
-        <ul>
-            <li><strong>Pro-rated Refunds:</strong> For annual subscriptions cancelled mid-term due to qualifying reasons</li>
-            <li><strong>Service Downgrades:</strong> Credit toward a lower-tier plan if downgrading mid-cycle</li>
-            <li><strong>Unused Features:</strong> In cases where specific features were unavailable for extended periods</li>
-        </ul>
-
-        <p>Partial refund amounts are determined on a case-by-case basis and at Sanestix's discretion.</p>
-
-        <h2>5. Subscription Cancellations</h2>
-        
-        <h3>How to Cancel</h3>
+        <h2>2. Subscription Cancellations</h2>
+        <h3>2.1 How to Cancel</h3>
         <p>You can cancel your subscription at any time through:</p>
         <ul>
-            <li>Your account dashboard under "Billing & Subscription"</li>
-            <li>Contacting our support team</li>
+            <li>Your account dashboard settings</li>
+            <li>Email to <a href="mailto:support@sanestix.com">support@sanestix.com</a></li>
+            <li>Contact our support team via WhatsApp</li>
         </ul>
 
-        <h3>Cancellation Terms</h3>
+        <h3>2.2 Cancellation Terms</h3>
         <ul>
-            <li><strong>Effective Date:</strong> Cancellation takes effect at the end of your current billing period</li>
-            <li><strong>Access:</strong> You retain access to services until the end of the paid period</li>
-            <li><strong>No Refunds:</strong> Cancellations do not result in refunds for the remainder of the current billing period (except within 14-day guarantee)</li>
-            <li><strong>Data Retention:</strong> Your data will be retained for 90 days after cancellation, then permanently deleted</li>
+            <li>Cancellations take effect at the end of your current billing cycle</li>
+            <li>You'll continue to have access until the end of the paid period</li>
+            <li>No refunds for partial months or unused time after the 14-day guarantee period</li>
         </ul>
 
-        <h2>6. Auto-Renewal and Billing</h2>
-        
-        <div class="highlight-box">
-            <p><strong>Important:</strong> All subscriptions automatically renew unless cancelled before the renewal date.</p>
-            <ul>
-                <li>You will receive a reminder email 7 days before renewal</li>
-                <li>Cancel at least 24 hours before renewal to avoid being charged</li>
-                <li>Refunds are not provided for auto-renewals you forgot to cancel</li>
-            </ul>
-        </div>
-
-        <h2>7. Chargebacks and Disputes</h2>
-        
-        <p>If you dispute a charge with your bank or payment provider without contacting us first:</p>
-        
+        <h2>3. Annual Plan Refunds</h2>
+        <p>For annual subscriptions:</p>
         <ul>
-            <li>Your account will be immediately suspended pending investigation</li>
-            <li>We may charge a $50 chargeback processing fee</li>
-            <li>Fraudulent chargebacks may result in permanent account termination</li>
+            <li>Full refund available within 14 days of purchase</li>
+            <li>After 14 days, no refunds for remaining months</li>
+            <li>You may cancel to prevent auto-renewal for the next year</li>
         </ul>
 
-        <p><strong>Please contact us first</strong> if you have billing concerns. We're committed to resolving issues fairly and quickly.</p>
-
-        <h2>8. Custom Development and Setup Fees</h2>
-        
-        <h3>One-Time Setup Fees</h3>
-        <p>Setup fees are non-refundable once the setup process has been completed, including:</p>
+        <h2>4. Non-Refundable Items</h2>
+        <p>The following are not eligible for refunds:</p>
         <ul>
-            <li>Initial system configuration</li>
-            <li>WhatsApp Business API setup</li>
-            <li>Integration with third-party platforms</li>
-            <li>Custom chatbot training</li>
+            <li>Subscription fees after the 14-day guarantee period</li>
+            <li>Setup fees or one-time service fees</li>
+            <li>Add-on services or features</li>
+            <li>Accounts terminated for Terms of Service violations</li>
         </ul>
 
-        <h3>Custom Development</h3>
-        <p>Custom development work follows a different refund policy:</p>
-        <ul>
-            <li><strong>Before Work Begins:</strong> Full refund available</li>
-            <li><strong>Work in Progress:</strong> Refund of unused portion based on completion percentage</li>
-            <li><strong>Work Completed:</strong> No refunds, but we'll work with you to make necessary revisions</li>
-        </ul>
+        <h2>5. Service Interruptions</h2>
+        <p>If our services experience significant downtime (more than 24 consecutive hours), you may be eligible for a prorated credit or refund at our discretion.</p>
 
-        <h2>9. Exceptions and Special Cases</h2>
-        
-        <h3>Enterprise Customers</h3>
-        <p>Enterprise subscription refund policies may differ based on your custom contract. Please refer to your Enterprise Agreement.</p>
-
-        <h3>Annual Subscriptions</h3>
-        <p>Annual subscriptions receive discounted pricing in exchange for a longer commitment:</p>
-        <ul>
-            <li>14-day money-back guarantee applies</li>
-            <li>After 14 days, pro-rated refunds may be considered for exceptional circumstances</li>
-            <li>Remaining balance may be offered as credit for future services</li>
-        </ul>
-
-        <h3>Promotional Offers and Discounts</h3>
-        <p>Refunds for subscriptions purchased with promotional codes or discounts will be calculated based on the discounted amount paid, not the original price.</p>
-
-        <h2>10. Force Majeure</h2>
-        
-        <p>We are not liable for refunds due to service interruptions caused by:</p>
-        <ul>
-            <li>Natural disasters</li>
-            <li>War, terrorism, or civil unrest</li>
-            <li>Government actions or regulations</li>
-            <li>Internet service provider outages</li>
-            <li>Third-party platform outages (WhatsApp, Instagram, Shopify)</li>
-        </ul>
-
-        <p>In such cases, we will make reasonable efforts to restore service and may offer service credits at our discretion.</p>
-
-        <h2>11. Refund Methods</h2>
-        
-        <p>Refunds are processed using the same payment method used for the original purchase:</p>
-        
-        <ul>
-            <li><strong>Credit/Debit Card:</strong> 7-10 business days to appear on your statement</li>
-            <li><strong>PayPal:</strong> 5-7 business days</li>
-            <li><strong>Bank Transfer:</strong> 10-14 business days</li>
-        </ul>
-
-        <p>Processing times may vary depending on your financial institution. Sanestix is not responsible for delays caused by payment processors or banks.</p>
-
-        <h2>12. Contact Us</h2>
-        
-        <p>For refund requests or questions about this policy:</p>
-
-        <div class="success-box">
-            <p><strong>Sanestix Support Team</strong></p>
-            <p>
-                Email: <a href="mailto:support@sanestix.com">support@sanestix.com</a><br>
-                WhatsApp: <a href="tel:+923014422951">+92-301-4422951</a><br>
-                Business Hours: Monday - Friday, 9:00 AM - 6:00 PM PKT<br>
-                Response Time: Within 24 hours
-            </p>
-        </div>
-
-        <h2>13. Changes to This Policy</h2>
-        
-        <p>We reserve the right to modify this Refund Policy at any time. Changes will be effective immediately upon posting on our website. We will notify active subscribers of material changes via email.</p>
-
-        <p>Your continued use of our services after changes to this policy constitutes acceptance of the revised terms.</p>
-
-        <hr style="border: 1px solid rgba(59, 130, 246, 0.2); margin: 3rem 0;">
+        <h2>6. How to Request a Refund</h2>
+        <p>To request a refund, please contact us with:</p>
+        <ol>
+            <li>Your account email address</li>
+            <li>Reason for refund request</li>
+            <li>Date of original purchase</li>
+            <li>Any relevant details about your experience</li>
+        </ol>
 
         <div class="highlight-box">
-            <p style="text-align: center; margin: 0;"><strong>Questions?</strong> We're here to help! Don't hesitate to reach out to our support team for assistance with refunds, cancellations, or any billing concerns.</p>
+            <p><strong>Contact for Refunds:</strong><br>
+            Email: <a href="mailto:billing@sanestix.com">billing@sanestix.com</a><br>
+            Subject Line: "Refund Request - [Your Email]"</p>
         </div>
 
-        <p style="text-align: center; color: #9CA3AF; font-size: 0.9rem; margin-top: 2rem;">
-            © 2026 Sanestix. All rights reserved. | 
-            <a href="sanestix-automation-redesign.html">Home</a> | 
-            <a href="privacy-policy.html">Privacy Policy</a> | 
-            <a href="terms-of-service.html">Terms of Service</a>
-        </p>
+        <h2>7. Refund Processing</h2>
+        <p>Approved refunds will be processed within:</p>
+        <ul>
+            <li>5-7 business days for credit/debit cards</li>
+            <li>10-14 business days for bank transfers</li>
+        </ul>
+        <p>Refunds are issued to the original payment method used for purchase.</p>
+
+        <h2>8. Chargebacks</h2>
+        <p>Please contact us before initiating a chargeback. Chargebacks may result in:</p>
+        <ul>
+            <li>Immediate account suspension</li>
+            <li>Inability to use our services in the future</li>
+            <li>Additional fees to cover chargeback processing costs</li>
+        </ul>
+
+        <h2>9. Changes to Pricing</h2>
+        <p>If we increase pricing, existing customers will:</p>
+        <ul>
+            <li>Receive 30 days' advance notice</li>
+            <li>Be able to cancel before the increase takes effect</li>
+            <li>Keep current pricing for the remainder of their billing cycle</li>
+        </ul>
+
+        <h2>10. Contact Us</h2>
+        <p>Questions about refunds or billing? We're here to help!</p>
+        
+        <div class="highlight-box">
+            <p><strong>Billing Support</strong><br>
+            Email: <a href="mailto:billing@sanestix.com">billing@sanestix.com</a><br>
+            Phone: <a href="tel:+923014422951">+92-301-4422951</a><br>
+            WhatsApp: <a href="https://wa.me/923014422951">+92-301-4422951</a></p>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Sanestix. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="index.html">Home</a> | 
+                <a href="privacy-policy.html">Privacy Policy</a> | 
+                <a href="terms-of-service.html">Terms of Service</a>
+            </div>
+        </footer>
     </div>
 </body>
 </html>
