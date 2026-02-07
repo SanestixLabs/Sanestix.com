@@ -70,6 +70,12 @@
             backdrop-filter: blur(20px);
             z-index: 1000;
             border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 0.8rem 5%;
+            box-shadow: 0 4px 30px rgba(59, 130, 246, 0.1);
         }
 
         .nav-content {
@@ -101,19 +107,19 @@
             color: #E5E7EB;
             text-decoration: none;
             font-weight: 500;
-            cursor: pointer;
-            transition: color 0.3s ease;
             position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
         }
 
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
+            bottom: 0;
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(90deg, #3B82F6, #06B6D4);
+            background: linear-gradient(90deg, #3B82F6, #8B5CF6);
             transition: width 0.3s ease;
         }
 
@@ -125,394 +131,206 @@
             width: 100%;
         }
 
-        .cta-btn {
-            padding: 0.8rem 1.8rem;
+        .cta-button {
+            padding: 0.75rem 1.8rem;
             background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+            color: white;
             border: none;
             border-radius: 10px;
-            color: white;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
         }
 
-        .cta-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.5);
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
         }
 
-        .mobile-menu-btn {
+        .menu-toggle {
             display: none;
-            background: transparent;
+            background: none;
             border: none;
-            color: #E5E7EB;
-            font-size: 1.8rem;
             cursor: pointer;
+            padding: 0.5rem;
         }
 
-        .mobile-nav {
+        .menu-toggle svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .mobile-menu {
             display: none;
             position: fixed;
-            top: 0;
+            top: 80px;
             left: 0;
             width: 100%;
-            height: 100vh;
             background: rgba(10, 10, 10, 0.98);
-            z-index: 999;
-            padding-top: 80px;
+            backdrop-filter: blur(20px);
+            padding: 2rem;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            animation: slideDown 0.3s ease;
         }
 
-        .mobile-nav.active {
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            animation: fadeIn 0.3s ease;
+            gap: 1.5rem;
         }
 
-        .mobile-nav-links {
-            list-style: none;
-            text-align: center;
-        }
-
-        .mobile-nav-links li {
-            margin: 2rem 0;
-        }
-
-        .mobile-nav-links a {
+        .mobile-menu a {
             color: #E5E7EB;
             text-decoration: none;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
+            font-weight: 500;
+            display: block;
+            padding: 0.5rem 0;
             transition: color 0.3s ease;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .mobile-menu a:hover {
+            color: #3B82F6;
         }
 
         /* Hero Section */
         .hero {
+            position: relative;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 140px 5% 80px;
-            position: relative;
+            padding: 8rem 5% 4rem;
             z-index: 2;
         }
 
         .hero-content {
-            max-width: 1200px;
+            max-width: 1400px;
             text-align: center;
+            animation: fadeInUp 1s ease;
         }
 
-        h1 {
-            font-size: 4.5rem;
-            font-weight: 900;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 800;
             margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #ffffff 0%, #3B82F6 40%, #8B5CF6 100%);
+            background: linear-gradient(135deg, #ffffff, #3B82F6, #8B5CF6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            line-height: 1.1;
+            line-height: 1.2;
         }
 
-        .hero-subtitle {
-            font-size: 1.4rem;
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
             color: #9CA3AF;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
-            line-height: 1.8;
         }
 
-        .hero-ctas {
+        .hero-buttons {
             display: flex;
             gap: 1.5rem;
             justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 5rem;
+            margin-bottom: 4rem;
         }
 
-        .btn-primary, .btn-secondary {
-            padding: 1.3rem 3rem;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.4s ease;
+        .btn-primary {
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+            color: white;
             border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
-            color: white;
-        }
-
         .btn-primary:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(59, 130, 246, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.5);
         }
 
         .btn-secondary {
-            background: rgba(59, 130, 246, 0.1);
-            border: 2px solid #3B82F6;
-            color: #3B82F6;
+            padding: 1rem 2.5rem;
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(59, 130, 246, 0.5);
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .btn-secondary:hover {
-            background: rgba(59, 130, 246, 0.2);
-            transform: translateY(-5px);
-        }
-
-        /* Products Section */
-        .section {
-            padding: 5rem 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-
-        .section-title {
-            font-size: 3rem;
-            text-align: center;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #ffffff, #3B82F6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: #9CA3AF;
-            margin-bottom: 4rem;
-            font-size: 1.2rem;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-            gap: 3rem;
-            margin-top: 4rem;
-        }
-
-        .product-card {
-            background: linear-gradient(135deg, rgba(10, 10, 10, 0.9), rgba(59, 130, 246, 0.05));
-            border: 2px solid rgba(59, 130, 246, 0.3);
-            border-radius: 24px;
-            padding: 3rem;
-            transition: all 0.5s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .product-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .product-card:hover::before {
-            left: 100%;
-        }
-
-        .product-card:hover {
-            transform: translateY(-15px);
+            background: rgba(59, 130, 246, 0.1);
             border-color: #3B82F6;
-            box-shadow: 0 20px 60px rgba(59, 130, 246, 0.4);
         }
 
-        .product-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
-        }
-
-        .product-icon svg {
-            width: 45px;
-            height: 45px;
-            fill: white;
-        }
-
-        .product-badge {
-            display: inline-block;
-            padding: 0.5rem 1.2rem;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
-            border: 1px solid rgba(59, 130, 246, 0.5);
-            border-radius: 20px;
-            color: #3B82F6;
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 1.5rem;
-        }
-
-        .product-card h3 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: #fff;
-            font-weight: 800;
-        }
-
-        .product-card > p {
-            color: #9CA3AF;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-        }
-
-        .features-list {
-            list-style: none;
-            margin: 2rem 0;
-        }
-
-        .features-list li {
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(59, 130, 246, 0.1);
-            color: #E5E7EB;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .features-list li:last-child {
-            border-bottom: none;
-        }
-
-        .check-icon {
-            width: 24px;
-            height: 24px;
-            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .check-icon svg {
-            width: 14px;
-            height: 14px;
-            fill: white;
-        }
-
-        .product-cta {
-            margin-top: 2rem;
-        }
-
-        .product-btn {
-            width: 100%;
-            padding: 1.2rem 2rem;
-            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.4s ease;
-        }
-
-        .product-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 35px rgba(59, 130, 246, 0.5);
-        }
-
-        /* Benefits Section */
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .benefit-card {
-            padding: 2.5rem;
-            background: linear-gradient(135deg, rgba(10, 10, 10, 0.9), rgba(59, 130, 246, 0.03));
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 16px;
-            text-align: center;
-            transition: all 0.4s ease;
-        }
-
-        .benefit-card:hover {
-            transform: translateY(-10px);
-            border-color: #3B82F6;
-            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.3);
-        }
-
-        .benefit-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-        }
-
-        .benefit-icon svg {
-            width: 35px;
-            height: 35px;
-            fill: white;
-        }
-
-        .benefit-card h4 {
-            font-size: 1.3rem;
-            color: #fff;
-            margin-bottom: 1rem;
-        }
-
-        .benefit-card p {
-            color: #9CA3AF;
-            line-height: 1.7;
-        }
-
-        /* Stats Section */
-        .stats-section {
+        .stats-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 2rem;
-            margin: 4rem 0;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
         .stat-item {
             text-align: center;
-            padding: 2.5rem;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(139, 92, 246, 0.05));
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 20px;
-            transition: all 0.4s ease;
+            padding: 2rem;
+            background: rgba(59, 130, 246, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 15px;
+            transition: all 0.3s ease;
         }
 
         .stat-item:hover {
-            transform: translateY(-10px);
-            border-color: #3B82F6;
-            box-shadow: 0 15px 45px rgba(59, 130, 246, 0.4);
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
         }
 
         .stat-number {
-            font-size: 3.5rem;
-            font-weight: 900;
+            font-size: 2.5rem;
+            font-weight: 800;
             background: linear-gradient(135deg, #3B82F6, #8B5CF6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -522,79 +340,555 @@
         .stat-label {
             color: #9CA3AF;
             font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
-        /* CTA Section */
-        .cta-section {
-            text-align: center;
-            padding: 6rem 5%;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
-            border-top: 1px solid rgba(59, 130, 246, 0.3);
-            border-bottom: 1px solid rgba(59, 130, 246, 0.3);
-            margin: 5rem 0;
+        /* Products Section */
+        .products-section {
             position: relative;
+            padding: 6rem 5%;
             z-index: 2;
         }
 
-        .cta-section h2 {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
             background: linear-gradient(135deg, #ffffff, #3B82F6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-weight: 800;
         }
 
-        .cta-section p {
-            font-size: 1.3rem;
+        .section-subtitle {
+            font-size: 1.2rem;
             color: #9CA3AF;
-            margin-bottom: 3rem;
             max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto;
         }
 
-        /* Contact Form */
-        .contact-form-container {
-            max-width: 600px;
+        .products-grid {
+            max-width: 1400px;
             margin: 0 auto;
-            background: linear-gradient(135deg, rgba(10, 10, 10, 0.9), rgba(59, 130, 246, 0.05));
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .product-card {
+            background: rgba(15, 15, 15, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 20px;
+            padding: 3rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: #3B82F6;
+            box-shadow: 0 20px 60px rgba(59, 130, 246, 0.3);
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        .product-icon {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-description {
+            color: #9CA3AF;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+            color: #D1D5DB;
+        }
+
+        .check-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .product-cta {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-cta:hover {
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            position: relative;
+            padding: 6rem 5%;
+            background: rgba(15, 15, 15, 0.5);
+            z-index: 2;
+        }
+
+        .benefits-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .benefit-card {
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 15px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-8px);
+            border-color: #3B82F6;
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.25);
+        }
+
+        .benefit-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .benefit-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-description {
+            color: #9CA3AF;
+            line-height: 1.7;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            position: relative;
+            padding: 6rem 5%;
+            z-index: 2;
+        }
+
+        .steps-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            gap: 3rem;
+        }
+
+        .step {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            font-size: 1.8rem;
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        .step-content p {
+            color: #9CA3AF;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            position: relative;
+            padding: 6rem 5%;
+            background: rgba(15, 15, 15, 0.5);
+            z-index: 2;
+        }
+
+        .testimonials-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 15px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            border-color: #3B82F6;
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.25);
+        }
+
+        .testimonial-text {
+            color: #D1D5DB;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+        }
+
+        .author-info h4 {
+            color: #ffffff;
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .author-info p {
+            color: #9CA3AF;
+            font-size: 0.9rem;
+        }
+
+        /* Team Section */
+        .team-section {
+            position: relative;
+            padding: 6rem 5%;
+            z-index: 2;
+        }
+
+        .team-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+        }
+
+        .team-card {
+            background: rgba(15, 15, 15, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            border-color: #3B82F6;
+            box-shadow: 0 20px 50px rgba(59, 130, 246, 0.3);
+        }
+
+        .team-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .team-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+            color: #3B82F6;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .team-description {
+            color: #9CA3AF;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-linkedin {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(59, 130, 246, 0.1);
             border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 10px;
+            color: #3B82F6;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .team-linkedin:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: #3B82F6;
+        }
+
+        .linkedin-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            position: relative;
+            padding: 6rem 5%;
+            background: rgba(15, 15, 15, 0.5);
+            z-index: 2;
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: #3B82F6;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.8rem;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-answer.active {
+            max-height: 500px;
+            padding: 0 1.8rem 1.8rem;
+        }
+
+        .faq-answer p {
+            color: #9CA3AF;
+            line-height: 1.8;
+        }
+
+        .faq-icon {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-icon.active {
+            transform: rotate(180deg);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            position: relative;
+            padding: 6rem 5%;
+            z-index: 2;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            padding: 2rem;
+            background: rgba(15, 15, 15, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            border-color: #3B82F6;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+        }
+
+        .contact-details h3 {
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-details p {
+            color: #9CA3AF;
+        }
+
+        .contact-details a {
+            color: #3B82F6;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-details a:hover {
+            color: #60A5FA;
+        }
+
+        .contact-form {
+            background: rgba(15, 15, 15, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.2);
             border-radius: 20px;
             padding: 3rem;
         }
 
         .form-group {
             margin-bottom: 1.5rem;
-            text-align: left;
         }
 
         .form-group label {
             display: block;
-            color: #E5E7EB;
+            color: #D1D5DB;
             margin-bottom: 0.5rem;
-            font-weight: 600;
+            font-weight: 500;
         }
 
         .form-group input,
-        .form-group textarea,
-        .form-group select {
+        .form-group textarea {
             width: 100%;
             padding: 1rem;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(10, 10, 10, 0.8);
             border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 8px;
-            color: #E5E7EB;
+            border-radius: 10px;
+            color: #ffffff;
             font-family: inherit;
-            font-size: 1rem;
             transition: all 0.3s ease;
         }
 
         .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
+        .form-group textarea:focus {
             outline: none;
             border-color: #3B82F6;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
@@ -602,293 +896,21 @@
 
         .form-group textarea {
             resize: vertical;
-            min-height: 120px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 1.3rem 2rem;
-            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.4s ease;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.7);
-        }
-
-        .submit-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .form-message {
-            margin-top: 1rem;
-            padding: 1rem;
-            border-radius: 8px;
-            display: none;
-        }
-
-        .form-message.success {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            color: #10B981;
-        }
-
-        .form-message.error {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            color: #EF4444;
-        }
-
-        /* FAQ Section */
-        .faq-container {
-            max-width: 900px;
-            margin: 3rem auto;
-        }
-
-        .faq-item {
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, rgba(10, 10, 10, 0.9), rgba(59, 130, 246, 0.05));
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .faq-item:hover {
-            border-color: rgba(59, 130, 246, 0.4);
-        }
-
-        .faq-question {
-            padding: 1.8rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: #fff;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-
-        .faq-question:hover {
-            background: rgba(59, 130, 246, 0.05);
-        }
-
-        .faq-icon {
-            font-size: 1.8rem;
-            color: #3B82F6;
-            transition: transform 0.3s ease;
-            font-weight: 300;
-            line-height: 1;
-        }
-
-        .faq-item.active .faq-icon {
-            transform: rotate(45deg);
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease;
-        }
-
-        .faq-item.active .faq-answer {
-            max-height: 400px;
-        }
-
-        .faq-answer-content {
-            padding: 0 1.8rem 1.8rem;
-            color: #9CA3AF;
-            line-height: 1.8;
-            font-size: 1.05rem;
-        }
-
-        /* Leadership Section */
-        .leadership-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 3rem;
-            margin-top: 4rem;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .leader-card {
-            background: linear-gradient(135deg, rgba(10, 10, 10, 0.9), rgba(59, 130, 246, 0.05));
-            border: 2px solid rgba(59, 130, 246, 0.2);
-            border-radius: 24px;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-        }
-
-        .leader-card:hover {
-            transform: translateY(-15px);
-            border-color: #3B82F6;
-            box-shadow: 0 25px 60px rgba(59, 130, 246, 0.5);
-        }
-
-        .leader-image-container {
-            width: 100%;
-            height: 500px;
-            overflow: hidden;
-            position: relative;
-            background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
-        }
-
-        .leader-image-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 150px;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
-            z-index: 2;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .leader-card:hover .leader-image-overlay {
-            opacity: 1;
-        }
-
-        .leader-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-            filter: grayscale(0.2);
-        }
-
-        .leader-card:hover .leader-image {
-            transform: scale(1.08);
-            filter: grayscale(0);
-        }
-
-        .leader-info {
-            padding: 2.5rem;
-            text-align: center;
-            position: relative;
-            z-index: 3;
-            background: linear-gradient(to bottom, rgba(10, 10, 10, 0.95), rgba(10, 10, 10, 0.98));
-        }
-
-        .leader-name {
-            font-size: 2rem;
-            color: #fff;
-            margin-bottom: 0.75rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #ffffff, #e0e7ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .leader-title {
-            color: #3B82F6;
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            padding-bottom: 1rem;
-        }
-
-        .leader-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, #3B82F6, #8B5CF6);
-            border-radius: 2px;
-        }
-
-        .leader-bio {
-            color: #9CA3AF;
-            font-size: 0.95rem;
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-            padding: 0 1rem;
-        }
-
-        .leader-linkedin {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.1));
-            border: 2px solid #3B82F6;
-            border-radius: 12px;
-            color: #3B82F6;
-            text-decoration: none;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            font-size: 1.05rem;
-            font-weight: 700;
-        }
-
-        .leader-linkedin:hover {
-            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
-            color: white;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.5);
-        }
-
-        .leader-linkedin svg {
-            width: 22px;
-            height: 22px;
-            fill: currentColor;
-            transition: transform 0.3s ease;
-        }
-
-        .leader-linkedin:hover svg {
-            transform: scale(1.1);
-        }
-
-        .leader-badge {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            z-index: 10;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            min-height: 150px;
         }
 
         /* Footer */
         footer {
-            background: rgba(10, 10, 10, 0.95);
-            border-top: 1px solid rgba(59, 130, 246, 0.2);
-            padding: 4rem 5% 2rem;
             position: relative;
+            padding: 4rem 5% 2rem;
+            background: rgba(5, 5, 5, 0.9);
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
             z-index: 2;
         }
 
         .footer-content {
             max-width: 1400px;
             margin: 0 auto;
-        }
-
-        .footer-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 3rem;
@@ -896,38 +918,15 @@
         }
 
         .footer-section h3 {
-            color: #fff;
             font-size: 1.3rem;
+            color: #ffffff;
             margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #ffffff, #3B82F6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
         .footer-section p {
             color: #9CA3AF;
-            line-height: 1.8;
+            line-height: 1.7;
             margin-bottom: 1rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.75rem;
-        }
-
-        .footer-links a {
-            color: #9CA3AF;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .footer-links a:hover {
-            color: #3B82F6;
-            padding-left: 10px;
         }
 
         .social-links {
@@ -939,148 +938,172 @@
         .social-link {
             width: 45px;
             height: 45px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
-            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 10px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #3B82F6;
-            text-decoration: none;
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
         }
 
         .social-link:hover {
-            transform: translateY(-5px);
-            background: linear-gradient(135deg, #3B82F6, #8B5CF6);
-            color: white;
+            background: rgba(59, 130, 246, 0.2);
             border-color: #3B82F6;
+            transform: translateY(-3px);
         }
 
-        .social-link svg {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
+        .social-icon {
+            width: 22px;
+            height: 22px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #9CA3AF;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #3B82F6;
         }
 
         .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
             padding-top: 2rem;
-            border-top: 1px solid rgba(59, 130, 246, 0.2);
+            border-top: 1px solid rgba(59, 130, 246, 0.1);
             text-align: center;
             color: #9CA3AF;
         }
 
-        /* Mobile Responsive */
+        .footer-legal {
+            margin-top: 1rem;
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-legal a {
+            color: #9CA3AF;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: #3B82F6;
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .nav-links, .cta-btn {
+            .nav-links {
                 display: none;
             }
 
-            .mobile-menu-btn {
+            .menu-toggle {
                 display: block;
             }
 
-            h1 {
+            .hero h1 {
                 font-size: 2.5rem;
             }
 
-            .hero-subtitle {
-                font-size: 1.1rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .products-grid {
+            .products-grid,
+            .benefits-grid,
+            .testimonials-grid {
                 grid-template-columns: 1fr;
             }
 
-            .product-card {
-                padding: 2rem;
-            }
-
-            .benefits-grid {
+            .step {
                 grid-template-columns: 1fr;
+                text-align: center;
             }
 
-            .stats-section {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .cta-section h2 {
-                font-size: 2rem;
-            }
-
-            .contact-form-container {
-                padding: 2rem 1.5rem;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .leadership-container {
-                grid-template-columns: 1fr;
-            }
-
-            .leader-card {
-                max-width: 500px;
+            .step-number {
                 margin: 0 auto;
             }
 
-            .leader-image-container {
-                height: 400px;
+            .contact-container {
+                grid-template-columns: 1fr;
             }
 
-            .leader-name {
-                font-size: 1.6rem;
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
             }
 
-            .leader-title {
-                font-size: 1rem;
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                max-width: 300px;
             }
+        }
 
-            .leader-bio {
-                font-size: 0.9rem;
-            }
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
 
-            .faq-question {
-                font-size: 1rem;
-                padding: 1.5rem;
-            }
-
-            .faq-answer-content {
-                font-size: 0.95rem;
-            }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
+    <!-- Animated Background -->
     <div class="animated-bg"></div>
     <div class="grid-overlay"></div>
 
     <!-- Navigation -->
-    <nav>
+    <nav id="navbar">
         <div class="nav-content">
-            <img src="Adobe Express - file.png" alt="Sanestix Logo" class="logo" onclick="scrollToTop()">
+            <svg class="logo" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#8B5CF6;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <text x="10" y="35" font-family="Arial, sans-serif" font-size="32" font-weight="800" fill="url(#logoGradient)">Sanestix</text>
+            </svg>
+            
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#products">Products</a></li>
                 <li><a href="#benefits">Benefits</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#team">Team</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <button class="cta-btn" onclick="scrollToSection('contact')">Get Started</button>
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+
+            <button class="menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#E5E7EB" stroke-width="2">
+                    <path d="M3 12h18M3 6h18M3 18h18"/>
+                </svg>
+            </button>
         </div>
     </nav>
 
-    <!-- Mobile Navigation -->
-    <div class="mobile-nav" id="mobileNav">
-        <ul class="mobile-nav-links">
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul>
             <li><a href="#home" onclick="closeMobileMenu()">Home</a></li>
             <li><a href="#products" onclick="closeMobileMenu()">Products</a></li>
             <li><a href="#benefits" onclick="closeMobileMenu()">Benefits</a></li>
+            <li><a href="#how-it-works" onclick="closeMobileMenu()">How It Works</a></li>
+            <li><a href="#team" onclick="closeMobileMenu()">Team</a></li>
             <li><a href="#contact" onclick="closeMobileMenu()">Contact</a></li>
         </ul>
     </div>
@@ -1088,637 +1111,626 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-content">
-            <h1>Automation That Works While You Sleep</h1>
-            <p class="hero-subtitle">Transform your business with intelligent automation for social media and e-commerce. Handle customer conversations 24/7, automate repetitive tasks, and scale effortlessly.</p>
-            <div class="hero-ctas">
-                <button class="btn-primary" onclick="scrollToSection('products')">Explore Products</button>
-                <button class="btn-secondary" onclick="scrollToSection('contact')">Book a Demo</button>
+            <h1>Automate Your Business with Smart Solutions</h1>
+            <p>Scale your customer engagement with 24/7 automation for WhatsApp, Instagram, and e-commerce. No coding required.</p>
+            
+            <div class="hero-buttons">
+                <a href="#products" class="btn-primary">Explore Products</a>
+                <a href="#contact" class="btn-secondary">Get Started</a>
             </div>
 
-            <div class="stats-section">
+            <div class="stats-container">
                 <div class="stat-item">
                     <div class="stat-number">24/7</div>
-                    <div class="stat-label">Always Active</div>
+                    <div class="stat-label">Automated Support</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">80%</div>
-                    <div class="stat-label">Time Saved</div>
+                    <div class="stat-number">10x</div>
+                    <div class="stat-label">Faster Response Time</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">100+</div>
-                    <div class="stat-label">Happy Clients</div>
+                    <div class="stat-number">99%</div>
+                    <div class="stat-label">Customer Satisfaction</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">∞</div>
-                    <div class="stat-label">Scalability</div>
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Businesses Trust Us</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Products Section -->
-    <section class="section" id="products">
-        <h2 class="section-title">Our Automation Solutions</h2>
-        <p class="section-subtitle">Choose the perfect automation for your business needs</p>
+    <section class="products-section" id="products">
+        <div class="section-header">
+            <h2 class="section-title">Our Automation Products</h2>
+            <p class="section-subtitle">Powerful tools designed to streamline your business operations and boost customer engagement</p>
+        </div>
 
         <div class="products-grid">
             <!-- Product 1: Social Media Automation -->
-            <div class="product-card">
-                <span class="product-badge">Most Popular</span>
-                <div class="product-icon">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/>
-                    </svg>
-                </div>
-                <h3>Social Media Automation</h3>
-                <p>Complete automation for WhatsApp, Instagram DMs, and Instagram comments. Never miss a customer message again.</p>
+            <div class="product-card fade-in">
+                <svg class="product-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="productGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#3B82F6"/>
+                            <stop offset="100%" style="stop-color:#8B5CF6"/>
+                        </linearGradient>
+                    </defs>
+                    <circle cx="32" cy="32" r="30" fill="url(#productGrad1)" opacity="0.2"/>
+                    <path d="M32 8 L44 20 L56 14 L50 28 L56 40 L44 36 L32 48 L20 36 L8 40 L14 28 L8 14 L20 20 Z" fill="url(#productGrad1)"/>
+                </svg>
                 
-                <ul class="features-list">
+                <h3 class="product-title">Social Media Automation</h3>
+                <p class="product-description">Engage your audience 24/7 with automated responses across WhatsApp, Instagram, and Facebook. Never miss a customer inquiry again.</p>
+                
+                <ul class="product-features">
                     <li>
-                        <span class="check-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                        </span>
-                        <span><strong>WhatsApp Business Automation</strong> - Auto-reply, chatbots, and message routing</span>
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="3">
+                            <path d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>WhatsApp Auto-Reply Bot</span>
                     </li>
                     <li>
-                        <span class="check-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                        </span>
-                        <span><strong>Instagram DM Automation</strong> - Respond to DMs instantly with AI</span>
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="3">
+                            <path d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Instagram Comment & DM Automation</span>
                     </li>
                     <li>
-                        <span class="check-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                        </span>
-                        <span><strong>Comment Management</strong> - Auto-reply to Instagram comments</span>
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="3">
+                            <path d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Smart AI Responses</span>
                     </li>
                     <li>
-                        <span class="check-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                        </span>
-                        <span><strong>Lead Capture & Qualification</strong> - Automatically collect and qualify leads</span>
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="3">
+                            <path d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Multi-Platform Support</span>
                     </li>
                     <li>
-                        <span class="check-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                        </span>
-                        <span><strong>Multi-language Support</strong> - Communicate in 50+ languages</span>
-                    </li>
-                    <li>
-                        <span class="check-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                        </span>
-                        <span><strong>Analytics Dashboard</strong> - Track performance and engagement metrics</span>
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="3">
+                            <path d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Custom Response Templates</span>
                     </li>
                 </ul>
-
-                <div class="product-cta">
-                    <button class="product-btn" onclick="scrollToSection('contact')">Get Started</button>
-                </div>
+                
+                <button class="product-cta" onclick="location.href='#contact'">Learn More</button>
             </div>
 
             <!-- Product 2: Shopify-WhatsApp Integration -->
-            <div class="product-card">
-                <span class="product-badge">E-Commerce</span>
-                <div class="product-icon">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
-                    </svg>
-                </div>
-                <h3>Shopify-WhatsApp Integration</h3>
-                <p>Seamlessly connect your Shopify store with WhatsApp for automated order updates, customer support, and abandoned cart recovery.</p>
+            <div class="product-card fade-in">
+                <svg class="product-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="productGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#8B5CF6"/>
+                            <stop offset="100%" style="stop-color:#3B82F6"/>
+                        </linearGradient>
+                    </defs>
+                    <rect x="12" y="12" width="40" height="40" rx="8" fill="url(#productGrad2)" opacity="0.2"/>
+                    <path d="M20 20 L44 20 L44 44 L20 44 Z M28 28 L36 28 M28 36 L36 36" stroke="url(#productGrad2)" stroke-width="3" fill="none"/>
+                    <circle cx="32" cy="32" r="6" fill="url(#productGrad2)"/>
+                </svg>
                 
-                <ul class="features-list">
+                <h3 class="product-title">Shopify-WhatsApp Integration</h3>
+                <p class="product-description">Seamlessly connect your Shopify store with WhatsApp for automated order updates, abandoned cart recovery, and customer support.</p>
+                
+                <ul class="product-features">
                     <li>
-                        <span class="check-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                        </span>
-                        <span><strong>Order Notifications</strong> - Automatic WhatsApp alerts for new orders</span>
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="3">
+                            <path d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Real-time Order Notifications</span>
                     </li>
                     <li>
-                        <span class="check-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                        </span>
-                        <span><strong>Shipping Updates</strong> - Real-time tracking info via WhatsApp</span>
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="3">
+                            <path d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Abandoned Cart Recovery</span>
                     </li>
                     <li>
-                        <span class="check-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                        </span>
-                        <span><strong>Abandoned Cart Recovery</strong> - Auto-message customers who left items in cart</span>
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="3">
+                            <path d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Product Recommendations</span>
                     </li>
                     <li>
-                        <span class="check-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                        </span>
-                        <span><strong>Customer Support Bot</strong> - Answer product questions automatically</span>
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="3">
+                            <path d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Order Tracking & Updates</span>
                     </li>
                     <li>
-                        <span class="check-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                        </span>
-                        <span><strong>Product Catalog Sharing</strong> - Send product links directly via WhatsApp</span>
-                    </li>
-                    <li>
-                        <span class="check-icon">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                            </svg>
-                        </span>
-                        <span><strong>Payment Reminders</strong> - Automated follow-ups for pending payments</span>
+                        <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="3">
+                            <path d="M5 13l4 4L19 7"/>
+                        </svg>
+                        <span>Customer Support Automation</span>
                     </li>
                 </ul>
-
-                <div class="product-cta">
-                    <button class="product-btn" onclick="scrollToSection('contact')">Get Started</button>
-                </div>
+                
+                <button class="product-cta" onclick="location.href='#contact'">Learn More</button>
             </div>
         </div>
     </section>
 
     <!-- Benefits Section -->
-    <section class="section" id="benefits">
-        <h2 class="section-title">Why Choose Sanestix Automation?</h2>
-        <p class="section-subtitle">Experience the power of intelligent automation</p>
+    <section class="benefits-section" id="benefits">
+        <div class="section-header">
+            <h2 class="section-title">Why Choose Sanestix?</h2>
+            <p class="section-subtitle">Transform your business with cutting-edge automation technology</p>
+        </div>
 
         <div class="benefits-grid">
-            <div class="benefit-card">
-                <div class="benefit-icon">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
-                    </svg>
-                </div>
-                <h4>Save 20+ Hours Weekly</h4>
-                <p>Automate repetitive conversations and focus on what matters - growing your business.</p>
+            <div class="benefit-card fade-in">
+                <svg class="benefit-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="32" cy="32" r="28" fill="none" stroke="#3B82F6" stroke-width="3"/>
+                    <path d="M32 16 L32 32 L44 38" stroke="#3B82F6" stroke-width="3" fill="none" stroke-linecap="round"/>
+                </svg>
+                <h3 class="benefit-title">24/7 Availability</h3>
+                <p class="benefit-description">Your business never sleeps. Our automation works round the clock to engage customers anytime, anywhere.</p>
             </div>
 
-            <div class="benefit-card">
-                <div class="benefit-icon">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
-                </div>
-                <h4>Instant Responses</h4>
-                <p>Never keep customers waiting. Respond to messages and comments in milliseconds.</p>
+            <div class="benefit-card fade-in">
+                <svg class="benefit-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16 32 L28 44 L48 20" stroke="#3B82F6" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="32" cy="32" r="28" fill="none" stroke="#3B82F6" stroke-width="2" opacity="0.3"/>
+                </svg>
+                <h3 class="benefit-title">Easy Setup</h3>
+                <p class="benefit-description">No coding required. Get started in minutes with our intuitive dashboard and step-by-step guides.</p>
             </div>
 
-            <div class="benefit-card">
-                <div class="benefit-icon">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
-                    </svg>
-                </div>
-                <h4>Consistent Branding</h4>
-                <p>Maintain your brand voice across all customer interactions with customizable templates.</p>
+            <div class="benefit-card fade-in">
+                <svg class="benefit-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="16" y="20" width="32" height="28" rx="4" fill="none" stroke="#3B82F6" stroke-width="3"/>
+                    <path d="M24 28 L40 28 M24 36 L36 36" stroke="#3B82F6" stroke-width="2"/>
+                    <path d="M16 28 L48 28" stroke="#3B82F6" stroke-width="2" opacity="0.5"/>
+                </svg>
+                <h3 class="benefit-title">Smart Analytics</h3>
+                <p class="benefit-description">Track performance, customer engagement, and ROI with comprehensive real-time analytics.</p>
             </div>
 
-            <div class="benefit-card">
-                <div class="benefit-icon">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
-                    </svg>
-                </div>
-                <h4>Smart Lead Qualification</h4>
-                <p>Automatically identify hot leads and route them to your sales team.</p>
+            <div class="benefit-card fade-in">
+                <svg class="benefit-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M32 8 L40 24 L56 26 L44 38 L48 54 L32 46 L16 54 L20 38 L8 26 L24 24 Z" fill="none" stroke="#3B82F6" stroke-width="3"/>
+                </svg>
+                <h3 class="benefit-title">AI-Powered</h3>
+                <p class="benefit-description">Leverage advanced AI to provide personalized, context-aware responses to your customers.</p>
             </div>
 
-            <div class="benefit-card">
-                <div class="benefit-icon">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
-                    </svg>
-                </div>
-                <h4>Detailed Analytics</h4>
-                <p>Track every conversation, measure performance, and optimize your strategy with data.</p>
+            <div class="benefit-card fade-in">
+                <svg class="benefit-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M32 16 L32 48 M16 32 L48 32" stroke="#3B82F6" stroke-width="3"/>
+                    <circle cx="32" cy="32" r="12" fill="none" stroke="#3B82F6" stroke-width="3"/>
+                </svg>
+                <h3 class="benefit-title">Scalable Solutions</h3>
+                <p class="benefit-description">Grow your business without limitations. Our infrastructure scales with your needs.</p>
             </div>
 
-            <div class="benefit-card">
-                <div class="benefit-icon">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
-                    </svg>
-                </div>
-                <h4>Enterprise Security</h4>
-                <p>Bank-level encryption and compliance with GDPR, ensuring your data stays protected.</p>
+            <div class="benefit-card fade-in">
+                <svg class="benefit-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="20" y="20" width="24" height="28" rx="3" fill="none" stroke="#3B82F6" stroke-width="3"/>
+                    <circle cx="32" cy="32" r="4" fill="#3B82F6"/>
+                    <path d="M32 38 L32 42" stroke="#3B82F6" stroke-width="3"/>
+                </svg>
+                <h3 class="benefit-title">Secure & Reliable</h3>
+                <p class="benefit-description">Enterprise-grade security with 99.9% uptime. Your data is safe with us.</p>
             </div>
         </div>
     </section>
 
-    <!-- Leadership Section -->
-    <section class="section" id="leadership">
-        <h2 class="section-title">Meet Our Leadership</h2>
-        <p class="section-subtitle">The team driving automation innovation</p>
-        
-        <div class="leadership-container">
-            <div class="leader-card">
-                <div class="leader-image-container">
-                    <div class="leader-badge">Founder & CEO</div>
-                    <img src="SaadFaisal.jpeg" alt="Saad Faisal - Founder & CEO" class="leader-image">
-                    <div class="leader-image-overlay"></div>
-                </div>
-                <div class="leader-info">
-                    <h3 class="leader-name">Saad Faisal</h3>
-                    <p class="leader-title">Founder & Chief Executive Officer</p>
-                    <p class="leader-bio">Visionary leader revolutionizing business automation through AI. Passionate about building intelligent systems that help businesses scale efficiently and deliver measurable results worldwide.</p>
-                    <a href="https://www.linkedin.com/in/saadfaisalqureshi" target="_blank" rel="noopener noreferrer" class="leader-linkedin">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                        </svg>
-                        Connect on LinkedIn
-                    </a>
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="section-header">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Get started in three simple steps</p>
+        </div>
+
+        <div class="steps-container">
+            <div class="step fade-in">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Connect Your Platforms</h3>
+                    <p>Link your WhatsApp Business, Instagram, Facebook, and Shopify accounts to our secure platform in just a few clicks.</p>
                 </div>
             </div>
 
-            <div class="leader-card">
-                <div class="leader-image-container">
-                    <div class="leader-badge">Co-Founder & COO</div>
-                    <img src="abwbsid.png" alt="Abdul Wahab Siddiqi - Co-Founder & COO" class="leader-image">
-                    <div class="leader-image-overlay"></div>
+            <div class="step fade-in">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Configure Your Automation</h3>
+                    <p>Customize automated responses, set up triggers, and define workflows that match your business needs using our intuitive dashboard.</p>
                 </div>
-                <div class="leader-info">
-                    <h3 class="leader-name">Abdul Wahab Siddiqi</h3>
-                    <p class="leader-title">Co-Founder & Chief Operating Officer</p>
-                    <p class="leader-bio">Operations excellence driver ensuring every client receives transformative solutions. Dedicated to streamlining business processes and accelerating growth through strategic automation implementation.</p>
-                    <a href="https://www.linkedin.com/in/abdulwahabsiddiqi" target="_blank" rel="noopener noreferrer" class="leader-linkedin">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                        </svg>
-                        Connect on LinkedIn
-                    </a>
+            </div>
+
+            <div class="step fade-in">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Watch Your Business Grow</h3>
+                    <p>Sit back and let our AI handle customer inquiries, process orders, and engage your audience 24/7 while you focus on scaling your business.</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="section-header">
+            <h2 class="section-title">What Our Clients Say</h2>
+            <p class="section-subtitle">Join hundreds of satisfied businesses</p>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card fade-in">
+                <p class="testimonial-text">"Sanestix transformed our customer service. We're now responding to inquiries 10x faster and our customer satisfaction has never been higher!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">AK</div>
+                    <div class="author-info">
+                        <h4>Ahmad Khan</h4>
+                        <p>E-commerce Store Owner</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card fade-in">
+                <p class="testimonial-text">"The Shopify-WhatsApp integration is a game-changer. Our abandoned cart recovery rate increased by 45% in the first month!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">SN</div>
+                    <div class="author-info">
+                        <h4>Sarah Noor</h4>
+                        <p>Fashion Brand Director</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card fade-in">
+                <p class="testimonial-text">"Easy to set up, powerful features, and excellent support. Sanestix is exactly what we needed to scale our social media presence."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">MR</div>
+                    <div class="author-info">
+                        <h4>Mike Roberts</h4>
+                        <p>Digital Marketing Agency CEO</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section" id="team">
+        <div class="section-header">
+            <h2 class="section-title">Meet Our Team</h2>
+            <p class="section-subtitle">The innovators behind Sanestix</p>
+        </div>
+
+        <div class="team-grid">
+            <div class="team-card fade-in">
+                <div class="team-avatar">SF</div>
+                <h3 class="team-name">Saad Faisal Qureshi</h3>
+                <p class="team-role">Co-Founder & CEO</p>
+                <p class="team-description">Visionary entrepreneur with expertise in AI and business automation. Leading Sanestix to revolutionize customer engagement.</p>
+                <a href="https://www.linkedin.com/in/saadfaisalqureshi" target="_blank" rel="noopener noreferrer" class="team-linkedin">
+                    <svg class="linkedin-icon" viewBox="0 0 24 24" fill="#3B82F6">
+                        <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/>
+                    </svg>
+                    LinkedIn Profile
+                </a>
+            </div>
+
+            <div class="team-card fade-in">
+                <div class="team-avatar">AW</div>
+                <h3 class="team-name">Abdul Wahab Siddiqi</h3>
+                <p class="team-role">Co-Founder & CTO</p>
+                <p class="team-description">Technology expert passionate about building scalable automation solutions that drive real business results.</p>
+                <a href="https://www.linkedin.com/in/abdulwahabsiddiqi" target="_blank" rel="noopener noreferrer" class="team-linkedin">
+                    <svg class="linkedin-icon" viewBox="0 0 24 24" fill="#3B82F6">
+                        <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/>
+                    </svg>
+                    LinkedIn Profile
+                </a>
             </div>
         </div>
     </section>
 
     <!-- FAQ Section -->
-    <section class="section">
-        <h2 class="section-title">Frequently Asked Questions</h2>
-        <p class="section-subtitle">Everything you need to know about our automation solutions</p>
-        
+    <section class="faq-section">
+        <div class="section-header">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-subtitle">Everything you need to know about Sanestix</p>
+        </div>
+
         <div class="faq-container">
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(this)">
-                    <span>How quickly can the automation be set up?</span>
-                    <span class="faq-icon">+</span>
-                </div>
+            <div class="faq-item fade-in">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What is Sanestix?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
                 <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        Most automation setups are completed within 3-5 business days. For Social Media Automation, we typically have you up and running in 3 days. Shopify-WhatsApp Integration takes about 5 days including testing. We provide full training and support throughout the process.
-                    </div>
+                    <p>Sanestix is a comprehensive automation platform that helps businesses automate their social media engagement and e-commerce operations. We provide tools for WhatsApp automation, Instagram automation, and Shopify-WhatsApp integration.</p>
                 </div>
             </div>
 
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(this)">
-                    <span>Do I need technical skills to manage the automation?</span>
-                    <span class="faq-icon">+</span>
-                </div>
+            <div class="faq-item fade-in">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Do I need coding knowledge to use Sanestix?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
                 <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        Not at all! Our systems are designed to be user-friendly. We provide a simple dashboard where you can monitor conversations, update responses, and view analytics. We also provide comprehensive training and 24/7 support to help you manage everything easily.
-                    </div>
+                    <p>No! Sanestix is designed to be user-friendly and requires zero coding knowledge. Our intuitive dashboard and step-by-step guides make it easy for anyone to set up and manage automation workflows.</p>
                 </div>
             </div>
 
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(this)">
-                    <span>Can I customize the automated responses?</span>
-                    <span class="faq-icon">+</span>
-                </div>
+            <div class="faq-item fade-in">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How quickly can I get started?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
                 <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        Absolutely! Every response is fully customizable to match your brand voice. You can set up different response templates for different scenarios, add personalization, and even create conditional flows based on customer queries. You have complete control over what your automation says.
-                    </div>
+                    <p>You can be up and running in as little as 15 minutes! Simply connect your accounts, configure your automation preferences, and start engaging with customers automatically.</p>
                 </div>
             </div>
 
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(this)">
-                    <span>What happens if the bot can't answer a question?</span>
-                    <span class="faq-icon">+</span>
-                </div>
+            <div class="faq-item fade-in">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What platforms do you support?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
                 <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        Our smart routing system automatically forwards complex queries to your team. You'll receive instant notifications via WhatsApp, email, or your preferred platform. The bot gracefully hands over the conversation while keeping the customer informed that a human is taking over.
-                    </div>
+                    <p>We currently support WhatsApp Business, Instagram, Facebook, and Shopify. We're constantly adding new platform integrations based on customer demand.</p>
                 </div>
             </div>
 
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(this)">
-                    <span>Is my customer data secure?</span>
-                    <span class="faq-icon">+</span>
-                </div>
+            <div class="faq-item fade-in">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Is my data secure?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
                 <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        Yes! We use bank-level encryption and are fully compliant with GDPR and data protection regulations. All customer data is stored securely, and we never share or sell your information. You maintain complete ownership and control of your data at all times.
-                    </div>
+                    <p>Absolutely! We use enterprise-grade encryption and security measures to protect your data. Our platform is compliant with industry standards and we never share your information with third parties.</p>
                 </div>
             </div>
 
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(this)">
-                    <span>What's the pricing structure?</span>
-                    <span class="faq-icon">+</span>
-                </div>
+            <div class="faq-item fade-in">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What kind of support do you offer?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2">
+                        <path d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
                 <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        Pricing depends on your conversation volume and specific needs. We offer flexible monthly plans starting from $199/month for Social Media Automation and $299/month for Shopify-WhatsApp Integration. Contact us for a custom quote based on your business requirements. All plans include setup, training, and ongoing support.
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(this)">
-                    <span>Can I try it before committing?</span>
-                    <span class="faq-icon">+</span>
-                </div>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        Yes! We offer a free consultation and demo where we'll show you exactly how the automation works with your business. We can even set up a trial run with limited functionality so you can see the results firsthand before making a commitment.
-                    </div>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(this)">
-                    <span>Do you provide ongoing support?</span>
-                    <span class="faq-icon">+</span>
-                </div>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        Absolutely! All our plans include 24/7 technical support, regular system updates, and optimization recommendations. We're here to help you succeed and continuously improve your automation performance.
-                    </div>
+                    <p>We offer 24/7 customer support via WhatsApp, email, and live chat. Our dedicated team is always ready to help you with any questions or issues you might have.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section" id="contact">
-        <h2>Ready to Automate Your Business?</h2>
-        <p>Join hundreds of businesses already saving time and scaling with our automation solutions</p>
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="section-header">
+            <h2 class="section-title">Get in Touch</h2>
+            <p class="section-subtitle">Ready to automate your business? Let's talk!</p>
+        </div>
 
-        <div class="contact-form-container">
-            <form id="contactForm" onsubmit="handleFormSubmit(event)">
-                <div class="form-group">
-                    <label for="name">Full Name *</label>
-                    <input type="text" id="name" name="name" required>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item fade-in">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2">
+                        <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    <div class="contact-details">
+                        <h3>Email Us</h3>
+                        <p><a href="mailto:contact@sanestix.com">contact@sanestix.com</a></p>
+                        <p><a href="mailto:support@sanestix.com">support@sanestix.com</a></p>
+                    </div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="email">Email Address *</label>
-                    <input type="email" id="email" name="email" required>
+
+                <div class="contact-item fade-in">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2">
+                        <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                    </svg>
+                    <div class="contact-details">
+                        <h3>Call Us</h3>
+                        <p><a href="tel:+923014422951">+92-301-4422951</a></p>
+                        <p>Mon-Fri: 9AM - 6PM PKT</p>
+                    </div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="phone">WhatsApp Number *</label>
-                    <input type="tel" id="phone" name="phone" placeholder="+92 300 1234567" required>
+
+                <div class="contact-item fade-in">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2">
+                        <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                        <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                    <div class="contact-details">
+                        <h3>Visit Us</h3>
+                        <p>Lahore, Punjab</p>
+                        <p>Pakistan</p>
+                    </div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="product">Which Product Interests You? *</label>
-                    <select id="product" name="product" required>
-                        <option value="">Select a product</option>
-                        <option value="social-media">Social Media Automation (WhatsApp + Instagram)</option>
-                        <option value="shopify-whatsapp">Shopify-WhatsApp Integration</option>
-                        <option value="both">Both Products</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="message">Tell us about your business *</label>
-                    <textarea id="message" name="message" placeholder="What are you looking to automate? How many customers do you handle daily?" required></textarea>
-                </div>
-                
-                <button type="submit" class="submit-btn">Book Free Consultation</button>
-                
-                <div id="formMessage" class="form-message"></div>
-            </form>
+            </div>
+
+            <div class="contact-form fade-in">
+                <h3 style="color: #ffffff; margin-bottom: 2rem; font-size: 1.8rem;">Send us a Message</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%;">Send Message</button>
+                </form>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <div class="footer-grid">
-                <div class="footer-section">
-                    <h3>Sanestix</h3>
-                    <p>Intelligent automation solutions for modern businesses. We help you save time, reduce costs, and scale effortlessly with AI-powered systems.</p>
-                    <div class="social-links">
-                        <a href="https://wa.me/923014422951" class="social-link" title="WhatsApp" target="_blank">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-                            </svg>
-                        </a>
-                        <a href="https://www.instagram.com/sanestix" class="social-link" title="Instagram" target="_blank">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                            </svg>
-                        </a>
-                        <a href="https://www.linkedin.com/company/sanestix" class="social-link" title="LinkedIn" target="_blank">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                            </svg>
-                        </a>
-                        <a href="https://www.facebook.com/share/14M3fAXpuSW/" class="social-link" title="Facebook" target="_blank">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                            </svg>
-                        </a>
-                        <a href="https://x.com/sanestix_" class="social-link" title="X (Twitter)" target="_blank">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                            </svg>
-                        </a>
-                        <a href="https://threads.net/@sanestix" class="social-link" title="Threads" target="_blank">
-                            <svg viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M141.537 88.9883C140.71 88.5919 139.87 88.2104 139.019 87.8451C137.537 60.5382 122.616 44.905 97.5619 44.745C97.4484 44.7443 97.3355 44.7443 97.222 44.7443C82.2364 44.7443 69.7731 51.1409 62.102 62.7807L75.881 72.2328C81.6116 63.5383 90.6052 61.6848 97.2286 61.6848C97.3051 61.6848 97.3819 61.6848 97.4576 61.6855C105.707 61.7381 111.932 64.1366 115.961 68.814C118.893 72.2193 120.854 76.925 121.825 82.8638C114.511 81.6207 106.601 81.2385 98.145 81.7233C74.3247 83.0954 59.0111 96.9879 60.0396 116.292C60.5615 126.084 65.4397 134.508 73.775 140.011C80.8224 144.663 89.899 146.938 99.3323 146.423C111.79 145.74 121.563 140.987 128.381 132.296C133.559 125.696 136.834 117.143 138.28 106.366C144.217 109.949 148.617 114.664 151.047 120.332C155.179 129.967 155.42 145.8 142.501 158.708C131.182 170.016 117.576 174.908 97.0135 175.059C74.2042 174.89 56.9538 167.575 45.7381 153.317C35.2355 139.966 29.8077 120.682 29.6052 96C29.8077 71.3178 35.2355 52.0336 45.7381 38.6827C56.9538 24.4249 74.2039 17.11 97.0132 16.9405C119.988 17.1113 137.539 24.4614 149.184 38.788C154.894 45.8136 159.199 54.6488 162.037 64.9503L178.184 60.6422C174.744 47.9622 169.331 37.0357 161.965 27.974C147.036 9.60668 125.202 0.195148 97.0695 0H96.9569C68.8816 0.19447 47.2921 9.6418 32.7883 28.0793C19.8819 44.4864 13.2244 67.3157 13.0007 95.9325L13 96L13.0007 96.0675C13.2244 124.684 19.8819 147.514 32.7883 163.921C47.2921 182.358 68.8816 191.806 96.9569 192H97.0695C122.03 191.827 139.624 185.292 154.118 170.811C173.081 151.866 172.51 128.119 166.26 113.541C161.776 103.087 153.227 94.5962 141.537 88.9883ZM98.4405 129.507C88.0005 130.095 77.1544 125.409 76.6196 115.372C76.2232 107.93 81.9158 99.626 99.0812 98.6368C101.047 98.5234 102.976 98.468 104.871 98.468C111.106 98.468 116.939 99.0737 122.242 100.233C120.264 124.935 108.662 128.946 98.4405 129.507Z"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#products">Products</a></li>
-                        <li><a href="#benefits">Benefits</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Products</h3>
-                    <ul class="footer-links">
-                        <li><a href="#products">Social Media Automation</a></li>
-                        <li><a href="#products">Shopify-WhatsApp Integration</a></li>
-                        <li><a href="#contact">Custom Solutions</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Legal</h3>
-                    <ul class="footer-links">
-                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                        <li><a href="terms-of-service.html">Terms of Service</a></li>
-                        <li><a href="refund-policy.html">Refund Policy</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Contact</h3>
-                    <p>📍 Lahore, Punjab, Pakistan</p>
-                    <p>📞 <a href="tel:+923014422951" style="color: #9CA3AF; text-decoration: none;">+92-301-4422951</a></p>
-                    <p>✉️ <a href="mailto:sanestix@gmail.com" style="color: #9CA3AF; text-decoration: none;">sanestix@gmail.com</a></p>
+            <div class="footer-section">
+                <h3>Sanestix</h3>
+                <p>Empowering businesses with intelligent automation solutions for social media and e-commerce.</p>
+                <div class="social-links">
+                    <a href="https://wa.me/923014422951" class="social-link" title="WhatsApp" target="_blank" rel="noopener noreferrer">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="#25D366">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/sanestix" class="social-link" title="Instagram" target="_blank" rel="noopener noreferrer">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="#E4405F">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/company/sanestix" class="social-link" title="LinkedIn" target="_blank" rel="noopener noreferrer">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="#0A66C2">
+                            <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.facebook.com/share/14M3fAXpuSW/" class="social-link" title="Facebook" target="_blank" rel="noopener noreferrer">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="#1877F2">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </a>
+                    <a href="https://x.com/sanestix_" class="social-link" title="X (Twitter)" target="_blank" rel="noopener noreferrer">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="#000000">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                    </a>
+                    <a href="https://threads.net/@sanestix" class="social-link" title="Threads" target="_blank" rel="noopener noreferrer">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="#000000">
+                            <path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.781 3.631 2.695 6.541 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a13.853 13.853 0 011.072-.035l.17.002v1.989c-.305 0-.64.004-.973.027-1.223.083-2.111.405-2.641.958-.485.505-.73 1.132-.691 1.766.039.644.34 1.205.846 1.579.498.369 1.205.555 2.038.536 1.232-.07 2.151-.516 2.731-1.325.594-.828.867-2.01.811-3.514l-.002-.137v-3.874c.005-.024.015-.047.03-.068.015-.02.038-.034.064-.042.025-.008.051-.008.076 0 .026.009.049.024.065.044.016.02.026.045.029.071l.002 3.877c.012.296.04.588.082.874.043.286.103.565.18.838.08.274.176.54.288.8.112.259.243.508.39.746.148.238.316.463.503.673.186.211.394.407.622.588.228.18.478.344.748.49.27.147.563.275.876.382.314.108.647.194.998.258.352.064.72.11 1.103.14.383.03.78.043 1.19.04h.008c1.624-.03 3.013-.434 4.127-1.204 1.114-.77 1.922-1.84 2.404-3.181.478-1.327.655-2.865.53-4.577-.125-1.713-.546-3.183-1.254-4.377-.708-1.194-1.688-2.124-2.914-2.767-1.226-.643-2.674-.98-4.309-1.003z"/>
+                        </svg>
+                    </a>
                 </div>
             </div>
 
-            <div class="footer-bottom">
-                <p>&copy; 2026 Sanestix. All rights reserved. Automating success, one conversation at a time.</p>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#benefits">Benefits</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#team">Our Team</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Products</h3>
+                <ul class="footer-links">
+                    <li><a href="#products">Social Media Automation</a></li>
+                    <li><a href="#products">WhatsApp Auto-Reply</a></li>
+                    <li><a href="#products">Instagram Automation</a></li>
+                    <li><a href="#products">Shopify Integration</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="terms-of-service.html">Terms of Service</a></li>
+                    <li><a href="refund-policy.html">Refund Policy</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Sanestix. All rights reserved. Built with passion in Pakistan.</p>
+            <div class="footer-legal">
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-service.html">Terms of Service</a>
+                <a href="refund-policy.html">Refund Policy</a>
             </div>
         </div>
     </footer>
 
     <script>
-        // Mobile Menu Functions
+        // Mobile Menu Toggle
         function toggleMobileMenu() {
-            const mobileNav = document.getElementById('mobileNav');
-            const menuBtn = document.querySelector('.mobile-menu-btn');
-            
-            if (mobileNav.classList.contains('active')) {
-                mobileNav.classList.remove('active');
-                menuBtn.textContent = '☰';
-            } else {
-                mobileNav.classList.add('active');
-                menuBtn.textContent = '✕';
-            }
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
         }
 
         function closeMobileMenu() {
-            const mobileNav = document.getElementById('mobileNav');
-            const menuBtn = document.querySelector('.mobile-menu-btn');
-            if (mobileNav && menuBtn) {
-                mobileNav.classList.remove('active');
-                menuBtn.textContent = '☰';
-            }
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.remove('active');
         }
 
-        // Smooth scroll
-        function scrollToSection(id) {
-            const element = document.getElementById(id);
-            if (element) {
-                closeMobileMenu();
-                element.scrollIntoView({ behavior: 'smooth' });
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
             }
-        }
-
-        function scrollToTop() {
-            closeMobileMenu();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        });
 
         // FAQ Toggle
         function toggleFAQ(element) {
-            const faqItem = element.parentElement;
-            const isActive = faqItem.classList.contains('active');
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('.faq-icon');
             
-            document.querySelectorAll('.faq-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            if (!isActive) {
-                faqItem.classList.add('active');
-            }
+            answer.classList.toggle('active');
+            icon.classList.toggle('active');
         }
 
-        // Contact Form Submission
-        function handleFormSubmit(event) {
-            event.preventDefault();
+        // Scroll Animation
+        function handleScrollAnimation() {
+            const elements = document.querySelectorAll('.fade-in');
             
-            const formMessage = document.getElementById('formMessage');
-            const form = document.getElementById('contactForm');
-            const submitBtn = form.querySelector('.submit-btn');
-            const originalText = submitBtn.textContent;
-            
-            submitBtn.textContent = 'Sending...';
-            submitBtn.disabled = true;
-            
-            const formData = new FormData(form);
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbzr8XZsUdZiSYx0bvhi2tLXPkdqynrdNO8CFDvM11RQLq-4OeBsO__D13YgVA1u07lE/exec';
-            
-            fetch(scriptURL, { 
-                method: 'POST', 
-                body: formData 
-            })
-            .then(response => {
-                formMessage.textContent = '🎉 Thank you! We\'ll contact you within 24 hours to schedule your free consultation.';
-                formMessage.className = 'form-message success';
-                formMessage.style.display = 'block';
-                form.reset();
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                setTimeout(() => { formMessage.style.display = 'none'; }, 5000);
-            })
-            .catch(error => {
-                formMessage.textContent = '❌ Something went wrong. Please WhatsApp us directly at +92-301-4422951';
-                formMessage.className = 'form-message error';
-                formMessage.style.display = 'block';
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                setTimeout(() => { formMessage.style.display = 'none'; }, 7000);
-            });
-            
-            return false;
-        }
-
-        // Smooth scroll for anchor links
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    const href = this.getAttribute('href');
-                    if (href !== '#') {
-                        e.preventDefault();
-                        const target = document.querySelector(href);
-                        if (target) {
-                            closeMobileMenu();
-                            target.scrollIntoView({ behavior: 'smooth' });
-                        }
-                    }
-                });
-            });
-
-            // Close mobile menu when clicking outside
-            document.addEventListener('click', function(event) {
-                const mobileNav = document.getElementById('mobileNav');
-                const menuBtn = document.querySelector('.mobile-menu-btn');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
                 
-                if (mobileNav && menuBtn && mobileNav.classList.contains('active') && 
-                    !mobileNav.contains(event.target) && 
-                    !menuBtn.contains(event.target)) {
+                if (elementTop < window.innerHeight - 100 && elementBottom > 0) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', handleScrollAnimation);
+        window.addEventListener('load', handleScrollAnimation);
+
+        // Form Submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+
+        // Smooth Scroll for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                     closeMobileMenu();
                 }
             });
