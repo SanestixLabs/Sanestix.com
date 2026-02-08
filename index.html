@@ -164,32 +164,12 @@
             align-items: center;
         }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            text-decoration: none;
-            z-index: 10;
-            position: relative;
-        }
-
         .logo-image {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            object-fit: cover;
+            width: 120px;
+            height: auto;
+            max-height: 50px;
+            object-fit: contain;
             display: block;
-            border: 2px solid var(--accent);
-            box-shadow: 0 0 20px var(--glow);
-        }
-
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         .nav-right {
@@ -389,7 +369,6 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: slideUp 0.8s ease;
-            text-align: center;
         }
 
         .hero-highlight {
@@ -405,7 +384,6 @@
             margin-left: auto;
             margin-right: auto;
             animation: fadeIn 0.8s ease 0.3s backwards;
-            text-align: center;
         }
 
         @keyframes slideUp {
@@ -764,15 +742,7 @@
             font-size: 1.05rem;
         }
 
-        .workflow-connector {
-            display: none;
-        }
-
         @media (min-width: 900px) {
-            .workflow-steps {
-                position: relative;
-            }
-
             .workflow-steps::before {
                 content: '';
                 position: absolute;
@@ -791,7 +761,7 @@
             }
         }
 
-        /* Team Section - Smaller Rectangular Photos */
+        /* Team Section */
         .team-grid {
             max-width: 1200px;
             margin: 0 auto;
@@ -816,9 +786,10 @@
 
         .team-image-wrapper {
             width: 100%;
-            height: 320px;
+            height: 280px;
             overflow: hidden;
             position: relative;
+            background: var(--bg-secondary);
         }
 
         .team-image-wrapper::after {
@@ -835,6 +806,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center top;
             transition: transform 0.4s ease;
         }
 
@@ -1252,13 +1224,9 @@
                 gap: 1rem;
             }
 
-            .logo-text {
-                font-size: 1.4rem;
-            }
-
             .logo-image {
-                width: 40px;
-                height: 40px;
+                width: 100px;
+                max-height: 40px;
             }
 
             section {
@@ -1303,7 +1271,7 @@
             }
 
             .team-image-wrapper {
-                height: 280px;
+                height: 250px;
             }
 
             .form-row {
@@ -1342,7 +1310,7 @@
             }
 
             .team-image-wrapper {
-                height: 250px;
+                height: 220px;
             }
 
             .hero h1 {
@@ -1358,7 +1326,6 @@
         <div class="nav-content">
             <a href="#home" class="logo-container">
                 <img src="LOGO.png" alt="Sanestix Logo" class="logo-image" onerror="this.style.display='none'">
-                <span class="logo-text">Sanestix</span>
             </a>
             
             <div class="nav-right">
@@ -2111,6 +2078,15 @@
             const answer = element.nextElementSibling;
             const icon = element.querySelector('.faq-icon');
             
+            // Close all other FAQs
+            document.querySelectorAll('.faq-answer').forEach(otherAnswer => {
+                if (otherAnswer !== answer) {
+                    otherAnswer.classList.remove('active');
+                    otherAnswer.previousElementSibling.querySelector('.faq-icon').classList.remove('active');
+                }
+            });
+            
+            // Toggle current FAQ
             answer.classList.toggle('active');
             icon.classList.toggle('active');
         }
