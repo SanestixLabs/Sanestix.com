@@ -391,21 +391,23 @@
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 6.5rem);
-            font-weight: 900;
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-            background: linear-gradient(135deg, var(--text-primary), var(--accent), var(--accent-secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: slideUp 0.8s ease;
-        }
+    font-size: clamp(2.5rem, 8vw, 6.5rem);
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+    color: var(--text-primary);
+    animation: slideUp 0.8s ease;
+}
 
-        .hero-highlight {
-            position: relative;
-            display: inline-block;
-        }
+.hero-highlight {
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
 
         .hero p {
             font-size: clamp(1rem, 3vw, 1.6rem);
