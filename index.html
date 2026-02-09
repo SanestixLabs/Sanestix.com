@@ -1,35 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sanestix - Custom Automation Solutions | WhatsApp & Instagram Automation Services</title>
-    
+
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Custom automation services for WhatsApp, Instagram, and Shopify. Scale your business with tailored automation solutions. 24/7 automated support, 100% custom built.">
-    <meta name="keywords" content="WhatsApp automation, Instagram automation, Shopify integration, custom automation, business automation, chatbot, auto-reply, social media automation">
+    <meta name="description"
+        content="Custom automation services for WhatsApp, Instagram, and Shopify. Scale your business with tailored automation solutions. 24/7 automated support, 100% custom built.">
+    <meta name="keywords"
+        content="WhatsApp automation, Instagram automation, Shopify integration, custom automation, business automation, chatbot, auto-reply, social media automation">
     <meta name="author" content="Sanestix">
     <meta name="robots" content="index, follow">
-    
+
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Sanestix - Custom Automation Solutions">
-    <meta property="og:description" content="Custom automation services for WhatsApp, Instagram, and Shopify. Scale your business with tailored automation solutions.">
+    <meta property="og:description"
+        content="Custom automation services for WhatsApp, Instagram, and Shopify. Scale your business with tailored automation solutions.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.sanestix.com/">
     <meta property="og:image" content="https://www.sanestix.com/og-image.jpg">
-    
+
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Sanestix - Custom Automation Solutions">
     <meta name="twitter:description" content="Custom automation services for WhatsApp, Instagram, and Shopify.">
     <meta name="twitter:image" content="https://www.sanestix.com/twitter-image.jpg">
-    
+
     <!-- Canonical URL -->
     <link rel="canonical" href="https://www.sanestix.com/">
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
-    
+
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
     {
@@ -71,7 +75,7 @@
       ]
     }
     </script>
-    
+
     <style>
         * {
             margin: 0;
@@ -148,7 +152,8 @@
         }
 
         [data-theme="light"] nav {
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(5, 10, 14, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         nav.scrolled {
@@ -162,6 +167,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
         }
 
         .logo-image {
@@ -186,7 +197,7 @@
         }
 
         .nav-links a {
-            color: var(--text-primary);
+            color: #e8f4f8;
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
@@ -215,7 +226,7 @@
         }
 
         .theme-toggle {
-            background: var(--bg-secondary);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border);
             border-radius: 50%;
             width: 50px;
@@ -253,7 +264,7 @@
         .mobile-toggle svg {
             width: 28px;
             height: 28px;
-            stroke: var(--text-primary);
+            stroke: #e8f4f8;
         }
 
         .mobile-menu {
@@ -266,6 +277,7 @@
             border-bottom: 1px solid var(--border);
             padding: 2rem;
             z-index: 999;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .mobile-menu.active {
@@ -321,9 +333,19 @@
         }
 
         @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(30px, -30px) rotate(5deg); }
-            66% { transform: translate(-20px, 20px) rotate(-5deg); }
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            33% {
+                transform: translate(30px, -30px) rotate(5deg);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) rotate(-5deg);
+            }
         }
 
         .hero-content {
@@ -355,8 +377,17 @@
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.8; }
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
         }
 
         .hero h1 {
@@ -387,18 +418,37 @@
         }
 
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         .cta-buttons {
@@ -1319,6 +1369,7 @@
         }
     </style>
 </head>
+
 <body data-theme="dark">
     <div class="bg-animation" id="bgAnimation"></div>
 
@@ -1327,7 +1378,7 @@
             <a href="#home" class="logo-container">
                 <img src="LOGO.png" alt="Sanestix Logo" class="logo-image" onerror="this.style.display='none'">
             </a>
-            
+
             <div class="nav-right">
                 <ul class="nav-links">
                     <li><a href="#services">Services</a></li>
@@ -1335,7 +1386,7 @@
                     <li><a href="#faq">FAQ</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
-                
+
                 <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
                     <svg class="theme-icon" id="themeIcon" viewBox="0 0 24 24">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
@@ -1344,7 +1395,7 @@
 
                 <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
                     <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
-                        <path d="M3 12h18M3 6h18M3 18h18"/>
+                        <path d="M3 12h18M3 6h18M3 18h18" />
                     </svg>
                 </button>
             </div>
@@ -1364,7 +1415,9 @@
         <div class="hero-content">
             <div class="hero-badge">
                 <svg class="hero-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    <polygon
+                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                    </polygon>
                 </svg>
                 <span>Custom Automation Solutions</span>
             </div>
@@ -1373,8 +1426,9 @@
                 <span class="hero-highlight">Custom</span> Automation<br>
                 Built for Your Business
             </h1>
-            <p>Tailored automation solutions for WhatsApp, Instagram, and Shopify. We build exactly what your business needs to scale efficiently with 24/7 intelligent automation.</p>
-            
+            <p>Tailored automation solutions for WhatsApp, Instagram, and Shopify. We build exactly what your business
+                needs to scale efficiently with 24/7 intelligent automation.</p>
+
             <div class="cta-buttons">
                 <a href="#contact" class="btn-primary">
                     <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1422,12 +1476,15 @@
             <article class="product-card">
                 <div class="product-icon">
                     <svg viewBox="0 0 24 24">
-                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                        <path
+                            d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                        </path>
                     </svg>
                 </div>
                 <span class="product-badge">Most Popular</span>
                 <h3 class="product-title">WhatsApp Automation</h3>
-                <p class="product-description">Custom WhatsApp automation tailored to your business workflow with intelligent auto-replies and customer engagement.</p>
+                <p class="product-description">Custom WhatsApp automation tailored to your business workflow with
+                    intelligent auto-replies and customer engagement.</p>
                 <ul class="product-features">
                     <li>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1467,7 +1524,8 @@
                 </div>
                 <span class="product-badge">Grow Your Brand</span>
                 <h3 class="product-title">Instagram Automation</h3>
-                <p class="product-description">Automated Instagram DMs and comment responses to boost engagement and grow your social media presence organically.</p>
+                <p class="product-description">Automated Instagram DMs and comment responses to boost engagement and
+                    grow your social media presence organically.</p>
                 <ul class="product-features">
                     <li>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1506,7 +1564,8 @@
                 </div>
                 <span class="product-badge">Best Value</span>
                 <h3 class="product-title">Multi-Platform Suite</h3>
-                <p class="product-description">Complete automation for both WhatsApp and Instagram with unified dashboard and cross-platform customer management.</p>
+                <p class="product-description">Complete automation for both WhatsApp and Instagram with unified
+                    dashboard and cross-platform customer management.</p>
                 <ul class="product-features">
                     <li>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1546,7 +1605,8 @@
                 </div>
                 <span class="product-badge">E-Commerce</span>
                 <h3 class="product-title">Shopify Integration</h3>
-                <p class="product-description">Full e-commerce automation connecting Shopify with WhatsApp and Instagram for seamless order management and customer support.</p>
+                <p class="product-description">Full e-commerce automation connecting Shopify with WhatsApp and Instagram
+                    for seamless order management and customer support.</p>
                 <ul class="product-features">
                     <li>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1581,7 +1641,8 @@
     <section id="workflow">
         <div class="section-header">
             <h2 class="section-title">Our Workflow</h2>
-            <p class="section-subtitle">A streamlined process designed to deliver custom automation solutions that perfectly fit your business</p>
+            <p class="section-subtitle">A streamlined process designed to deliver custom automation solutions that
+                perfectly fit your business</p>
         </div>
 
         <div class="workflow-container">
@@ -1590,11 +1651,14 @@
                     <div class="workflow-number">1</div>
                     <div class="workflow-icon">
                         <svg viewBox="0 0 24 24">
-                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                            <path
+                                d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                            </path>
                         </svg>
                     </div>
                     <h3>Discovery Call</h3>
-                    <p>We start with a detailed consultation to understand your business needs, current challenges, and automation goals. This helps us design a solution that's perfectly tailored to you.</p>
+                    <p>We start with a detailed consultation to understand your business needs, current challenges, and
+                        automation goals. This helps us design a solution that's perfectly tailored to you.</p>
                 </article>
 
                 <article class="workflow-step">
@@ -1609,7 +1673,8 @@
                         </svg>
                     </div>
                     <h3>Custom Proposal</h3>
-                    <p>Based on our discussion, we create a detailed proposal outlining the automation architecture, features, timeline, and pricing. You'll know exactly what to expect.</p>
+                    <p>Based on our discussion, we create a detailed proposal outlining the automation architecture,
+                        features, timeline, and pricing. You'll know exactly what to expect.</p>
                 </article>
 
                 <article class="workflow-step">
@@ -1621,7 +1686,8 @@
                         </svg>
                     </div>
                     <h3>Development</h3>
-                    <p>Our expert team builds your custom automation solution from the ground up, ensuring every feature aligns with your business workflows and requirements.</p>
+                    <p>Our expert team builds your custom automation solution from the ground up, ensuring every feature
+                        aligns with your business workflows and requirements.</p>
                 </article>
 
                 <article class="workflow-step">
@@ -1632,7 +1698,8 @@
                         </svg>
                     </div>
                     <h3>Testing & Refinement</h3>
-                    <p>We rigorously test the automation system, gather your feedback, and make necessary refinements to ensure everything works flawlessly before launch.</p>
+                    <p>We rigorously test the automation system, gather your feedback, and make necessary refinements to
+                        ensure everything works flawlessly before launch.</p>
                 </article>
 
                 <article class="workflow-step">
@@ -1644,7 +1711,8 @@
                         </svg>
                     </div>
                     <h3>Deployment</h3>
-                    <p>Once approved, we deploy your automation system to production. We handle the technical setup and ensure a smooth transition with minimal disruption to your business.</p>
+                    <p>Once approved, we deploy your automation system to production. We handle the technical setup and
+                        ensure a smooth transition with minimal disruption to your business.</p>
                 </article>
 
                 <article class="workflow-step">
@@ -1657,7 +1725,8 @@
                         </svg>
                     </div>
                     <h3>Support & Optimization</h3>
-                    <p>Post-launch, we provide ongoing support, monitoring, and optimization. As your business grows, we help evolve your automation to match new needs.</p>
+                    <p>Post-launch, we provide ongoing support, monitoring, and optimization. As your business grows, we
+                        help evolve your automation to match new needs.</p>
                 </article>
             </div>
         </div>
@@ -1674,11 +1743,13 @@
                 <button class="faq-question" onclick="toggleFAQ(this)">
                     <span>What makes your services custom?</span>
                     <svg class="faq-icon" viewBox="0 0 24 24">
-                        <path d="M19 9l-7 7-7-7"/>
+                        <path d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
                 <div class="faq-answer">
-                    <p>Unlike generic SaaS solutions, we build automation systems specifically tailored to your business processes, workflows, and customer engagement needs. Every solution is designed from scratch to match your unique requirements, ensuring perfect integration with your existing systems.</p>
+                    <p>Unlike generic SaaS solutions, we build automation systems specifically tailored to your business
+                        processes, workflows, and customer engagement needs. Every solution is designed from scratch to
+                        match your unique requirements, ensuring perfect integration with your existing systems.</p>
                 </div>
             </article>
 
@@ -1686,11 +1757,13 @@
                 <button class="faq-question" onclick="toggleFAQ(this)">
                     <span>How long does it take to set up?</span>
                     <svg class="faq-icon" viewBox="0 0 24 24">
-                        <path d="M19 9l-7 7-7-7"/>
+                        <path d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
                 <div class="faq-answer">
-                    <p>Setup time varies based on complexity. Simple WhatsApp automation can be ready in 3-5 days, while complex multi-platform integrations with Shopify may take 2-3 weeks. We work closely with you to ensure smooth deployment and proper testing.</p>
+                    <p>Setup time varies based on complexity. Simple WhatsApp automation can be ready in 3-5 days, while
+                        complex multi-platform integrations with Shopify may take 2-3 weeks. We work closely with you to
+                        ensure smooth deployment and proper testing.</p>
                 </div>
             </article>
 
@@ -1698,11 +1771,13 @@
                 <button class="faq-question" onclick="toggleFAQ(this)">
                     <span>Can I modify the automation after setup?</span>
                     <svg class="faq-icon" viewBox="0 0 24 24">
-                        <path d="M19 9l-7 7-7-7"/>
+                        <path d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
                 <div class="faq-answer">
-                    <p>Absolutely! We provide ongoing support and modifications as your business evolves. You can request changes to message templates, workflows, triggers, and integrations at any time. We also offer training so you can make basic adjustments yourself.</p>
+                    <p>Absolutely! We provide ongoing support and modifications as your business evolves. You can
+                        request changes to message templates, workflows, triggers, and integrations at any time. We also
+                        offer training so you can make basic adjustments yourself.</p>
                 </div>
             </article>
 
@@ -1710,11 +1785,13 @@
                 <button class="faq-question" onclick="toggleFAQ(this)">
                     <span>What platforms do you integrate with?</span>
                     <svg class="faq-icon" viewBox="0 0 24 24">
-                        <path d="M19 9l-7 7-7-7"/>
+                        <path d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
                 <div class="faq-answer">
-                    <p>We specialize in WhatsApp Business API, Instagram, Facebook, and Shopify integrations. We can also integrate with most CRMs, email marketing platforms, payment gateways, and custom databases based on your specific needs.</p>
+                    <p>We specialize in WhatsApp Business API, Instagram, Facebook, and Shopify integrations. We can
+                        also integrate with most CRMs, email marketing platforms, payment gateways, and custom databases
+                        based on your specific needs.</p>
                 </div>
             </article>
 
@@ -1722,11 +1799,13 @@
                 <button class="faq-question" onclick="toggleFAQ(this)">
                     <span>Is my data secure?</span>
                     <svg class="faq-icon" viewBox="0 0 24 24">
-                        <path d="M19 9l-7 7-7-7"/>
+                        <path d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
                 <div class="faq-answer">
-                    <p>Yes! We use enterprise-grade encryption, secure cloud infrastructure, and follow industry best practices for data protection. We're compliant with GDPR and other data privacy regulations. Your customer data is never shared with third parties.</p>
+                    <p>Yes! We use enterprise-grade encryption, secure cloud infrastructure, and follow industry best
+                        practices for data protection. We're compliant with GDPR and other data privacy regulations.
+                        Your customer data is never shared with third parties.</p>
                 </div>
             </article>
 
@@ -1734,11 +1813,13 @@
                 <button class="faq-question" onclick="toggleFAQ(this)">
                     <span>What kind of support do you provide?</span>
                     <svg class="faq-icon" viewBox="0 0 24 24">
-                        <path d="M19 9l-7 7-7-7"/>
+                        <path d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
                 <div class="faq-answer">
-                    <p>We offer 24/7 technical support via WhatsApp and email. All custom service packages include dedicated support, regular maintenance, system monitoring, and priority bug fixes. We're always available to help optimize your automation.</p>
+                    <p>We offer 24/7 technical support via WhatsApp and email. All custom service packages include
+                        dedicated support, regular maintenance, system monitoring, and priority bug fixes. We're always
+                        available to help optimize your automation.</p>
                 </div>
             </article>
 
@@ -1746,11 +1827,13 @@
                 <button class="faq-question" onclick="toggleFAQ(this)">
                     <span>How much does custom automation cost?</span>
                     <svg class="faq-icon" viewBox="0 0 24 24">
-                        <path d="M19 9l-7 7-7-7"/>
+                        <path d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
                 <div class="faq-answer">
-                    <p>Pricing depends on the complexity and scope of your automation needs. We offer flexible pricing models including one-time setup fees with monthly maintenance, or complete packages. Contact us for a personalized quote based on your specific requirements.</p>
+                    <p>Pricing depends on the complexity and scope of your automation needs. We offer flexible pricing
+                        models including one-time setup fees with monthly maintenance, or complete packages. Contact us
+                        for a personalized quote based on your specific requirements.</p>
                 </div>
             </article>
 
@@ -1758,11 +1841,13 @@
                 <button class="faq-question" onclick="toggleFAQ(this)">
                     <span>Do you offer a trial or demo?</span>
                     <svg class="faq-icon" viewBox="0 0 24 24">
-                        <path d="M19 9l-7 7-7-7"/>
+                        <path d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
                 <div class="faq-answer">
-                    <p>Yes! We offer free consultation sessions where we demonstrate how automation can work for your business. For qualified leads, we can create a proof-of-concept to show exactly how the custom solution will function before full deployment.</p>
+                    <p>Yes! We offer free consultation sessions where we demonstrate how automation can work for your
+                        business. For qualified leads, we can create a proof-of-concept to show exactly how the custom
+                        solution will function before full deployment.</p>
                 </div>
             </article>
         </div>
@@ -1771,13 +1856,14 @@
     <section class="contact-section" id="contact">
         <div class="section-header">
             <h2 class="section-title">Get in Touch</h2>
-            <p class="section-subtitle">Let's discuss how we can build the perfect automation solution for your business</p>
+            <p class="section-subtitle">Let's discuss how we can build the perfect automation solution for your business
+            </p>
         </div>
 
         <div class="contact-container">
             <form class="contact-form" id="contactForm">
                 <div class="form-message" id="formMessage"></div>
-                
+
                 <div class="form-row">
                     <div class="form-group">
                         <label for="name">Full Name *</label>
@@ -1814,7 +1900,8 @@
 
                 <div class="form-group">
                     <label for="message">Tell us about your project *</label>
-                    <textarea id="message" name="message" required placeholder="Describe your automation needs, goals, and any specific requirements..."></textarea>
+                    <textarea id="message" name="message" required
+                        placeholder="Describe your automation needs, goals, and any specific requirements..."></textarea>
                 </div>
 
                 <button type="submit" class="submit-btn" id="submitBtn">
@@ -1836,16 +1923,21 @@
         <div class="team-grid">
             <article class="team-card">
                 <div class="team-image-wrapper">
-                    <img src="SaadFaisal.jpeg" alt="Saad Faisal Qureshi - Co-Founder & CEO of Sanestix" class="team-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <img src="SaadFaisal.jpeg" alt="Saad Faisal Qureshi - Co-Founder & CEO of Sanestix"
+                        class="team-image"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <div class="team-image-placeholder" style="display: none;">SF</div>
                 </div>
                 <div class="team-content">
                     <h3 class="team-name">Saad Faisal Qureshi</h3>
                     <p class="team-role">Co-Founder & CEO</p>
-                    <p class="team-description">Visionary entrepreneur with deep expertise in AI and custom business automation. </p>
-                    <a href="https://www.linkedin.com/in/saadfaisalqureshi" target="_blank" rel="noopener noreferrer" class="team-linkedin">
+                    <p class="team-description">Visionary entrepreneur with deep expertise in AI and custom business
+                        automation. </p>
+                    <a href="https://www.linkedin.com/in/saadfaisalqureshi" target="_blank" rel="noopener noreferrer"
+                        class="team-linkedin">
                         <svg class="linkedin-icon" viewBox="0 0 24 24" width="22" height="22">
-                            <path fill="currentColor" d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/>
+                            <path fill="currentColor"
+                                d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z" />
                         </svg>
                         Connect on LinkedIn
                     </a>
@@ -1854,16 +1946,20 @@
 
             <article class="team-card">
                 <div class="team-image-wrapper">
-                    <img src="abwbsid2.png" alt="Abdul Wahab Siddiqi - Co-Founder & COO of Sanestix" class="team-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <img src="abwbsid2.png" alt="Abdul Wahab Siddiqi - Co-Founder & COO of Sanestix" class="team-image"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <div class="team-image-placeholder" style="display: none;">AW</div>
                 </div>
                 <div class="team-content">
                     <h3 class="team-name">Abdul Wahab Siddiqi</h3>
                     <p class="team-role">Co-Founder & COO</p>
-                    <p class="team-description">Technology expert passionate about building scalable, custom automation solutions that drive real business results.</p>
-                    <a href="https://www.linkedin.com/in/abdulwahabsiddiqi" target="_blank" rel="noopener noreferrer" class="team-linkedin">
+                    <p class="team-description">Technology expert passionate about building scalable, custom automation
+                        solutions that drive real business results.</p>
+                    <a href="https://www.linkedin.com/in/abdulwahabsiddiqi" target="_blank" rel="noopener noreferrer"
+                        class="team-linkedin">
                         <svg class="linkedin-icon" viewBox="0 0 24 24" width="22" height="22">
-                            <path fill="currentColor" d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/>
+                            <path fill="currentColor"
+                                d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z" />
                         </svg>
                         Connect on LinkedIn
                     </a>
@@ -1876,35 +1972,46 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>Sanestix</h3>
-                <p>Building custom automation solutions for WhatsApp, Instagram, and Shopify. Empowering businesses with tailored technology that scales efficiently.</p>
+                <p>Building custom automation solutions for WhatsApp, Instagram, and Shopify. Empowering businesses with
+                    tailored technology that scales efficiently.</p>
                 <div class="social-links">
-                    <a href="https://wa.me/923014422951" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                    <a href="https://wa.me/923014422951" class="social-link" target="_blank" rel="noopener noreferrer"
+                        aria-label="WhatsApp">
                         <svg class="social-icon" viewBox="0 0 24 24">
-                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                            <path
+                                d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                            </path>
                         </svg>
                     </a>
-                    <a href="https://www.instagram.com/sanestix" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <a href="https://www.instagram.com/sanestix" class="social-link" target="_blank"
+                        rel="noopener noreferrer" aria-label="Instagram">
                         <svg class="social-icon" viewBox="0 0 24 24">
                             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                             <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                         </svg>
                     </a>
-                    <a href="https://www.linkedin.com/company/sanestix" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <a href="https://www.linkedin.com/company/sanestix" class="social-link" target="_blank"
+                        rel="noopener noreferrer" aria-label="LinkedIn">
                         <svg class="social-icon" viewBox="0 0 24 24">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                            </path>
                             <rect x="2" y="9" width="4" height="12"></rect>
                             <circle cx="4" cy="4" r="2"></circle>
                         </svg>
                     </a>
-                    <a href="https://www.facebook.com/share/14M3fAXpuSW/" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                    <a href="https://www.facebook.com/share/14M3fAXpuSW/" class="social-link" target="_blank"
+                        rel="noopener noreferrer" aria-label="Facebook">
                         <svg class="social-icon" viewBox="0 0 24 24">
                             <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
                         </svg>
                     </a>
-                    <a href="https://x.com/sanestix_" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                    <a href="https://x.com/sanestix_" class="social-link" target="_blank" rel="noopener noreferrer"
+                        aria-label="Twitter">
                         <svg class="social-icon" viewBox="0 0 24 24">
-                            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                            <path
+                                d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+                            </path>
                         </svg>
                     </a>
                 </div>
@@ -1955,7 +2062,7 @@
 
     <button class="scroll-top" id="scrollTop" onclick="scrollToTop()" aria-label="Scroll to top">
         <svg viewBox="0 0 24 24">
-            <path d="M18 15l-6-6-6 6"/>
+            <path d="M18 15l-6-6-6 6" />
         </svg>
     </button>
 
@@ -2003,7 +2110,7 @@
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
+
             particles.forEach(particle => {
                 particle.update();
                 particle.draw();
@@ -2041,7 +2148,7 @@
             const body = document.body;
             const themeIcon = document.getElementById('themeIcon');
             const currentTheme = body.getAttribute('data-theme');
-            
+
             if (currentTheme === 'dark') {
                 body.setAttribute('data-theme', 'light');
                 localStorage.setItem('theme', 'light');
@@ -2056,9 +2163,9 @@
         window.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('theme') || 'dark';
             const themeIcon = document.getElementById('themeIcon');
-            
+
             document.body.setAttribute('data-theme', savedTheme);
-            
+
             if (savedTheme === 'light') {
                 themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
             }
@@ -2077,7 +2184,7 @@
         function toggleFAQ(element) {
             const answer = element.nextElementSibling;
             const icon = element.querySelector('.faq-icon');
-            
+
             // Close all other FAQs
             document.querySelectorAll('.faq-answer').forEach(otherAnswer => {
                 if (otherAnswer !== answer) {
@@ -2085,17 +2192,17 @@
                     otherAnswer.previousElementSibling.querySelector('.faq-icon').classList.remove('active');
                 }
             });
-            
+
             // Toggle current FAQ
             answer.classList.toggle('active');
             icon.classList.toggle('active');
         }
 
         // Scroll Effects
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             const navbar = document.getElementById('navbar');
             const scrollTop = document.getElementById('scrollTop');
-            
+
             if (window.scrollY > 50) {
                 navbar.classList.add('scrolled');
             } else {
@@ -2132,16 +2239,16 @@
         }
 
         // Contact Form Handler
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             const submitBtn = document.getElementById('submitBtn');
             const formMessage = document.getElementById('formMessage');
-            
+
             // Disable submit button
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<span>Sending...</span>';
-            
+
             // Get form data
             const formData = {
                 name: document.getElementById('name').value,
@@ -2151,20 +2258,20 @@
                 company: document.getElementById('company').value,
                 message: document.getElementById('message').value
             };
-            
+
             // Simulate form submission (replace with actual API call)
             setTimeout(() => {
                 // Show success message
                 formMessage.className = 'form-message success';
                 formMessage.textContent = 'Thank you! Your message has been sent successfully. We\'ll get back to you within 24 hours.';
-                
+
                 // Reset form
                 this.reset();
-                
+
                 // Re-enable submit button
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path></svg> Send Message';
-                
+
                 // Hide message after 5 seconds
                 setTimeout(() => {
                     formMessage.className = 'form-message';
@@ -2195,4 +2302,5 @@
         });
     </script>
 </body>
+
 </html>
