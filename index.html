@@ -1,2393 +1,1167 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sanestix - Custom Automation Solutions | WhatsApp & Instagram Automation Services</title>
-
-    <!-- SEO Meta Tags -->
-    <meta name="description"
-        content="Custom automation services for WhatsApp, Instagram, and Shopify. Scale your business with tailored automation solutions. 24/7 automated support, 100% custom built.">
-    <meta name="keywords"
-        content="WhatsApp automation, Instagram automation, Shopify integration, custom automation, business automation, chatbot, auto-reply, social media automation">
-    <meta name="author" content="Sanestix">
-    <meta name="robots" content="index, follow">
-
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Sanestix - Custom Automation Solutions">
-    <meta property="og:description"
-        content="Custom automation services for WhatsApp, Instagram, and Shopify. Scale your business with tailored automation solutions.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.sanestix.com/">
-    <meta property="og:image" content="https://www.sanestix.com/og-image.jpg">
-
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Sanestix - Custom Automation Solutions">
-    <meta name="twitter:description" content="Custom automation services for WhatsApp, Instagram, and Shopify.">
-    <meta name="twitter:image" content="https://www.sanestix.com/twitter-image.jpg">
-
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://www.sanestix.com/">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="favicon.png">
-
-    <!-- Structured Data (JSON-LD) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Sanestix",
-      "url": "https://www.sanestix.com",
-      "logo": "https://www.sanestix.com/LOGO.png",
-      "description": "Custom automation solutions for WhatsApp, Instagram, and Shopify",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Lahore",
-        "addressRegion": "Punjab",
-        "addressCountry": "PK"
-      },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+92-301-4422951",
-        "contactType": "Customer Service",
-        "email": "contact@sanestix.com"
-      },
-      "sameAs": [
-        "https://www.instagram.com/sanestix",
-        "https://www.linkedin.com/company/sanestix",
-        "https://www.facebook.com/share/14M3fAXpuSW/",
-        "https://x.com/sanestix_"
-      ],
-      "founder": [
-        {
-          "@type": "Person",
-          "name": "Saad Faisal Qureshi",
-          "jobTitle": "Co-Founder & CEO"
-        },
-        {
-          "@type": "Person",
-          "name": "Abdul Wahab Siddiqi",
-          "jobTitle": "Co-Founder & COO"
-        }
-      ]
-    }
-    </script>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            /* Dark Theme (Default) - Futuristic Cyan/Blue */
-            --bg-primary: #050a0e;
-            --bg-secondary: #0a1116;
-            --bg-card: #0d1419;
-            --text-primary: #e8f4f8;
-            --text-secondary: #8b9da6;
-            --accent: #00d9ff;
-            --accent-hover: #00f0ff;
-            --accent-secondary: #0099cc;
-            --border: rgba(0, 217, 255, 0.15);
-            --shadow: rgba(0, 217, 255, 0.2);
-            --glow: rgba(0, 217, 255, 0.4);
-        }
-
-        [data-theme="light"] {
-            --bg-primary: #f8fbfc;
-            --bg-secondary: #ffffff;
-            --bg-card: #ffffff;
-            --text-primary: #0a1116;
-            --text-secondary: #4a5c66;
-            --accent: #0099cc;
-            --accent-hover: #007aa3;
-            --accent-secondary: #00b8e6;
-            --border: rgba(0, 153, 204, 0.2);
-            --shadow: rgba(0, 153, 204, 0.15);
-            --glow: rgba(0, 153, 204, 0.3);
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            overflow-x: hidden;
-        }
-
-        /* Animated Background */
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.04;
-            pointer-events: none;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(5, 10, 14, 0.85);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem 5%;
-            z-index: 1000;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-        }
-
-        [data-theme="light"] nav {
-            background: rgba(5, 10, 14, 0.95);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        nav.scrolled {
-            padding: 0.7rem 5%;
-            box-shadow: 0 4px 30px var(--shadow);
-        }
-
-        .nav-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            transition: transform 0.3s ease;
-        }
-
-        .logo-container:hover {
-            transform: scale(1.05);
-        }
-
-        .logo-image {
-            width: 120px;
-            height: auto;
-            max-height: 50px;
-            object-fit: contain;
-            display: block;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: #e8f4f8;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 0.5rem 0;
-        }
-
-        .nav-links a:hover {
-            transform: translateY(-2px);
-        }
-
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-            box-shadow: 0 0 10px var(--accent);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .theme-toggle {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .theme-toggle:hover {
-            border-color: var(--accent);
-            transform: scale(1.05) rotate(15deg);
-            box-shadow: 0 0 20px var(--glow);
-        }
-
-        .theme-icon {
-            width: 24px;
-            height: 24px;
-            stroke: var(--accent);
-            fill: none;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .mobile-toggle {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-
-        .mobile-toggle svg {
-            width: 28px;
-            height: 28px;
-            stroke: #e8f4f8;
-        }
-
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 70px;
-            left: 0;
-            width: 100%;
-            background: var(--bg-primary);
-            border-bottom: 1px solid var(--border);
-            padding: 2rem;
-            z-index: 999;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .mobile-menu.active {
-            display: block;
-        }
-
-        .mobile-menu ul {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .mobile-menu a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: 500;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8rem 5% 4rem;
-            background: var(--bg-primary);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 80%;
-            height: 150%;
-            background: radial-gradient(circle, rgba(0, 217, 255, 0.08) 0%, transparent 70%);
-            animation: float 20s ease-in-out infinite;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: -50%;
-            left: -20%;
-            width: 80%;
-            height: 150%;
-            background: radial-gradient(circle, rgba(0, 153, 204, 0.06) 0%, transparent 70%);
-            animation: float 25s ease-in-out infinite reverse;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-
-            33% {
-                transform: translate(30px, -30px) rotate(5deg);
-            }
-
-            66% {
-                transform: translate(-20px, 20px) rotate(-5deg);
-            }
-        }
-
-        .hero-content {
-            max-width: 1200px;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.6rem 1.5rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 50px;
-            margin-bottom: 2rem;
-            font-size: 0.9rem;
-            color: var(--accent);
-            animation: slideDown 0.8s ease, glow 2s ease-in-out infinite alternate;
-            box-shadow: 0 0 30px var(--glow);
-        }
-
-        .hero-badge-icon {
-            width: 20px;
-            height: 20px;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-
-            50% {
-                transform: scale(1.1);
-                opacity: 0.8;
-            }
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 6.5rem);
-            font-weight: 900;
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-            color: var(--text-primary);
-            animation: slideUp 0.8s ease;
-        }
-
-        .hero-highlight {
-            position: relative;
-            display: inline-block;
-            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: shimmer 3s ease-in-out infinite;
-            background-size: 200% auto;
-        }
-
-
-        .hero p {
-            font-size: clamp(1rem, 3vw, 1.6rem);
-            color: var(--text-secondary);
-            margin-bottom: 3rem;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            animation: fadeIn 0.8s ease 0.3s backwards;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes glow {
-            from {
-                box-shadow: 0 0 20px var(--glow);
-            }
-
-            to {
-                box-shadow: 0 0 40px var(--glow), 0 0 60px rgba(0, 217, 255, 0.2);
-            }
-        }
-
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 5rem;
-            animation: fadeIn 0.8s ease 0.6s backwards;
-        }
-
-        .btn-primary {
-            padding: 1.2rem 3rem;
-            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 30px var(--glow);
-        }
-
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn-primary:hover::before {
-            left: 100%;
-        }
-
-        .btn-primary:hover .btn-icon,
-        .btn-secondary:hover .btn-icon {
-            transform: translateX(5px);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px var(--glow);
-        }
-
-        .btn-secondary {
-            padding: 1.2rem 3rem;
-            background: transparent;
-            color: var(--accent);
-            border: 2px solid var(--accent);
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-secondary:hover {
-            background: var(--accent);
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 0 30px var(--glow);
-        }
-
-        .btn-icon {
-            width: 20px;
-            height: 20px;
-            transition: transform 0.3s ease;
-        }
-
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            max-width: 1000px;
-            margin: 0 auto;
-            animation: fadeIn 0.8s ease 0.9s backwards;
-        }
-
-        .stat-card {
-            padding: 2rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:nth-child(1) {
-            animation-delay: 1s;
-        }
-
-        .stat-card:nth-child(2) {
-            animation-delay: 1.1s;
-        }
-
-        .stat-card:nth-child(3) {
-            animation-delay: 1.2s;
-        }
-
-        .stat-card:nth-child(4) {
-            animation-delay: 1.3s;
-        }
-
-        .stat-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px var(--shadow), 0 0 40px var(--glow);
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            color: var(--text-secondary);
-            font-size: 1rem;
-        }
-
-        /* Section Styling */
-        section {
-            padding: 6rem 5%;
-            position: relative;
-        }
-
-        .section-alt {
-            background: var(--bg-secondary);
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .section-header.animate {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 5vw, 4rem);
-            font-weight: 900;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--text-primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .section-subtitle {
-            font-size: clamp(1rem, 3vw, 1.3rem);
-            color: var(--text-secondary);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        /* Products/Services Grid */
-        .products-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .product-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 3rem 2.5rem;
-            transition: all 0.4s ease;
-            text-align: center;
-        }
-
-        .product-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-10px);
-            box-shadow: 0 20px 60px var(--shadow), 0 0 50px var(--glow);
-        }
-
-        .product-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            transition: all 0.4s ease;
-            box-shadow: 0 0 30px var(--glow);
-        }
-
-        .product-card:hover .product-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .product-icon svg {
-            width: 40px;
-            height: 40px;
-            stroke: white;
-            fill: none;
-            stroke-width: 2;
-        }
-
-        .product-badge {
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            background: rgba(0, 217, 255, 0.1);
-            border: 1px solid var(--accent);
-            border-radius: 20px;
-            color: var(--accent);
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .product-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
-        .product-description {
-            color: var(--text-secondary);
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        .product-features {
-            list-style: none;
-            text-align: left;
-            margin-bottom: 2rem;
-        }
-
-        .product-features li {
-            color: var(--text-secondary);
-            padding: 0.6rem 0;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .product-features li svg {
-            width: 20px;
-            height: 20px;
-            stroke: var(--accent);
-            flex-shrink: 0;
-        }
-
-        .product-cta {
-            width: 100%;
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .product-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px var(--glow);
-        }
-
-        /* Workflow Section */
-        .workflow-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .workflow-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 3rem;
-            position: relative;
-        }
-
-        .workflow-step {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 3rem 2.5rem;
-            text-align: center;
-            transition: all 0.4s ease;
-            position: relative;
-        }
-
-        .workflow-step:hover {
-            border-color: var(--accent);
-            transform: translateY(-10px);
-            box-shadow: 0 20px 60px var(--shadow), 0 0 50px var(--glow);
-        }
-
-        .workflow-number {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 2rem;
-            font-weight: 900;
-            color: white;
-            box-shadow: 0 0 30px var(--glow);
-            transition: all 0.4s ease;
-        }
-
-        .workflow-step:hover .workflow-number {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .workflow-icon {
-            width: 60px;
-            height: 60px;
-            background: rgba(0, 217, 255, 0.1);
-            border: 2px solid var(--accent);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            transition: all 0.4s ease;
-        }
-
-        .workflow-step:hover .workflow-icon {
-            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-            transform: scale(1.05);
-        }
-
-        .workflow-icon svg {
-            width: 30px;
-            height: 30px;
-            stroke: var(--accent);
-            fill: none;
-            stroke-width: 2;
-            transition: all 0.4s ease;
-        }
-
-        .workflow-step:hover .workflow-icon svg {
-            stroke: white;
-        }
-
-        .workflow-step h3 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
-        .workflow-step p {
-            color: var(--text-secondary);
-            line-height: 1.8;
-            font-size: 1.05rem;
-        }
-
-        @media (min-width: 900px) {
-            .workflow-steps::before {
-                content: '';
-                position: absolute;
-                top: 35px;
-                left: 15%;
-                right: 15%;
-                height: 2px;
-                background: linear-gradient(90deg, var(--accent), var(--accent-secondary), var(--accent));
-                opacity: 0.3;
-                z-index: 0;
-            }
-
-            .workflow-step {
-                position: relative;
-                z-index: 1;
-            }
-        }
-
-        /* Team Section */
-        .team-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-        }
-
-        .team-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            overflow: hidden;
-            transition: all 0.4s ease;
-        }
-
-        .team-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-10px);
-            box-shadow: 0 20px 60px var(--shadow), 0 0 50px var(--glow);
-        }
-
-        .team-image-wrapper {
-            width: 100%;
-            height: 280px;
-            overflow: hidden;
-            position: relative;
-            background: var(--bg-secondary);
-        }
-
-        .team-image-wrapper::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 100px;
-            background: linear-gradient(to top, var(--bg-card), transparent);
-        }
-
-        .team-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center top;
-            transition: transform 0.4s ease;
-        }
-
-        .team-card:hover .team-image {
-            transform: scale(1.05);
-        }
-
-        .team-image-placeholder {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 6rem;
-            font-weight: 800;
-            color: white;
-        }
-
-        .team-content {
-            padding: 2.5rem;
-            text-align: center;
-        }
-
-        .team-name {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-
-        .team-role {
-            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 1.2rem;
-        }
-
-        .team-description {
-            color: var(--text-secondary);
-            line-height: 1.8;
-            margin-bottom: 2rem;
-            font-size: 1.05rem;
-        }
-
-        .team-linkedin {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 0.9rem 2rem;
-            background: transparent;
-            border: 2px solid var(--accent);
-            border-radius: 12px;
-            color: var(--accent);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-weight: 600;
-        }
-
-        .team-linkedin:hover {
-            background: var(--accent);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 0 30px var(--glow);
-        }
-
-        /* FAQ Section */
-        .faq-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            margin-bottom: 1.5rem;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .faq-item:hover {
-            border-color: var(--accent);
-            box-shadow: 0 5px 20px var(--shadow);
-        }
-
-        .faq-question {
-            width: 100%;
-            padding: 1.8rem;
-            background: transparent;
-            border: none;
-            color: var(--text-primary);
-            font-size: 1.2rem;
-            font-weight: 600;
-            text-align: left;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            transition: color 0.3s ease;
-        }
-
-        .faq-question:hover {
-            color: var(--accent);
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease, padding 0.3s ease;
-        }
-
-        .faq-answer.active {
-            max-height: 500px;
-            padding: 0 1.8rem 1.8rem;
-        }
-
-        .faq-answer p {
-            color: var(--text-secondary);
-            line-height: 1.8;
-        }
-
-        .faq-icon {
-            width: 24px;
-            height: 24px;
-            stroke: var(--accent);
-            fill: none;
-            stroke-width: 2;
-            transition: transform 0.3s ease;
-            flex-shrink: 0;
-        }
-
-        .faq-icon.active {
-            transform: rotate(180deg);
-        }
-
-        /* Contact Form Section */
-        .contact-section {
-            background: var(--bg-secondary);
-        }
-
-        .contact-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .contact-form {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 3rem;
-        }
-
-        .form-group {
-            margin-bottom: 2rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 1rem 1.5rem;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            color: var(--text-primary);
-            font-size: 1rem;
-            font-family: inherit;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(0, 217, 255, 0.1);
-        }
-
-        .form-group textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 1.3rem 3rem;
-            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px var(--glow);
-        }
-
-        .submit-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .form-message {
-            padding: 1rem;
-            border-radius: 12px;
-            margin-bottom: 2rem;
-            text-align: center;
-            display: none;
-        }
-
-        .form-message.success {
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid #22c55e;
-            color: #22c55e;
-            display: block;
-        }
-
-        .form-message.error {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid #ef4444;
-            color: #ef4444;
-            display: block;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border);
-            padding: 4rem 5% 2rem;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-section h3 {
-            font-size: 1.3rem;
-            color: var(--text-primary);
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-        }
-
-        .footer-section p {
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 1rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            display: inline-block;
-        }
-
-        .footer-links a:hover {
-            color: var(--accent);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .social-link {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .social-link:hover {
-            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-            border-color: var(--accent);
-            transform: translateY(-5px);
-            box-shadow: 0 0 30px var(--glow);
-        }
-
-        .social-link:hover svg {
-            stroke: white;
-        }
-
-        .social-icon {
-            width: 22px;
-            height: 22px;
-            stroke: var(--accent);
-            fill: none;
-            stroke-width: 2;
-        }
-
-        .footer-bottom {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-            text-align: center;
-        }
-
-        .footer-bottom p {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-        }
-
-        .footer-legal {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-
-        .footer-legal a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-legal a:hover {
-            color: var(--accent);
-        }
-
-        /* Scroll to top button */
-        .scroll-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 55px;
-            height: 55px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            z-index: 999;
-            box-shadow: 0 5px 20px var(--shadow), 0 0 30px var(--glow);
-        }
-
-        .scroll-top:hover {
-            transform: translateY(-5px) rotate(360deg);
-            box-shadow: 0 10px 30px var(--shadow), 0 0 40px var(--glow);
-        }
-
-        .scroll-top.visible {
-            display: flex;
-        }
-
-        .scroll-top svg {
-            width: 24px;
-            height: 24px;
-            stroke: white;
-            fill: none;
-            stroke-width: 2.5;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .mobile-toggle {
-                display: block;
-            }
-
-            .nav-right {
-                gap: 1rem;
-            }
-
-            .logo-image {
-                width: 100px;
-                max-height: 40px;
-            }
-
-            section {
-                padding: 4rem 5%;
-            }
-
-            .hero {
-                padding: 6rem 5% 3rem;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .btn-primary,
-            .btn-secondary {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1.5rem;
-            }
-
-            .stat-number {
-                font-size: 2.5rem;
-            }
-
-            .products-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .workflow-steps {
-                grid-template-columns: 1fr;
-            }
-
-            .team-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .team-image-wrapper {
-                height: 250px;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .contact-form {
-                padding: 2rem;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .social-links {
-                justify-content: center;
-            }
-
-            .footer-legal {
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
-            }
-
-            .faq-question {
-                font-size: 1.1rem;
-                padding: 1.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .team-image-wrapper {
-                height: 220px;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sanestix - Custom Automation Solutions | WhatsApp & Instagram Automation Services</title>
+<meta name="description" content="Custom automation services for WhatsApp, Instagram, and Shopify. Scale your business with tailored automation solutions. 24/7 automated support, 100% custom built.">
+<meta name="keywords" content="WhatsApp automation, Instagram automation, Shopify integration, custom automation, business automation, chatbot, auto-reply, social media automation">
+<meta name="author" content="Sanestix">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Sanestix - Custom Automation Solutions">
+<meta property="og:description" content="Custom automation services for WhatsApp, Instagram, and Shopify. Scale your business with tailored automation solutions.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.sanestix.com/">
+<meta property="og:image" content="https://www.sanestix.com/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sanestix - Custom Automation Solutions">
+<meta name="twitter:description" content="Custom automation services for WhatsApp, Instagram, and Shopify.">
+<link rel="canonical" href="https://www.sanestix.com/">
+<link rel="icon" type="image/png" href="favicon.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"Sanestix","url":"https://www.sanestix.com","logo":"https://www.sanestix.com/LOGO.png","description":"Custom automation solutions for WhatsApp, Instagram, and Shopify","address":{"@type":"PostalAddress","addressLocality":"Lahore","addressRegion":"Punjab","addressCountry":"PK"},"contactPoint":{"@type":"ContactPoint","telephone":"+92-301-4422951","contactType":"Customer Service","email":"contact@sanestix.com"},"sameAs":["https://www.instagram.com/sanestix","https://www.linkedin.com/company/sanestix","https://www.facebook.com/share/14M3fAXpuSW/","https://x.com/sanestix_"],"founder":[{"@type":"Person","name":"Saad Faisal Qureshi","jobTitle":"Co-Founder & CEO"},{"@type":"Person","name":"Abdul Wahab Siddiqi","jobTitle":"Co-Founder & COO"}]}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --cyan: #00e5d0;
+  --cyan2: #00b8e6;
+  --bg: #060b14;
+  --bg2: #0a1120;
+  --card: rgba(10,20,40,0.85);
+  --border: rgba(0,229,208,0.12);
+  --border2: rgba(0,229,208,0.25);
+  --text: #e8f4f8;
+  --muted: #5e7d90;
+  --glow: 0 0 40px rgba(0,229,208,0.25);
+  --glow2: 0 0 80px rgba(0,229,208,0.12);
+}
+
+html{scroll-behavior:smooth}
+body{
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Sora', sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ── ANTI-GRAVITY CANVAS ── */
+#gravCanvas{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ── LAYOUT ── */
+.container{max-width:1200px;margin:0 auto;padding:0 2rem}
+section{position:relative;z-index:1}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:1.2rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:all .4s;
+}
+nav.scrolled{
+  background:rgba(6,11,20,0.9);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.logo{
+  display:flex;align-items:center;gap:.6rem;
+  font-family:'Sora',sans-serif;font-weight:800;font-size:1.25rem;
+  letter-spacing:-.02em;color:var(--text);text-decoration:none;
+}
+.logo-icon{
+  width:36px;height:36px;border-radius:10px;
+  background:linear-gradient(135deg,var(--cyan),var(--cyan2));
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--glow);
+  font-size:1rem;
+}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--cyan)}
+.nav-cta{
+  padding:.65rem 1.5rem;border-radius:100px;
+  background:linear-gradient(135deg,var(--cyan),var(--cyan2));
+  color:#060b14;font-weight:700;font-size:.875rem;
+  text-decoration:none;transition:transform .2s,box-shadow .2s;
+  box-shadow:var(--glow);
+}
+.nav-cta:hover{transform:scale(1.05);box-shadow:0 0 60px rgba(0,229,208,0.4)}
+.hamburger{display:none;background:none;border:none;cursor:pointer;color:var(--text)}
+.mobile-menu{
+  display:none;
+  position:fixed;top:72px;left:0;right:0;
+  background:rgba(6,11,20,0.98);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);padding:1.5rem 2rem;
+  flex-direction:column;gap:1.2rem;z-index:99;
+}
+.mobile-menu a{color:var(--muted);text-decoration:none;font-size:1rem;font-weight:500}
+.mobile-menu a:hover{color:var(--cyan)}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding:8rem 0 4rem;overflow:hidden;
+}
+.hero-inner{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:4rem;align-items:center;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.4rem 1rem;border-radius:100px;
+  border:1px solid var(--border2);
+  background:rgba(0,229,208,0.06);
+  color:var(--cyan);font-size:.75rem;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:1.5rem;
+}
+.pulse{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--cyan);
+  animation:pulseAnim 2s ease-in-out infinite;
+}
+@keyframes pulseAnim{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+
+h1{
+  font-family:'Sora',sans-serif;font-weight:800;
+  font-size:clamp(3rem,5.5vw,5rem);
+  line-height:1.0;letter-spacing:-.04em;
+  margin-bottom:1.25rem;
+  
+}
+.grad{
+  background:linear-gradient(135deg,var(--cyan) 0%,var(--cyan2) 60%,#00b0d4 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-sub{
+  color:var(--muted);font-size:1.05rem;line-height:1.7;
+  max-width:480px;margin-bottom:2.5rem;
+}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.85rem 1.75rem;border-radius:100px;
+  background:linear-gradient(135deg,var(--cyan),var(--cyan2));
+  color:#060b14;font-weight:700;font-size:.9rem;
+  text-decoration:none;box-shadow:var(--glow);
+  transition:transform .2s,box-shadow .2s;
+}
+.btn-primary:hover{transform:scale(1.05);box-shadow:0 0 60px rgba(0,229,208,.4)}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.85rem 1.75rem;border-radius:100px;
+  border:1px solid var(--border2);color:var(--muted);
+  font-size:.9rem;text-decoration:none;
+  transition:border-color .2s,color .2s;
+}
+.btn-ghost:hover{border-color:var(--cyan);color:var(--cyan)}
+.platform-pills{display:flex;gap:1.5rem;flex-wrap:wrap}
+.platform-pill{
+  display:flex;align-items:center;gap:.4rem;
+  color:rgba(94,125,144,.7);font-size:.8rem;font-weight:500;
+}
+.platform-pill svg{color:var(--cyan);opacity:.8}
+
+/* ── ROBOT / HERO RIGHT ── */
+.hero-visual{position:relative;display:flex;justify-content:center;align-items:center}
+.robot-wrap{
+  position:relative;z-index:2;
+  animation:floatMain 7s ease-in-out infinite;
+}
+@keyframes floatMain{
+  0%,100%{transform:translateY(0) rotate(0deg)}
+  33%{transform:translateY(-20px) rotate(.8deg)}
+  66%{transform:translateY(-8px) rotate(-.5deg)}
+}
+.robot-img{width:420px;max-width:90%;display:block}
+.robot-glow{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 60% at 50% 60%,rgba(0,229,208,.18) 0%,transparent 70%);
+  pointer-events:none;animation:glowPulse 4s ease-in-out infinite;
+}
+@keyframes glowPulse{0%,100%{opacity:.8;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+
+/* Orbiting tech dots */
+.orbit-ring{
+  position:absolute;border-radius:50%;border:1px dashed rgba(0,229,208,.15);
+  top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;
+}
+.orbit-ring:nth-child(1){width:320px;height:320px;animation:spin 18s linear infinite}
+.orbit-ring:nth-child(2){width:460px;height:460px;animation:spin 28s linear infinite reverse}
+.orbit-ring:nth-child(3){width:580px;height:580px;animation:spin 40s linear infinite}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.orbit-dot{
+  position:absolute;width:8px;height:8px;border-radius:50%;
+  background:var(--cyan);box-shadow:0 0 12px var(--cyan);
+  top:-4px;left:50%;margin-left:-4px;
+}
+.orbit-dot2{
+  position:absolute;width:6px;height:6px;border-radius:50%;
+  background:var(--cyan2);box-shadow:0 0 10px var(--cyan2);
+  bottom:-3px;right:20%;
+}
+.orbit-dot3{
+  position:absolute;width:5px;height:5px;border-radius:50%;
+  background:#fff;box-shadow:0 0 8px rgba(255,255,255,.5);
+  top:20%;right:-3px;
+}
+
+/* ── STATS ── */
+.stats{
+  padding:5rem 0;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
+.stat-val{
+  font-family:'Sora',sans-serif;font-weight:800;
+  font-size:clamp(2rem,4vw,3rem);
+  background:linear-gradient(135deg,var(--cyan),var(--cyan2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;margin-bottom:.3rem;
+}
+.stat-label{color:var(--muted);font-size:.875rem;font-weight:500}
+
+/* ── SECTION HEADER ── */
+.section-header{text-align:center;margin-bottom:4rem}
+.section-tag{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.4rem 1rem;border-radius:100px;
+  border:1px solid var(--border2);background:rgba(0,229,208,.05);
+  color:var(--cyan);font-size:.78rem;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.2rem;
+}
+h2{
+  font-family:'Sora',sans-serif;font-weight:800;
+  font-size:clamp(2.2rem,3.5vw,3.2rem);letter-spacing:-.04em;
+  line-height:1.05;margin-bottom:1rem;
+  
+}
+.section-desc{color:var(--muted);max-width:520px;margin:0 auto;line-height:1.7;font-size:.95rem}
+
+/* ── SERVICES ── */
+.services{padding:6rem 0}
+.services-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.service-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:20px;padding:2.25rem;
+  backdrop-filter:blur(12px);
+  transition:border-color .3s,transform .3s,box-shadow .3s;
+  position:relative;overflow:hidden;
+}
+.service-card::before{
+  content:'';position:absolute;inset:0;opacity:0;
+  background:radial-gradient(ellipse 80% 60% at 0% 0%,rgba(0,229,208,.06) 0%,transparent 60%);
+  transition:opacity .3s;pointer-events:none;
+}
+.service-card:hover{border-color:var(--border2);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,229,208,.08)}
+.service-card:hover::before{opacity:1}
+.card-tag{
+  display:inline-block;font-size:.75rem;font-weight:600;
+  padding:.3rem .85rem;border-radius:100px;margin-bottom:1.5rem;
+}
+.card-tag.primary{background:rgba(0,229,208,.12);color:var(--cyan)}
+.card-tag.muted{background:rgba(94,125,144,.15);color:var(--muted)}
+.card-icon-wrap{
+  width:48px;height:48px;border-radius:14px;
+  background:rgba(0,229,208,.1);display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.25rem;transition:background .3s;flex-shrink:0;
+}
+.service-card:hover .card-icon-wrap{background:rgba(0,229,208,.18)}
+.card-title{
+  font-family:'Sora',sans-serif;font-weight:700;font-size:1.25rem;
+  margin-bottom:.5rem;
+}
+.card-desc{color:var(--muted);font-size:.875rem;line-height:1.7;margin-bottom:1.25rem}
+.card-features{list-style:none;margin-bottom:1.75rem;display:flex;flex-direction:column;gap:.5rem}
+.card-features li{
+  display:flex;align-items:center;gap:.5rem;
+  font-size:.85rem;color:var(--muted);
+}
+.check{color:var(--cyan);flex-shrink:0;width:16px;height:16px}
+.card-cta{
+  color:var(--cyan);font-size:.875rem;font-weight:600;
+  text-decoration:none;display:inline-flex;align-items:center;gap:.3rem;
+  transition:gap .2s;
+}
+.card-cta:hover{gap:.6rem}
+
+/* ── WORKFLOW ── */
+.workflow{padding:6rem 0;background:var(--bg2)}
+.workflow-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.step-card{
+  background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2rem;
+  position:relative;overflow:hidden;
+  transition:border-color .3s,transform .3s;
+}
+.step-card:hover{border-color:var(--border2);transform:translateY(-4px)}
+.step-num{
+  position:absolute;top:1.25rem;right:1.25rem;
+  font-family:'Sora',sans-serif;font-size:2.5rem;font-weight:800;
+  color:rgba(0,229,208,.06);line-height:1;pointer-events:none;
+  transition:color .3s;
+}
+.step-card:hover .step-num{color:rgba(0,229,208,.1)}
+.step-icon{
+  width:48px;height:48px;border-radius:14px;
+  background:rgba(0,229,208,.1);display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.25rem;transition:background .3s;
+}
+.step-card:hover .step-icon{background:rgba(0,229,208,.18)}
+.step-title{font-family:'Sora',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:.5rem}
+.step-desc{color:var(--muted);font-size:.85rem;line-height:1.7}
+
+/* ── FAQ ── */
+.faq{padding:6rem 0}
+.faq-list{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:.75rem}
+.faq-item{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;
+  transition:border-color .3s;
+}
+.faq-item.open{border-color:var(--border2)}
+.faq-q{
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+  padding:1.3rem 1.5rem;background:none;border:none;cursor:pointer;
+  color:var(--text);font-size:.95rem;font-weight:600;text-align:left;
+  gap:1rem;transition:color .2s;
+  font-family:'Sora',sans-serif;
+}
+.faq-q:hover{color:var(--cyan)}
+.faq-icon{
+  flex-shrink:0;width:20px;height:20px;
+  color:var(--muted);transition:transform .3s,color .3s;
+}
+.faq-item.open .faq-icon{transform:rotate(180deg);color:var(--cyan)}
+.faq-a{
+  max-height:0;overflow:hidden;transition:max-height .35s ease,padding .3s;
+  padding:0 1.5rem;
+}
+.faq-a p{color:var(--muted);font-size:.875rem;line-height:1.75;padding-bottom:1.3rem}
+.faq-item.open .faq-a{max-height:200px}
+
+/* ── TEAM ── */
+.team{padding:6rem 0;background:var(--bg2)}
+.team-cards{
+  display:flex;gap:1.5rem;max-width:960px;margin:0 auto;
+  flex-wrap:wrap;justify-content:center;
+}
+.team-card{
+  flex:1;min-width:300px;max-width:440px;
+  border-radius:24px;overflow:hidden;position:relative;
+  border:1px solid var(--border);
+  transition:border-color .4s,transform .4s;cursor:default;
+}
+.team-card:hover{border-color:var(--border2);transform:translateY(-6px)}
+.team-photo{
+  height:500px;overflow:hidden;position:relative;
+}
+.team-photo img{
+  width:100%;height:100%;object-fit:cover;object-position:top;
+  transform:scale(1.05);transition:transform .7s;
+}
+.team-card:hover .team-photo img{transform:scale(1)}
+.team-photo-fallback{
+  width:100%;height:100%;
+  background:linear-gradient(135deg,var(--bg2),var(--bg));
+  display:flex;align-items:center;justify-content:center;
+}
+.team-initials{
+  font-family:'Sora',sans-serif;font-weight:800;font-size:5rem;
+  background:linear-gradient(135deg,var(--cyan),var(--cyan2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.team-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(6,11,20,1) 0%,rgba(6,11,20,.5) 45%,transparent 100%);
+}
+.team-accent{
+  position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(to bottom,transparent,var(--cyan),transparent);
+  opacity:0;transition:opacity .5s;
+}
+.team-card:hover .team-accent{opacity:1}
+.team-info{position:absolute;bottom:0;left:0;right:0;padding:2rem}
+.team-role{color:var(--cyan);font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3rem}
+.team-name{font-family:'Sora',sans-serif;font-weight:700;font-size:1.6rem;margin-bottom:.75rem}
+.team-bio{
+  color:var(--muted);font-size:.85rem;line-height:1.7;margin-bottom:1rem;
+  opacity:0;transform:translateY(12px);transition:opacity .5s,transform .5s;
+}
+.team-card:hover .team-bio{opacity:1;transform:translateY(0)}
+.team-linkedin{
+  display:inline-flex;align-items:center;gap:.4rem;
+  color:var(--cyan);font-size:.875rem;font-weight:600;text-decoration:none;
+  transition:color .2s;
+}
+.team-linkedin:hover{color:#fff}
+
+/* ── CONTACT ── */
+.contact{padding:6rem 0}
+.contact-grid{display:grid;grid-template-columns:2fr 3fr;gap:2.5rem;max-width:960px;margin:0 auto}
+.contact-info{display:flex;flex-direction:column;gap:1.25rem}
+.info-card{
+  background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.5rem;
+}
+.info-row{display:flex;align-items:center;gap:.85rem;margin-bottom:.85rem}
+.info-row:last-child{margin-bottom:0}
+.info-icon{
+  width:40px;height:40px;border-radius:12px;flex-shrink:0;
+  background:rgba(0,229,208,.1);display:flex;align-items:center;justify-content:center;
+}
+.info-label{color:var(--muted);font-size:.75rem;margin-bottom:.1rem}
+.info-val{font-size:.9rem;font-weight:500;color:var(--text)}
+.contact-form{
+  background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2.25rem;
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+.form-group{margin-bottom:1.25rem}
+label{display:block;font-size:.78rem;font-weight:500;color:var(--muted);margin-bottom:.5rem;letter-spacing:.03em}
+input,select,textarea{
+  width:100%;padding:.85rem 1rem;border-radius:12px;
+  background:rgba(255,255,255,.04);border:1px solid var(--border);
+  color:var(--text);font-size:.9rem;font-family:'Sora',sans-serif;
+  transition:border-color .2s,box-shadow .2s;outline:none;
+  -webkit-appearance:none;appearance:none;
+}
+input:focus,select:focus,textarea:focus{
+  border-color:rgba(0,229,208,.4);
+  box-shadow:0 0 0 3px rgba(0,229,208,.08);
+}
+input::placeholder,textarea::placeholder{color:var(--muted)}
+textarea{resize:none}
+select option{background:var(--bg)}
+.form-submit{
+  width:100%;padding:1rem;border-radius:12px;border:none;cursor:pointer;
+  background:linear-gradient(135deg,var(--cyan),var(--cyan2));
+  color:#060b14;font-weight:700;font-size:.9rem;
+  display:flex;align-items:center;justify-content:center;gap:.5rem;
+  transition:transform .2s,box-shadow .2s;box-shadow:var(--glow);
+  font-family:'Sora',sans-serif;
+}
+.form-submit:hover{transform:scale(1.02);box-shadow:0 0 60px rgba(0,229,208,.4)}
+
+/* ── FOOTER ── */
+footer{
+  padding:4rem 2rem 2rem;background:var(--bg2);
+  border-top:1px solid var(--border);
+}
+.footer-inner{
+  max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:3rem;margin-bottom:3rem;
+}
+.footer-copy{
+  text-align:center;color:var(--muted);font-size:.8rem;
+  padding-top:2rem;margin-top:2rem;border-top:1px solid var(--border);
+  max-width:1200px;margin-left:auto;margin-right:auto;
+}
+@media(max-width:768px){
+  .footer-inner{grid-template-columns:1fr 1fr;gap:2rem}
+}
+@media(max-width:480px){
+  .footer-inner{grid-template-columns:1fr}
+}
+
+/* ── SCROLL ANIMATIONS ── */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── FLOATING ELEMENTS ── */
+.anti-float{
+  animation:antiGrav 6s ease-in-out infinite;
+}
+@keyframes antiGrav{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-16px)}
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;text-align:center;gap:3rem}
+  .hero-visual{order:-1}
+  .robot-img{width:280px}
+  .hero-sub,.hero-badge{margin-left:auto;margin-right:auto}
+  .hero-btns,.platform-pills{justify-content:center}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .services-grid{grid-template-columns:1fr}
+  .workflow-grid{grid-template-columns:1fr 1fr}
+  .contact-grid{grid-template-columns:1fr}
+  nav{padding:1rem 1.5rem}
+  .nav-links,.nav-cta{display:none}
+  .hamburger{display:flex}
+}
+@media(max-width:600px){
+  .workflow-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .form-row{grid-template-columns:1fr}
+  .orbit-ring:nth-child(3){display:none}
+}
+
+/* ── SVGS inline ── */
+svg{display:inline-block;vertical-align:middle}
+</style>
 </head>
+<body>
 
-<body data-theme="dark">
-    <div class="bg-animation" id="bgAnimation"></div>
+<!-- Anti-Gravity Canvas -->
+<canvas id="gravCanvas"></canvas>
 
-    <nav id="navbar">
-        <div class="nav-content">
-            <a href="#home" class="logo-container">
-                <img src="LOGO.png" alt="Sanestix Logo" class="logo-image" onerror="this.style.display='none'">
-            </a>
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" style="text-decoration:none;display:flex;align-items:center">
+    <img src="LOGO.png" alt="Sanestix Logo"
+         style="height:48px;width:160px;object-fit:contain;object-position:left center;display:block"
+    />
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#workflow">Workflow</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get Started</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services" onclick="closeMobile()">Services</a>
+  <a href="#workflow" onclick="closeMobile()">Workflow</a>
+  <a href="#faq" onclick="closeMobile()">FAQ</a>
+  <a href="#team" onclick="closeMobile()">Team</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+  <a href="#contact" class="btn-primary" style="justify-content:center" onclick="closeMobile()">Get Started</a>
+</div>
 
-            <div class="nav-right">
-                <ul class="nav-links">
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#workflow">Workflow</a></li>
-                    <li><a href="#faq">FAQ</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-
-                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-                    <svg class="theme-icon" id="themeIcon" viewBox="0 0 24 24">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                </button>
-
-                <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
-                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
-                        <path d="M3 12h18M3 6h18M3 18h18" />
-                    </svg>
-                </button>
-            </div>
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-inner">
+      <!-- Text -->
+      <div class="hero-text reveal">
+        <div class="hero-badge"><span class="pulse"></span> Custom Automation Solutions</div>
+        <h1>Built for<br><span class="grad">Your Business</span></h1>
+        <p class="hero-sub">Intelligent automation for WhatsApp, Instagram &amp; Shopify — tailored exactly to how your business works.</p>
+        <div class="hero-btns">
+          <a href="#contact" class="btn-primary">
+            Request Custom Solution
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="#services" class="btn-ghost">View Services</a>
         </div>
-    </nav>
+        <div class="platform-pills">
+          <div class="platform-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            WhatsApp
+          </div>
+          <div class="platform-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            Instagram
+          </div>
+          <div class="platform-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            Shopify
+          </div>
+        </div>
+      </div>
 
-    <div class="mobile-menu" id="mobileMenu">
-        <ul>
-            <li><a href="#services" onclick="closeMobileMenu()">Services</a></li>
-            <li><a href="#workflow" onclick="closeMobileMenu()">Workflow</a></li>
-            <li><a href="#faq" onclick="closeMobileMenu()">FAQ</a></li>
-            <li><a href="#contact" onclick="closeMobileMenu()">Contact</a></li>
+      <!-- Visual -->
+      <div class="hero-visual reveal" style="transition-delay:.2s">
+        <div class="orbit-ring"><div class="orbit-dot"></div></div>
+        <div class="orbit-ring"><div class="orbit-dot2"></div></div>
+        <div class="orbit-ring"><div class="orbit-dot3"></div></div>
+        <div class="robot-wrap" id="robotEl">
+          <div class="robot-glow"></div>
+          <img class="robot-img" src="https://sanestix.com/robot.png" alt="AI Robot"
+               onerror="this.outerHTML='<div style=\'width:360px;height:360px;background:radial-gradient(circle,rgba(0,229,208,.15) 0%,transparent 70%);border-radius:50%;display:flex;align-items:center;justify-content:center;\'><svg width=160 height=160 viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'rgba(0,229,208,0.4)\' stroke-width=\'.5\'><rect x=\'2\' y=\'7\' width=\'20\' height=\'14\' rx=\'2\'/><path d=\'M16 3h-8l-2 4h12z\'/><circle cx=\'9\' cy=\'14\' r=\'1.5\'/><circle cx=\'15\' cy=\'14\' r=\'1.5\'/><line x1=\'9\' y1=\'18\' x2=\'15\' y2=\'18\'/></svg></div>'"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="reveal"><div class="stat-val">24/7</div><div class="stat-label">Automated Support</div></div>
+      <div class="reveal" style="transition-delay:.1s"><div class="stat-val">100%</div><div class="stat-label">Custom Built</div></div>
+      <div class="reveal" style="transition-delay:.2s"><div class="stat-val">10x</div><div class="stat-label">Faster Response</div></div>
+      <div class="reveal" style="transition-delay:.3s"><div class="stat-val">500+</div><div class="stat-label">Happy Clients</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Our Custom Services
+      </div>
+      <h2>Tailored Automation <span class="grad">Solutions</span></h2>
+      <p class="section-desc">Automation solutions designed specifically for your business needs</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card reveal">
+        <span class="card-tag primary">Most Popular</span>
+        <div class="card-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="card-title">WhatsApp Automation</div>
+        <div class="card-desc">Custom WhatsApp automation tailored to your business workflow with intelligent auto-replies and customer engagement.</div>
+        <ul class="card-features">
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>24/7 Auto-Reply System</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Custom Message Templates</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Lead Qualification</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Analytics Dashboard</li>
         </ul>
+        <a href="#contact" class="card-cta">Get Started →</a>
+      </div>
+
+      <div class="service-card reveal" style="transition-delay:.1s">
+        <span class="card-tag muted">Grow Your Brand</span>
+        <div class="card-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </div>
+        <div class="card-title">Instagram Automation</div>
+        <div class="card-desc">Automated Instagram DMs and comment responses to boost engagement and grow your social media presence organically.</div>
+        <ul class="card-features">
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Auto DM Responses</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Comment Management</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Engagement Tracking</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Hashtag Monitoring</li>
+        </ul>
+        <a href="#contact" class="card-cta">Get Started →</a>
+      </div>
+
+      <div class="service-card reveal" style="transition-delay:.15s">
+        <span class="card-tag primary">Best Value</span>
+        <div class="card-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </div>
+        <div class="card-title">Multi-Platform Suite</div>
+        <div class="card-desc">Complete automation for both WhatsApp and Instagram with unified dashboard and cross-platform customer management.</div>
+        <ul class="card-features">
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>WhatsApp + Instagram</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Unified Dashboard</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Cross-Platform Analytics</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Priority Support</li>
+        </ul>
+        <a href="#contact" class="card-cta">Get Started →</a>
+      </div>
+
+      <div class="service-card reveal" style="transition-delay:.25s">
+        <span class="card-tag muted">E-Commerce</span>
+        <div class="card-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        </div>
+        <div class="card-title">Shopify Integration</div>
+        <div class="card-desc">Full e-commerce automation connecting Shopify with WhatsApp and Instagram for seamless order management and customer support.</div>
+        <ul class="card-features">
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Order Notifications</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Cart Recovery</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Product Catalog Sync</li>
+          <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Payment Integration</li>
+        </ul>
+        <a href="#contact" class="card-cta">Get Started →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOW -->
+<section class="workflow" id="workflow">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Our Workflow</div>
+      <h2>How We <span class="grad">Build for You</span></h2>
+      <p class="section-desc">A streamlined process designed to deliver custom automation solutions that perfectly fit your business</p>
+    </div>
+    <div class="workflow-grid">
+      <div class="step-card reveal">
+        <span class="step-num">01</span>
+        <div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.15a16 16 0 006.94 6.94l1.42-1.41a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+        <div class="step-title">Discovery Call</div>
+        <p class="step-desc">We start with a detailed consultation to understand your business needs, current challenges, and automation goals.</p>
+      </div>
+      <div class="step-card reveal" style="transition-delay:.08s">
+        <span class="step-num">02</span>
+        <div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+        <div class="step-title">Custom Proposal</div>
+        <p class="step-desc">Based on our discussion, we create a detailed proposal outlining the automation architecture, features, timeline, and pricing.</p>
+      </div>
+      <div class="step-card reveal" style="transition-delay:.16s">
+        <span class="step-num">03</span>
+        <div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <div class="step-title">Development</div>
+        <p class="step-desc">Our expert team builds your custom automation solution from the ground up, ensuring every feature aligns with your workflows.</p>
+      </div>
+      <div class="step-card reveal" style="transition-delay:.24s">
+        <span class="step-num">04</span>
+        <div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg></div>
+        <div class="step-title">Testing &amp; Refinement</div>
+        <p class="step-desc">We rigorously test the automation system, gather your feedback, and make necessary refinements before launch.</p>
+      </div>
+      <div class="step-card reveal" style="transition-delay:.32s">
+        <span class="step-num">05</span>
+        <div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></div>
+        <div class="step-title">Deployment</div>
+        <p class="step-desc">Once approved, we deploy your automation system to production with minimal disruption to your business.</p>
+      </div>
+      <div class="step-card reveal" style="transition-delay:.4s">
+        <span class="step-num">06</span>
+        <div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+        <div class="step-title">Support &amp; Optimization</div>
+        <p class="step-desc">Post-launch, we provide ongoing support, monitoring, and optimization as your business grows.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">FAQ</div>
+      <h2>Frequently Asked <span class="grad">Questions</span></h2>
+      <p class="section-desc">Everything you need to know about our custom automation services</p>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What makes your services custom?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-a"><p>Unlike generic SaaS solutions, we build automation systems specifically tailored to your business processes, workflows, and customer engagement needs. Every solution is designed from scratch to match your unique requirements.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How long does it take to set up?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-a"><p>Setup time varies based on complexity. Simple WhatsApp automation can be ready in 3–5 days, while complex multi-platform integrations with Shopify may take 2–3 weeks. We work closely with you to ensure smooth deployment.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Can I modify the automation after setup?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-a"><p>Absolutely! We provide ongoing support and modifications as your business evolves. You can request changes to message templates, workflows, triggers, and integrations at any time.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What platforms do you integrate with?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-a"><p>We specialize in WhatsApp Business API, Instagram, Facebook, and Shopify integrations. We can also integrate with most CRMs, email marketing platforms, payment gateways, and custom databases.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is my data secure?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-a"><p>Yes! We use enterprise-grade encryption, secure cloud infrastructure, and follow industry best practices for data protection. We're compliant with GDPR and other data privacy regulations. Your customer data is never shared with third parties.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What kind of support do you provide?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-a"><p>We offer 24/7 technical support via WhatsApp and email. All custom service packages include dedicated support, regular maintenance, system monitoring, and priority bug fixes.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How much does custom automation cost?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-a"><p>Pricing depends on the complexity and scope of your automation needs. We offer flexible pricing models including one-time setup fees with monthly maintenance, or complete packages. Contact us for a personalized quote.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Do you offer a trial or demo?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-a"><p>Yes! We offer free consultation sessions where we demonstrate how automation can work for your business. For qualified leads, we can create a proof-of-concept before full deployment.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team" id="team">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Our Team</div>
+      <h2>Meet Our <span class="grad">Leadership</span></h2>
+      <p class="section-desc">The innovators driving custom automation solutions for businesses worldwide</p>
+    </div>
+    <div class="team-cards">
+      <div class="team-card reveal">
+        <div class="team-photo">
+          <img src="SaadFaisal.jpeg" alt="Saad Faisal Qureshi - Co-Founder & CEO of Sanestix"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="team-photo-fallback" style="display:none"><span class="team-initials">SF</span></div>
+          <div class="team-overlay"></div>
+          <div class="team-accent"></div>
+          <div class="team-info">
+            <div class="team-role">Co-Founder &amp; CEO</div>
+            <div class="team-name">Saad Faisal Qureshi</div>
+            <div class="team-bio">Visionary entrepreneur with deep expertise in AI and custom business automation.</div>
+            <a href="https://www.linkedin.com/in/saadfaisalqureshi" target="_blank" class="team-linkedin">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              Connect on LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="team-card reveal" style="transition-delay:.15s">
+        <div class="team-photo">
+          <img src="abwbsid2.png" alt="Abdul Wahab Siddiqi - Co-Founder & COO of Sanestix"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="team-photo-fallback" style="display:none"><span class="team-initials">AW</span></div>
+          <div class="team-overlay"></div>
+          <div class="team-accent"></div>
+          <div class="team-info">
+            <div class="team-role">Co-Founder &amp; COO</div>
+            <div class="team-name">Abdul Wahab Siddiqi</div>
+            <div class="team-bio">Technology expert passionate about building scalable, custom automation solutions that drive real business results.</div>
+            <a href="https://www.linkedin.com/in/abdulwahabsiddiqi" target="_blank" class="team-linkedin">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              Connect on LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        Get in Touch
+      </div>
+      <h2>Start Your <span class="grad">Automation Journey</span></h2>
+      <p class="section-desc">Let's discuss how we can build the perfect automation solution for your business</p>
+    </div>
+    <div class="contact-grid reveal">
+      <div class="contact-info">
+        <div class="info-card">
+          <div class="info-row">
+            <div class="info-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+            <div><div class="info-label">WhatsApp</div><div class="info-val"><a href="https://wa.me/923014422951" target="_blank" style="color:inherit;text-decoration:none">+92-301-4422951</a></div></div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg></div>
+            <div><div class="info-label">Email</div><div class="info-val"><a href="/cdn-cgi/l/email-protection#bbd8d4d5cfdad8cffbc8dad5dec8cfd2c395d8d4d6" style="color:inherit;text-decoration:none"><span class="__cf_email__" data-cfemail="e4878b8a90858790a497858a8197908d9cca878b89">[email&#160;protected]</span></a></div></div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div><div class="info-label">Response Time</div><div class="info-val">Within 24 hours</div></div>
+          </div>
+          <div class="info-row">
+            <div class="info-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><div class="info-label">Location</div><div class="info-val">Lahore, Punjab, Pakistan</div></div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div style="font-family:'Sora',sans-serif;font-weight:700;margin-bottom:.6rem">Free Consultation</div>
+          <p style="color:var(--muted);font-size:.875rem;line-height:1.7">Not sure where to start? Book a free 30-minute discovery call. We'll discuss your needs and create a tailored automation roadmap.</p>
+        </div>
+      </div>
+      <div class="contact-form">
+        <div class="form-row">
+          <div><label>Full Name *</label><input type="text" placeholder="John Doe" required/></div>
+          <div><label>Email Address *</label><input type="email" placeholder="john@company.com" required/></div>
+        </div>
+        <div class="form-row">
+          <div><label>Phone Number</label><input type="tel" placeholder="+92 300 1234567"/></div>
+          <div><label>Company Name</label><input type="text" placeholder="Your Company"/></div>
+        </div>
+        <div class="form-group">
+          <label>Service Interested In *</label>
+          <select required>
+            <option value="">Select a service</option>
+            <option>WhatsApp Automation</option>
+            <option>Instagram Automation</option>
+            <option>Multi-Platform Suite</option>
+            <option>Shopify Integration</option>
+            <option>Custom Solution</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tell us about your project *</label>
+          <textarea rows="4" placeholder="Describe your automation needs, business challenges, and goals..." required></textarea>
+        </div>
+        <button type="button" class="form-submit" onclick="submitForm(this)">
+          Send Message
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div style="display:flex;flex-direction:column;gap:1rem;max-width:320px">
+      <a href="#" style="text-decoration:none">
+        <img src="LOGO.png" alt="Sanestix" style="height:38px;width:auto;object-fit:contain"
+             onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span style=\'font-family:Sora,sans-serif;font-weight:800;font-size:1.2rem;color:var(--text)\'>Sanestix</span>')"/>
+      </a>
+      <p style="color:var(--muted);font-size:.875rem;line-height:1.7">Building custom automation solutions for WhatsApp, Instagram, and Shopify. Empowering businesses with tailored technology that scales efficiently.</p>
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+        <!-- WhatsApp -->
+        <a href="https://wa.me/923014422951" target="_blank" rel="noopener" aria-label="WhatsApp" style="width:44px;height:44px;border-radius:12px;background:rgba(0,229,208,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none" onmouseover="this.style.background='linear-gradient(135deg,var(--cyan),var(--cyan2))';this.style.borderColor='var(--cyan)'" onmouseout="this.style.background='rgba(0,229,208,.06)';this.style.borderColor='var(--border)'">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--cyan)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        </a>
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/sanestix" target="_blank" rel="noopener" aria-label="Instagram" style="width:44px;height:44px;border-radius:12px;background:rgba(0,229,208,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none" onmouseover="this.style.background='linear-gradient(135deg,var(--cyan),var(--cyan2))';this.style.borderColor='var(--cyan)'" onmouseout="this.style.background='rgba(0,229,208,.06)';this.style.borderColor='var(--border)'">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com/company/sanestix" target="_blank" rel="noopener" aria-label="LinkedIn" style="width:44px;height:44px;border-radius:12px;background:rgba(0,229,208,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none" onmouseover="this.style.background='linear-gradient(135deg,var(--cyan),var(--cyan2))';this.style.borderColor='var(--cyan)'" onmouseout="this.style.background='rgba(0,229,208,.06)';this.style.borderColor='var(--border)'">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <!-- Facebook -->
+        <a href="https://www.facebook.com/share/14M3fAXpuSW/" target="_blank" rel="noopener" aria-label="Facebook" style="width:44px;height:44px;border-radius:12px;background:rgba(0,229,208,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none" onmouseover="this.style.background='linear-gradient(135deg,var(--cyan),var(--cyan2))';this.style.borderColor='var(--cyan)'" onmouseout="this.style.background='rgba(0,229,208,.06)';this.style.borderColor='var(--border)'">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <!-- X / Twitter -->
+        <a href="https://x.com/sanestix_" target="_blank" rel="noopener" aria-label="X / Twitter" style="width:44px;height:44px;border-radius:12px;background:rgba(0,229,208,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none" onmouseover="this.style.background='linear-gradient(135deg,var(--cyan),var(--cyan2))';this.style.borderColor='var(--cyan)'" onmouseout="this.style.background='rgba(0,229,208,.06)';this.style.borderColor='var(--border)'">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+        </a>
+      </div>
     </div>
 
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <div class="hero-badge">
-                <svg class="hero-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polygon
-                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
-                    </polygon>
-                </svg>
-                <span>Custom Automation Solutions</span>
-            </div>
-
-            <h1>
-                <span class="hero-highlight">Custom</span> Automation<br>
-                Built for Your Business
-            </h1>
-            <p>Tailored automation solutions for WhatsApp, Instagram, and Shopify. We build exactly what your business
-                needs to scale efficiently with 24/7 intelligent automation.</p>
-
-            <div class="cta-buttons">
-                <a href="#contact" class="btn-primary">
-                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path>
-                    </svg>
-                    Request Custom Solution
-                </a>
-                <a href="#services" class="btn-secondary">
-                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <polygon points="10 8 16 12 10 16 10 8"></polygon>
-                    </svg>
-                    View Services
-                </a>
-            </div>
-
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number">24/7</div>
-                    <div class="stat-label">Automated Support</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label">Custom Built</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">10x</div>
-                    <div class="stat-label">Faster Response</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">500+</div>
-                    <div class="stat-label">Happy Clients</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section-alt" id="services">
-        <div class="section-header">
-            <h2 class="section-title">Our Custom Services</h2>
-            <p class="section-subtitle">Tailored automation solutions designed specifically for your business needs</p>
-        </div>
-
-        <div class="products-grid">
-            <article class="product-card">
-                <div class="product-icon">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-                    </svg>
-                </div>
-                <span class="product-badge">Most Popular</span>
-                <h3 class="product-title">WhatsApp Automation</h3>
-                <p class="product-description">Custom WhatsApp automation tailored to your business workflow with
-                    intelligent auto-replies and customer engagement.</p>
-                <ul class="product-features">
-                    <li>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        24/7 Auto-Reply System
-                    </li>
-                    <li>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        Custom Message Templates
-                    </li>
-                    <li>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        Lead Qualification
-                    </li>
-                    <li>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        Analytics Dashboard
-                    </li>
-                </ul>
-                <a href="#contact" class="product-cta">Get Started</a>
-            </article>
-
-            <article class="product-card">
-                <div class="product-icon">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                    </svg>
-                </div>
-                <span class="product-badge">Grow Your Brand</span>
-                <h3 class="product-title">Instagram Automation</h3>
-                <p class="product-description">Automated Instagram DMs and comment responses to boost engagement and
-                    grow your social media presence organically.</p>
-                <ul class="product-features">
-                    <li>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        Auto DM Responses
-                    </li>
-                    <li>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        Comment Management
-                    </li>
-                    <li>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        Engagement Tracking
-                    </li>
-                    <li>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        Hashtag Monitoring
-                    </li>
-                </ul>
-                <a href="#contact" class="product-cta">Get Started</a>
-            </article>
-
-            <article class="product-card">
-                <div class="product-icon">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                        <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                    </svg>
-                </div>
-                <span class="product-badge">Best Value</span>
-                <h3 class="product-title">Multi-Platform Suite</h3>
-                <p class="product-description">Complete automation for both WhatsApp and Instagram with unified
-                    dashboard and cross-platform customer management.</p>
-                <ul class="product-features">
-                    <li>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        WhatsApp + Instagram
-                    </li>
-                    <li>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        Unified Dashboard
-                    </li>
-                    <li>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        Cross-Platform Analytics
-                    </li>
-                    <li>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        Priority Support
-                    </li>
-                </ul>
-                <a href="#contact" class="product-cta">Get Started</a>
-            </article>
-
-            <article class="product-card">
-                <div class="product-icon">
-                    <svg viewBox="0 0 24 24">
-                        <circle cx="9" cy="21" r="1"></circle>
-                        <circle cx="20" cy="21" r="1"></circle>
-                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                    </svg>
-                </div>
-                <span class="product-badge">E-Commerce</span>
-                <h3 class="product-title">Shopify Integration</h3>
-                <p class="product-description">Full e-commerce automation connecting Shopify with WhatsApp and Instagram
-                    for seamless order management and customer support.</p>
-                <ul class="product-features">
-                    <li>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        Order Notifications
-                    </li>
-                    <li>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        Cart Recovery
-                    </li>
-                    <li>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        Product Catalog Sync
-                    </li>
-                    <li>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        Payment Integration
-                    </li>
-                </ul>
-                <a href="#contact" class="product-cta">Get Started</a>
-            </article>
-        </div>
-    </section>
-
-    <section id="workflow">
-        <div class="section-header">
-            <h2 class="section-title">Our Workflow</h2>
-            <p class="section-subtitle">A streamlined process designed to deliver custom automation solutions that
-                perfectly fit your business</p>
-        </div>
-
-        <div class="workflow-container">
-            <div class="workflow-steps">
-                <article class="workflow-step">
-                    <div class="workflow-number">1</div>
-                    <div class="workflow-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path
-                                d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
-                            </path>
-                        </svg>
-                    </div>
-                    <h3>Discovery Call</h3>
-                    <p>We start with a detailed consultation to understand your business needs, current challenges, and
-                        automation goals. This helps us design a solution that's perfectly tailored to you.</p>
-                </article>
-
-                <article class="workflow-step">
-                    <div class="workflow-number">2</div>
-                    <div class="workflow-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="16" y1="13" x2="8" y2="13"></line>
-                            <line x1="16" y1="17" x2="8" y2="17"></line>
-                            <polyline points="10 9 9 9 8 9"></polyline>
-                        </svg>
-                    </div>
-                    <h3>Custom Proposal</h3>
-                    <p>Based on our discussion, we create a detailed proposal outlining the automation architecture,
-                        features, timeline, and pricing. You'll know exactly what to expect.</p>
-                </article>
-
-                <article class="workflow-step">
-                    <div class="workflow-number">3</div>
-                    <div class="workflow-icon">
-                        <svg viewBox="0 0 24 24">
-                            <polyline points="16 18 22 12 16 6"></polyline>
-                            <polyline points="8 6 2 12 8 18"></polyline>
-                        </svg>
-                    </div>
-                    <h3>Development</h3>
-                    <p>Our expert team builds your custom automation solution from the ground up, ensuring every feature
-                        aligns with your business workflows and requirements.</p>
-                </article>
-
-                <article class="workflow-step">
-                    <div class="workflow-number">4</div>
-                    <div class="workflow-icon">
-                        <svg viewBox="0 0 24 24">
-                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                        </svg>
-                    </div>
-                    <h3>Testing & Refinement</h3>
-                    <p>We rigorously test the automation system, gather your feedback, and make necessary refinements to
-                        ensure everything works flawlessly before launch.</p>
-                </article>
-
-                <article class="workflow-step">
-                    <div class="workflow-number">5</div>
-                    <div class="workflow-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                        </svg>
-                    </div>
-                    <h3>Deployment</h3>
-                    <p>Once approved, we deploy your automation system to production. We handle the technical setup and
-                        ensure a smooth transition with minimal disruption to your business.</p>
-                </article>
-
-                <article class="workflow-step">
-                    <div class="workflow-number">6</div>
-                    <div class="workflow-icon">
-                        <svg viewBox="0 0 24 24">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                        </svg>
-                    </div>
-                    <h3>Support & Optimization</h3>
-                    <p>Post-launch, we provide ongoing support, monitoring, and optimization. As your business grows, we
-                        help evolve your automation to match new needs.</p>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <section class="section-alt" id="faq">
-        <div class="section-header">
-            <h2 class="section-title">Frequently Asked Questions</h2>
-            <p class="section-subtitle">Everything you need to know about our custom automation services</p>
-        </div>
-
-        <div class="faq-container">
-            <article class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    <span>What makes your services custom?</span>
-                    <svg class="faq-icon" viewBox="0 0 24 24">
-                        <path d="M19 9l-7 7-7-7" />
-                    </svg>
-                </button>
-                <div class="faq-answer">
-                    <p>Unlike generic SaaS solutions, we build automation systems specifically tailored to your business
-                        processes, workflows, and customer engagement needs. Every solution is designed from scratch to
-                        match your unique requirements, ensuring perfect integration with your existing systems.</p>
-                </div>
-            </article>
-
-            <article class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    <span>How long does it take to set up?</span>
-                    <svg class="faq-icon" viewBox="0 0 24 24">
-                        <path d="M19 9l-7 7-7-7" />
-                    </svg>
-                </button>
-                <div class="faq-answer">
-                    <p>Setup time varies based on complexity. Simple WhatsApp automation can be ready in 3-5 days, while
-                        complex multi-platform integrations with Shopify may take 2-3 weeks. We work closely with you to
-                        ensure smooth deployment and proper testing.</p>
-                </div>
-            </article>
-
-            <article class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    <span>Can I modify the automation after setup?</span>
-                    <svg class="faq-icon" viewBox="0 0 24 24">
-                        <path d="M19 9l-7 7-7-7" />
-                    </svg>
-                </button>
-                <div class="faq-answer">
-                    <p>Absolutely! We provide ongoing support and modifications as your business evolves. You can
-                        request changes to message templates, workflows, triggers, and integrations at any time. We also
-                        offer training so you can make basic adjustments yourself.</p>
-                </div>
-            </article>
-
-            <article class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    <span>What platforms do you integrate with?</span>
-                    <svg class="faq-icon" viewBox="0 0 24 24">
-                        <path d="M19 9l-7 7-7-7" />
-                    </svg>
-                </button>
-                <div class="faq-answer">
-                    <p>We specialize in WhatsApp Business API, Instagram, Facebook, and Shopify integrations. We can
-                        also integrate with most CRMs, email marketing platforms, payment gateways, and custom databases
-                        based on your specific needs.</p>
-                </div>
-            </article>
-
-            <article class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    <span>Is my data secure?</span>
-                    <svg class="faq-icon" viewBox="0 0 24 24">
-                        <path d="M19 9l-7 7-7-7" />
-                    </svg>
-                </button>
-                <div class="faq-answer">
-                    <p>Yes! We use enterprise-grade encryption, secure cloud infrastructure, and follow industry best
-                        practices for data protection. We're compliant with GDPR and other data privacy regulations.
-                        Your customer data is never shared with third parties.</p>
-                </div>
-            </article>
-
-            <article class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    <span>What kind of support do you provide?</span>
-                    <svg class="faq-icon" viewBox="0 0 24 24">
-                        <path d="M19 9l-7 7-7-7" />
-                    </svg>
-                </button>
-                <div class="faq-answer">
-                    <p>We offer 24/7 technical support via WhatsApp and email. All custom service packages include
-                        dedicated support, regular maintenance, system monitoring, and priority bug fixes. We're always
-                        available to help optimize your automation.</p>
-                </div>
-            </article>
-
-            <article class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    <span>How much does custom automation cost?</span>
-                    <svg class="faq-icon" viewBox="0 0 24 24">
-                        <path d="M19 9l-7 7-7-7" />
-                    </svg>
-                </button>
-                <div class="faq-answer">
-                    <p>Pricing depends on the complexity and scope of your automation needs. We offer flexible pricing
-                        models including one-time setup fees with monthly maintenance, or complete packages. Contact us
-                        for a personalized quote based on your specific requirements.</p>
-                </div>
-            </article>
-
-            <article class="faq-item">
-                <button class="faq-question" onclick="toggleFAQ(this)">
-                    <span>Do you offer a trial or demo?</span>
-                    <svg class="faq-icon" viewBox="0 0 24 24">
-                        <path d="M19 9l-7 7-7-7" />
-                    </svg>
-                </button>
-                <div class="faq-answer">
-                    <p>Yes! We offer free consultation sessions where we demonstrate how automation can work for your
-                        business. For qualified leads, we can create a proof-of-concept to show exactly how the custom
-                        solution will function before full deployment.</p>
-                </div>
-            </article>
-        </div>
-    </section>
-
-    <section class="contact-section" id="contact">
-        <div class="section-header">
-            <h2 class="section-title">Get in Touch</h2>
-            <p class="section-subtitle">Let's discuss how we can build the perfect automation solution for your business
-            </p>
-        </div>
-
-        <div class="contact-container">
-            <form class="contact-form" id="contactForm">
-                <div class="form-message" id="formMessage"></div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="name">Full Name *</label>
-                        <input type="text" id="name" name="name" required placeholder="John Doe">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address *</label>
-                        <input type="email" id="email" name="email" required placeholder="john@company.com">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" placeholder="+92 300 1234567">
-                    </div>
-                    <div class="form-group">
-                        <label for="service">Service Interested In *</label>
-                        <select id="service" name="service" required>
-                            <option value="">Select a service</option>
-                            <option value="whatsapp">WhatsApp Automation</option>
-                            <option value="instagram">Instagram Automation</option>
-                            <option value="multi-platform">Multi-Platform Suite</option>
-                            <option value="shopify">Shopify Integration</option>
-                            <option value="custom">Custom Solution</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="company">Company Name</label>
-                    <input type="text" id="company" name="company" placeholder="Your Company">
-                </div>
-
-                <div class="form-group">
-                    <label for="message">Tell us about your project *</label>
-                    <textarea id="message" name="message" required
-                        placeholder="Describe your automation needs, goals, and any specific requirements..."></textarea>
-                </div>
-
-                <button type="submit" class="submit-btn" id="submitBtn">
-                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path>
-                    </svg>
-                    Send Message
-                </button>
-            </form>
-        </div>
-    </section>
-
-    <section id="team">
-        <div class="section-header">
-            <h2 class="section-title">Meet Our Leadership</h2>
-            <p class="section-subtitle">The innovators driving custom automation solutions for businesses worldwide</p>
-        </div>
-
-        <div class="team-grid">
-            <article class="team-card">
-                <div class="team-image-wrapper">
-                    <img src="SaadFaisal.jpeg" alt="Saad Faisal Qureshi - Co-Founder & CEO of Sanestix"
-                        class="team-image"
-                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="team-image-placeholder" style="display: none;">SF</div>
-                </div>
-                <div class="team-content">
-                    <h3 class="team-name">Saad Faisal Qureshi</h3>
-                    <p class="team-role">Co-Founder & CEO</p>
-                    <p class="team-description">Visionary entrepreneur with deep expertise in AI and custom business
-                        automation. </p>
-                    <a href="https://www.linkedin.com/in/saadfaisalqureshi" target="_blank" rel="noopener noreferrer"
-                        class="team-linkedin">
-                        <svg class="linkedin-icon" viewBox="0 0 24 24" width="22" height="22">
-                            <path fill="currentColor"
-                                d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z" />
-                        </svg>
-                        Connect on LinkedIn
-                    </a>
-                </div>
-            </article>
-
-            <article class="team-card">
-                <div class="team-image-wrapper">
-                    <img src="abwbsid2.png" alt="Abdul Wahab Siddiqi - Co-Founder & COO of Sanestix" class="team-image"
-                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="team-image-placeholder" style="display: none;">AW</div>
-                </div>
-                <div class="team-content">
-                    <h3 class="team-name">Abdul Wahab Siddiqi</h3>
-                    <p class="team-role">Co-Founder & COO</p>
-                    <p class="team-description">Technology expert passionate about building scalable, custom automation
-                        solutions that drive real business results.</p>
-                    <a href="https://www.linkedin.com/in/abdulwahabsiddiqi" target="_blank" rel="noopener noreferrer"
-                        class="team-linkedin">
-                        <svg class="linkedin-icon" viewBox="0 0 24 24" width="22" height="22">
-                            <path fill="currentColor"
-                                d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z" />
-                        </svg>
-                        Connect on LinkedIn
-                    </a>
-                </div>
-            </article>
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Sanestix</h3>
-                <p>Building custom automation solutions for WhatsApp, Instagram, and Shopify. Empowering businesses with
-                    tailored technology that scales efficiently.</p>
-                <div class="social-links">
-                    <a href="https://wa.me/923014422951" class="social-link" target="_blank" rel="noopener noreferrer"
-                        aria-label="WhatsApp">
-                        <svg class="social-icon" viewBox="0 0 24 24">
-                            <path
-                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-                        </svg>
-                    </a>
-                    <a href="https://www.instagram.com/sanestix" class="social-link" target="_blank"
-                        rel="noopener noreferrer" aria-label="Instagram">
-                        <svg class="social-icon" viewBox="0 0 24 24">
-                            <path
-                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                        </svg>
-                    </a>
-                    <a href="https://www.linkedin.com/company/sanestix" class="social-link" target="_blank"
-                        rel="noopener noreferrer" aria-label="LinkedIn">
-                        <svg class="social-icon" viewBox="0 0 24 24">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
-                            </path>
-                            <rect x="2" y="9" width="4" height="12"></rect>
-                            <circle cx="4" cy="4" r="2"></circle>
-                        </svg>
-                    </a>
-                    <a href="https://www.facebook.com/share/14M3fAXpuSW/" class="social-link" target="_blank"
-                        rel="noopener noreferrer" aria-label="Facebook">
-                        <svg class="social-icon" viewBox="0 0 24 24">
-                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                        </svg>
-                    </a>
-                    <a href="https://x.com/sanestix_" class="social-link" target="_blank" rel="noopener noreferrer"
-                        aria-label="Twitter">
-                        <svg class="social-icon" viewBox="0 0 24 24">
-                            <path
-                                d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
-                            </path>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul class="footer-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#workflow">Workflow</a></li>
-                    <li><a href="#faq">FAQ</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h3>Our Services</h3>
-                <ul class="footer-links">
-                    <li><a href="#services">WhatsApp Automation</a></li>
-                    <li><a href="#services">Instagram Automation</a></li>
-                    <li><a href="#services">Multi-Platform Suite</a></li>
-                    <li><a href="#services">Shopify Integration</a></li>
-                    <li><a href="#contact">Custom Solutions</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <ul class="footer-links">
-                    <li><a href="mailto:contact@sanestix.com">contact@sanestix.com</a></li>
-                    <li><a href="mailto:support@sanestix.com">support@sanestix.com</a></li>
-                    <li><a href="tel:+923014422951">+92-301-4422951</a></li>
-                    <li style="color: var(--text-secondary); margin-top: 0.5rem;">Lahore, Punjab, Pakistan</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>&copy; 2026 Sanestix. All rights reserved. Built with passion in Pakistan 🇵🇰</p>
-            <div class="footer-legal">
-                <a href="privacy-policy.html">Privacy Policy</a>
-                <a href="terms-of-service.html">Terms of Service</a>
-                <a href="refund-policy.html">Refund Policy</a>
-            </div>
-        </div>
-    </footer>
-
-    <button class="scroll-top" id="scrollTop" onclick="scrollToTop()" aria-label="Scroll to top">
-        <svg viewBox="0 0 24 24">
-            <path d="M18 15l-6-6-6 6" />
-        </svg>
-    </button>
-
-    <script>
-        // Background Animation
-        const canvas = document.createElement('canvas');
-        const bgAnimation = document.getElementById('bgAnimation');
-        bgAnimation.appendChild(canvas);
-        const ctx = canvas.getContext('2d');
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const particles = [];
-        const particleCount = 50;
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.radius = Math.random() * 2 + 1;
-            }
-
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-            }
-
-            draw() {
-                ctx.fillStyle = 'rgba(0, 217, 255, 0.5)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        for (let i = 0; i < particleCount; i++) {
-            particles.push(new Particle());
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
-            });
-
-            particles.forEach((p1, i) => {
-                particles.slice(i + 1).forEach(p2 => {
-                    const dx = p1.x - p2.x;
-                    const dy = p1.y - p2.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 150) {
-                        ctx.strokeStyle = `rgba(0, 217, 255, ${0.2 * (1 - distance / 150)})`;
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(p1.x, p1.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.stroke();
-                    }
-                });
-            });
-
-            requestAnimationFrame(animate);
-        }
-
-        animate();
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        // Theme Toggle
-        function toggleTheme() {
-            const body = document.body;
-            const themeIcon = document.getElementById('themeIcon');
-            const currentTheme = body.getAttribute('data-theme');
-
-            if (currentTheme === 'dark') {
-                body.setAttribute('data-theme', 'light');
-                localStorage.setItem('theme', 'light');
-                themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
-            } else {
-                body.setAttribute('data-theme', 'dark');
-                localStorage.setItem('theme', 'dark');
-                themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-            }
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            const themeIcon = document.getElementById('themeIcon');
-
-            document.body.setAttribute('data-theme', savedTheme);
-
-            if (savedTheme === 'light') {
-                themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
-            }
-        });
-
-        // Mobile Menu
-        function toggleMobileMenu() {
-            document.getElementById('mobileMenu').classList.toggle('active');
-        }
-
-        function closeMobileMenu() {
-            document.getElementById('mobileMenu').classList.remove('active');
-        }
-
-        // FAQ Toggle
-        function toggleFAQ(element) {
-            const answer = element.nextElementSibling;
-            const icon = element.querySelector('.faq-icon');
-
-            // Close all other FAQs
-            document.querySelectorAll('.faq-answer').forEach(otherAnswer => {
-                if (otherAnswer !== answer) {
-                    otherAnswer.classList.remove('active');
-                    otherAnswer.previousElementSibling.querySelector('.faq-icon').classList.remove('active');
-                }
-            });
-
-            // Toggle current FAQ
-            answer.classList.toggle('active');
-            icon.classList.toggle('active');
-        }
-
-        // Scroll Effects
-        window.addEventListener('scroll', function () {
-            const navbar = document.getElementById('navbar');
-            const scrollTop = document.getElementById('scrollTop');
-
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-
-            if (window.scrollY > 300) {
-                scrollTop.classList.add('visible');
-            } else {
-                scrollTop.classList.remove('visible');
-            }
-        });
-
-        // Smooth Scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    closeMobileMenu();
-                }
-            });
-        });
-
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-
-        // Contact Form Handler
-        document.getElementById('contactForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            const submitBtn = document.getElementById('submitBtn');
-            const formMessage = document.getElementById('formMessage');
-
-            // Disable submit button
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span>Sending...</span>';
-
-            // Get form data
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                service: document.getElementById('service').value,
-                company: document.getElementById('company').value,
-                message: document.getElementById('message').value
-            };
-
-            // Simulate form submission (replace with actual API call)
-            setTimeout(() => {
-                // Show success message
-                formMessage.className = 'form-message success';
-                formMessage.textContent = 'Thank you! Your message has been sent successfully. We\'ll get back to you within 24 hours.';
-
-                // Reset form
-                this.reset();
-
-                // Re-enable submit button
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path></svg> Send Message';
-
-                // Hide message after 5 seconds
-                setTimeout(() => {
-                    formMessage.className = 'form-message';
-                }, 5000);
-            }, 1500);
-        });
-
-        // Scroll Animation Observer
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.product-card, .workflow-step, .team-card, .faq-item').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
-
-        // Section Header Animation on Scroll
-        window.addEventListener('scroll', function () {
-            const sectionHeaders = document.querySelectorAll('.section-header');
-            sectionHeaders.forEach(header => {
-                const rect = header.getBoundingClientRect();
-                if (rect.top < window.innerHeight - 100) {
-                    header.classList.add('animate');
-                }
-            });
-        });
-    </script>
+    <div>
+      <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:1rem;margin-bottom:1.2rem;color:var(--text)">Quick Links</div>
+      <div style="display:flex;flex-direction:column;gap:.7rem">
+        <a href="#" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Home</a>
+        <a href="#services" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Services</a>
+        <a href="#workflow" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Workflow</a>
+        <a href="#faq" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">FAQ</a>
+        <a href="#team" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Team</a>
+        <a href="#contact" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Contact</a>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:1rem;margin-bottom:1.2rem;color:var(--text)">Our Services</div>
+      <div style="display:flex;flex-direction:column;gap:.7rem">
+        <a href="#services" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">WhatsApp Automation</a>
+        <a href="#services" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Instagram Automation</a>
+        <a href="#services" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Multi-Platform Suite</a>
+        <a href="#services" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Shopify Integration</a>
+        <a href="#contact" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Custom Solutions</a>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:1rem;margin-bottom:1.2rem;color:var(--text)">Contact</div>
+      <div style="display:flex;flex-direction:column;gap:.7rem">
+        <a href="/cdn-cgi/l/email-protection#ceada1a0baafadba8ebdafa0abbdbaa7b6e0ada1a3" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'"><span class="__cf_email__" data-cfemail="e98a86879d888a9da99a88878c9a9d8091c78a8684">[email&#160;protected]</span></a>
+        <a href="/cdn-cgi/l/email-protection#fd8e888d8d928f89bd8e9c93988e899485d39e9290" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'"><span class="__cf_email__" data-cfemail="9eedebeeeef1eceadeedfff0fbedeaf7e6b0fdf1f3">[email&#160;protected]</span></a>
+        <a href="tel:+923014422951" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">+92-301-4422951</a>
+        <span style="color:var(--muted);font-size:.875rem">Lahore, Punjab, Pakistan</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copy">
+    <p>© 2026 Sanestix. All rights reserved. Built with passion in Pakistan 🇵🇰</p>
+    <div style="display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-top:.75rem">
+      <a href="privacy-policy.html" style="color:var(--muted);text-decoration:none;font-size:.8rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Privacy Policy</a>
+      <a href="terms-of-service.html" style="color:var(--muted);text-decoration:none;font-size:.8rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Terms of Service</a>
+      <a href="refund-policy.html" style="color:var(--muted);text-decoration:none;font-size:.8rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Refund Policy</a>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ── ANTI-GRAVITY PARTICLE SYSTEM ──
+const canvas = document.getElementById('gravCanvas');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [], mouse = {x:-9999, y:-9999};
+const PARTICLE_COUNT = 120;
+const CYAN = [0, 229, 208];
+
+function resize(){
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+window.addEventListener('mousemove', e=>{mouse.x=e.clientX;mouse.y=e.clientY});
+window.addEventListener('mouseleave', ()=>{mouse.x=-9999;mouse.y=-9999});
+
+class Particle{
+  constructor(){this.reset()}
+  reset(){
+    this.x = Math.random()*W;
+    this.y = Math.random()*H;
+    this.size = Math.random()*2.5 + 0.4;
+    this.baseSize = this.size;
+    this.vx = (Math.random()-.5)*.4;
+    this.vy = (Math.random()-.5)*.4 - 0.15; // slight upward drift (anti-grav)
+    this.life = Math.random();
+    this.maxLife = Math.random()*.6 + .4;
+    this.alpha = Math.random()*.5 + .1;
+    this.type = Math.random() > 0.7 ? 'dot' : 'ring';
+    this.color = Math.random() > 0.3 ? CYAN : [255,255,255];
+  }
+  update(){
+    // Anti-gravity: particles drift upward, create field effect
+    this.vy -= 0.004; // continuous upward pull
+
+    // Mouse repulsion (anti-gravity field)
+    const dx = this.x - mouse.x;
+    const dy = this.y - mouse.y;
+    const dist = Math.sqrt(dx*dx+dy*dy);
+    if(dist < 120){
+      const force = (120-dist)/120;
+      this.vx += (dx/dist)*force*.8;
+      this.vy += (dy/dist)*force*.8;
+    }
+
+    // Damping
+    this.vx *= 0.985;
+    this.vy *= 0.985;
+
+    this.x += this.vx;
+    this.y += this.vy;
+
+    // Wrap on sides, reset from bottom if too high
+    if(this.x < -10) this.x = W+10;
+    if(this.x > W+10) this.x = -10;
+    if(this.y < -20){
+      this.y = H + 10;
+      this.x = Math.random()*W;
+      this.vy = (Math.random()-.5)*.3 - 0.1;
+    }
+    if(this.y > H+20) this.y = -20;
+  }
+  draw(){
+    const [r,g,b] = this.color;
+    const alpha = this.alpha * (0.4 + 0.6*Math.sin(this.life*Math.PI));
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    if(this.type === 'ring'){
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size*2, 0, Math.PI*2);
+      ctx.strokeStyle = `rgb(${r},${g},${b})`;
+      ctx.lineWidth = .6;
+      ctx.stroke();
+    } else {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+      ctx.fillStyle = `rgb(${r},${g},${b})`;
+      ctx.fill();
+      // Glow
+      ctx.shadowBlur = 8;
+      ctx.shadowColor = `rgb(${r},${g},${b})`;
+      ctx.fill();
+    }
+    ctx.restore();
+    this.life += 0.005;
+    if(this.life > this.maxLife) this.life = 0;
+  }
+}
+
+// Connection lines
+function drawConnections(){
+  for(let i=0;i<particles.length;i++){
+    for(let j=i+1;j<particles.length;j++){
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx*dx+dy*dy);
+      if(dist < 100){
+        const alpha = (1-dist/100)*0.12;
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(0,229,208,${alpha})`;
+        ctx.lineWidth = .5;
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+for(let i=0;i<PARTICLE_COUNT;i++) particles.push(new Particle());
+
+function loop(){
+  ctx.clearRect(0,0,W,H);
+  drawConnections();
+  particles.forEach(p=>{p.update();p.draw()});
+  requestAnimationFrame(loop);
+}
+loop();
+
+// ── NAVBAR SCROLL ──
+window.addEventListener('scroll', ()=>{
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY>20);
+});
+
+// ── MOBILE MENU ──
+document.getElementById('hamburger').addEventListener('click', ()=>{
+  const m = document.getElementById('mobileMenu');
+  m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+});
+function closeMobile(){document.getElementById('mobileMenu').style.display='none'}
+
+// ── FAQ ──
+function toggleFaq(btn){
+  const item = btn.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+
+// ── FORM SUBMIT ──
+function submitForm(btn){
+  btn.innerHTML = 'Message Sent! ✓';
+  btn.style.background = 'linear-gradient(135deg,#00d4a0,#00b8d4)';
+  setTimeout(()=>{
+    btn.innerHTML = 'Send Message <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
+    btn.style.background = '';
+  }, 3500);
+}
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add('visible');
+  });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// ── PARALLAX ROBOT ──
+const robot = document.getElementById('robotEl');
+let mx=0, my=0, curX=0, curY=0;
+document.addEventListener('mousemove', e=>{
+  mx = (e.clientX/window.innerWidth - 0.5)*2;
+  my = (e.clientY/window.innerHeight - 0.5)*2;
+});
+function animRobot(){
+  curX += (mx - curX) * 0.05;
+  curY += (my - curY) * 0.05;
+  if(robot){
+    robot.style.transform = `translate(${curX*-18}px, ${curY*-12}px)`;
+  }
+  requestAnimationFrame(animRobot);
+}
+animRobot();
+</script>
+<!-- Scroll to Top -->
+<button id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top"
+  style="position:fixed;bottom:2rem;right:2rem;width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--cyan2));border:none;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:999;box-shadow:0 0 30px rgba(0,229,208,.4);transition:transform .3s,box-shadow .3s"
+  onmouseover="this.style.transform='translateY(-4px) rotate(360deg)';this.style.boxShadow='0 0 50px rgba(0,229,208,.6)'"
+  onmouseout="this.style.transform='none';this.style.boxShadow='0 0 30px rgba(0,229,208,.4)'">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#060b14" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+<script>
+window.addEventListener('scroll',()=>{
+  const btn=document.getElementById('scrollTopBtn');
+  btn.style.display=window.scrollY>400?'flex':'none';
+});
+</script>
 </body>
-
 </html>
