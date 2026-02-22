@@ -874,11 +874,24 @@ select option{background:var(--bg)}
 }
 .wa-float:hover .wa-tooltip{opacity:1}
 
-/* FOOTER */
+/* FOOTER — always dark */
 footer{
-  padding:4rem 2rem 2rem;background:var(--footer-bg);
-  border-top:1px solid var(--border);
-  transition: background 0.4s;
+  padding:4rem 2rem 2rem;
+  background: #060b14;
+  border-top:1px solid rgba(0,229,208,0.1);
+}
+footer,
+footer a,
+footer span,
+footer p,
+footer div {
+  /* force dark text tokens inside footer */
+  --text: #e8f4f8;
+  --text-secondary: #c8dde8;
+  --muted: #5e7d90;
+  --border: rgba(0,229,208,0.12);
+  --border2: rgba(0,229,208,0.25);
+  --cyan: #00e5d0;
 }
 .footer-inner{
   max-width:1200px;margin:0 auto;
