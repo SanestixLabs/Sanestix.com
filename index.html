@@ -143,32 +143,14 @@ section{position:relative;z-index:1}
   background: rgba(255,255,255,0.06);
 }
 
-/* LOGO — always bright on dark nav */
+/* LOGO — always visible on dark nav */
 .nav-logo-img {
   height: 48px;
   width: 160px;
   object-fit: contain;
   object-position: left center;
   display: block;
-  /* Invert dark logo to white so it shows on the always-dark navbar.
-     brightness(0) turns it black, invert(1) makes it white,
-     then we tint with cyan using sepia+saturate+hue-rotate */
   filter: brightness(0) invert(1);
-  transition: filter 0.3s;
-}
-/* If you ever switch to a white/light logo file, comment out the filter above */
-
-/* Fallback: if logo still looks off, we wrap it in a subtle pill */
-.nav-logo-wrap {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  padding: 4px 10px 4px 4px;
-  border-radius: 10px;
-  transition: background 0.2s;
-}
-.nav-logo-wrap:hover {
-  background: rgba(255,255,255,0.06);
 }
 nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
@@ -181,10 +163,14 @@ nav{
   --nav-border: rgba(0,229,208,0.12);
   --nav-bg-scrolled: rgba(6,11,20,0.92);
 }
-nav.scrolled{
-  background: var(--nav-bg-scrolled);
+nav{
+  background: rgba(6,11,20,0.95);
   backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--nav-border);
+  border-bottom:1px solid rgba(0,229,208,0.08);
+}
+nav.scrolled{
+  background: rgba(6,11,20,0.98);
+  border-bottom:1px solid rgba(0,229,208,0.14);
 }
 .logo{
   display:flex;align-items:center;gap:.6rem;
