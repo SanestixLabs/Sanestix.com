@@ -143,7 +143,33 @@ section{position:relative;z-index:1}
   background: rgba(255,255,255,0.06);
 }
 
-/* NAV — always dark regardless of theme */
+/* LOGO — always bright on dark nav */
+.nav-logo-img {
+  height: 48px;
+  width: 160px;
+  object-fit: contain;
+  object-position: left center;
+  display: block;
+  /* Invert dark logo to white so it shows on the always-dark navbar.
+     brightness(0) turns it black, invert(1) makes it white,
+     then we tint with cyan using sepia+saturate+hue-rotate */
+  filter: brightness(0) invert(1);
+  transition: filter 0.3s;
+}
+/* If you ever switch to a white/light logo file, comment out the filter above */
+
+/* Fallback: if logo still looks off, we wrap it in a subtle pill */
+.nav-logo-wrap {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 4px 10px 4px 4px;
+  border-radius: 10px;
+  transition: background 0.2s;
+}
+.nav-logo-wrap:hover {
+  background: rgba(255,255,255,0.06);
+}
 nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
   padding:1.2rem 2rem;
@@ -1050,8 +1076,8 @@ svg{display:inline-block;vertical-align:middle}
 
 <!-- NAV -->
 <nav id="navbar">
-  <a href="#" style="text-decoration:none;display:flex;align-items:center">
-    <img src="LOGO.png" alt="Sanestix Logo" style="height:48px;width:160px;object-fit:contain;object-position:left center;display:block"/>
+  <a href="#" class="nav-logo-wrap">
+    <img src="LOGO.png" alt="Sanestix Logo" class="nav-logo-img"/>
   </a>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
