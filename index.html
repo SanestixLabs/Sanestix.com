@@ -143,15 +143,15 @@ section{position:relative;z-index:1}
   background: rgba(255,255,255,0.06);
 }
 
-/* LOGO — always visible on dark nav */
+/* ── LOGO — no filter, shows naturally ── */
 .nav-logo-img {
   height: 48px;
   width: 160px;
   object-fit: contain;
   object-position: left center;
   display: block;
-  filter: brightness(0) invert(1);
 }
+
 nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
   padding:1.2rem 2rem;
@@ -189,16 +189,39 @@ nav.scrolled{
 }
 .nav-cta:hover{transform:scale(1.05);box-shadow:0 0 60px rgba(0,229,208,0.5)}
 .hamburger{display:none;background:none;border:none;cursor:pointer;color:var(--nav-text)}
+
+/* ── MOBILE MENU — theme-aware ── */
 .mobile-menu{
   display:none;
   position:fixed;top:72px;left:0;right:0;
   background: rgba(6,11,20,0.98);
   backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(0,229,208,0.12);padding:1.5rem 2rem;
+  border-bottom:1px solid rgba(0,229,208,0.12);
+  padding:1.5rem 2rem;
   flex-direction:column;gap:1.2rem;z-index:99;
+  transition: background 0.4s, border-color 0.4s;
 }
-.mobile-menu a{color:#5e7d90;text-decoration:none;font-size:1rem;font-weight:500}
+.mobile-menu a{
+  color: #5e7d90;
+  text-decoration:none;font-size:1rem;font-weight:500;
+  transition: color 0.2s;
+}
 .mobile-menu a:hover{color:#00e5d0}
+
+/* Light mode overrides for mobile menu */
+[data-theme="light"] .mobile-menu {
+  background: rgba(240,246,250,0.98);
+  border-bottom-color: rgba(0,168,154,0.18);
+}
+[data-theme="light"] .mobile-menu a {
+  color: #4a7080;
+}
+[data-theme="light"] .mobile-menu a:hover {
+  color: #00a89a;
+}
+[data-theme="light"] .mobile-menu .btn-primary {
+  color: #060b14;
+}
 
 /* HERO */
 .hero{
