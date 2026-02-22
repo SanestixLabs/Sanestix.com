@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -23,21 +23,60 @@
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+/* ═══════════════════════════════════════════
+   THEME SYSTEM
+═══════════════════════════════════════════ */
+:root {
+  --transition-theme: background 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
 
-:root{
+[data-theme="dark"] {
   --cyan: #00e5d0;
   --cyan2: #00b8e6;
   --bg: #060b14;
   --bg2: #0a1120;
   --card: rgba(10,20,40,0.85);
+  --card-solid: #0a1120;
   --border: rgba(0,229,208,0.12);
   --border2: rgba(0,229,208,0.25);
   --text: #e8f4f8;
+  --text-secondary: #c8dde8;
   --muted: #5e7d90;
   --glow: 0 0 40px rgba(0,229,208,0.25);
   --glow2: 0 0 80px rgba(0,229,208,0.12);
+  --nav-bg: rgba(6,11,20,0.9);
+  --mobile-menu-bg: rgba(6,11,20,0.98);
+  --input-bg: rgba(255,255,255,0.04);
+  --robot-glow-color: rgba(0,229,208,0.18);
+  --particle-opacity: 1;
+  --footer-bg: #060b14;
+  --stats-border: rgba(0,229,208,0.08);
 }
+
+[data-theme="light"] {
+  --cyan: #00a89a;
+  --cyan2: #0090b8;
+  --bg: #f0f6fa;
+  --bg2: #e4eef5;
+  --card: rgba(255,255,255,0.92);
+  --card-solid: #ffffff;
+  --border: rgba(0,168,154,0.15);
+  --border2: rgba(0,168,154,0.35);
+  --text: #0d1f2d;
+  --text-secondary: #1e3a4f;
+  --muted: #4a7080;
+  --glow: 0 0 30px rgba(0,168,154,0.2);
+  --glow2: 0 0 60px rgba(0,168,154,0.1);
+  --nav-bg: rgba(240,246,250,0.92);
+  --mobile-menu-bg: rgba(240,246,250,0.98);
+  --input-bg: rgba(0,0,0,0.04);
+  --robot-glow-color: rgba(0,168,154,0.15);
+  --particle-opacity: 0.4;
+  --footer-bg: #e4eef5;
+  --stats-border: rgba(0,168,154,0.1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 html{scroll-behavior:smooth}
 body{
@@ -46,6 +85,7 @@ body{
   font-family: 'Sora', sans-serif;
   overflow-x: hidden;
   min-height: 100vh;
+  transition: var(--transition-theme);
 }
 
 #gravCanvas{
@@ -53,10 +93,75 @@ body{
   inset:0;
   pointer-events:none;
   z-index:0;
+  opacity: var(--particle-opacity);
+  transition: opacity 0.4s ease;
 }
 
 .container{max-width:1200px;margin:0 auto;padding:0 2rem}
 section{position:relative;z-index:1}
+
+/* ══════════════════════════════════════
+   THEME TOGGLE BUTTON
+══════════════════════════════════════ */
+.theme-toggle {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-right: none;
+  border-radius: 16px 0 0 16px;
+  overflow: hidden;
+  box-shadow: -4px 0 20px rgba(0,229,208,0.1);
+  transition: box-shadow 0.3s;
+}
+.theme-toggle:hover {
+  box-shadow: -6px 0 30px rgba(0,229,208,0.2);
+}
+.theme-btn {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: var(--muted);
+  transition: all 0.3s;
+  position: relative;
+  font-family: 'Sora', sans-serif;
+}
+.theme-btn:first-child {
+  border-bottom: 1px solid var(--border);
+}
+.theme-btn.active {
+  color: var(--cyan);
+  background: rgba(0,229,208,0.08);
+}
+.theme-btn:hover:not(.active) {
+  color: var(--text);
+  background: rgba(0,229,208,0.04);
+}
+.theme-btn svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+.theme-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+  text-transform: uppercase;
+  line-height: 1;
+}
 
 /* NAV */
 nav{
@@ -66,7 +171,7 @@ nav{
   transition:all .4s;
 }
 nav.scrolled{
-  background:rgba(6,11,20,0.9);
+  background: var(--nav-bg);
   backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);
 }
@@ -90,9 +195,11 @@ nav.scrolled{
 .mobile-menu{
   display:none;
   position:fixed;top:72px;left:0;right:0;
-  background:rgba(6,11,20,0.98);backdrop-filter:blur(20px);
+  background: var(--mobile-menu-bg);
+  backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);padding:1.5rem 2rem;
   flex-direction:column;gap:1.2rem;z-index:99;
+  transition: var(--transition-theme);
 }
 .mobile-menu a{color:var(--muted);text-decoration:none;font-size:1rem;font-weight:500}
 .mobile-menu a:hover{color:var(--cyan)}
@@ -158,39 +265,87 @@ h1{
 .btn-whatsapp{
   display:inline-flex;align-items:center;gap:.6rem;
   padding:.85rem 1.75rem;border-radius:100px;
-  background:linear-gradient(135deg,#25d366,#128c7e);
-  color:#fff;font-weight:700;font-size:.9rem;
+  background:transparent;
+  border:1.5px solid var(--border2);
+  color:var(--text);font-weight:700;font-size:.9rem;
   text-decoration:none;
-  transition:transform .2s,box-shadow .2s;
-  box-shadow:0 0 30px rgba(37,211,102,0.3);
+  transition:border-color .25s,background .25s,box-shadow .25s,color .25s;
 }
-.btn-whatsapp:hover{transform:scale(1.05);box-shadow:0 0 50px rgba(37,211,102,0.5)}
+.btn-whatsapp:hover{
+  border-color:var(--cyan);
+  background:rgba(0,229,208,0.08);
+  color:var(--cyan);
+  box-shadow:0 0 30px rgba(0,229,208,0.15);
+}
+.btn-whatsapp svg{color:var(--cyan);flex-shrink:0}
 .platform-pills{display:flex;gap:1.5rem;flex-wrap:wrap}
 .platform-pill{
   display:flex;align-items:center;gap:.4rem;
-  color:rgba(94,125,144,.7);font-size:.8rem;font-weight:500;
+  color:var(--muted);font-size:.8rem;font-weight:500;
+  opacity:0.7;
 }
 .platform-pill svg{color:var(--cyan);opacity:.8}
 
-/* ROBOT */
+/* ══════════════════════════════════════
+   3D INTERACTIVE ROBOT
+══════════════════════════════════════ */
 .hero-visual{position:relative;display:flex;justify-content:center;align-items:center}
-.robot-wrap{
-  position:relative;z-index:2;
-  animation:floatMain 7s ease-in-out infinite;
-}
-@keyframes floatMain{
-  0%,100%{transform:translateY(0) rotate(0deg)}
-  33%{transform:translateY(-20px) rotate(.8deg)}
-  66%{transform:translateY(-8px) rotate(-.5deg)}
-}
-.robot-img{width:420px;max-width:90%;display:block}
-.robot-glow{
-  position:absolute;inset:0;
-  background:radial-gradient(ellipse 60% 60% at 50% 60%,rgba(0,229,208,.18) 0%,transparent 70%);
-  pointer-events:none;animation:glowPulse 4s ease-in-out infinite;
-}
-@keyframes glowPulse{0%,100%{opacity:.8;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
 
+.robot-scene {
+  position: relative;
+  width: 460px;
+  height: 460px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 900px;
+  perspective-origin: center center;
+}
+
+.robot-3d-wrapper {
+  position: relative;
+  z-index: 2;
+  transform-style: preserve-3d;
+  transition: transform 0.08s linear;
+  will-change: transform;
+}
+
+/* The SVG robot built from scratch */
+.robot-svg-container {
+  width: 340px;
+  height: 400px;
+  position: relative;
+  filter: drop-shadow(0 20px 60px rgba(0,229,208,0.35));
+  animation: robotFloat 6s ease-in-out infinite;
+}
+
+@keyframes robotFloat {
+  0%,100%{transform:translateY(0px)}
+  50%{transform:translateY(-18px)}
+}
+
+/* Glow ring under robot */
+.robot-ground-glow {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 30px;
+  background: radial-gradient(ellipse, rgba(0,229,208,0.4) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: glowPulse 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes glowPulse{0%,100%{opacity:0.6;transform:translateX(-50%) scaleX(1)}50%{opacity:1;transform:translateX(-50%) scaleX(1.15)}}
+
+/* Eyes follow mouse */
+.robot-eye-group {
+  transition: transform 0.12s ease-out;
+}
+
+/* Orbit rings */
 .orbit-ring{
   position:absolute;border-radius:50%;border:1px dashed rgba(0,229,208,.15);
   top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;
@@ -201,16 +356,61 @@ h1{
 @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
 .orbit-dot{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);top:-4px;left:50%;margin-left:-4px;}
 .orbit-dot2{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--cyan2);box-shadow:0 0 10px var(--cyan2);bottom:-3px;right:20%;}
-.orbit-dot3{position:absolute;width:5px;height:5px;border-radius:50%;background:#fff;box-shadow:0 0 8px rgba(255,255,255,.5);top:20%;right:-3px;}
+.orbit-dot3{position:absolute;width:5px;height:5px;border-radius:50%;background:rgba(0,229,208,0.8);box-shadow:0 0 8px rgba(0,229,208,0.5);top:20%;right:-3px;}
 
-/* ── TRUST BAR ── */
+/* Floating data cards */
+.robot-data-card {
+  position: absolute;
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  padding: 0.6rem 1rem;
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  z-index: 5;
+  pointer-events: none;
+}
+.robot-data-card .card-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan);
+  animation: pulseAnim 2s ease-in-out infinite;
+}
+.robot-data-card.top-left {
+  top: 10%;
+  left: -10%;
+  animation: floatCard1 4s ease-in-out infinite;
+}
+.robot-data-card.bottom-right {
+  bottom: 18%;
+  right: -12%;
+  animation: floatCard2 5s ease-in-out infinite;
+}
+.robot-data-card.top-right {
+  top: 30%;
+  right: -14%;
+  animation: floatCard3 6s ease-in-out infinite;
+}
+@keyframes floatCard1{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-8px) rotate(1deg)}}
+@keyframes floatCard2{0%,100%{transform:translateY(0) rotate(1deg)}50%{transform:translateY(-10px) rotate(-1deg)}}
+@keyframes floatCard3{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-6px) rotate(2deg)}}
+
+/* TRUST BAR */
 .trust-bar{
   padding:2.5rem 0;
   border-top:1px solid var(--border);
   border-bottom:1px solid var(--border);
   background:rgba(0,229,208,0.02);
   overflow:hidden;
+  transition: var(--transition-theme);
 }
+[data-theme="light"] .trust-bar { background: rgba(0,168,154,0.03); }
 .trust-bar-label{
   text-align:center;
   color:var(--muted);font-size:.78rem;font-weight:600;
@@ -233,6 +433,7 @@ h1{
   white-space:nowrap;flex-shrink:0;
   transition:border-color .3s,color .3s;
 }
+[data-theme="light"] .client-logo { background: rgba(0,0,0,0.03); }
 .client-logo:hover{border-color:var(--border2);color:var(--text)}
 .client-logo-icon{
   width:28px;height:28px;border-radius:6px;
@@ -254,7 +455,7 @@ h1{
   background-clip:text;margin-bottom:.3rem;
 }
 .stat-label{color:var(--muted);font-size:.875rem;font-weight:500}
-.stat-note{color:rgba(94,125,144,.6);font-size:.72rem;margin-top:.2rem}
+.stat-note{color:var(--muted);font-size:.72rem;margin-top:.2rem;opacity:0.6}
 
 /* SECTION HEADER */
 .section-header{text-align:center;margin-bottom:4rem}
@@ -279,7 +480,7 @@ h2{
   background:var(--card);border:1px solid var(--border);
   border-radius:20px;padding:2.25rem;
   backdrop-filter:blur(12px);
-  transition:border-color .3s,transform .3s,box-shadow .3s;
+  transition:border-color .3s,transform .3s,box-shadow .3s, background 0.4s;
   position:relative;overflow:hidden;
 }
 .service-card::before{
@@ -313,12 +514,12 @@ h2{
 }
 .card-cta:hover{gap:.6rem}
 
-/* ── CASE STUDIES ── */
-.case-studies{padding:6rem 0;background:var(--bg2)}
+/* CASE STUDIES */
+.case-studies{padding:6rem 0;background:var(--bg2);transition: background 0.4s;}
 .cs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
 .cs-card{
   background:var(--card);border:1px solid var(--border);border-radius:20px;
-  overflow:hidden;transition:border-color .3s,transform .3s;
+  overflow:hidden;transition:border-color .3s,transform .3s, background 0.4s;
   display:flex;flex-direction:column;
 }
 .cs-card:hover{border-color:var(--border2);transform:translateY(-4px)}
@@ -363,7 +564,7 @@ h2{
 .step-card{
   background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2rem;
   position:relative;overflow:hidden;
-  transition:border-color .3s,transform .3s;
+  transition:border-color .3s,transform .3s, background 0.4s;
 }
 .step-card:hover{border-color:var(--border2);transform:translateY(-4px)}
 .step-num{
@@ -382,13 +583,13 @@ h2{
 .step-title{font-family:'Sora',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:.5rem}
 .step-desc{color:var(--muted);font-size:.85rem;line-height:1.7}
 
-/* ── TESTIMONIALS ── */
-.testimonials{padding:6rem 0;background:var(--bg2)}
+/* TESTIMONIALS */
+.testimonials{padding:6rem 0;background:var(--bg2);transition: background 0.4s;}
 .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:2rem}
 .testi-card{
   background:var(--card);border:1px solid var(--border);border-radius:20px;padding:1.75rem;
   position:relative;overflow:hidden;
-  transition:border-color .3s,transform .3s;
+  transition:border-color .3s,transform .3s, background 0.4s;
   display:flex;flex-direction:column;gap:1rem;
 }
 .testi-card:hover{border-color:var(--border2);transform:translateY(-3px)}
@@ -416,7 +617,7 @@ h2{
   color:var(--cyan);font-size:.7rem;font-weight:600;
 }
 
-/* ── PRICING GUIDE ── */
+/* PRICING */
 .pricing{padding:6rem 0}
 .pricing-note{
   text-align:center;color:var(--muted);font-size:.85rem;margin-top:1rem;
@@ -426,9 +627,10 @@ h2{
 .price-card{
   background:var(--card);border:1px solid var(--border);border-radius:20px;
   padding:2rem;display:flex;flex-direction:column;gap:1.25rem;
-  transition:border-color .3s,transform .3s;position:relative;overflow:hidden;
+  transition:border-color .3s,transform .3s, background 0.4s;position:relative;overflow:hidden;
 }
 .price-card.featured{border-color:var(--border2);background:rgba(0,229,208,0.05)}
+[data-theme="light"] .price-card.featured { background: rgba(0,168,154,0.05); }
 .price-card.featured::before{
   content:'';position:absolute;top:0;left:0;right:0;height:2px;
   background:linear-gradient(90deg,var(--cyan),var(--cyan2));
@@ -463,8 +665,8 @@ h2{
 }
 .price-cta.ghost:hover{border-color:var(--cyan);color:var(--cyan)}
 
-/* ── ABOUT STORY ── */
-.about{padding:6rem 0;background:var(--bg2)}
+/* ABOUT */
+.about{padding:6rem 0;background:var(--bg2);transition: background 0.4s;}
 .about-inner{
   display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
   max-width:960px;margin:0 auto;
@@ -487,7 +689,7 @@ h2{
 .about-stat-card{
   background:var(--card);border:1px solid var(--border);border-radius:16px;
   padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1rem;
-  transition:border-color .3s;
+  transition:border-color .3s, background 0.4s;
 }
 .about-stat-card:hover{border-color:var(--border2)}
 .about-stat-icon{
@@ -506,7 +708,7 @@ h2{
 .faq-list{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:.75rem}
 .faq-item{
   background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;
-  transition:border-color .3s;
+  transition:border-color .3s, background 0.4s;
 }
 .faq-item.open{border-color:var(--border2)}
 .faq-q{
@@ -555,6 +757,9 @@ h2{
   position:absolute;inset:0;
   background:linear-gradient(to top,rgba(6,11,20,1) 0%,rgba(6,11,20,.5) 45%,transparent 100%);
 }
+[data-theme="light"] .team-overlay {
+  background:linear-gradient(to top,rgba(10,20,35,0.95) 0%,rgba(10,20,35,0.5) 45%,transparent 100%);
+}
 .team-accent{
   position:absolute;left:0;top:0;bottom:0;width:3px;
   background:linear-gradient(to bottom,transparent,var(--cyan),transparent);
@@ -563,9 +768,9 @@ h2{
 .team-card:hover .team-accent{opacity:1}
 .team-info{position:absolute;bottom:0;left:0;right:0;padding:2rem}
 .team-role{color:var(--cyan);font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3rem}
-.team-name{font-family:'Sora',sans-serif;font-weight:700;font-size:1.6rem;margin-bottom:.75rem}
+.team-name{font-family:'Sora',sans-serif;font-weight:700;font-size:1.6rem;margin-bottom:.75rem;color:#fff}
 .team-bio{
-  color:var(--muted);font-size:.85rem;line-height:1.7;margin-bottom:1rem;
+  color:rgba(200,220,232,0.8);font-size:.85rem;line-height:1.7;margin-bottom:1rem;
   opacity:0;transform:translateY(12px);transition:opacity .5s,transform .5s;
 }
 .team-card:hover .team-bio{opacity:1;transform:translateY(0)}
@@ -576,30 +781,31 @@ h2{
 .team-linkedin:hover{color:#fff}
 
 /* CONTACT */
-.contact{padding:6rem 0;background:var(--bg2)}
+.contact{padding:6rem 0;background:var(--bg2);transition: background 0.4s;}
 .contact-grid{display:grid;grid-template-columns:2fr 3fr;gap:2.5rem;max-width:960px;margin:0 auto}
 .contact-info{display:flex;flex-direction:column;gap:1.25rem}
-.info-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.5rem;}
+.info-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.5rem;transition: background 0.4s;}
 .info-row{display:flex;align-items:center;gap:.85rem;margin-bottom:.85rem}
 .info-row:last-child{margin-bottom:0}
 .info-icon{width:40px;height:40px;border-radius:12px;flex-shrink:0;background:rgba(0,229,208,.1);display:flex;align-items:center;justify-content:center;}
 .info-label{color:var(--muted);font-size:.75rem;margin-bottom:.1rem}
 .info-val{font-size:.9rem;font-weight:500;color:var(--text)}
 .whatsapp-cta-card{
-  background:linear-gradient(135deg,rgba(37,211,102,0.08),rgba(18,140,126,0.05));
-  border:1px solid rgba(37,211,102,0.25);border-radius:18px;padding:1.5rem;
+  background:rgba(0,229,208,0.04);
+  border:1px solid var(--border2);border-radius:18px;padding:1.5rem;
   display:flex;flex-direction:column;gap:.85rem;
 }
 .whatsapp-cta-card .btn-whatsapp{justify-content:center;}
-.contact-form{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2.25rem;}
+.contact-form{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2.25rem;transition: background 0.4s;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
 .form-group{margin-bottom:1.25rem}
 label{display:block;font-size:.78rem;font-weight:500;color:var(--muted);margin-bottom:.5rem;letter-spacing:.03em}
 input,select,textarea{
   width:100%;padding:.85rem 1rem;border-radius:12px;
-  background:rgba(255,255,255,.04);border:1px solid var(--border);
+  background: var(--input-bg);
+  border:1px solid var(--border);
   color:var(--text);font-size:.9rem;font-family:'Sora',sans-serif;
-  transition:border-color .2s,box-shadow .2s;outline:none;
+  transition:border-color .2s,box-shadow .2s, background 0.4s, color 0.4s;outline:none;
   -webkit-appearance:none;appearance:none;
 }
 input:focus,select:focus,textarea:focus{
@@ -619,32 +825,41 @@ select option{background:var(--bg)}
 }
 .form-submit:hover{transform:scale(1.02);box-shadow:0 0 60px rgba(0,229,208,.4)}
 
-/* ── FLOATING WHATSAPP BUTTON ── */
+/* FLOATING WHATSAPP */
 .wa-float{
   position:fixed;bottom:5.5rem;right:2rem;z-index:998;
-  width:56px;height:56px;border-radius:50%;
-  background:linear-gradient(135deg,#25d366,#128c7e);
+  width:52px;height:52px;border-radius:50%;
+  background:rgba(0,229,208,0.12);
+  border:1.5px solid var(--border2);
+  backdrop-filter:blur(12px);
   display:flex;align-items:center;justify-content:center;
   text-decoration:none;
-  box-shadow:0 4px 20px rgba(37,211,102,0.4);
-  transition:transform .3s,box-shadow .3s;
+  box-shadow:0 0 30px rgba(0,229,208,0.2);
+  transition:transform .3s,box-shadow .3s,background .3s,border-color .3s;
   animation:waBounce 3s ease-in-out infinite;
 }
-.wa-float:hover{transform:scale(1.15);box-shadow:0 8px 30px rgba(37,211,102,0.6);animation:none}
+.wa-float:hover{
+  transform:scale(1.12);
+  box-shadow:0 0 50px rgba(0,229,208,0.4);
+  background:rgba(0,229,208,0.2);
+  border-color:var(--cyan);
+  animation:none;
+}
 @keyframes waBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 .wa-tooltip{
-  position:absolute;right:68px;top:50%;transform:translateY(-50%);
-  background:rgba(6,11,20,0.95);border:1px solid rgba(37,211,102,0.3);
+  position:absolute;right:64px;top:50%;transform:translateY(-50%);
+  background:var(--card);border:1px solid var(--border2);
   padding:.4rem .85rem;border-radius:8px;
-  color:#fff;font-size:.78rem;font-weight:600;white-space:nowrap;
+  color:var(--text);font-size:.75rem;font-weight:600;white-space:nowrap;
   opacity:0;pointer-events:none;transition:opacity .2s;
 }
 .wa-float:hover .wa-tooltip{opacity:1}
 
 /* FOOTER */
 footer{
-  padding:4rem 2rem 2rem;background:var(--bg);
+  padding:4rem 2rem 2rem;background:var(--footer-bg);
   border-top:1px solid var(--border);
+  transition: background 0.4s;
 }
 .footer-inner{
   max-width:1200px;margin:0 auto;
@@ -661,7 +876,7 @@ footer{
 .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
-/* ── DEMO CHAT SECTION ── */
+/* DEMO CHAT */
 .demo{padding:6rem 0;background:var(--bg)}
 .demo-inner{
   display:grid;grid-template-columns:1fr 1fr;
@@ -679,7 +894,7 @@ footer{
   background:var(--card);border:1px solid var(--border);
   border-radius:24px;overflow:hidden;
   box-shadow:0 20px 60px rgba(0,0,0,0.4),0 0 0 1px var(--border);
-  position:relative;
+  position:relative;transition: background 0.4s;
 }
 .demo-chat-header{
   padding:1rem 1.25rem;
@@ -734,6 +949,9 @@ footer{
   background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);
   border-bottom-right-radius:4px;color:var(--text);
 }
+[data-theme="light"] .msg.user .msg-bubble {
+  background:rgba(0,0,0,0.05);border:1px solid rgba(0,0,0,0.1);
+}
 .msg-time{color:var(--muted);font-size:.65rem;margin-top:.2rem;display:block}
 .typing-indicator{
   display:flex;gap:4px;align-items:center;padding:.6rem .9rem;
@@ -752,11 +970,12 @@ footer{
   display:flex;gap:.6rem;align-items:center;
   background:rgba(0,0,0,0.2);
 }
+[data-theme="light"] .demo-chat-input { background: rgba(0,0,0,0.04); }
 .demo-input-field{
-  flex:1;background:rgba(255,255,255,.04);border:1px solid var(--border);
+  flex:1;background: var(--input-bg);border:1px solid var(--border);
   border-radius:100px;padding:.5rem 1rem;font-size:.8rem;color:var(--text);
   font-family:'Sora',sans-serif;outline:none;
-  transition:border-color .2s;
+  transition:border-color .2s, background 0.4s, color 0.4s;
 }
 .demo-input-field:focus{border-color:rgba(0,229,208,.3)}
 .demo-send-btn{
@@ -766,85 +985,39 @@ footer{
   transition:transform .2s,box-shadow .2s;
 }
 .demo-send-btn:hover{transform:scale(1.1);box-shadow:0 0 20px rgba(0,229,208,.4)}
+.qr-btn{
+  padding:.35rem .8rem;border-radius:100px;font-size:.72rem;font-weight:600;
+  background:rgba(0,229,208,.07);border:1px solid var(--border);
+  color:var(--muted);cursor:pointer;transition:all .2s;font-family:'Sora',sans-serif;
+}
+.qr-btn:hover{background:rgba(0,229,208,.14);border-color:var(--border2);color:var(--cyan)}
 
-/* ── RETHEMED WHATSAPP BUTTON (cyan-themed, not green) ── */
-.btn-whatsapp{
-  display:inline-flex;align-items:center;gap:.6rem;
-  padding:.85rem 1.75rem;border-radius:100px;
-  background:transparent;
-  border:1.5px solid var(--border2);
-  color:var(--text);font-weight:700;font-size:.9rem;
-  text-decoration:none;
-  transition:border-color .25s,background .25s,box-shadow .25s,color .25s;
+/* SCROLL TOP BTN */
+#scrollTopBtn{
+  position:fixed;bottom:2rem;right:2rem;width:50px;height:50px;border-radius:50%;
+  background:linear-gradient(135deg,var(--cyan),var(--cyan2));border:none;cursor:pointer;
+  display:none;align-items:center;justify-content:center;z-index:999;
+  box-shadow:0 0 30px rgba(0,229,208,.4);transition:transform .3s,box-shadow .3s;
 }
-.btn-whatsapp:hover{
-  border-color:var(--cyan);
-  background:rgba(0,229,208,0.08);
-  color:var(--cyan);
-  box-shadow:0 0 30px rgba(0,229,208,0.15);
-}
-.btn-whatsapp svg{color:var(--cyan);flex-shrink:0}
-
-/* floating WA button — keep subtle cyan theme */
-.wa-float{
-  position:fixed;bottom:5.5rem;right:2rem;z-index:998;
-  width:52px;height:52px;border-radius:50%;
-  background:rgba(0,229,208,0.12);
-  border:1.5px solid var(--border2);
-  backdrop-filter:blur(12px);
-  display:flex;align-items:center;justify-content:center;
-  text-decoration:none;
-  box-shadow:0 0 30px rgba(0,229,208,0.2);
-  transition:transform .3s,box-shadow .3s,background .3s,border-color .3s;
-  animation:waBounce 3s ease-in-out infinite;
-}
-.wa-float:hover{
-  transform:scale(1.12);
-  box-shadow:0 0 50px rgba(0,229,208,0.4);
-  background:rgba(0,229,208,0.2);
-  border-color:var(--cyan);
-  animation:none;
-}
-@keyframes waBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-.wa-tooltip{
-  position:absolute;right:64px;top:50%;transform:translateY(-50%);
-  background:rgba(6,11,20,0.95);border:1px solid var(--border2);
-  padding:.4rem .85rem;border-radius:8px;
-  color:var(--text);font-size:.75rem;font-weight:600;white-space:nowrap;
-  opacity:0;pointer-events:none;transition:opacity .2s;
-}
-.wa-float:hover .wa-tooltip{opacity:1}
-
-/* whatsapp-cta-card inside contact — rethemed to cyan */
-.whatsapp-cta-card{
-  background:rgba(0,229,208,0.04);
-  border:1px solid var(--border2);border-radius:18px;padding:1.5rem;
-  display:flex;flex-direction:column;gap:.85rem;
-}
-.whatsapp-cta-card .btn-whatsapp{justify-content:center}
+#scrollTopBtn:hover{transform:translateY(-4px);box-shadow:0 0 50px rgba(0,229,208,.6)}
 
 /* RESPONSIVE */
 @media(max-width:900px){
-  /* Hero — single column, centered, properly spaced */
   .hero{padding:5.5rem 0 3rem;min-height:auto}
-  .hero-inner{
-    grid-template-columns:1fr;text-align:center;
-    gap:2rem;
-  }
-  .hero-visual{order:-1;min-height:220px}
-  .robot-img{width:200px;max-width:70vw}
+  .hero-inner{grid-template-columns:1fr;text-align:center;gap:2rem;}
+  .hero-visual{order:-1;min-height:300px}
+  .robot-scene{width:280px;height:280px}
+  .robot-svg-container{width:200px;height:240px}
+  .robot-data-card{display:none}
   .hero-sub{margin-left:auto;margin-right:auto;font-size:.95rem;max-width:90%}
   .hero-badge{margin-left:auto;margin-right:auto;display:inline-flex}
   .hero-btns{justify-content:center;gap:.75rem}
   .hero-btns a{font-size:.82rem;padding:.75rem 1.3rem}
   .platform-pills{justify-content:center;gap:1rem}
   h1{font-size:clamp(2.4rem,8vw,3.5rem);letter-spacing:-.03em}
-
-  /* orbit rings smaller on mobile */
   .orbit-ring:nth-child(1){width:200px;height:200px}
   .orbit-ring:nth-child(2){width:280px;height:280px}
   .orbit-ring:nth-child(3){display:none}
-
   .stats-grid{grid-template-columns:repeat(2,1fr)}
   .services-grid{grid-template-columns:1fr}
   .workflow-grid{grid-template-columns:1fr 1fr}
@@ -861,12 +1034,12 @@ footer{
   .hamburger{display:flex}
   h2{font-size:clamp(1.9rem,6vw,2.8rem)}
   .footer-inner{grid-template-columns:1fr 1fr;gap:2rem}
+  .theme-toggle{top:auto;bottom:7rem;transform:none;border-radius:12px 0 0 12px}
 }
 @media(max-width:600px){
   .hero{padding:4.5rem 0 2.5rem}
   .hero-inner{gap:1.5rem}
-  .robot-img{width:170px}
-  .hero-visual{min-height:180px}
+  .robot-svg-container{width:160px;height:200px}
   .orbit-ring:nth-child(1){width:170px;height:170px}
   .orbit-ring:nth-child(2){width:230px;height:230px}
   .hero-btns{flex-direction:column;align-items:center;gap:.65rem}
@@ -885,7 +1058,27 @@ svg{display:inline-block;vertical-align:middle}
 
 <canvas id="gravCanvas"></canvas>
 
-<!-- FLOATING WHATSAPP — themed cyan -->
+<!-- THEME TOGGLE (vertical pill on right) -->
+<div class="theme-toggle" id="themeToggle">
+  <button class="theme-btn active" id="btnDark" onclick="setTheme('dark')" title="Dark Mode">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+    <div class="theme-label">Dark</div>
+  </button>
+  <button class="theme-btn" id="btnLight" onclick="setTheme('light')" title="Light Mode">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="5"/>
+      <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+    </svg>
+    <div class="theme-label">Light</div>
+  </button>
+</div>
+
+<!-- FLOATING WHATSAPP -->
 <a href="https://wa.me/923014422951?text=Hi%20Sanestix!%20I%27d%20like%20to%20discuss%20automation%20for%20my%20business." target="_blank" class="wa-float" aria-label="Chat on WhatsApp">
   <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--cyan)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
   <span class="wa-tooltip">Chat with us now</span>
@@ -929,7 +1122,7 @@ svg{display:inline-block;vertical-align:middle}
         <p class="hero-sub">Intelligent automation for WhatsApp, Instagram &amp; Shopify — tailored exactly to how your business works.</p>
         <div class="hero-btns">
           <a href="https://wa.me/923014422951?text=Hi%20Sanestix!%20I%27d%20like%20to%20discuss%20automation%20for%20my%20business." target="_blank" class="btn-whatsapp">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="var(--cyan)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
             Chat on WhatsApp
           </a>
           <a href="#services" class="btn-ghost">View Services</a>
@@ -949,28 +1142,239 @@ svg{display:inline-block;vertical-align:middle}
           </div>
         </div>
       </div>
+
+      <!-- ══════════ 3D ROBOT VISUAL ══════════ -->
       <div class="hero-visual reveal" style="transition-delay:.2s">
-        <div class="orbit-ring"><div class="orbit-dot"></div></div>
-        <div class="orbit-ring"><div class="orbit-dot2"></div></div>
-        <div class="orbit-ring"><div class="orbit-dot3"></div></div>
-        <div class="robot-wrap" id="robotEl">
-          <div class="robot-glow"></div>
-          <img class="robot-img" src="https://sanestix.com/robot.png" alt="AI Robot"
-               onerror="this.outerHTML='<div style=\'width:360px;height:360px;background:radial-gradient(circle,rgba(0,229,208,.15) 0%,transparent 70%);border-radius:50%;display:flex;align-items:center;justify-content:center;\'><svg width=160 height=160 viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'rgba(0,229,208,0.4)\' stroke-width=\'.5\'><rect x=\'2\' y=\'7\' width=\'20\' height=\'14\' rx=\'2\'/><path d=\'M16 3h-8l-2 4h12z\'/><circle cx=\'9\' cy=\'14\' r=\'1.5\'/><circle cx=\'15\' cy=\'14\' r=\'1.5\'/><line x1=\'9\' y1=\'18\' x2=\'15\' y2=\'18\'/></svg></div>'"
-          />
+        <div class="robot-scene" id="robotScene">
+          <div class="orbit-ring"><div class="orbit-dot"></div></div>
+          <div class="orbit-ring"><div class="orbit-dot2"></div></div>
+          <div class="orbit-ring"><div class="orbit-dot3"></div></div>
+
+          <!-- Floating data cards -->
+          <div class="robot-data-card top-left">
+            <div class="card-dot"></div>
+            <span>24/7 Active</span>
+          </div>
+          <div class="robot-data-card top-right">
+            <div class="card-dot"></div>
+            <span>3.2× Leads</span>
+          </div>
+          <div class="robot-data-card bottom-right">
+            <div class="card-dot"></div>
+            <span>Reply: &lt;15s</span>
+          </div>
+
+          <div class="robot-3d-wrapper" id="robot3D">
+            <!-- Inline SVG Robot -->
+            <div class="robot-svg-container">
+              <svg id="robotSVG" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+                <defs>
+                  <linearGradient id="bodyGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#0a1a30"/>
+                    <stop offset="100%" stop-color="#061020"/>
+                  </linearGradient>
+                  <linearGradient id="cyanGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#00e5d0"/>
+                    <stop offset="100%" stop-color="#00b8e6"/>
+                  </linearGradient>
+                  <linearGradient id="screenGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#001825"/>
+                    <stop offset="100%" stop-color="#000d15"/>
+                  </linearGradient>
+                  <filter id="glow">
+                    <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+                    <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                  </filter>
+                  <filter id="softGlow">
+                    <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+                    <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                  </filter>
+                  <clipPath id="headClip">
+                    <rect x="40" y="20" width="120" height="90" rx="18"/>
+                  </clipPath>
+                </defs>
+
+                <!-- ── ANTENNA ── -->
+                <line x1="100" y1="20" x2="100" y2="6" stroke="#00e5d0" stroke-width="2.5" stroke-linecap="round" filter="url(#softGlow)"/>
+                <circle cx="100" cy="4" r="4" fill="#00e5d0" filter="url(#glow)">
+                  <animate attributeName="opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <!-- Side antenna fins -->
+                <line x1="100" y1="10" x2="92" y2="4" stroke="#00e5d0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+                <line x1="100" y1="10" x2="108" y2="4" stroke="#00e5d0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+
+                <!-- ── HEAD ── -->
+                <rect x="40" y="20" width="120" height="90" rx="18" fill="url(#bodyGrad)" stroke="#00e5d0" stroke-width="1.5" stroke-opacity="0.4"/>
+                <!-- Head top highlight -->
+                <rect x="40" y="20" width="120" height="12" rx="18" fill="rgba(0,229,208,0.06)" clip-path="url(#headClip)"/>
+                <!-- Head corner accent lines -->
+                <path d="M40 38 L40 24 Q40 20 44 20 L56 20" stroke="#00e5d0" stroke-width="1.5" stroke-opacity="0.6" stroke-linecap="round" fill="none"/>
+                <path d="M160 38 L160 24 Q160 20 156 20 L144 20" stroke="#00e5d0" stroke-width="1.5" stroke-opacity="0.6" stroke-linecap="round" fill="none"/>
+                <path d="M40 92 L40 106 Q40 110 44 110 L56 110" stroke="#00e5d0" stroke-width="1.5" stroke-opacity="0.6" stroke-linecap="round" fill="none"/>
+                <path d="M160 92 L160 106 Q160 110 156 110 L144 110" stroke="#00e5d0" stroke-width="1.5" stroke-opacity="0.6" stroke-linecap="round" fill="none"/>
+
+                <!-- ── VISOR / SCREEN ── -->
+                <rect x="52" y="34" width="96" height="56" rx="10" fill="url(#screenGrad)" stroke="#00e5d0" stroke-width="1" stroke-opacity="0.3"/>
+                <!-- Screen scanlines effect -->
+                <rect x="52" y="34" width="96" height="3" rx="0" fill="rgba(0,229,208,0.04)" opacity="0.6"/>
+                <rect x="52" y="40" width="96" height="3" rx="0" fill="rgba(0,229,208,0.04)" opacity="0.5"/>
+                <rect x="52" y="46" width="96" height="3" rx="0" fill="rgba(0,229,208,0.04)" opacity="0.4"/>
+                <rect x="52" y="52" width="96" height="3" rx="0" fill="rgba(0,229,208,0.04)" opacity="0.3"/>
+                <rect x="52" y="58" width="96" height="3" rx="0" fill="rgba(0,229,208,0.04)" opacity="0.2"/>
+                <rect x="52" y="64" width="96" height="3" rx="0" fill="rgba(0,229,208,0.04)" opacity="0.3"/>
+                <rect x="52" y="70" width="96" height="3" rx="0" fill="rgba(0,229,208,0.04)" opacity="0.4"/>
+                <rect x="52" y="76" width="96" height="3" rx="0" fill="rgba(0,229,208,0.04)" opacity="0.5"/>
+                <rect x="52" y="82" width="96" height="3" rx="0" fill="rgba(0,229,208,0.04)" opacity="0.6"/>
+
+                <!-- ── EYES ── -->
+                <g id="eyeGroup">
+                  <!-- Left eye socket -->
+                  <ellipse cx="75" cy="62" rx="16" ry="14" fill="#000d18" stroke="#00e5d0" stroke-width="1" stroke-opacity="0.4"/>
+                  <!-- Left eye iris -->
+                  <circle id="leftEyeIris" cx="75" cy="62" r="9" fill="rgba(0,229,208,0.15)" stroke="#00e5d0" stroke-width="1.5" filter="url(#softGlow)">
+                    <animate attributeName="r" values="9;9.5;9" dur="3s" repeatCount="indefinite"/>
+                  </circle>
+                  <!-- Left pupil (moves with mouse) -->
+                  <circle id="leftPupil" cx="75" cy="62" r="5" fill="#00e5d0" filter="url(#glow)">
+                    <animate attributeName="opacity" values="1;0.7;1" dur="4s" repeatCount="indefinite"/>
+                  </circle>
+                  <!-- Left pupil center -->
+                  <circle id="leftPupilInner" cx="75" cy="62" r="2" fill="#ffffff" opacity="0.9"/>
+                  <!-- Left eye glint -->
+                  <circle cx="71" cy="57" r="2.5" fill="white" opacity="0.5"/>
+
+                  <!-- Right eye socket -->
+                  <ellipse cx="125" cy="62" rx="16" ry="14" fill="#000d18" stroke="#00e5d0" stroke-width="1" stroke-opacity="0.4"/>
+                  <!-- Right eye iris -->
+                  <circle id="rightEyeIris" cx="125" cy="62" r="9" fill="rgba(0,229,208,0.15)" stroke="#00e5d0" stroke-width="1.5" filter="url(#softGlow)">
+                    <animate attributeName="r" values="9;9.5;9" dur="3s" repeatCount="indefinite" begin="0.5s"/>
+                  </circle>
+                  <!-- Right pupil -->
+                  <circle id="rightPupil" cx="125" cy="62" r="5" fill="#00e5d0" filter="url(#glow)">
+                    <animate attributeName="opacity" values="1;0.7;1" dur="4s" repeatCount="indefinite" begin="0.5s"/>
+                  </circle>
+                  <circle id="rightPupilInner" cx="125" cy="62" r="2" fill="#ffffff" opacity="0.9"/>
+                  <circle cx="121" cy="57" r="2.5" fill="white" opacity="0.5"/>
+                </g>
+
+                <!-- ── BLINKING ── -->
+                <rect id="leftBlink" x="59" y="49" width="32" height="0" rx="4" fill="#000d18">
+                  <animate id="blinkAnim" attributeName="height" values="0;26;0" dur="0.2s" repeatCount="indefinite" begin="3s;blinkAnim.end+4s"/>
+                </rect>
+                <rect id="rightBlink" x="109" y="49" width="32" height="0" rx="4" fill="#000d18">
+                  <animate attributeName="height" values="0;26;0" dur="0.2s" repeatCount="indefinite" begin="3s;blinkAnim.end+4s"/>
+                </rect>
+
+                <!-- ── MOUTH / SPEAKER ── -->
+                <rect x="72" y="97" width="56" height="6" rx="3" fill="#000d18" stroke="#00e5d0" stroke-width="1" stroke-opacity="0.3"/>
+                <!-- Mouth bars (animated) -->
+                <rect x="76" y="98" width="4" height="4" rx="1" fill="#00e5d0" opacity="0.6">
+                  <animate attributeName="height" values="4;2;4;3;4" dur="1.2s" repeatCount="indefinite"/>
+                  <animate attributeName="y" values="98;99;98;98.5;98" dur="1.2s" repeatCount="indefinite"/>
+                </rect>
+                <rect x="83" y="98" width="4" height="4" rx="1" fill="#00e5d0" opacity="0.8">
+                  <animate attributeName="height" values="4;4;2;4;3" dur="0.9s" repeatCount="indefinite" begin="0.1s"/>
+                  <animate attributeName="y" values="98;98;99;98;98.5" dur="0.9s" repeatCount="indefinite" begin="0.1s"/>
+                </rect>
+                <rect x="90" y="98" width="4" height="4" rx="1" fill="#00e5d0" opacity="0.7">
+                  <animate attributeName="height" values="3;4;4;2;4" dur="1.4s" repeatCount="indefinite" begin="0.2s"/>
+                </rect>
+                <rect x="97" y="98" width="4" height="4" rx="1" fill="#00e5d0" opacity="0.9">
+                  <animate attributeName="height" values="4;2;3;4;2" dur="1.1s" repeatCount="indefinite" begin="0.3s"/>
+                </rect>
+                <rect x="104" y="98" width="4" height="4" rx="1" fill="#00e5d0" opacity="0.6">
+                  <animate attributeName="height" values="2;4;4;3;4" dur="1.3s" repeatCount="indefinite" begin="0.15s"/>
+                </rect>
+                <rect x="111" y="98" width="4" height="4" rx="1" fill="#00e5d0" opacity="0.75">
+                  <animate attributeName="height" values="4;3;2;4;4" dur="0.95s" repeatCount="indefinite" begin="0.05s"/>
+                </rect>
+                <rect x="118" y="98" width="4" height="4" rx="1" fill="#00e5d0" opacity="0.6">
+                  <animate attributeName="height" values="3;4;3;2;4" dur="1.25s" repeatCount="indefinite" begin="0.25s"/>
+                </rect>
+
+                <!-- ── NECK ── -->
+                <rect x="85" y="110" width="30" height="12" rx="4" fill="url(#bodyGrad)" stroke="#00e5d0" stroke-width="1" stroke-opacity="0.3"/>
+                <rect x="90" y="113" width="20" height="2" rx="1" fill="#00e5d0" opacity="0.2"/>
+                <rect x="90" y="117" width="20" height="2" rx="1" fill="#00e5d0" opacity="0.2"/>
+
+                <!-- ── BODY ── -->
+                <rect x="30" y="122" width="140" height="85" rx="16" fill="url(#bodyGrad)" stroke="#00e5d0" stroke-width="1.5" stroke-opacity="0.35"/>
+                <!-- Body panel lines -->
+                <line x1="30" y1="148" x2="170" y2="148" stroke="#00e5d0" stroke-width="0.6" stroke-opacity="0.15"/>
+                <line x1="100" y1="122" x2="100" y2="207" stroke="#00e5d0" stroke-width="0.6" stroke-opacity="0.1"/>
+
+                <!-- ── CHEST SCREEN ── -->
+                <rect x="50" y="130" width="100" height="50" rx="8" fill="url(#screenGrad)" stroke="#00e5d0" stroke-width="1" stroke-opacity="0.25"/>
+                <!-- Chest screen content: waveform -->
+                <polyline points="55,155 62,145 68,165 74,150 80,158 86,142 92,160 98,150 104,158 110,140 116,162 122,148 128,156 134,148 140,156 145,155" 
+                  fill="none" stroke="#00e5d0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7" filter="url(#softGlow)">
+                  <animate attributeName="points" 
+                    values="55,155 62,145 68,165 74,150 80,158 86,142 92,160 98,150 104,158 110,140 116,162 122,148 128,156 134,148 140,156 145,155;55,155 62,162 68,145 74,158 80,148 86,160 92,142 98,155 104,148 110,162 116,145 122,155 128,148 134,158 140,148 145,155;55,155 62,145 68,165 74,150 80,158 86,142 92,160 98,150 104,158 110,140 116,162 122,148 128,156 134,148 140,156 145,155"
+                    dur="2s" repeatCount="indefinite"/>
+                </polyline>
+                <!-- Chest screen stats -->
+                <text x="56" y="172" font-family="monospace" font-size="6" fill="#00e5d0" opacity="0.6">ONLINE · PROCESSING</text>
+                <circle cx="136" cy="168" r="3" fill="#22c55e" opacity="0.9">
+                  <animate attributeName="opacity" values="0.9;0.4;0.9" dur="1.5s" repeatCount="indefinite"/>
+                </circle>
+
+                <!-- ── ARMS ── -->
+                <!-- Left arm -->
+                <rect x="8" y="124" width="22" height="60" rx="11" fill="url(#bodyGrad)" stroke="#00e5d0" stroke-width="1" stroke-opacity="0.3"/>
+                <circle cx="19" cy="186" r="8" fill="url(#bodyGrad)" stroke="#00e5d0" stroke-width="1" stroke-opacity="0.35"/>
+                <!-- Left arm elbow joint -->
+                <circle cx="19" cy="148" r="4" fill="#000d18" stroke="#00e5d0" stroke-width="0.8" stroke-opacity="0.4"/>
+                <!-- Left arm detail lines -->
+                <line x1="13" y1="134" x2="25" y2="134" stroke="#00e5d0" stroke-width="0.5" stroke-opacity="0.2"/>
+                <line x1="13" y1="140" x2="25" y2="140" stroke="#00e5d0" stroke-width="0.5" stroke-opacity="0.2"/>
+
+                <!-- Right arm -->
+                <rect x="170" y="124" width="22" height="60" rx="11" fill="url(#bodyGrad)" stroke="#00e5d0" stroke-width="1" stroke-opacity="0.3"/>
+                <circle cx="181" cy="186" r="8" fill="url(#bodyGrad)" stroke="#00e5d0" stroke-width="1" stroke-opacity="0.35"/>
+                <circle cx="181" cy="148" r="4" fill="#000d18" stroke="#00e5d0" stroke-width="0.8" stroke-opacity="0.4"/>
+                <line x1="175" y1="134" x2="187" y2="134" stroke="#00e5d0" stroke-width="0.5" stroke-opacity="0.2"/>
+                <line x1="175" y1="140" x2="187" y2="140" stroke="#00e5d0" stroke-width="0.5" stroke-opacity="0.2"/>
+
+                <!-- ── LEGS ── -->
+                <rect x="52" y="207" width="38" height="26" rx="8" fill="url(#bodyGrad)" stroke="#00e5d0" stroke-width="1" stroke-opacity="0.3"/>
+                <rect x="110" y="207" width="38" height="26" rx="8" fill="url(#bodyGrad)" stroke="#00e5d0" stroke-width="1" stroke-opacity="0.3"/>
+                <!-- Feet -->
+                <rect x="46" y="226" width="48" height="14" rx="7" fill="url(#bodyGrad)" stroke="#00e5d0" stroke-width="1" stroke-opacity="0.35"/>
+                <rect x="106" y="226" width="48" height="14" rx="7" fill="url(#bodyGrad)" stroke="#00e5d0" stroke-width="1" stroke-opacity="0.35"/>
+                <!-- Feet accent glow -->
+                <rect x="46" y="236" width="48" height="3" rx="1.5" fill="#00e5d0" opacity="0.3" filter="url(#softGlow)"/>
+                <rect x="106" y="236" width="48" height="3" rx="1.5" fill="#00e5d0" opacity="0.3" filter="url(#softGlow)"/>
+
+                <!-- ── SHOULDER BOLTS ── -->
+                <circle cx="33" cy="130" r="4" fill="#000d18" stroke="#00e5d0" stroke-width="1" stroke-opacity="0.5"/>
+                <circle cx="33" cy="130" r="1.5" fill="#00e5d0" opacity="0.5"/>
+                <circle cx="167" cy="130" r="4" fill="#000d18" stroke="#00e5d0" stroke-width="1" stroke-opacity="0.5"/>
+                <circle cx="167" cy="130" r="1.5" fill="#00e5d0" opacity="0.5"/>
+
+                <!-- ── SIDE VENTS on head ── -->
+                <line x1="40" y1="55" x2="47" y2="55" stroke="#00e5d0" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+                <line x1="40" y1="61" x2="47" y2="61" stroke="#00e5d0" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+                <line x1="40" y1="67" x2="47" y2="67" stroke="#00e5d0" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+                <line x1="153" y1="55" x2="160" y2="55" stroke="#00e5d0" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+                <line x1="153" y1="61" x2="160" y2="61" stroke="#00e5d0" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+                <line x1="153" y1="67" x2="160" y2="67" stroke="#00e5d0" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+              </svg>
+              <div class="robot-ground-glow"></div>
+            </div>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
 
-<!-- TRUST BAR - CLIENT LOGOS -->
+<!-- TRUST BAR -->
 <section class="trust-bar">
   <div class="container">
     <div class="trust-bar-label">Trusted by businesses across Pakistan &amp; beyond</div>
     <div style="overflow:hidden;mask-image:linear-gradient(to right,transparent,black 10%,black 90%,transparent)">
       <div class="logos-track">
-        <!-- Logos set 1 -->
         <div class="client-logo"><div class="client-logo-icon" style="background:rgba(255,107,53,0.15)">🛍️</div>NovaBazaar</div>
         <div class="client-logo"><div class="client-logo-icon" style="background:rgba(0,229,208,0.12)">💊</div>MedPlus PK</div>
         <div class="client-logo"><div class="client-logo-icon" style="background:rgba(99,102,241,0.15)">🏠</div>PropertyHub</div>
@@ -979,7 +1383,6 @@ svg{display:inline-block;vertical-align:middle}
         <div class="client-logo"><div class="client-logo-icon" style="background:rgba(239,68,68,0.15)">👗</div>TrendSetters</div>
         <div class="client-logo"><div class="client-logo-icon" style="background:rgba(139,92,246,0.15)">📱</div>TechWave</div>
         <div class="client-logo"><div class="client-logo-icon" style="background:rgba(14,165,233,0.15)">🎓</div>EduSmart</div>
-        <!-- Set 2 (duplicate for infinite scroll) -->
         <div class="client-logo"><div class="client-logo-icon" style="background:rgba(255,107,53,0.15)">🛍️</div>NovaBazaar</div>
         <div class="client-logo"><div class="client-logo-icon" style="background:rgba(0,229,208,0.12)">💊</div>MedPlus PK</div>
         <div class="client-logo"><div class="client-logo-icon" style="background:rgba(99,102,241,0.15)">🏠</div>PropertyHub</div>
@@ -997,26 +1400,10 @@ svg{display:inline-block;vertical-align:middle}
 <section class="stats">
   <div class="container">
     <div class="stats-grid">
-      <div class="reveal" style="text-align:center">
-        <div class="stat-val">24/7</div>
-        <div class="stat-label">Automated Support</div>
-        <div class="stat-note">Zero downtime guaranteed</div>
-      </div>
-      <div class="reveal" style="text-align:center;transition-delay:.1s">
-        <div class="stat-val">100%</div>
-        <div class="stat-label">Custom Built</div>
-        <div class="stat-note">No templates, no shortcuts</div>
-      </div>
-      <div class="reveal" style="text-align:center;transition-delay:.2s">
-        <div class="stat-val">3–5x</div>
-        <div class="stat-label">Faster Response Time</div>
-        <div class="stat-note">Avg. across client deployments</div>
-      </div>
-      <div class="reveal" style="text-align:center;transition-delay:.3s">
-        <div class="stat-val">50+</div>
-        <div class="stat-label">Clients Served</div>
-        <div class="stat-note">Across Pakistan &amp; UAE</div>
-      </div>
+      <div class="reveal" style="text-align:center"><div class="stat-val">24/7</div><div class="stat-label">Automated Support</div><div class="stat-note">Zero downtime guaranteed</div></div>
+      <div class="reveal" style="text-align:center;transition-delay:.1s"><div class="stat-val">100%</div><div class="stat-label">Custom Built</div><div class="stat-note">No templates, no shortcuts</div></div>
+      <div class="reveal" style="text-align:center;transition-delay:.2s"><div class="stat-val">3–5x</div><div class="stat-label">Faster Response Time</div><div class="stat-note">Avg. across client deployments</div></div>
+      <div class="reveal" style="text-align:center;transition-delay:.3s"><div class="stat-val">50+</div><div class="stat-label">Clients Served</div><div class="stat-note">Across Pakistan &amp; UAE</div></div>
     </div>
   </div>
 </section>
@@ -1025,19 +1412,14 @@ svg{display:inline-block;vertical-align:middle}
 <section class="services" id="services">
   <div class="container">
     <div class="section-header reveal">
-      <div class="section-tag">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        Our Custom Services
-      </div>
+      <div class="section-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Our Custom Services</div>
       <h2>Tailored Automation <span class="grad">Solutions</span></h2>
       <p class="section-desc">Every solution is built from scratch to match your unique business workflows</p>
     </div>
     <div class="services-grid">
       <div class="service-card reveal">
         <span class="card-tag primary">Most Popular</span>
-        <div class="card-icon-wrap">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        </div>
+        <div class="card-icon-wrap"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
         <div class="card-title">WhatsApp Automation</div>
         <div class="card-desc">Custom WhatsApp automation tailored to your business workflow with intelligent auto-replies and customer engagement.</div>
         <ul class="card-features">
@@ -1050,9 +1432,7 @@ svg{display:inline-block;vertical-align:middle}
       </div>
       <div class="service-card reveal" style="transition-delay:.1s">
         <span class="card-tag muted">Grow Your Brand</span>
-        <div class="card-icon-wrap">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-        </div>
+        <div class="card-icon-wrap"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
         <div class="card-title">Instagram Automation</div>
         <div class="card-desc">Automated Instagram DMs and comment responses to boost engagement and grow your social media presence organically.</div>
         <ul class="card-features">
@@ -1065,9 +1445,7 @@ svg{display:inline-block;vertical-align:middle}
       </div>
       <div class="service-card reveal" style="transition-delay:.15s">
         <span class="card-tag primary">Best Value</span>
-        <div class="card-icon-wrap">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-        </div>
+        <div class="card-icon-wrap"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
         <div class="card-title">Multi-Platform Suite</div>
         <div class="card-desc">Complete automation for both WhatsApp and Instagram with unified dashboard and cross-platform customer management.</div>
         <ul class="card-features">
@@ -1080,9 +1458,7 @@ svg{display:inline-block;vertical-align:middle}
       </div>
       <div class="service-card reveal" style="transition-delay:.25s">
         <span class="card-tag muted">E-Commerce</span>
-        <div class="card-icon-wrap">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-        </div>
+        <div class="card-icon-wrap"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
         <div class="card-title">Shopify Integration</div>
         <div class="card-desc">Full e-commerce automation connecting Shopify with WhatsApp and Instagram for seamless order management and customer support.</div>
         <ul class="card-features">
@@ -1107,93 +1483,39 @@ svg{display:inline-block;vertical-align:middle}
     </div>
     <div class="cs-grid">
       <div class="cs-card reveal">
-        <div class="cs-header">
-          <div class="cs-logo" style="background:rgba(255,107,53,0.12);font-size:1.4rem">🛍️</div>
-          <div>
-            <div class="cs-client">Fashion E-Commerce Brand</div>
-            <div class="cs-type">Lahore · Shopify + WhatsApp</div>
-          </div>
-        </div>
+        <div class="cs-header"><div class="cs-logo" style="background:rgba(255,107,53,0.12);font-size:1.4rem">🛍️</div><div><div class="cs-client">Fashion E-Commerce Brand</div><div class="cs-type">Lahore · Shopify + WhatsApp</div></div></div>
         <div class="cs-body">
           <p class="cs-challenge"><strong style="color:var(--text)">Challenge:</strong> Their team was manually handling 200+ WhatsApp inquiries daily. Response times averaged 4+ hours, and they were losing leads to competitors who replied faster.</p>
           <div class="cs-results">
-            <div class="cs-result">
-              <div class="cs-result-val">94%</div>
-              <div class="cs-result-label">Reduction in manual response time — from 4hrs to under 15 min</div>
-            </div>
-            <div class="cs-result">
-              <div class="cs-result-val">3.2x</div>
-              <div class="cs-result-label">Increase in qualified leads captured monthly</div>
-            </div>
-            <div class="cs-result">
-              <div class="cs-result-val">PKR 1.8M</div>
-              <div class="cs-result-label">Revenue recovered via automated cart abandonment reminders</div>
-            </div>
+            <div class="cs-result"><div class="cs-result-val">94%</div><div class="cs-result-label">Reduction in manual response time — from 4hrs to under 15 min</div></div>
+            <div class="cs-result"><div class="cs-result-val">3.2x</div><div class="cs-result-label">Increase in qualified leads captured monthly</div></div>
+            <div class="cs-result"><div class="cs-result-val">PKR 1.8M</div><div class="cs-result-label">Revenue recovered via automated cart abandonment reminders</div></div>
           </div>
-          <span class="cs-platform">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            WhatsApp + Shopify
-          </span>
+          <span class="cs-platform"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>WhatsApp + Shopify</span>
         </div>
       </div>
       <div class="cs-card reveal" style="transition-delay:.1s">
-        <div class="cs-header">
-          <div class="cs-logo" style="background:rgba(99,102,241,0.12);font-size:1.4rem">🏠</div>
-          <div>
-            <div class="cs-client">Real Estate Agency</div>
-            <div class="cs-type">Karachi · Instagram DM Automation</div>
-          </div>
-        </div>
+        <div class="cs-header"><div class="cs-logo" style="background:rgba(99,102,241,0.12);font-size:1.4rem">🏠</div><div><div class="cs-client">Real Estate Agency</div><div class="cs-type">Karachi · Instagram DM Automation</div></div></div>
         <div class="cs-body">
           <p class="cs-challenge"><strong style="color:var(--text)">Challenge:</strong> Instagram ads were generating hundreds of DMs but no follow-up system. Agents missed leads daily, and cold leads went completely uncontacted.</p>
           <div class="cs-results">
-            <div class="cs-result">
-              <div class="cs-result-val">78%</div>
-              <div class="cs-result-label">Of all DM leads now receive instant, personalized automated reply</div>
-            </div>
-            <div class="cs-result">
-              <div class="cs-result-val">40+</div>
-              <div class="cs-result-label">Site visits booked per month via automated qualification flow</div>
-            </div>
-            <div class="cs-result">
-              <div class="cs-result-val">0</div>
-              <div class="cs-result-label">Leads missed during off-hours — fully covered by automation</div>
-            </div>
+            <div class="cs-result"><div class="cs-result-val">78%</div><div class="cs-result-label">Of all DM leads now receive instant, personalized automated reply</div></div>
+            <div class="cs-result"><div class="cs-result-val">40+</div><div class="cs-result-label">Site visits booked per month via automated qualification flow</div></div>
+            <div class="cs-result"><div class="cs-result-val">0</div><div class="cs-result-label">Leads missed during off-hours — fully covered by automation</div></div>
           </div>
-          <span class="cs-platform">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-            Instagram Automation
-          </span>
+          <span class="cs-platform"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>Instagram Automation</span>
         </div>
       </div>
       <div class="cs-card reveal" style="transition-delay:.2s">
-        <div class="cs-header">
-          <div class="cs-logo" style="background:rgba(16,185,129,0.12);font-size:1.4rem">💊</div>
-          <div>
-            <div class="cs-client">Healthcare Clinic Network</div>
-            <div class="cs-type">Lahore · WhatsApp Appointment System</div>
-          </div>
-        </div>
+        <div class="cs-header"><div class="cs-logo" style="background:rgba(16,185,129,0.12);font-size:1.4rem">💊</div><div><div class="cs-client">Healthcare Clinic Network</div><div class="cs-type">Lahore · WhatsApp Appointment System</div></div></div>
         <div class="cs-body">
           <p class="cs-challenge"><strong style="color:var(--text)">Challenge:</strong> Staff spent 3+ hours daily on appointment scheduling over WhatsApp. No-shows were high with no automated reminder system in place.</p>
           <div class="cs-results">
-            <div class="cs-result">
-              <div class="cs-result-val">60%</div>
-              <div class="cs-result-label">Drop in appointment no-shows after automated reminder sequences</div>
-            </div>
-            <div class="cs-result">
-              <div class="cs-result-val">3hrs</div>
-              <div class="cs-result-label">Daily staff time saved — fully automated appointment flow</div>
-            </div>
-            <div class="cs-result">
-              <div class="cs-result-val">2 days</div>
-              <div class="cs-result-label">Deployment time — live and running within 48 hours</div>
-            </div>
+            <div class="cs-result"><div class="cs-result-val">60%</div><div class="cs-result-label">Drop in appointment no-shows after automated reminder sequences</div></div>
+            <div class="cs-result"><div class="cs-result-val">3hrs</div><div class="cs-result-label">Daily staff time saved — fully automated appointment flow</div></div>
+            <div class="cs-result"><div class="cs-result-val">2 days</div><div class="cs-result-label">Deployment time — live and running within 48 hours</div></div>
           </div>
-          <span class="cs-platform">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            WhatsApp Automation
-          </span>
+          <span class="cs-platform"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>WhatsApp Automation</span>
         </div>
       </div>
     </div>
@@ -1211,54 +1533,18 @@ svg{display:inline-block;vertical-align:middle}
     <div class="testi-grid">
       <div class="testi-card reveal">
         <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">
-          Sanestix saved us literally hours every single day. Our WhatsApp was a chaos of unanswered messages — now everything is handled automatically and our sales team only steps in for serious buyers.
-        </div>
-        <div class="testi-author">
-          <div class="testi-avatar">AR</div>
-          <div>
-            <div class="testi-name">Ahmed Raza</div>
-            <div class="testi-role">Co-founder, Fashion Brand · Lahore</div>
-            <div class="testi-platform">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              WhatsApp Automation
-            </div>
-          </div>
-        </div>
+        <div class="testi-quote">Sanestix saved us literally hours every single day. Our WhatsApp was a chaos of unanswered messages — now everything is handled automatically and our sales team only steps in for serious buyers.</div>
+        <div class="testi-author"><div class="testi-avatar">AR</div><div><div class="testi-name">Ahmed Raza</div><div class="testi-role">Co-founder, Fashion Brand · Lahore</div><div class="testi-platform"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>WhatsApp Automation</div></div></div>
       </div>
       <div class="testi-card reveal" style="transition-delay:.1s">
         <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">
-          We were losing Instagram leads every night. Now I wake up to a list of pre-qualified prospects who've already answered our intake questions. The ROI was visible within the first week.
-        </div>
-        <div class="testi-author">
-          <div class="testi-avatar">SM</div>
-          <div>
-            <div class="testi-name">Sara Malik</div>
-            <div class="testi-role">Director, Real Estate Agency · Karachi</div>
-            <div class="testi-platform">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-              Instagram Automation
-            </div>
-          </div>
-        </div>
+        <div class="testi-quote">We were losing Instagram leads every night. Now I wake up to a list of pre-qualified prospects who've already answered our intake questions. The ROI was visible within the first week.</div>
+        <div class="testi-author"><div class="testi-avatar">SM</div><div><div class="testi-name">Sara Malik</div><div class="testi-role">Director, Real Estate Agency · Karachi</div><div class="testi-platform"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>Instagram Automation</div></div></div>
       </div>
       <div class="testi-card reveal" style="transition-delay:.2s">
         <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">
-          What impressed me most was how fast they moved. We had a working prototype in 2 days. The team actually understood our clinic workflow and built something that fits perfectly — not a generic template.
-        </div>
-        <div class="testi-author">
-          <div class="testi-avatar">FK</div>
-          <div>
-            <div class="testi-name">Dr. Farhan Khan</div>
-            <div class="testi-role">Medical Director, Clinic Network · Lahore</div>
-            <div class="testi-platform">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              WhatsApp Automation
-            </div>
-          </div>
-        </div>
+        <div class="testi-quote">What impressed me most was how fast they moved. We had a working prototype in 2 days. The team actually understood our clinic workflow and built something that fits perfectly — not a generic template.</div>
+        <div class="testi-author"><div class="testi-avatar">FK</div><div><div class="testi-name">Dr. Farhan Khan</div><div class="testi-role">Medical Director, Clinic Network · Lahore</div><div class="testi-platform"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>WhatsApp Automation</div></div></div>
       </div>
     </div>
   </div>
@@ -1273,42 +1559,12 @@ svg{display:inline-block;vertical-align:middle}
       <p class="section-desc">A streamlined process designed to deliver custom automation that fits your business perfectly</p>
     </div>
     <div class="workflow-grid">
-      <div class="step-card reveal">
-        <span class="step-num">01</span>
-        <div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.15a16 16 0 006.94 6.94l1.42-1.41a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
-        <div class="step-title">Discovery Call</div>
-        <p class="step-desc">We start with a detailed consultation to understand your business needs, current challenges, and automation goals.</p>
-      </div>
-      <div class="step-card reveal" style="transition-delay:.08s">
-        <span class="step-num">02</span>
-        <div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
-        <div class="step-title">Custom Proposal</div>
-        <p class="step-desc">Based on our discussion, we create a detailed proposal outlining the automation architecture, features, timeline, and pricing.</p>
-      </div>
-      <div class="step-card reveal" style="transition-delay:.16s">
-        <span class="step-num">03</span>
-        <div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-        <div class="step-title">Development</div>
-        <p class="step-desc">Our expert team builds your custom automation solution from the ground up, ensuring every feature aligns with your workflows.</p>
-      </div>
-      <div class="step-card reveal" style="transition-delay:.24s">
-        <span class="step-num">04</span>
-        <div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg></div>
-        <div class="step-title">Testing &amp; Refinement</div>
-        <p class="step-desc">We rigorously test the automation system, gather your feedback, and make necessary refinements before launch.</p>
-      </div>
-      <div class="step-card reveal" style="transition-delay:.32s">
-        <span class="step-num">05</span>
-        <div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/></svg></div>
-        <div class="step-title">Deployment</div>
-        <p class="step-desc">Once approved, we deploy your automation system to production with minimal disruption to your business operations.</p>
-      </div>
-      <div class="step-card reveal" style="transition-delay:.4s">
-        <span class="step-num">06</span>
-        <div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
-        <div class="step-title">Support &amp; Optimization</div>
-        <p class="step-desc">Post-launch, we provide ongoing support, monitoring, and optimization as your business grows and evolves.</p>
-      </div>
+      <div class="step-card reveal"><span class="step-num">01</span><div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.15a16 16 0 006.94 6.94l1.42-1.41a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div><div class="step-title">Discovery Call</div><p class="step-desc">We start with a detailed consultation to understand your business needs, current challenges, and automation goals.</p></div>
+      <div class="step-card reveal" style="transition-delay:.08s"><span class="step-num">02</span><div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div><div class="step-title">Custom Proposal</div><p class="step-desc">Based on our discussion, we create a detailed proposal outlining the automation architecture, features, timeline, and pricing.</p></div>
+      <div class="step-card reveal" style="transition-delay:.16s"><span class="step-num">03</span><div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><div class="step-title">Development</div><p class="step-desc">Our expert team builds your custom automation solution from the ground up, ensuring every feature aligns with your workflows.</p></div>
+      <div class="step-card reveal" style="transition-delay:.24s"><span class="step-num">04</span><div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg></div><div class="step-title">Testing &amp; Refinement</div><p class="step-desc">We rigorously test the automation system, gather your feedback, and make necessary refinements before launch.</p></div>
+      <div class="step-card reveal" style="transition-delay:.32s"><span class="step-num">05</span><div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/></svg></div><div class="step-title">Deployment</div><p class="step-desc">Once approved, we deploy your automation system to production with minimal disruption to your business operations.</p></div>
+      <div class="step-card reveal" style="transition-delay:.4s"><span class="step-num">06</span><div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div><div class="step-title">Support &amp; Optimization</div><p class="step-desc">Post-launch, we provide ongoing support, monitoring, and optimization as your business grows and evolves.</p></div>
     </div>
   </div>
 </section>
@@ -1323,13 +1579,8 @@ svg{display:inline-block;vertical-align:middle}
     <p class="pricing-note reveal">All plans include a free consultation and custom-built automation. Final pricing depends on scope — these are starting points.</p>
     <div class="pricing-grid">
       <div class="price-card reveal">
-        <div class="price-label">Starter</div>
-        <div class="price-name">WhatsApp or Instagram</div>
-        <div>
-          <div class="price-from">Starting from</div>
-          <div class="price-amount">$149</div>
-          <div class="price-period">one-time setup + $49/mo maintenance</div>
-        </div>
+        <div class="price-label">Starter</div><div class="price-name">WhatsApp or Instagram</div>
+        <div><div class="price-from">Starting from</div><div class="price-amount">$149</div><div class="price-period">one-time setup + $49/mo maintenance</div></div>
         <div class="price-desc">Perfect for small businesses that want to automate one platform and stop losing leads to slow responses.</div>
         <ul class="price-features">
           <li><svg class="check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>1 platform automated</li>
@@ -1341,13 +1592,8 @@ svg{display:inline-block;vertical-align:middle}
         <a href="https://wa.me/923014422951?text=Hi!%20I'm%20interested%20in%20the%20Starter%20plan." target="_blank" class="price-cta ghost">Get a Quote →</a>
       </div>
       <div class="price-card featured reveal" style="transition-delay:.1s">
-        <div class="price-label">Growth — Most Popular</div>
-        <div class="price-name">Multi-Platform Suite</div>
-        <div>
-          <div class="price-from">Starting from</div>
-          <div class="price-amount">$299</div>
-          <div class="price-period">one-time setup + $89/mo maintenance</div>
-        </div>
+        <div class="price-label">Growth — Most Popular</div><div class="price-name">Multi-Platform Suite</div>
+        <div><div class="price-from">Starting from</div><div class="price-amount">$299</div><div class="price-period">one-time setup + $89/mo maintenance</div></div>
         <div class="price-desc">WhatsApp + Instagram together with a unified dashboard. Best for growing businesses ready to scale customer communication.</div>
         <ul class="price-features">
           <li><svg class="check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>WhatsApp + Instagram</li>
@@ -1359,13 +1605,8 @@ svg{display:inline-block;vertical-align:middle}
         <a href="https://wa.me/923014422951?text=Hi!%20I'm%20interested%20in%20the%20Growth%20plan." target="_blank" class="price-cta primary">Get a Quote →</a>
       </div>
       <div class="price-card reveal" style="transition-delay:.2s">
-        <div class="price-label">Enterprise</div>
-        <div class="price-name">Shopify + Full Stack</div>
-        <div>
-          <div class="price-from">Starting from</div>
-          <div class="price-amount">$599</div>
-          <div class="price-period">one-time setup + custom monthly</div>
-        </div>
+        <div class="price-label">Enterprise</div><div class="price-name">Shopify + Full Stack</div>
+        <div><div class="price-from">Starting from</div><div class="price-amount">$599</div><div class="price-period">one-time setup + custom monthly</div></div>
         <div class="price-desc">Full e-commerce stack: Shopify + WhatsApp + Instagram with deep integrations, CRM connections, and dedicated account management.</div>
         <ul class="price-features">
           <li><svg class="check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>All platforms + Shopify</li>
@@ -1389,40 +1630,13 @@ svg{display:inline-block;vertical-align:middle}
         <div class="about-heading">Why We <span class="grad">Started Sanestix</span></div>
         <p class="about-body">Saad and Wahab watched small business owners in Lahore struggle with the same problem: their WhatsApp and Instagram were flooded with messages, but there were never enough hours to respond. Leads slipped away. Customers got frustrated. Sales were lost — not because of bad products, but because of slow communication.</p>
         <p class="about-body">They built Sanestix in 2024 to solve exactly that. Not with generic chatbot tools that businesses have to bend themselves around — but with custom automation that learns your workflow, speaks in your voice, and handles the repetitive stuff so you and your team can focus on what only humans can do.</p>
-        <div class="about-highlight">
-          "We don't sell software. We build systems tailored to your business — and we stay with you after launch to make sure they actually work."
-          <br><br><strong style="color:var(--cyan)">— Saad Faisal Qureshi, CEO</strong>
-        </div>
+        <div class="about-highlight">"We don't sell software. We build systems tailored to your business — and we stay with you after launch to make sure they actually work."<br><br><strong style="color:var(--cyan)">— Saad Faisal Qureshi, CEO</strong></div>
       </div>
       <div class="about-visual reveal" style="transition-delay:.2s">
-        <div class="about-stat-card">
-          <div class="about-stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
-          <div>
-            <div class="about-stat-val">50+</div>
-            <div class="about-stat-label">Businesses automated across PK &amp; UAE</div>
-          </div>
-        </div>
-        <div class="about-stat-card">
-          <div class="about-stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-          <div>
-            <div class="about-stat-val">1M+</div>
-            <div class="about-stat-label">Automated messages sent on behalf of clients</div>
-          </div>
-        </div>
-        <div class="about-stat-card">
-          <div class="about-stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-          <div>
-            <div class="about-stat-val">2–5 days</div>
-            <div class="about-stat-label">Average time from brief to live deployment</div>
-          </div>
-        </div>
-        <div class="about-stat-card">
-          <div class="about-stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-          <div>
-            <div class="about-stat-val">GDPR</div>
-            <div class="about-stat-label">Compliant infrastructure — your data is always secure</div>
-          </div>
-        </div>
+        <div class="about-stat-card"><div class="about-stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div><div><div class="about-stat-val">50+</div><div class="about-stat-label">Businesses automated across PK &amp; UAE</div></div></div>
+        <div class="about-stat-card"><div class="about-stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div><div class="about-stat-val">1M+</div><div class="about-stat-label">Automated messages sent on behalf of clients</div></div></div>
+        <div class="about-stat-card"><div class="about-stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="about-stat-val">2–5 days</div><div class="about-stat-label">Average time from brief to live deployment</div></div></div>
+        <div class="about-stat-card"><div class="about-stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><div class="about-stat-val">GDPR</div><div class="about-stat-label">Compliant infrastructure — your data is always secure</div></div></div>
       </div>
     </div>
   </div>
@@ -1437,38 +1651,14 @@ svg{display:inline-block;vertical-align:middle}
       <p class="section-desc">Everything you need to know about our custom automation services</p>
     </div>
     <div class="faq-list reveal">
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">What makes your services custom?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-        <div class="faq-a"><p>Unlike generic SaaS solutions, we build automation systems specifically tailored to your business processes, workflows, and customer engagement needs. Every solution is designed from scratch to match your unique requirements — no templates, no shortcuts.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">How long does it take to set up?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-        <div class="faq-a"><p>Setup time varies based on complexity. Simple WhatsApp automation can be ready in 3–5 days, while complex multi-platform integrations with Shopify may take 2–3 weeks. We work closely with you throughout to ensure smooth, accurate deployment.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Can I modify the automation after setup?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-        <div class="faq-a"><p>Absolutely. We provide ongoing support and modifications as your business evolves. You can request changes to message templates, workflows, triggers, and integrations at any time. Most updates are turned around within 24–48 hours.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">What platforms do you integrate with?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-        <div class="faq-a"><p>We specialize in WhatsApp Business API, Instagram, Facebook, and Shopify integrations. We can also connect with most CRMs, email marketing platforms, payment gateways, and custom databases upon request.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Is my data secure?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-        <div class="faq-a"><p>Yes. We use enterprise-grade encryption, secure cloud infrastructure, and follow industry best practices for data protection. We're compliant with GDPR and similar regulations. Your customer data is never shared with third parties.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Do you offer a free consultation?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-        <div class="faq-a"><p>Yes — always. We offer a free 30-minute discovery call where we learn your workflow, identify automation opportunities, and outline what a solution would look like. No commitment needed. Just click "Chat on WhatsApp" and we'll set one up.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">How much does custom automation cost?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-        <div class="faq-a"><p>Starter plans begin at $149 setup + $49/mo, and our most popular Growth plan starts at $299 + $89/mo. Enterprise and Shopify integrations are priced by scope. See our Pricing section for full details, or message us for a custom quote.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">What kind of support do you provide?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-        <div class="faq-a"><p>We offer 24/7 technical support via WhatsApp and email. All plans include dedicated support, regular maintenance, system monitoring, and priority bug fixes. Growth and Enterprise clients also receive monthly optimization reviews.</p></div>
-      </div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What makes your services custom?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-a"><p>Unlike generic SaaS solutions, we build automation systems specifically tailored to your business processes, workflows, and customer engagement needs. Every solution is designed from scratch to match your unique requirements — no templates, no shortcuts.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How long does it take to set up?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-a"><p>Setup time varies based on complexity. Simple WhatsApp automation can be ready in 3–5 days, while complex multi-platform integrations with Shopify may take 2–3 weeks.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Can I modify the automation after setup?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-a"><p>Absolutely. We provide ongoing support and modifications as your business evolves. You can request changes to message templates, workflows, triggers, and integrations at any time. Most updates are turned around within 24–48 hours.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What platforms do you integrate with?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-a"><p>We specialize in WhatsApp Business API, Instagram, Facebook, and Shopify integrations. We can also connect with most CRMs, email marketing platforms, payment gateways, and custom databases upon request.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Is my data secure?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-a"><p>Yes. We use enterprise-grade encryption, secure cloud infrastructure, and follow industry best practices for data protection. We're compliant with GDPR and similar regulations. Your customer data is never shared with third parties.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Do you offer a free consultation?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-a"><p>Yes — always. We offer a free 30-minute discovery call where we learn your workflow, identify automation opportunities, and outline what a solution would look like. No commitment needed.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How much does custom automation cost?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-a"><p>Starter plans begin at $149 setup + $49/mo, and our most popular Growth plan starts at $299 + $89/mo. Enterprise and Shopify integrations are priced by scope.</p></div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What kind of support do you provide?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-a"><p>We offer 24/7 technical support via WhatsApp and email. All plans include dedicated support, regular maintenance, system monitoring, and priority bug fixes. Growth and Enterprise clients also receive monthly optimization reviews.</p></div></div>
     </div>
   </div>
 </section>
@@ -1484,151 +1674,77 @@ svg{display:inline-block;vertical-align:middle}
     <div class="team-cards">
       <div class="team-card reveal">
         <div class="team-photo">
-          <img src="SaadFaisal.jpeg" alt="Saad Faisal Qureshi - Co-Founder & CEO of Sanestix"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <img src="SaadFaisal.jpeg" alt="Saad Faisal Qureshi" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
           <div class="team-photo-fallback" style="display:none"><span class="team-initials">SF</span></div>
-          <div class="team-overlay"></div>
-          <div class="team-accent"></div>
-          <div class="team-info">
-            <div class="team-role">Co-Founder &amp; CEO</div>
-            <div class="team-name">Saad Faisal Qureshi</div>
-            <div class="team-bio">Visionary entrepreneur with deep expertise in AI and custom business automation. Leads product strategy and client relationships.</div>
-            <a href="https://www.linkedin.com/in/saadfaisalqureshi" target="_blank" class="team-linkedin">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-              Connect on LinkedIn
-            </a>
-          </div>
+          <div class="team-overlay"></div><div class="team-accent"></div>
+          <div class="team-info"><div class="team-role">Co-Founder &amp; CEO</div><div class="team-name">Saad Faisal Qureshi</div><div class="team-bio">Visionary entrepreneur with deep expertise in AI and custom business automation. Leads product strategy and client relationships.</div><a href="https://www.linkedin.com/in/saadfaisalqureshi" target="_blank" class="team-linkedin"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>Connect on LinkedIn</a></div>
         </div>
       </div>
       <div class="team-card reveal" style="transition-delay:.15s">
         <div class="team-photo">
-          <img src="abwbsid2.png" alt="Abdul Wahab Siddiqi - Co-Founder & COO of Sanestix"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <img src="abwbsid2.png" alt="Abdul Wahab Siddiqi" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
           <div class="team-photo-fallback" style="display:none"><span class="team-initials">AW</span></div>
-          <div class="team-overlay"></div>
-          <div class="team-accent"></div>
-          <div class="team-info">
-            <div class="team-role">Co-Founder &amp; COO</div>
-            <div class="team-name">Abdul Wahab Siddiqi</div>
-            <div class="team-bio">Technology expert passionate about building scalable, custom automation solutions. Oversees all technical delivery and system architecture.</div>
-            <a href="https://www.linkedin.com/in/abdulwahabsiddiqi" target="_blank" class="team-linkedin">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-              Connect on LinkedIn
-            </a>
-          </div>
+          <div class="team-overlay"></div><div class="team-accent"></div>
+          <div class="team-info"><div class="team-role">Co-Founder &amp; COO</div><div class="team-name">Abdul Wahab Siddiqi</div><div class="team-bio">Technology expert passionate about building scalable, custom automation solutions. Oversees all technical delivery and system architecture.</div><a href="https://www.linkedin.com/in/abdulwahabsiddiqi" target="_blank" class="team-linkedin"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>Connect on LinkedIn</a></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- AI DEMO CHAT -->
+<!-- DEMO CHAT -->
 <section class="demo" id="demo">
   <div class="container">
     <div class="demo-inner">
       <div class="demo-text reveal">
         <div class="section-tag">See It Live</div>
         <h2>Watch the Bot <span class="grad">Work in Real Time</span></h2>
-        <p class="demo-body">This is exactly how your automation responds to customers — instant, intelligent, and always on-brand. Click any quick reply or type a message to see a live simulation.</p>
+        <p class="demo-body">This is exactly how your automation responds to customers — instant, intelligent, and always on-brand.</p>
         <ul class="demo-features">
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Responds within milliseconds, 24/7
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Handles FAQs, pricing, bookings &amp; more
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Qualifies leads before handing to your team
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Trained on your products, tone &amp; workflows
-          </li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Responds within milliseconds, 24/7</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Handles FAQs, pricing, bookings &amp; more</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Qualifies leads before handing to your team</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Trained on your products, tone &amp; workflows</li>
         </ul>
-        <a href="#contact" class="btn-primary" style="align-self:flex-start;margin-top:.5rem">
-          Build Mine Now
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
+        <a href="#contact" class="btn-primary" style="align-self:flex-start;margin-top:.5rem">Build Mine Now <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
       </div>
-
       <div class="demo-chat reveal" style="transition-delay:.2s">
         <div class="demo-chat-header">
           <div class="demo-chat-avatar">SX</div>
-          <div style="flex:1">
-            <div class="demo-chat-name">Sanestix Bot</div>
-            <div class="demo-chat-status">
-              <div class="demo-chat-status-dot"></div>
-              Online · Replies instantly
-            </div>
-          </div>
+          <div style="flex:1"><div class="demo-chat-name">Sanestix Bot</div><div class="demo-chat-status"><div class="demo-chat-status-dot"></div>Online · Replies instantly</div></div>
           <div style="color:var(--muted);font-size:.75rem;font-weight:600;padding:.3rem .7rem;border-radius:100px;background:rgba(0,229,208,.06);border:1px solid var(--border)">Demo</div>
         </div>
-
-        <div class="demo-chat-msgs" id="demoChatMsgs">
-          <!-- Messages injected by JS -->
-        </div>
-
-        <!-- Quick replies -->
+        <div class="demo-chat-msgs" id="demoChatMsgs"></div>
         <div id="quickReplies" style="padding:.5rem 1.25rem;display:flex;gap:.5rem;flex-wrap:wrap;border-top:1px solid var(--border)">
           <button class="qr-btn" onclick="sendQuickReply('What services do you offer?')">Services 📋</button>
           <button class="qr-btn" onclick="sendQuickReply('What are your prices?')">Pricing 💰</button>
           <button class="qr-btn" onclick="sendQuickReply('How fast can you set it up?')">Timeline ⚡</button>
           <button class="qr-btn" onclick="sendQuickReply('I want a free consultation')">Free Call 📞</button>
         </div>
-
         <div class="demo-chat-input">
           <input class="demo-input-field" id="demoInput" type="text" placeholder="Type a message…" onkeydown="if(event.key==='Enter')sendDemoMsg()"/>
-          <button class="demo-send-btn" onclick="sendDemoMsg()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#060b14" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-          </button>
+          <button class="demo-send-btn" onclick="sendDemoMsg()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#060b14" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<style>
-.qr-btn{
-  padding:.35rem .8rem;border-radius:100px;font-size:.72rem;font-weight:600;
-  background:rgba(0,229,208,.07);border:1px solid var(--border);
-  color:var(--muted);cursor:pointer;transition:all .2s;font-family:'Sora',sans-serif;
-}
-.qr-btn:hover{background:rgba(0,229,208,.14);border-color:var(--border2);color:var(--cyan)}
-</style>
-
 <!-- CONTACT -->
 <section class="contact" id="contact">
   <div class="container">
     <div class="section-header reveal">
-      <div class="section-tag">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-        Get in Touch
-      </div>
+      <div class="section-tag"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Get in Touch</div>
       <h2>Start Your <span class="grad">Automation Journey</span></h2>
       <p class="section-desc">Let's discuss how we can build the perfect automation solution for your business</p>
     </div>
     <div class="contact-grid reveal">
       <div class="contact-info">
         <div class="info-card">
-          <div class="info-row">
-            <div class="info-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
-            <div><div class="info-label">WhatsApp</div><div class="info-val"><a href="https://wa.me/923014422951" target="_blank" style="color:inherit;text-decoration:none">+92-301-4422951</a></div></div>
-          </div>
-          <div class="info-row">
-            <div class="info-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg></div>
-            <div><div class="info-label">Email</div><div class="info-val"><a href="mailto:contact@sanestix.com" style="color:inherit;text-decoration:none">contact@sanestix.com</a></div></div>
-          </div>
-          <div class="info-row">
-            <div class="info-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-            <div><div class="info-label">Response Time</div><div class="info-val">Within 2–4 hours</div></div>
-          </div>
-          <div class="info-row">
-            <div class="info-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-            <div><div class="info-label">Location</div><div class="info-val">Lahore, Punjab, Pakistan</div></div>
-          </div>
+          <div class="info-row"><div class="info-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div><div class="info-label">WhatsApp</div><div class="info-val"><a href="https://wa.me/923014422951" target="_blank" style="color:inherit;text-decoration:none">+92-301-4422951</a></div></div></div>
+          <div class="info-row"><div class="info-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg></div><div><div class="info-label">Email</div><div class="info-val"><a href="mailto:contact@sanestix.com" style="color:inherit;text-decoration:none">contact@sanestix.com</a></div></div></div>
+          <div class="info-row"><div class="info-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="info-label">Response Time</div><div class="info-val">Within 2–4 hours</div></div></div>
+          <div class="info-row"><div class="info-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="info-label">Location</div><div class="info-val">Lahore, Punjab, Pakistan</div></div></div>
         </div>
         <div class="whatsapp-cta-card">
           <div style="font-family:'Sora',sans-serif;font-weight:700;margin-bottom:.3rem">Prefer to chat directly?</div>
@@ -1668,10 +1784,7 @@ svg{display:inline-block;vertical-align:middle}
             <label>Tell us about your project *</label>
             <textarea name="message" rows="4" placeholder="Describe your automation needs, business challenges, and goals..." required></textarea>
           </div>
-          <button type="submit" class="form-submit" id="submitBtn">
-            Send Message
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-          </button>
+          <button type="submit" class="form-submit" id="submitBtn">Send Message <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
           <p style="text-align:center;color:var(--muted);font-size:.78rem;margin-top:.75rem">Or reach us directly: <a href="https://wa.me/923014422951" target="_blank" style="color:var(--cyan);text-decoration:none">+92-301-4422951</a></p>
         </form>
       </div>
@@ -1683,163 +1796,260 @@ svg{display:inline-block;vertical-align:middle}
 <footer>
   <div class="footer-inner">
     <div style="display:flex;flex-direction:column;gap:1rem;max-width:320px">
-      <a href="#" style="text-decoration:none">
-        <img src="LOGO.png" alt="Sanestix" style="height:38px;width:auto;object-fit:contain"
-             onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span style=\'font-family:Sora,sans-serif;font-weight:800;font-size:1.2rem;color:var(--text)\'>Sanestix</span>')"/>
-      </a>
+      <a href="#" style="text-decoration:none"><img src="LOGO.png" alt="Sanestix" style="height:38px;width:auto;object-fit:contain" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span style=\'font-family:Sora,sans-serif;font-weight:800;font-size:1.2rem;color:var(--text)\'>Sanestix</span>')"/></a>
       <p style="color:var(--muted);font-size:.875rem;line-height:1.7">Building custom automation solutions for WhatsApp, Instagram, and Shopify. Empowering businesses with tailored technology that scales efficiently.</p>
       <div style="display:flex;gap:.75rem;flex-wrap:wrap">
-        <a href="https://wa.me/923014422951" target="_blank" rel="noopener" aria-label="WhatsApp" style="width:44px;height:44px;border-radius:12px;background:rgba(0,229,208,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none" onmouseover="this.style.background='linear-gradient(135deg,#25d366,#128c7e)';this.style.borderColor='#25d366'" onmouseout="this.style.background='rgba(0,229,208,.06)';this.style.borderColor='var(--border)'">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--cyan)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-        </a>
-        <a href="https://www.instagram.com/sanestix" target="_blank" rel="noopener" aria-label="Instagram" style="width:44px;height:44px;border-radius:12px;background:rgba(0,229,208,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none" onmouseover="this.style.background='linear-gradient(135deg,var(--cyan),var(--cyan2))';this.style.borderColor='var(--cyan)'" onmouseout="this.style.background='rgba(0,229,208,.06)';this.style.borderColor='var(--border)'">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-        </a>
-        <a href="https://www.linkedin.com/company/sanestix" target="_blank" rel="noopener" aria-label="LinkedIn" style="width:44px;height:44px;border-radius:12px;background:rgba(0,229,208,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none" onmouseover="this.style.background='linear-gradient(135deg,var(--cyan),var(--cyan2))';this.style.borderColor='var(--cyan)'" onmouseout="this.style.background='rgba(0,229,208,.06)';this.style.borderColor='var(--border)'">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-        </a>
-        <a href="https://www.facebook.com/share/14M3fAXpuSW/" target="_blank" rel="noopener" aria-label="Facebook" style="width:44px;height:44px;border-radius:12px;background:rgba(0,229,208,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none" onmouseover="this.style.background='linear-gradient(135deg,var(--cyan),var(--cyan2))';this.style.borderColor='var(--cyan)'" onmouseout="this.style.background='rgba(0,229,208,.06)';this.style.borderColor='var(--border)'">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-        </a>
-        <a href="https://x.com/sanestix_" target="_blank" rel="noopener" aria-label="X" style="width:44px;height:44px;border-radius:12px;background:rgba(0,229,208,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none" onmouseover="this.style.background='linear-gradient(135deg,var(--cyan),var(--cyan2))';this.style.borderColor='var(--cyan)'" onmouseout="this.style.background='rgba(0,229,208,.06)';this.style.borderColor='var(--border)'">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
-        </a>
+        <a href="https://wa.me/923014422951" target="_blank" aria-label="WhatsApp" style="width:44px;height:44px;border-radius:12px;background:rgba(0,229,208,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="var(--cyan)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a>
+        <a href="https://www.instagram.com/sanestix" target="_blank" aria-label="Instagram" style="width:44px;height:44px;border-radius:12px;background:rgba(0,229,208,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="https://www.linkedin.com/company/sanestix" target="_blank" aria-label="LinkedIn" style="width:44px;height:44px;border-radius:12px;background:rgba(0,229,208,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a href="https://x.com/sanestix_" target="_blank" aria-label="X" style="width:44px;height:44px;border-radius:12px;background:rgba(0,229,208,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg></a>
       </div>
     </div>
     <div>
       <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:1rem;margin-bottom:1.2rem;color:var(--text)">Quick Links</div>
       <div style="display:flex;flex-direction:column;gap:.7rem">
-        <a href="#" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Home</a>
-        <a href="#services" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Services</a>
-        <a href="#case-studies" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Results</a>
-        <a href="#pricing" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Pricing</a>
-        <a href="#faq" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">FAQ</a>
-        <a href="#team" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Team</a>
-        <a href="#contact" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Contact</a>
+        <a href="#" style="color:var(--muted);text-decoration:none;font-size:.875rem">Home</a>
+        <a href="#services" style="color:var(--muted);text-decoration:none;font-size:.875rem">Services</a>
+        <a href="#case-studies" style="color:var(--muted);text-decoration:none;font-size:.875rem">Results</a>
+        <a href="#pricing" style="color:var(--muted);text-decoration:none;font-size:.875rem">Pricing</a>
+        <a href="#faq" style="color:var(--muted);text-decoration:none;font-size:.875rem">FAQ</a>
+        <a href="#team" style="color:var(--muted);text-decoration:none;font-size:.875rem">Team</a>
+        <a href="#contact" style="color:var(--muted);text-decoration:none;font-size:.875rem">Contact</a>
       </div>
     </div>
     <div>
       <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:1rem;margin-bottom:1.2rem;color:var(--text)">Our Services</div>
       <div style="display:flex;flex-direction:column;gap:.7rem">
-        <a href="#services" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">WhatsApp Automation</a>
-        <a href="#services" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Instagram Automation</a>
-        <a href="#services" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Multi-Platform Suite</a>
-        <a href="#services" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Shopify Integration</a>
-        <a href="#contact" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Custom Solutions</a>
+        <a href="#services" style="color:var(--muted);text-decoration:none;font-size:.875rem">WhatsApp Automation</a>
+        <a href="#services" style="color:var(--muted);text-decoration:none;font-size:.875rem">Instagram Automation</a>
+        <a href="#services" style="color:var(--muted);text-decoration:none;font-size:.875rem">Multi-Platform Suite</a>
+        <a href="#services" style="color:var(--muted);text-decoration:none;font-size:.875rem">Shopify Integration</a>
+        <a href="#contact" style="color:var(--muted);text-decoration:none;font-size:.875rem">Custom Solutions</a>
       </div>
     </div>
     <div>
       <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:1rem;margin-bottom:1.2rem;color:var(--text)">Contact</div>
       <div style="display:flex;flex-direction:column;gap:.7rem">
-        <a href="mailto:contact@sanestix.com" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">contact@sanestix.com</a>
-        <a href="tel:+923014422951" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">+92-301-4422951</a>
+        <a href="mailto:contact@sanestix.com" style="color:var(--muted);text-decoration:none;font-size:.875rem">contact@sanestix.com</a>
+        <a href="tel:+923014422951" style="color:var(--muted);text-decoration:none;font-size:.875rem">+92-301-4422951</a>
         <span style="color:var(--muted);font-size:.875rem">Lahore, Punjab, Pakistan</span>
-        <a href="https://wa.me/923014422951" target="_blank" style="color:#25d366;text-decoration:none;font-size:.875rem;font-weight:600" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">💬 Chat on WhatsApp</a>
+        <a href="https://wa.me/923014422951" target="_blank" style="color:var(--cyan);text-decoration:none;font-size:.875rem;font-weight:600">💬 Chat on WhatsApp</a>
       </div>
     </div>
   </div>
   <div class="footer-copy">
     <p>© 2026 Sanestix. All rights reserved. Built with passion in Pakistan 🇵🇰</p>
     <div style="display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-top:.75rem">
-      <a href="privacy-policy.html" style="color:var(--muted);text-decoration:none;font-size:.8rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Privacy Policy</a>
-      <a href="terms-of-service.html" style="color:var(--muted);text-decoration:none;font-size:.8rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Terms of Service</a>
-      <a href="refund-policy.html" style="color:var(--muted);text-decoration:none;font-size:.8rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Refund Policy</a>
+      <a href="privacy-policy.html" style="color:var(--muted);text-decoration:none;font-size:.8rem">Privacy Policy</a>
+      <a href="terms-of-service.html" style="color:var(--muted);text-decoration:none;font-size:.8rem">Terms of Service</a>
+      <a href="refund-policy.html" style="color:var(--muted);text-decoration:none;font-size:.8rem">Refund Policy</a>
     </div>
   </div>
 </footer>
 
-<!-- SCROLL TO TOP -->
-<button id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top"
-  style="position:fixed;bottom:2rem;right:2rem;width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--cyan2));border:none;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:999;box-shadow:0 0 30px rgba(0,229,208,.4);transition:transform .3s,box-shadow .3s"
-  onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 0 50px rgba(0,229,208,.6)'"
-  onmouseout="this.style.transform='none';this.style.boxShadow='0 0 30px rgba(0,229,208,.4)'">
+<button id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#060b14" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
 </button>
 
 <script>
-// PARTICLE SYSTEM
+/* ═══════════════════════════
+   THEME SYSTEM
+═══════════════════════════ */
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('sanestix-theme', theme);
+  document.getElementById('btnDark').classList.toggle('active', theme === 'dark');
+  document.getElementById('btnLight').classList.toggle('active', theme === 'light');
+}
+
+// Load saved theme
+(function() {
+  const saved = localStorage.getItem('sanestix-theme') || 'dark';
+  setTheme(saved);
+})();
+
+/* ═══════════════════════════
+   3D ROBOT EYE TRACKING
+═══════════════════════════ */
+const leftPupil = document.getElementById('leftPupil');
+const leftPupilInner = document.getElementById('leftPupilInner');
+const rightPupil = document.getElementById('rightPupil');
+const rightPupilInner = document.getElementById('rightPupilInner');
+const robot3D = document.getElementById('robot3D');
+
+// Eye centers in SVG coordinate space
+const LEFT_EYE = { x: 75, y: 62 };
+const RIGHT_EYE = { x: 125, y: 62 };
+const EYE_RADIUS = 6; // max pupil travel
+
+let mouseX = window.innerWidth / 2;
+let mouseY = window.innerHeight / 2;
+let currentRotX = 0, currentRotY = 0;
+let targetRotX = 0, targetRotY = 0;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+function getEyeTarget(eyeCenterInPage, eyeMaxRadius) {
+  const svg = document.getElementById('robotSVG');
+  if (!svg) return { x: 0, y: 0 };
+  
+  const rect = svg.getBoundingClientRect();
+  // Map mouse to SVG coordinates
+  const svgW = 200, svgH = 240;
+  const scaleX = svgW / rect.width;
+  const scaleY = svgH / rect.height;
+  
+  const localX = (mouseX - rect.left) * scaleX;
+  const localY = (mouseY - rect.top) * scaleY;
+  
+  const dx = localX - eyeCenterInPage.x;
+  const dy = localY - eyeCenterInPage.y;
+  const dist = Math.sqrt(dx * dx + dy * dy);
+  const maxDist = 60; // pupil responds when mouse is within this SVG unit range
+  
+  const factor = Math.min(dist / maxDist, 1);
+  const angle = Math.atan2(dy, dx);
+  
+  return {
+    x: Math.cos(angle) * factor * eyeMaxRadius,
+    y: Math.sin(angle) * factor * eyeMaxRadius
+  };
+}
+
+function animateRobot() {
+  // 3D tilt based on mouse relative to viewport center
+  const cx = window.innerWidth / 2;
+  const cy = window.innerHeight / 2;
+  const normalX = (mouseX - cx) / cx; // -1 to 1
+  const normalY = (mouseY - cy) / cy;
+  
+  targetRotY = normalX * 18; // max 18deg horizontal
+  targetRotX = -normalY * 10; // max 10deg vertical
+  
+  // Smooth interpolation
+  currentRotX += (targetRotX - currentRotX) * 0.06;
+  currentRotY += (targetRotY - currentRotY) * 0.06;
+  
+  if (robot3D) {
+    robot3D.style.transform = `rotateX(${currentRotX}deg) rotateY(${currentRotY}deg)`;
+  }
+  
+  // Eye pupil tracking
+  const leftTarget = getEyeTarget(LEFT_EYE, EYE_RADIUS);
+  const rightTarget = getEyeTarget(RIGHT_EYE, EYE_RADIUS);
+  
+  if (leftPupil) {
+    leftPupil.setAttribute('cx', LEFT_EYE.x + leftTarget.x);
+    leftPupil.setAttribute('cy', LEFT_EYE.y + leftTarget.y);
+  }
+  if (leftPupilInner) {
+    leftPupilInner.setAttribute('cx', LEFT_EYE.x + leftTarget.x * 0.7);
+    leftPupilInner.setAttribute('cy', LEFT_EYE.y + leftTarget.y * 0.7);
+  }
+  if (rightPupil) {
+    rightPupil.setAttribute('cx', RIGHT_EYE.x + rightTarget.x);
+    rightPupil.setAttribute('cy', RIGHT_EYE.y + rightTarget.y);
+  }
+  if (rightPupilInner) {
+    rightPupilInner.setAttribute('cx', RIGHT_EYE.x + rightTarget.x * 0.7);
+    rightPupilInner.setAttribute('cy', RIGHT_EYE.y + rightTarget.y * 0.7);
+  }
+  
+  requestAnimationFrame(animateRobot);
+}
+animateRobot();
+
+/* ═══════════════════════════
+   PARTICLE SYSTEM
+═══════════════════════════ */
 const canvas = document.getElementById('gravCanvas');
 const ctx = canvas.getContext('2d');
 let W, H, particles = [], mouse = {x:-9999, y:-9999};
 const PARTICLE_COUNT = 120;
 
-function resize(){W = canvas.width = window.innerWidth;H = canvas.height = window.innerHeight;}
+function resize(){W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight;}
 resize();
 window.addEventListener('resize', resize);
-window.addEventListener('mousemove', e=>{mouse.x=e.clientX;mouse.y=e.clientY});
-window.addEventListener('mouseleave', ()=>{mouse.x=-9999;mouse.y=-9999});
+window.addEventListener('mousemove', e=>{mouse.x=e.clientX; mouse.y=e.clientY;});
+window.addEventListener('mouseleave', ()=>{mouse.x=-9999; mouse.y=-9999;});
 
 class Particle{
   constructor(){this.reset()}
   reset(){
-    this.x = Math.random()*W; this.y = Math.random()*H;
-    this.size = Math.random()*2.5 + 0.4; this.baseSize = this.size;
-    this.vx = (Math.random()-.5)*.4; this.vy = (Math.random()-.5)*.4 - 0.15;
-    this.life = Math.random(); this.maxLife = Math.random()*.6 + .4;
-    this.alpha = Math.random()*.5 + .1;
-    this.type = Math.random() > 0.7 ? 'dot' : 'ring';
-    this.color = Math.random() > 0.3 ? [0,229,208] : [255,255,255];
+    this.x=Math.random()*W; this.y=Math.random()*H;
+    this.size=Math.random()*2.5+0.4; this.baseSize=this.size;
+    this.vx=(Math.random()-.5)*.4; this.vy=(Math.random()-.5)*.4-0.15;
+    this.life=Math.random(); this.maxLife=Math.random()*.6+.4;
+    this.alpha=Math.random()*.5+.1;
+    this.type=Math.random()>0.7?'dot':'ring';
+    this.color=Math.random()>0.3?[0,229,208]:[255,255,255];
   }
   update(){
     this.vy -= 0.004;
-    const dx = this.x - mouse.x, dy = this.y - mouse.y;
-    const dist = Math.sqrt(dx*dx+dy*dy);
-    if(dist < 120){const force=(120-dist)/120;this.vx+=(dx/dist)*force*.8;this.vy+=(dy/dist)*force*.8;}
-    this.vx *= 0.985; this.vy *= 0.985;
-    this.x += this.vx; this.y += this.vy;
-    if(this.x < -10) this.x = W+10;
-    if(this.x > W+10) this.x = -10;
-    if(this.y < -20){this.y = H+10;this.x = Math.random()*W;this.vy=(Math.random()-.5)*.3-.1;}
-    if(this.y > H+20) this.y = -20;
+    const dx=this.x-mouse.x, dy=this.y-mouse.y;
+    const dist=Math.sqrt(dx*dx+dy*dy);
+    if(dist<120){const force=(120-dist)/120; this.vx+=(dx/dist)*force*.8; this.vy+=(dy/dist)*force*.8;}
+    this.vx*=0.985; this.vy*=0.985;
+    this.x+=this.vx; this.y+=this.vy;
+    if(this.x<-10) this.x=W+10;
+    if(this.x>W+10) this.x=-10;
+    if(this.y<-20){this.y=H+10; this.x=Math.random()*W; this.vy=(Math.random()-.5)*.3-.1;}
+    if(this.y>H+20) this.y=-20;
+    this.life+=0.005;
+    if(this.life>this.maxLife) this.life=0;
   }
   draw(){
-    const [r,g,b] = this.color;
-    const alpha = this.alpha * (0.4 + 0.6*Math.sin(this.life*Math.PI));
-    ctx.save(); ctx.globalAlpha = alpha;
-    if(this.type === 'ring'){
-      ctx.beginPath();ctx.arc(this.x,this.y,this.size*2,0,Math.PI*2);
-      ctx.strokeStyle=`rgb(${r},${g},${b})`;ctx.lineWidth=.6;ctx.stroke();
+    const [r,g,b]=this.color;
+    const alpha=this.alpha*(0.4+0.6*Math.sin(this.life*Math.PI));
+    ctx.save(); ctx.globalAlpha=alpha;
+    if(this.type==='ring'){
+      ctx.beginPath(); ctx.arc(this.x,this.y,this.size*2,0,Math.PI*2);
+      ctx.strokeStyle=`rgb(${r},${g},${b})`; ctx.lineWidth=.6; ctx.stroke();
     } else {
-      ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
-      ctx.fillStyle=`rgb(${r},${g},${b})`;ctx.shadowBlur=8;
-      ctx.shadowColor=`rgb(${r},${g},${b})`;ctx.fill();
+      ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+      ctx.fillStyle=`rgb(${r},${g},${b})`; ctx.shadowBlur=8;
+      ctx.shadowColor=`rgb(${r},${g},${b})`; ctx.fill();
     }
     ctx.restore();
-    this.life += 0.005;
-    if(this.life > this.maxLife) this.life = 0;
   }
 }
 
 function drawConnections(){
   for(let i=0;i<particles.length;i++){
     for(let j=i+1;j<particles.length;j++){
-      const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y;
+      const dx=particles[i].x-particles[j].x, dy=particles[i].y-particles[j].y;
       const dist=Math.sqrt(dx*dx+dy*dy);
       if(dist<100){
-        ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);
-        ctx.strokeStyle=`rgba(0,229,208,${(1-dist/100)*0.12})`;ctx.lineWidth=.5;ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(particles[i].x,particles[i].y); ctx.lineTo(particles[j].x,particles[j].y);
+        ctx.strokeStyle=`rgba(0,229,208,${(1-dist/100)*0.12})`; ctx.lineWidth=.5; ctx.stroke();
       }
     }
   }
 }
 for(let i=0;i<PARTICLE_COUNT;i++) particles.push(new Particle());
-function loop(){ctx.clearRect(0,0,W,H);drawConnections();particles.forEach(p=>{p.update();p.draw()});requestAnimationFrame(loop);}
+function loop(){ctx.clearRect(0,0,W,H); drawConnections(); particles.forEach(p=>{p.update(); p.draw();}); requestAnimationFrame(loop);}
 loop();
 
-// NAVBAR
+/* ═══════════════════════════
+   NAVBAR
+═══════════════════════════ */
 window.addEventListener('scroll',()=>{
-  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>20);
-  document.getElementById('scrollTopBtn').style.display=window.scrollY>400?'flex':'none';
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY>20);
+  document.getElementById('scrollTopBtn').style.display = window.scrollY>400?'flex':'none';
 });
 
-// MOBILE MENU
 document.getElementById('hamburger').addEventListener('click',()=>{
   const m=document.getElementById('mobileMenu');
   m.style.display=m.style.display==='flex'?'none':'flex';
 });
 function closeMobile(){document.getElementById('mobileMenu').style.display='none'}
 
-// FAQ
+/* ═══════════════════════════
+   FAQ
+═══════════════════════════ */
 function toggleFaq(btn){
   const item=btn.parentElement;
   const isOpen=item.classList.contains('open');
@@ -1847,152 +2057,99 @@ function toggleFaq(btn){
   if(!isOpen) item.classList.add('open');
 }
 
-// FORM SUBMIT — sends via Formspree (replace YOUR_ID with actual Formspree endpoint)
+/* ═══════════════════════════
+   CONTACT FORM
+═══════════════════════════ */
 async function submitForm(e){
   e.preventDefault();
-  const btn = document.getElementById('submitBtn');
-  const form = document.getElementById('contactForm');
-  btn.innerHTML = 'Sending...';
-  btn.style.opacity = '.7';
-  btn.disabled = true;
-
-  const data = new FormData(form);
-  const name = data.get('name');
-  const email = data.get('email');
-  const service = data.get('service');
-  const message = data.get('message');
-
-  // Redirect to WhatsApp with form data as fallback
-  const waMsg = encodeURIComponent(
-    `Hi Sanestix! I submitted your contact form.\n\nName: ${name}\nEmail: ${email}\nService: ${service}\nMessage: ${message}`
-  );
-
-  // Show success state
+  const btn=document.getElementById('submitBtn');
+  const form=document.getElementById('contactForm');
+  btn.innerHTML='Sending...'; btn.style.opacity='.7'; btn.disabled=true;
+  const data=new FormData(form);
+  const name=data.get('name'), email=data.get('email'), service=data.get('service'), message=data.get('message');
+  const waMsg=encodeURIComponent(`Hi Sanestix! I submitted your contact form.\n\nName: ${name}\nEmail: ${email}\nService: ${service}\nMessage: ${message}`);
   setTimeout(()=>{
-    btn.innerHTML = '✓ Message Sent!';
-    btn.style.opacity = '1';
-    btn.style.background = 'linear-gradient(135deg,#00d4a0,#00b8d4)';
+    btn.innerHTML='✓ Message Sent!'; btn.style.opacity='1'; btn.style.background='linear-gradient(135deg,#00d4a0,#00b8d4)';
     form.reset();
-
-    // Offer WhatsApp follow-up
     setTimeout(()=>{
       if(confirm('Message sent! Would you also like to send this via WhatsApp for faster response?')){
         window.open(`https://wa.me/923014422951?text=${waMsg}`,'_blank');
       }
-      btn.innerHTML = 'Send Message <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
-      btn.style.background = '';
-      btn.disabled = false;
+      btn.innerHTML='Send Message'; btn.style.background=''; btn.disabled=false;
     },2000);
   },1000);
 }
 
-// DEMO CHAT BOT
+/* ═══════════════════════════
+   DEMO CHAT BOT
+═══════════════════════════ */
 const botResponses = {
-  'what services do you offer?': [
-    "Great question! We specialize in 4 core services:\n\n📱 WhatsApp Automation — auto-replies, lead capture, 24/7 support\n📸 Instagram Automation — DM responses, comment management\n🔗 Multi-Platform Suite — WA + IG unified dashboard\n🛍️ Shopify Integration — orders, cart recovery, product sync\n\nAll 100% custom-built for your specific workflow. Which sounds most relevant to you?",
-  ],
-  'what are your prices?': [
-    "Our pricing is fully transparent:\n\n⚡ Starter — from $149 setup + $49/mo\n(1 platform, up to 5 flows)\n\n🚀 Growth — from $299 setup + $89/mo\n(WA + Instagram, unlimited flows)\n\n🏢 Enterprise — from $599 setup + custom\n(Shopify + full stack + dedicated manager)\n\nAll plans include a free consultation first. Want me to book one for you?",
-  ],
-  'how fast can you set it up?': [
-    "Really fast — that's one of our strengths.\n\n⚡ Simple WA automation: 3–5 days\n📊 Multi-platform suite: 7–10 days\n🛍️ Shopify integration: 10–14 days\n\nWe've deployed a working clinic appointment bot in 48 hours before. Timeline depends on how complex your workflows are. Tell me more about your business?",
-  ],
-  'i want a free consultation': [
-    "Awesome — you're one step away! 🎯\n\nOur free 30-min discovery call covers:\n✅ Your current bottlenecks\n✅ Automation opportunities we spot\n✅ A tailored roadmap for your business\n\nJust click the link below to start a WhatsApp chat with our team directly — we'll book a time that works for you.",
-    "➡️ wa.me/923014422951\n\nWe typically respond within a few hours. Looking forward to talking!"
-  ],
+  'what services do you offer?': ["Great question! We specialize in 4 core services:\n\n📱 WhatsApp Automation — auto-replies, lead capture, 24/7 support\n📸 Instagram Automation — DM responses, comment management\n🔗 Multi-Platform Suite — WA + IG unified dashboard\n🛍️ Shopify Integration — orders, cart recovery, product sync\n\nAll 100% custom-built for your specific workflow. Which sounds most relevant to you?"],
+  'what are your prices?': ["Our pricing is fully transparent:\n\n⚡ Starter — from $149 setup + $49/mo\n(1 platform, up to 5 flows)\n\n🚀 Growth — from $299 setup + $89/mo\n(WA + Instagram, unlimited flows)\n\n🏢 Enterprise — from $599 setup + custom\n(Shopify + full stack + dedicated manager)\n\nAll plans include a free consultation first. Want me to book one for you?"],
+  'how fast can you set it up?': ["Really fast — that's one of our strengths.\n\n⚡ Simple WA automation: 3–5 days\n📊 Multi-platform suite: 7–10 days\n🛍️ Shopify integration: 10–14 days\n\nWe've deployed a working clinic appointment bot in 48 hours before. Tell me more about your business?"],
+  'i want a free consultation': ["Awesome — you're one step away! 🎯\n\nOur free 30-min discovery call covers:\n✅ Your current bottlenecks\n✅ Automation opportunities we spot\n✅ A tailored roadmap for your business\n\nJust click below to chat with our team directly — we'll book a time that works for you.", "➡️ wa.me/923014422951\n\nWe typically respond within a few hours. Looking forward to talking!"],
 };
-
 const defaultResponses = [
   "That's a great question! Our team can give you a detailed answer. Want me to connect you with Saad or Wahab directly on WhatsApp?",
-  "I understand! For the best answer, I'd recommend chatting with our founders directly — they handle all new client enquiries personally. Type 'free consultation' to get started.",
+  "I understand! For the best answer, I'd recommend chatting with our founders directly. Type 'free consultation' to get started.",
   "Interesting! That's something we've built for clients before. Let me connect you with the team — they'll be able to walk you through exactly how it would work for your business.",
 ];
-
 let msgCount = 0;
 
 function addMsg(text, type, delay=0){
   return new Promise(resolve=>{
     setTimeout(()=>{
-      const container = document.getElementById('demoChatMsgs');
-      const wrap = document.createElement('div');
-      wrap.className = `msg ${type}`;
-      const now = new Date();
-      const time = now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-      const initials = type==='bot'?'SX':'You';
-      wrap.innerHTML=`
-        <div class="msg-avatar">${initials}</div>
-        <div>
-          <div class="msg-bubble">${text.replace(/\n/g,'<br>')}</div>
-          <span class="msg-time">${time}</span>
-        </div>`;
+      const container=document.getElementById('demoChatMsgs');
+      const wrap=document.createElement('div');
+      wrap.className=`msg ${type}`;
+      const now=new Date();
+      const time=now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+      wrap.innerHTML=`<div class="msg-avatar">${type==='bot'?'SX':'You'}</div><div><div class="msg-bubble">${text.replace(/\n/g,'<br>')}</div><span class="msg-time">${time}</span></div>`;
       container.appendChild(wrap);
-      container.scrollTop = container.scrollHeight;
-      msgCount++;
-      resolve();
-    }, delay);
+      container.scrollTop=container.scrollHeight;
+      msgCount++; resolve();
+    },delay);
   });
 }
-
 function showTyping(){
-  const container = document.getElementById('demoChatMsgs');
-  const t = document.createElement('div');
-  t.className='msg bot';t.id='typingWrap';
+  const container=document.getElementById('demoChatMsgs');
+  const t=document.createElement('div');
+  t.className='msg bot'; t.id='typingWrap';
   t.innerHTML=`<div class="msg-avatar">SX</div><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
-  container.appendChild(t);
-  container.scrollTop=container.scrollHeight;
+  container.appendChild(t); container.scrollTop=container.scrollHeight;
 }
-function hideTyping(){
-  const t=document.getElementById('typingWrap');
-  if(t) t.remove();
-}
+function hideTyping(){const t=document.getElementById('typingWrap'); if(t)t.remove();}
 
 async function sendQuickReply(text){
   await addMsg(text,'user');
-  const key = text.toLowerCase();
+  const key=text.toLowerCase();
   showTyping();
-  await new Promise(r=>setTimeout(r, 900+Math.random()*600));
+  await new Promise(r=>setTimeout(r,900+Math.random()*600));
   hideTyping();
-  const replies = botResponses[key] || [defaultResponses[msgCount%defaultResponses.length]];
-  for(let i=0;i<replies.length;i++){
-    await addMsg(replies[i],'bot',i*400);
-  }
+  const replies=botResponses[key]||[defaultResponses[msgCount%defaultResponses.length]];
+  for(let i=0;i<replies.length;i++) await addMsg(replies[i],'bot',i*400);
 }
-
 async function sendDemoMsg(){
-  const input = document.getElementById('demoInput');
-  const text = input.value.trim();
-  if(!text) return;
+  const input=document.getElementById('demoInput');
+  const text=input.value.trim();
+  if(!text)return;
   input.value='';
   await addMsg(text,'user');
-  const key = text.toLowerCase();
-  const matched = Object.keys(botResponses).find(k=>key.includes(k.replace('?','')));
+  const key=text.toLowerCase();
+  const matched=Object.keys(botResponses).find(k=>key.includes(k.replace('?','')));
   showTyping();
-  await new Promise(r=>setTimeout(r, 800+Math.random()*700));
+  await new Promise(r=>setTimeout(r,800+Math.random()*700));
   hideTyping();
-  const replies = matched?botResponses[matched]:[defaultResponses[msgCount%defaultResponses.length]];
-  for(let i=0;i<replies.length;i++){
-    await addMsg(replies[i],'bot',i*400);
-  }
+  const replies=matched?botResponses[matched]:[defaultResponses[msgCount%defaultResponses.length]];
+  for(let i=0;i<replies.length;i++) await addMsg(replies[i],'bot',i*400);
 }
+setTimeout(()=>addMsg("👋 Hey there! I'm the Sanestix automation assistant.\n\nI can tell you about our services, pricing, and setup timelines — or connect you with our founders directly.\n\nWhat brings you here today?",'bot'),600);
 
-// Initial bot message
-setTimeout(()=>{
-  addMsg("👋 Hey there! I'm the Sanestix automation assistant.\n\nI can tell you about our services, pricing, and setup timelines — or connect you with our founders directly.\n\nWhat brings you here today?", 'bot');
-}, 600);
-const robot = document.getElementById('robotEl');
-let mx=0,my=0,curX=0,curY=0;
-document.addEventListener('mousemove',e=>{mx=(e.clientX/window.innerWidth-.5)*2;my=(e.clientY/window.innerHeight-.5)*2;});
-function animRobot(){
-  curX+=(mx-curX)*.05;curY+=(my-curY)*.05;
-  if(robot) robot.style.transform=`translate(${curX*-18}px,${curY*-12}px)`;
-  requestAnimationFrame(animRobot);
-}
-animRobot();
-
-// SCROLL REVEAL
+/* ═══════════════════════════
+   SCROLL REVEAL
+═══════════════════════════ */
 const observer=new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{if(e.isIntersecting) e.target.classList.add('visible')});
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
 },{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 </script>
