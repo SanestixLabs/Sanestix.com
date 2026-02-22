@@ -143,15 +143,15 @@ section{position:relative;z-index:1}
   background: rgba(255,255,255,0.06);
 }
 
-/* ── LOGO — no filter, shows naturally ── */
+/* LOGO — always visible on dark nav */
 .nav-logo-img {
   height: 48px;
   width: 160px;
   object-fit: contain;
   object-position: left center;
   display: block;
+  filter: brightness(0) invert(1);
 }
-
 nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
   padding:1.2rem 2rem;
@@ -189,39 +189,16 @@ nav.scrolled{
 }
 .nav-cta:hover{transform:scale(1.05);box-shadow:0 0 60px rgba(0,229,208,0.5)}
 .hamburger{display:none;background:none;border:none;cursor:pointer;color:var(--nav-text)}
-
-/* ── MOBILE MENU — theme-aware ── */
 .mobile-menu{
   display:none;
   position:fixed;top:72px;left:0;right:0;
   background: rgba(6,11,20,0.98);
   backdrop-filter:blur(20px);
-  border-bottom:1px solid rgba(0,229,208,0.12);
-  padding:1.5rem 2rem;
+  border-bottom:1px solid rgba(0,229,208,0.12);padding:1.5rem 2rem;
   flex-direction:column;gap:1.2rem;z-index:99;
-  transition: background 0.4s, border-color 0.4s;
 }
-.mobile-menu a{
-  color: #5e7d90;
-  text-decoration:none;font-size:1rem;font-weight:500;
-  transition: color 0.2s;
-}
+.mobile-menu a{color:#5e7d90;text-decoration:none;font-size:1rem;font-weight:500}
 .mobile-menu a:hover{color:#00e5d0}
-
-/* Light mode overrides for mobile menu */
-[data-theme="light"] .mobile-menu {
-  background: rgba(240,246,250,0.98);
-  border-bottom-color: rgba(0,168,154,0.18);
-}
-[data-theme="light"] .mobile-menu a {
-  color: #4a7080;
-}
-[data-theme="light"] .mobile-menu a:hover {
-  color: #00a89a;
-}
-[data-theme="light"] .mobile-menu .btn-primary {
-  color: #060b14;
-}
 
 /* HERO */
 .hero{
@@ -331,8 +308,8 @@ h1{
 
 /* The SVG robot built from scratch */
 .robot-svg-container {
-  width: 340px;
-  height: 400px;
+  width: 360px;
+  height: 430px;
   position: relative;
   filter: drop-shadow(0 20px 60px rgba(0,229,208,0.35));
   animation: robotFloat 6s ease-in-out infinite;
@@ -874,24 +851,11 @@ select option{background:var(--bg)}
 }
 .wa-float:hover .wa-tooltip{opacity:1}
 
-/* FOOTER — always dark */
+/* FOOTER */
 footer{
-  padding:4rem 2rem 2rem;
-  background: #060b14;
-  border-top:1px solid rgba(0,229,208,0.1);
-}
-footer,
-footer a,
-footer span,
-footer p,
-footer div {
-  /* force dark text tokens inside footer */
-  --text: #e8f4f8;
-  --text-secondary: #c8dde8;
-  --muted: #5e7d90;
-  --border: rgba(0,229,208,0.12);
-  --border2: rgba(0,229,208,0.25);
-  --cyan: #00e5d0;
+  padding:4rem 2rem 2rem;background:var(--footer-bg);
+  border-top:1px solid var(--border);
+  transition: background 0.4s;
 }
 .footer-inner{
   max-width:1200px;margin:0 auto;
@@ -1039,7 +1003,7 @@ footer div {
   .hero-inner{grid-template-columns:1fr;text-align:center;gap:2rem;}
   .hero-visual{order:-1;min-height:300px}
   .robot-scene{width:280px;height:280px}
-  .robot-svg-container{width:200px;height:220px}
+  .robot-svg-container{width:240px;height:285px}
   .robot-data-card{display:none}
   .hero-sub{margin-left:auto;margin-right:auto;font-size:.95rem;max-width:90%}
   .hero-badge{margin-left:auto;margin-right:auto;display:inline-flex}
@@ -1071,7 +1035,7 @@ footer div {
 @media(max-width:600px){
   .hero{padding:4.5rem 0 2.5rem}
   .hero-inner{gap:1.5rem}
-  .robot-svg-container{width:160px;height:180px}
+  .robot-svg-container{width:200px;height:240px}
   .orbit-ring:nth-child(1){width:170px;height:170px}
   .orbit-ring:nth-child(2){width:230px;height:230px}
   .hero-btns{flex-direction:column;align-items:center;gap:.65rem}
@@ -1186,143 +1150,158 @@ svg{display:inline-block;vertical-align:middle}
           </div>
 
           <div class="robot-3d-wrapper" id="robot3D">
-            <!-- Cute rounded robot matching reference image style -->
             <div class="robot-svg-container">
-              <svg id="robotSVG" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
-                <defs>
-                  <radialGradient id="headGrad" cx="40%" cy="30%" r="70%">
-                    <stop offset="0%" stop-color="#ffffff"/>
-                    <stop offset="100%" stop-color="#d8e8f0"/>
-                  </radialGradient>
-                  <radialGradient id="headGradDark" cx="40%" cy="30%" r="70%">
-                    <stop offset="0%" stop-color="#1a2e45"/>
-                    <stop offset="100%" stop-color="#0c1c2e"/>
-                  </radialGradient>
-                  <radialGradient id="bodyGrad2" cx="40%" cy="20%" r="80%">
-                    <stop offset="0%" stop-color="#f0f8ff"/>
-                    <stop offset="100%" stop-color="#c8daea"/>
-                  </radialGradient>
-                  <radialGradient id="bodyGradDark" cx="40%" cy="20%" r="80%">
-                    <stop offset="0%" stop-color="#142235"/>
-                    <stop offset="100%" stop-color="#0a1520"/>
-                  </radialGradient>
-                  <linearGradient id="headphoneL" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#4a90e8"/>
-                    <stop offset="100%" stop-color="#2563b0"/>
-                  </linearGradient>
-                  <linearGradient id="headphoneR" x1="1" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#4a90e8"/>
-                    <stop offset="100%" stop-color="#2563b0"/>
-                  </linearGradient>
-                  <radialGradient id="eyeGlow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="#00ffe8"/>
-                    <stop offset="60%" stop-color="#00c8b8"/>
-                    <stop offset="100%" stop-color="#009988"/>
-                  </radialGradient>
-                  <filter id="glow2" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                    <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-                  </filter>
-                  <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
-                    <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="rgba(0,0,0,0.25)"/>
-                  </filter>
-                  <filter id="hpShadow">
-                    <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="rgba(30,80,160,0.5)"/>
-                  </filter>
-                </defs>
-
-                <!-- ── HEADPHONE ARC LEFT ── -->
-                <path d="M 52 88 Q 20 88 18 62 Q 16 36 52 36" stroke="url(#headphoneL)" stroke-width="7" fill="none" stroke-linecap="round" filter="url(#hpShadow)"/>
-                <!-- Left ear cup -->
-                <ellipse cx="22" cy="88" rx="14" ry="18" fill="url(#headphoneL)" filter="url(#hpShadow)"/>
-                <ellipse cx="22" cy="88" rx="8" ry="11" fill="#1a4a9a" opacity="0.6"/>
-                <ellipse cx="20" cy="85" rx="4" ry="5" fill="rgba(255,255,255,0.2)"/>
-
-                <!-- ── HEADPHONE ARC RIGHT ── -->
-                <path d="M 148 88 Q 180 88 182 62 Q 184 36 148 36" stroke="url(#headphoneR)" stroke-width="7" fill="none" stroke-linecap="round" filter="url(#hpShadow)"/>
-                <!-- Right ear cup -->
-                <ellipse cx="178" cy="88" rx="14" ry="18" fill="url(#headphoneR)" filter="url(#hpShadow)"/>
-                <ellipse cx="178" cy="88" rx="8" ry="11" fill="#1a4a9a" opacity="0.6"/>
-                <ellipse cx="180" cy="85" rx="4" ry="5" fill="rgba(255,255,255,0.2)"/>
-
-                <!-- ── HEAD (big round white/dark) ── -->
-                <rect id="robotHead" x="36" y="24" width="128" height="118" rx="44" fill="url(#headGrad)" filter="url(#softShadow)"/>
-                <!-- Head shine highlight -->
-                <ellipse cx="82" cy="44" rx="22" ry="10" fill="rgba(255,255,255,0.55)" opacity="0.7"/>
-
-                <!-- ── FACE SCREEN / DARK VISOR ── -->
-                <rect x="52" y="42" width="96" height="78" rx="28" fill="#04101a"/>
-                <!-- Screen inner glow border -->
-                <rect x="52" y="42" width="96" height="78" rx="28" fill="none" stroke="#00e5d0" stroke-width="1.2" stroke-opacity="0.4"/>
-                <!-- Screen subtle scanlines -->
-                <rect x="52" y="42" width="96" height="8" rx="28" fill="rgba(0,229,208,0.04)" clip-path="inset(0 0 0 0 round 28px)"/>
-
-                <!-- ── LEFT EYE ── -->
-                <!-- Eye glow halo -->
-                <circle cx="80" cy="74" r="17" fill="rgba(0,229,208,0.08)"/>
-                <!-- Eye socket -->
-                <circle cx="80" cy="74" r="13" fill="#00120f"/>
-                <!-- Eye iris -->
-                <circle cx="80" cy="74" r="10" fill="url(#eyeGlow)" filter="url(#glow2)">
-                  <animate attributeName="r" values="10;11;10" dur="3s" repeatCount="indefinite"/>
-                </circle>
-                <!-- Pupil (mouse-tracked) -->
-                <circle id="leftPupil" cx="80" cy="74" r="5" fill="#003830" opacity="0.7"/>
-                <!-- Eye glint -->
-                <circle cx="74" cy="68" r="3.5" fill="rgba(255,255,255,0.7)"/>
-                <circle cx="72" cy="66" r="1.5" fill="rgba(255,255,255,0.4)"/>
-
-                <!-- ── RIGHT EYE ── -->
-                <circle cx="120" cy="74" r="17" fill="rgba(0,229,208,0.08)"/>
-                <circle cx="120" cy="74" r="13" fill="#00120f"/>
-                <circle cx="120" cy="74" r="10" fill="url(#eyeGlow)" filter="url(#glow2)">
-                  <animate attributeName="r" values="10;11;10" dur="3s" repeatCount="indefinite" begin="0.4s"/>
-                </circle>
-                <circle id="rightPupil" cx="120" cy="74" r="5" fill="#003830" opacity="0.7"/>
-                <circle cx="114" cy="68" r="3.5" fill="rgba(255,255,255,0.7)"/>
-                <circle cx="112" cy="66" r="1.5" fill="rgba(255,255,255,0.4)"/>
-
-                <!-- ── BLINK OVERLAY ── -->
-                <rect id="leftBlink" x="60" y="60" width="40" height="0" rx="6" fill="#04101a">
-                  <animate id="blinkAnim2" attributeName="height" values="0;28;0" dur="0.18s" repeatCount="indefinite" begin="3.5s;blinkAnim2.end+5s"/>
-                  <animate attributeName="y" values="60;60;60" dur="0.18s" repeatCount="indefinite" begin="3.5s;blinkAnim2.end+5s"/>
-                </rect>
-                <rect id="rightBlink" x="100" y="60" width="40" height="0" rx="6" fill="#04101a">
-                  <animate attributeName="height" values="0;28;0" dur="0.18s" repeatCount="indefinite" begin="3.5s;blinkAnim2.end+5s"/>
-                  <animate attributeName="y" values="60;60;60" dur="0.18s" repeatCount="indefinite" begin="3.5s;blinkAnim2.end+5s"/>
-                </rect>
-
-                <!-- ── SMILE ── -->
-                <path d="M 76 103 Q 100 118 124 103" stroke="#00e5d0" stroke-width="3.5" fill="none" stroke-linecap="round" filter="url(#glow2)">
-                  <animate attributeName="d" values="M 76 103 Q 100 118 124 103;M 76 103 Q 100 120 124 103;M 76 103 Q 100 118 124 103" dur="4s" repeatCount="indefinite"/>
-                </path>
-                <!-- Smile glow dots at corners -->
-                <circle cx="76" cy="103" r="2.5" fill="#00e5d0" opacity="0.6" filter="url(#glow2)"/>
-                <circle cx="124" cy="103" r="2.5" fill="#00e5d0" opacity="0.6" filter="url(#glow2)"/>
-
-                <!-- ── NECK ── -->
-                <rect x="88" y="140" width="24" height="14" rx="6" fill="#d0dde8"/>
-                <rect x="92" y="143" width="16" height="2.5" rx="1.25" fill="rgba(0,229,208,0.3)"/>
-                <rect x="92" y="148" width="16" height="2.5" rx="1.25" fill="rgba(0,229,208,0.3)"/>
-
-                <!-- ── BODY ── -->
-                <rect x="44" y="152" width="112" height="58" rx="22" fill="url(#bodyGrad2)" filter="url(#softShadow)"/>
-                <!-- Body chest panel -->
-                <rect x="62" y="162" width="76" height="36" rx="12" fill="rgba(0,180,200,0.08)" stroke="rgba(0,229,208,0.2)" stroke-width="1"/>
-                <!-- Chest waveform -->
-                <polyline points="68,180 74,172 79,186 85,175 91,182 97,170 103,182 109,175 115,183 121,172 126,180 131,175 136,180" 
-                  fill="none" stroke="#00e5d0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.65" filter="url(#glow2)">
-                  <animate attributeName="points" 
-                    values="68,180 74,172 79,186 85,175 91,182 97,170 103,182 109,175 115,183 121,172 126,180 131,175 136,180;68,180 74,184 79,170 85,180 91,172 97,185 103,172 109,180 115,170 121,184 126,175 131,182 136,180;68,180 74,172 79,186 85,175 91,182 97,170 103,182 109,175 115,183 121,172 126,180 131,175 136,180"
-                    dur="2.2s" repeatCount="indefinite"/>
-                </polyline>
-                <!-- Online indicator -->
-                <circle cx="126" cy="190" r="4" fill="#22c55e">
-                  <animate attributeName="opacity" values="1;0.4;1" dur="1.4s" repeatCount="indefinite"/>
-                </circle>
-
-                <!-- ── BODY SHINE ── -->
-                <ellipse cx="82" cy="163" rx="16" ry="5" fill="rgba(255,255,255,0.3)" opacity="0.5"/>
+              <svg id="robotSVG" viewBox="0 0 240 285" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+<defs>
+  <radialGradient id="helmetGrad" cx="38%" cy="28%" r="65%">
+    <stop offset="0%" stop-color="#ffffff"/>
+    <stop offset="55%" stop-color="#e8f0f8"/>
+    <stop offset="100%" stop-color="#bdd0e8"/>
+  </radialGradient>
+  <radialGradient id="bodyGrad2" cx="35%" cy="25%" r="70%">
+    <stop offset="0%" stop-color="#ffffff"/>
+    <stop offset="60%" stop-color="#dce8f5"/>
+    <stop offset="100%" stop-color="#b8ccde"/>
+  </radialGradient>
+  <radialGradient id="visorGrad" cx="40%" cy="35%" r="70%">
+    <stop offset="0%" stop-color="#1a2535"/>
+    <stop offset="100%" stop-color="#050c18"/>
+  </radialGradient>
+  <filter id="cyanGlow" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="4" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="softGlow2" x="-50%" y="-50%" width="200%" height="200%">
+    <feGaussianBlur stdDeviation="6" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="shadow3d" x="-20%" y="-10%" width="140%" height="150%">
+    <feDropShadow dx="3" dy="8" stdDeviation="10" flood-color="rgba(60,100,180,0.3)"/>
+  </filter>
+  <filter id="armShadow">
+    <feDropShadow dx="2" dy="5" stdDeviation="7" flood-color="rgba(60,100,180,0.25)"/>
+  </filter>
+  <radialGradient id="hpGrad2" cx="40%" cy="30%" r="70%">
+    <stop offset="0%" stop-color="#4a5568"/>
+    <stop offset="100%" stop-color="#1a202c"/>
+  </radialGradient>
+  <radialGradient id="armGrad" cx="35%" cy="30%" r="65%">
+    <stop offset="0%" stop-color="#f0f6ff"/>
+    <stop offset="55%" stop-color="#dce8f5"/>
+    <stop offset="100%" stop-color="#b8ccde"/>
+  </radialGradient>
+</defs>
+<!-- ── WAVING LEFT ARM ── -->
+<g transform="translate(8,-28) rotate(-38,56,190)" filter="url(#armShadow)">
+  <rect x="28" y="162" width="32" height="54" rx="16" fill="url(#armGrad)"/>
+  <ellipse cx="37" cy="175" rx="8" ry="14" fill="rgba(255,255,255,0.55)"/>
+  <rect x="27" y="208" width="30" height="44" rx="14" fill="url(#armGrad)"/>
+  <ellipse cx="42" cy="250" rx="15" ry="10" fill="url(#armGrad)"/>
+  <ellipse cx="42" cy="267" rx="20" ry="16" fill="url(#armGrad)"/>
+  <rect x="56" y="258" width="11" height="21" rx="5.5" fill="url(#armGrad)" transform="rotate(22,61,267)"/>
+  <rect x="50" y="245" width="10" height="24" rx="5" fill="url(#armGrad)" transform="rotate(8,55,254)"/>
+  <rect x="38" y="242" width="10" height="26" rx="5" fill="url(#armGrad)"/>
+  <rect x="26" y="245" width="10" height="24" rx="5" fill="url(#armGrad)" transform="rotate(-8,31,254)"/>
+  <rect x="15" y="252" width="9" height="20" rx="4.5" fill="url(#armGrad)" transform="rotate(-22,19,260)"/>
+  <ellipse cx="43" cy="262" rx="10" ry="6" fill="rgba(255,255,255,0.45)"/>
+</g>
+<!-- ── RIGHT ARM ── -->
+<g filter="url(#armShadow)">
+  <rect x="181" y="187" width="31" height="52" rx="15" fill="url(#armGrad)"/>
+  <ellipse cx="190" cy="200" rx="8" ry="12" fill="rgba(255,255,255,0.5)"/>
+  <rect x="181" y="230" width="29" height="42" rx="14" fill="url(#armGrad)"/>
+  <ellipse cx="196" cy="274" rx="16" ry="13" fill="url(#armGrad)"/>
+  <rect x="184" y="275" width="9" height="15" rx="4.5" fill="url(#armGrad)"/>
+  <rect x="195" y="274" width="9" height="16" rx="4.5" fill="url(#armGrad)"/>
+  <rect x="206" y="276" width="9" height="14" rx="4.5" fill="url(#armGrad)"/>
+</g>
+<!-- ── BODY ── -->
+<rect x="72" y="193" width="98" height="74" rx="28" fill="url(#bodyGrad2)" filter="url(#shadow3d)"/>
+<ellipse cx="103" cy="205" rx="24" ry="10" fill="rgba(255,255,255,0.62)"/>
+<rect x="90" y="207" width="62" height="46" rx="14" fill="rgba(0,180,220,0.06)" stroke="rgba(0,229,208,0.15)" stroke-width="1"/>
+<!-- Chest waveform -->
+<polyline points="97,229 103,220 108,233 113,222 119,230 124,218 129,230 134,222 139,229 145,223" 
+  fill="none" stroke="#00e5d0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.65" filter="url(#softGlow2)">
+  <animate attributeName="points" 
+    values="97,229 103,220 108,233 113,222 119,230 124,218 129,230 134,222 139,229 145,223;97,229 103,233 108,219 113,229 119,220 124,233 129,219 134,229 139,220 145,223;97,229 103,220 108,233 113,222 119,230 124,218 129,230 134,222 139,229 145,223"
+    dur="2.2s" repeatCount="indefinite"/>
+</polyline>
+<circle cx="142" cy="241" r="4.5" fill="#22c55e"><animate attributeName="opacity" values="1;0.35;1" dur="1.5s" repeatCount="indefinite"/></circle>
+<!-- ── NECK ── -->
+<rect x="104" y="179" width="34" height="20" rx="10" fill="url(#bodyGrad2)"/>
+<rect x="109" y="183" width="22" height="3" rx="1.5" fill="rgba(0,229,208,0.3)"/>
+<rect x="109" y="190" width="22" height="3" rx="1.5" fill="rgba(0,229,208,0.3)"/>
+<!-- ── HELMET / HEAD ── -->
+<g filter="url(#shadow3d)">
+  <ellipse cx="121" cy="104" rx="80" ry="84" fill="url(#helmetGrad)"/>
+  <rect x="44" y="158" width="154" height="30" fill="url(#helmetGrad)"/>
+  <ellipse cx="121" cy="188" rx="77" ry="20" fill="url(#helmetGrad)"/>
+  <!-- Helmet shine highlights -->
+  <ellipse cx="88" cy="50" rx="37" ry="21" fill="rgba(255,255,255,0.73)" opacity="0.9"/>
+  <ellipse cx="66" cy="77" rx="17" ry="27" fill="rgba(255,255,255,0.4)" opacity="0.65"/>
+  <ellipse cx="156" cy="140" rx="22" ry="32" fill="rgba(0,0,60,0.07)"/>
+  <!-- ── VISOR ── -->
+  <rect x="59" y="72" width="124" height="102" rx="36" fill="url(#visorGrad)"/>
+  <rect x="59" y="72" width="124" height="102" rx="36" fill="none" stroke="rgba(0,229,208,0.2)" stroke-width="1.5"/>
+  <ellipse cx="87" cy="89" rx="23" ry="12" fill="rgba(255,255,255,0.06)" transform="rotate(-15,87,89)"/>
+  <ellipse cx="75" cy="83" rx="11" ry="6" fill="rgba(255,255,255,0.1)" transform="rotate(-15,75,83)"/>
+  <!-- ── LEFT EYE (arc style + trackable pupils) ── -->
+  <!-- Glow halo -->
+  <path d="M 66 128 Q 90 105 114 128" stroke="rgba(0,255,232,0.3)" stroke-width="18" fill="none" stroke-linecap="round" filter="url(#softGlow2)"/>
+  <!-- Main cyan arc -->
+  <path d="M 66 128 Q 90 105 114 128" stroke="#00ffe8" stroke-width="9" fill="none" stroke-linecap="round" filter="url(#cyanGlow)">
+    <animate attributeName="d" values="M 66 128 Q 90 105 114 128;M 66 128 Q 90 103 114 128;M 66 128 Q 90 105 114 128" dur="3.5s" repeatCount="indefinite"/>
+  </path>
+  <!-- White inner highlight on arc -->
+  <path d="M 72 126 Q 90 108 108 126" stroke="rgba(255,255,255,0.8)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <!-- Pupil dot tracking element (left) -->
+  <circle id="leftPupil" cx="90" cy="112" r="5.5" fill="rgba(0,255,232,0.6)" filter="url(#cyanGlow)" opacity="0.85"/>
+  <!-- ── RIGHT EYE ── -->
+  <path d="M 128 128 Q 152 105 176 128" stroke="rgba(0,255,232,0.3)" stroke-width="18" fill="none" stroke-linecap="round" filter="url(#softGlow2)"/>
+  <path d="M 128 128 Q 152 105 176 128" stroke="#00ffe8" stroke-width="9" fill="none" stroke-linecap="round" filter="url(#cyanGlow)">
+    <animate attributeName="d" values="M 128 128 Q 152 105 176 128;M 128 128 Q 152 103 176 128;M 128 128 Q 152 105 176 128" dur="3.5s" repeatCount="indefinite" begin="0.25s"/>
+  </path>
+  <path d="M 134 126 Q 152 108 170 126" stroke="rgba(255,255,255,0.8)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <!-- Pupil dot tracking element (right) -->
+  <circle id="rightPupil" cx="152" cy="112" r="5.5" fill="rgba(0,255,232,0.6)" filter="url(#cyanGlow)" opacity="0.85"/>
+  <!-- ── SMILE ── -->
+  <path d="M 82 148 Q 121 178 160 148" stroke="rgba(0,255,232,0.3)" stroke-width="16" fill="none" stroke-linecap="round" filter="url(#softGlow2)"/>
+  <path d="M 82 148 Q 121 178 160 148" stroke="#00ffe8" stroke-width="8" fill="none" stroke-linecap="round" filter="url(#cyanGlow)">
+    <animate attributeName="d" values="M 82 148 Q 121 178 160 148;M 82 148 Q 121 181 160 148;M 82 148 Q 121 178 160 148" dur="4s" repeatCount="indefinite"/>
+  </path>
+  <path d="M 89 151 Q 121 174 153 151" stroke="rgba(255,255,255,0.68)" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- Smile corner dots -->
+  <circle cx="82" cy="148" r="5.5" fill="#00ffe8" opacity="0.82" filter="url(#cyanGlow)"/>
+  <circle cx="160" cy="148" r="5.5" fill="#00ffe8" opacity="0.82" filter="url(#cyanGlow)"/>
+</g>
+<!-- ── HEADPHONE BAND ── -->
+<path d="M 46 112 Q 46 16 121 14 Q 196 16 196 112" stroke="#242d3c" stroke-width="14" fill="none" stroke-linecap="round"/>
+<path d="M 46 112 Q 46 16 121 14 Q 196 16 196 112" stroke="#3a4a60" stroke-width="7" fill="none" stroke-linecap="round" opacity="0.5"/>
+<path d="M 64 80 Q 64 30 121 28 Q 178 30 178 80" stroke="rgba(120,150,200,0.22)" stroke-width="4" fill="none" stroke-linecap="round"/>
+<!-- ── LEFT EAR CUP ── -->
+<ellipse cx="42" cy="116" rx="25" ry="31" fill="url(#hpGrad2)" filter="url(#shadow3d)"/>
+<ellipse cx="42" cy="116" rx="25" ry="31" fill="none" stroke="rgba(100,130,180,0.25)" stroke-width="1.5"/>
+<ellipse cx="42" cy="116" rx="15.5" ry="21" fill="#09131f"/>
+<ellipse cx="37" cy="109" rx="7" ry="9" fill="rgba(255,255,255,0.07)"/>
+<circle cx="39" cy="114" r="2.5" fill="rgba(0,229,208,0.55)"/>
+<circle cx="46" cy="119" r="2" fill="rgba(0,229,208,0.38)"/>
+<circle cx="39" cy="124" r="2" fill="rgba(0,229,208,0.38)"/>
+<!-- Mic boom -->
+<path d="M 29 138 Q 21 150 17 164" stroke="#242d3c" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+<circle cx="15" cy="167" r="7.5" fill="#181e28"/>
+<circle cx="15" cy="167" r="3.5" fill="#00e5d0" opacity="0.9" filter="url(#cyanGlow)">
+  <animate attributeName="opacity" values="0.9;0.3;0.9" dur="2s" repeatCount="indefinite"/>
+</circle>
+<!-- ── RIGHT EAR CUP ── -->
+<ellipse cx="200" cy="116" rx="25" ry="31" fill="url(#hpGrad2)" filter="url(#shadow3d)"/>
+<ellipse cx="200" cy="116" rx="25" ry="31" fill="none" stroke="rgba(100,130,180,0.25)" stroke-width="1.5"/>
+<ellipse cx="200" cy="116" rx="15.5" ry="21" fill="#09131f"/>
+<ellipse cx="195" cy="109" rx="7" ry="9" fill="rgba(255,255,255,0.07)"/>
+<circle cx="197" cy="114" r="2.5" fill="rgba(0,229,208,0.55)"/>
+<circle cx="204" cy="119" r="2" fill="rgba(0,229,208,0.38)"/>
+<circle cx="197" cy="124" r="2" fill="rgba(0,229,208,0.38)"/>
+<!-- Ground shadow -->
+<ellipse cx="121" cy="292" rx="60" ry="9" fill="rgba(0,80,180,0.14)"/>
               </svg>
               <div class="robot-ground-glow"></div>
             </div>
@@ -1840,10 +1819,10 @@ const leftPupil = document.getElementById('leftPupil');
 const rightPupil = document.getElementById('rightPupil');
 const robot3D = document.getElementById('robot3D');
 
-// Eye centers in SVG coordinate space (new cute robot)
-const LEFT_EYE = { x: 80, y: 74 };
-const RIGHT_EYE = { x: 120, y: 74 };
-const EYE_RADIUS = 5; // max pupil travel
+// Eye centers in SVG coordinate space (new professional robot viewBox 240x285)
+const LEFT_EYE = { x: 90, y: 112 };
+const RIGHT_EYE = { x: 152, y: 112 };
+const EYE_RADIUS = 7; // max pupil travel
 
 let mouseX = window.innerWidth / 2;
 let mouseY = window.innerHeight / 2;
@@ -1861,7 +1840,7 @@ function getEyeTarget(eyeCenterInPage, eyeMaxRadius) {
   
   const rect = svg.getBoundingClientRect();
   // Map mouse to SVG coordinates
-  const svgW = 200, svgH = 240;
+  const svgW = 240, svgH = 285;
   const scaleX = svgW / rect.width;
   const scaleY = svgH / rect.height;
   
