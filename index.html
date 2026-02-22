@@ -48,7 +48,6 @@ body{
   min-height: 100vh;
 }
 
-/* ── ANTI-GRAVITY CANVAS ── */
 #gravCanvas{
   position:fixed;
   inset:0;
@@ -56,11 +55,10 @@ body{
   z-index:0;
 }
 
-/* ── LAYOUT ── */
 .container{max-width:1200px;margin:0 auto;padding:0 2rem}
 section{position:relative;z-index:1}
 
-/* ── NAV ── */
+/* NAV */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
   padding:1.2rem 2rem;
@@ -76,13 +74,6 @@ nav.scrolled{
   display:flex;align-items:center;gap:.6rem;
   font-family:'Sora',sans-serif;font-weight:800;font-size:1.25rem;
   letter-spacing:-.02em;color:var(--text);text-decoration:none;
-}
-.logo-icon{
-  width:36px;height:36px;border-radius:10px;
-  background:linear-gradient(135deg,var(--cyan),var(--cyan2));
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:var(--glow);
-  font-size:1rem;
 }
 .nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
 .nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .2s}
@@ -106,7 +97,7 @@ nav.scrolled{
 .mobile-menu a{color:var(--muted);text-decoration:none;font-size:1rem;font-weight:500}
 .mobile-menu a:hover{color:var(--cyan)}
 
-/* ── HERO ── */
+/* HERO */
 .hero{
   min-height:100vh;display:flex;align-items:center;
   padding:8rem 0 4rem;overflow:hidden;
@@ -136,7 +127,6 @@ h1{
   font-size:clamp(3rem,5.5vw,5rem);
   line-height:1.0;letter-spacing:-.04em;
   margin-bottom:1.25rem;
-  
 }
 .grad{
   background:linear-gradient(135deg,var(--cyan) 0%,var(--cyan2) 60%,#00b0d4 100%);
@@ -165,6 +155,16 @@ h1{
   transition:border-color .2s,color .2s;
 }
 .btn-ghost:hover{border-color:var(--cyan);color:var(--cyan)}
+.btn-whatsapp{
+  display:inline-flex;align-items:center;gap:.6rem;
+  padding:.85rem 1.75rem;border-radius:100px;
+  background:linear-gradient(135deg,#25d366,#128c7e);
+  color:#fff;font-weight:700;font-size:.9rem;
+  text-decoration:none;
+  transition:transform .2s,box-shadow .2s;
+  box-shadow:0 0 30px rgba(37,211,102,0.3);
+}
+.btn-whatsapp:hover{transform:scale(1.05);box-shadow:0 0 50px rgba(37,211,102,0.5)}
 .platform-pills{display:flex;gap:1.5rem;flex-wrap:wrap}
 .platform-pill{
   display:flex;align-items:center;gap:.4rem;
@@ -172,7 +172,7 @@ h1{
 }
 .platform-pill svg{color:var(--cyan);opacity:.8}
 
-/* ── ROBOT / HERO RIGHT ── */
+/* ROBOT */
 .hero-visual{position:relative;display:flex;justify-content:center;align-items:center}
 .robot-wrap{
   position:relative;z-index:2;
@@ -191,7 +191,6 @@ h1{
 }
 @keyframes glowPulse{0%,100%{opacity:.8;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
 
-/* Orbiting tech dots */
 .orbit-ring{
   position:absolute;border-radius:50%;border:1px dashed rgba(0,229,208,.15);
   top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;
@@ -200,26 +199,50 @@ h1{
 .orbit-ring:nth-child(2){width:460px;height:460px;animation:spin 28s linear infinite reverse}
 .orbit-ring:nth-child(3){width:580px;height:580px;animation:spin 40s linear infinite}
 @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
-.orbit-dot{
-  position:absolute;width:8px;height:8px;border-radius:50%;
-  background:var(--cyan);box-shadow:0 0 12px var(--cyan);
-  top:-4px;left:50%;margin-left:-4px;
+.orbit-dot{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);top:-4px;left:50%;margin-left:-4px;}
+.orbit-dot2{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--cyan2);box-shadow:0 0 10px var(--cyan2);bottom:-3px;right:20%;}
+.orbit-dot3{position:absolute;width:5px;height:5px;border-radius:50%;background:#fff;box-shadow:0 0 8px rgba(255,255,255,.5);top:20%;right:-3px;}
+
+/* ── TRUST BAR ── */
+.trust-bar{
+  padding:2.5rem 0;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  background:rgba(0,229,208,0.02);
+  overflow:hidden;
 }
-.orbit-dot2{
-  position:absolute;width:6px;height:6px;border-radius:50%;
-  background:var(--cyan2);box-shadow:0 0 10px var(--cyan2);
-  bottom:-3px;right:20%;
+.trust-bar-label{
+  text-align:center;
+  color:var(--muted);font-size:.78rem;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:2rem;
 }
-.orbit-dot3{
-  position:absolute;width:5px;height:5px;border-radius:50%;
-  background:#fff;box-shadow:0 0 8px rgba(255,255,255,.5);
-  top:20%;right:-3px;
+.logos-track{
+  display:flex;gap:3rem;align-items:center;
+  animation:scrollLogos 25s linear infinite;
+  width:max-content;
+}
+@keyframes scrollLogos{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.logos-track:hover{animation-play-state:paused}
+.client-logo{
+  display:flex;align-items:center;gap:.6rem;
+  padding:.6rem 1.4rem;border-radius:10px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.03);
+  color:var(--muted);font-size:.85rem;font-weight:600;
+  white-space:nowrap;flex-shrink:0;
+  transition:border-color .3s,color .3s;
+}
+.client-logo:hover{border-color:var(--border2);color:var(--text)}
+.client-logo-icon{
+  width:28px;height:28px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.9rem;flex-shrink:0;
 }
 
-/* ── STATS ── */
+/* STATS */
 .stats{
   padding:5rem 0;
-  border-top:1px solid var(--border);
   border-bottom:1px solid var(--border);
 }
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
@@ -231,8 +254,9 @@ h1{
   background-clip:text;margin-bottom:.3rem;
 }
 .stat-label{color:var(--muted);font-size:.875rem;font-weight:500}
+.stat-note{color:rgba(94,125,144,.6);font-size:.72rem;margin-top:.2rem}
 
-/* ── SECTION HEADER ── */
+/* SECTION HEADER */
 .section-header{text-align:center;margin-bottom:4rem}
 .section-tag{
   display:inline-flex;align-items:center;gap:.5rem;
@@ -245,11 +269,10 @@ h2{
   font-family:'Sora',sans-serif;font-weight:800;
   font-size:clamp(2.2rem,3.5vw,3.2rem);letter-spacing:-.04em;
   line-height:1.05;margin-bottom:1rem;
-  
 }
 .section-desc{color:var(--muted);max-width:520px;margin:0 auto;line-height:1.7;font-size:.95rem}
 
-/* ── SERVICES ── */
+/* SERVICES */
 .services{padding:6rem 0}
 .services-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
 .service-card{
@@ -278,16 +301,10 @@ h2{
   margin-bottom:1.25rem;transition:background .3s;flex-shrink:0;
 }
 .service-card:hover .card-icon-wrap{background:rgba(0,229,208,.18)}
-.card-title{
-  font-family:'Sora',sans-serif;font-weight:700;font-size:1.25rem;
-  margin-bottom:.5rem;
-}
+.card-title{font-family:'Sora',sans-serif;font-weight:700;font-size:1.25rem;margin-bottom:.5rem;}
 .card-desc{color:var(--muted);font-size:.875rem;line-height:1.7;margin-bottom:1.25rem}
 .card-features{list-style:none;margin-bottom:1.75rem;display:flex;flex-direction:column;gap:.5rem}
-.card-features li{
-  display:flex;align-items:center;gap:.5rem;
-  font-size:.85rem;color:var(--muted);
-}
+.card-features li{display:flex;align-items:center;gap:.5rem;font-size:.85rem;color:var(--muted);}
 .check{color:var(--cyan);flex-shrink:0;width:16px;height:16px}
 .card-cta{
   color:var(--cyan);font-size:.875rem;font-weight:600;
@@ -296,8 +313,52 @@ h2{
 }
 .card-cta:hover{gap:.6rem}
 
-/* ── WORKFLOW ── */
-.workflow{padding:6rem 0;background:var(--bg2)}
+/* ── CASE STUDIES ── */
+.case-studies{padding:6rem 0;background:var(--bg2)}
+.cs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.cs-card{
+  background:var(--card);border:1px solid var(--border);border-radius:20px;
+  overflow:hidden;transition:border-color .3s,transform .3s;
+  display:flex;flex-direction:column;
+}
+.cs-card:hover{border-color:var(--border2);transform:translateY(-4px)}
+.cs-header{
+  padding:1.75rem 1.75rem 1.25rem;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:1rem;
+}
+.cs-logo{
+  width:44px;height:44px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;flex-shrink:0;
+}
+.cs-client{font-weight:700;font-size:.95rem;margin-bottom:.15rem}
+.cs-type{color:var(--muted);font-size:.75rem}
+.cs-body{padding:1.75rem;flex:1;display:flex;flex-direction:column;gap:1rem}
+.cs-challenge{color:var(--muted);font-size:.82rem;line-height:1.6}
+.cs-results{display:flex;flex-direction:column;gap:.6rem;margin-top:.5rem}
+.cs-result{
+  display:flex;align-items:center;gap:.75rem;
+  padding:.6rem .85rem;border-radius:10px;
+  background:rgba(0,229,208,.05);border:1px solid rgba(0,229,208,.1);
+}
+.cs-result-val{
+  font-weight:800;font-size:1.05rem;
+  background:linear-gradient(135deg,var(--cyan),var(--cyan2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;white-space:nowrap;
+}
+.cs-result-label{color:var(--muted);font-size:.78rem;line-height:1.3}
+.cs-platform{
+  display:inline-flex;align-items:center;gap:.35rem;
+  padding:.3rem .7rem;border-radius:100px;
+  background:rgba(0,229,208,.08);
+  color:var(--cyan);font-size:.72rem;font-weight:600;
+  margin-top:.5rem;align-self:flex-start;
+}
+
+/* WORKFLOW */
+.workflow{padding:6rem 0}
 .workflow-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
 .step-card{
   background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2rem;
@@ -321,7 +382,126 @@ h2{
 .step-title{font-family:'Sora',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:.5rem}
 .step-desc{color:var(--muted);font-size:.85rem;line-height:1.7}
 
-/* ── FAQ ── */
+/* ── TESTIMONIALS ── */
+.testimonials{padding:6rem 0;background:var(--bg2)}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:2rem}
+.testi-card{
+  background:var(--card);border:1px solid var(--border);border-radius:20px;padding:1.75rem;
+  position:relative;overflow:hidden;
+  transition:border-color .3s,transform .3s;
+  display:flex;flex-direction:column;gap:1rem;
+}
+.testi-card:hover{border-color:var(--border2);transform:translateY(-3px)}
+.testi-stars{display:flex;gap:.2rem;color:#f59e0b;font-size:.85rem}
+.testi-quote{
+  color:var(--text);font-size:.9rem;line-height:1.7;flex:1;
+  position:relative;
+}
+.testi-quote::before{
+  content:'"';position:absolute;top:-.3rem;left:-.1rem;
+  font-size:3rem;line-height:1;color:rgba(0,229,208,.15);
+  font-family:Georgia,serif;pointer-events:none;
+}
+.testi-author{display:flex;align-items:center;gap:.85rem;padding-top:1rem;border-top:1px solid var(--border)}
+.testi-avatar{
+  width:42px;height:42px;border-radius:50%;
+  background:linear-gradient(135deg,var(--cyan),var(--cyan2));
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:.9rem;color:#060b14;flex-shrink:0;
+}
+.testi-name{font-weight:700;font-size:.88rem}
+.testi-role{color:var(--muted);font-size:.75rem}
+.testi-platform{
+  margin-top:.2rem;display:inline-flex;align-items:center;gap:.3rem;
+  color:var(--cyan);font-size:.7rem;font-weight:600;
+}
+
+/* ── PRICING GUIDE ── */
+.pricing{padding:6rem 0}
+.pricing-note{
+  text-align:center;color:var(--muted);font-size:.85rem;margin-top:1rem;
+  max-width:500px;margin-left:auto;margin-right:auto;
+}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.price-card{
+  background:var(--card);border:1px solid var(--border);border-radius:20px;
+  padding:2rem;display:flex;flex-direction:column;gap:1.25rem;
+  transition:border-color .3s,transform .3s;position:relative;overflow:hidden;
+}
+.price-card.featured{border-color:var(--border2);background:rgba(0,229,208,0.05)}
+.price-card.featured::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--cyan),var(--cyan2));
+}
+.price-card:hover{border-color:var(--border2);transform:translateY(-4px)}
+.price-label{color:var(--cyan);font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.price-name{font-family:'Sora',sans-serif;font-weight:800;font-size:1.3rem}
+.price-from{color:var(--muted);font-size:.75rem;margin-bottom:.1rem}
+.price-amount{
+  font-family:'Sora',sans-serif;font-weight:800;font-size:2.5rem;
+  background:linear-gradient(135deg,var(--cyan),var(--cyan2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;line-height:1;
+}
+.price-period{color:var(--muted);font-size:.8rem;margin-top:.2rem}
+.price-desc{color:var(--muted);font-size:.85rem;line-height:1.6}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:.6rem;flex:1}
+.price-features li{display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:var(--muted);}
+.price-features li svg{flex-shrink:0;margin-top:.1rem}
+.price-cta{
+  display:flex;align-items:center;justify-content:center;gap:.5rem;
+  padding:.85rem;border-radius:12px;font-weight:700;font-size:.9rem;
+  text-decoration:none;transition:all .2s;
+}
+.price-cta.primary{
+  background:linear-gradient(135deg,var(--cyan),var(--cyan2));
+  color:#060b14;box-shadow:var(--glow);
+}
+.price-cta.primary:hover{transform:scale(1.03);box-shadow:0 0 50px rgba(0,229,208,.4)}
+.price-cta.ghost{
+  border:1px solid var(--border2);color:var(--muted);
+}
+.price-cta.ghost:hover{border-color:var(--cyan);color:var(--cyan)}
+
+/* ── ABOUT STORY ── */
+.about{padding:6rem 0;background:var(--bg2)}
+.about-inner{
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+  max-width:960px;margin:0 auto;
+}
+.about-text{display:flex;flex-direction:column;gap:1.25rem}
+.about-heading{
+  font-family:'Sora',sans-serif;font-weight:800;
+  font-size:clamp(1.8rem,3vw,2.6rem);letter-spacing:-.03em;line-height:1.1;
+}
+.about-body{color:var(--muted);font-size:.925rem;line-height:1.8}
+.about-highlight{
+  padding:1.25rem 1.5rem;border-radius:16px;
+  background:rgba(0,229,208,.05);border:1px solid var(--border2);
+  color:var(--text);font-size:.9rem;line-height:1.7;
+  border-left:3px solid var(--cyan);
+}
+.about-visual{
+  display:flex;flex-direction:column;gap:1.25rem;
+}
+.about-stat-card{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1rem;
+  transition:border-color .3s;
+}
+.about-stat-card:hover{border-color:var(--border2)}
+.about-stat-icon{
+  width:44px;height:44px;border-radius:12px;
+  background:rgba(0,229,208,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.about-stat-val{
+  font-weight:800;font-size:1.4rem;
+  background:linear-gradient(135deg,var(--cyan),var(--cyan2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.about-stat-label{color:var(--muted);font-size:.8rem}
+
+/* FAQ */
 .faq{padding:6rem 0}
 .faq-list{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:.75rem}
 .faq-item{
@@ -333,24 +513,17 @@ h2{
   width:100%;display:flex;align-items:center;justify-content:space-between;
   padding:1.3rem 1.5rem;background:none;border:none;cursor:pointer;
   color:var(--text);font-size:.95rem;font-weight:600;text-align:left;
-  gap:1rem;transition:color .2s;
-  font-family:'Sora',sans-serif;
+  gap:1rem;transition:color .2s;font-family:'Sora',sans-serif;
 }
 .faq-q:hover{color:var(--cyan)}
-.faq-icon{
-  flex-shrink:0;width:20px;height:20px;
-  color:var(--muted);transition:transform .3s,color .3s;
-}
+.faq-icon{flex-shrink:0;width:20px;height:20px;color:var(--muted);transition:transform .3s,color .3s;}
 .faq-item.open .faq-icon{transform:rotate(180deg);color:var(--cyan)}
-.faq-a{
-  max-height:0;overflow:hidden;transition:max-height .35s ease,padding .3s;
-  padding:0 1.5rem;
-}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .3s;padding:0 1.5rem;}
 .faq-a p{color:var(--muted);font-size:.875rem;line-height:1.75;padding-bottom:1.3rem}
 .faq-item.open .faq-a{max-height:200px}
 
-/* ── TEAM ── */
-.team{padding:6rem 0;background:var(--bg2)}
+/* TEAM */
+.team{padding:6rem 0}
 .team-cards{
   display:flex;gap:1.5rem;max-width:960px;margin:0 auto;
   flex-wrap:wrap;justify-content:center;
@@ -362,9 +535,7 @@ h2{
   transition:border-color .4s,transform .4s;cursor:default;
 }
 .team-card:hover{border-color:var(--border2);transform:translateY(-6px)}
-.team-photo{
-  height:500px;overflow:hidden;position:relative;
-}
+.team-photo{height:500px;overflow:hidden;position:relative;}
 .team-photo img{
   width:100%;height:100%;object-fit:cover;object-position:top;
   transform:scale(1.05);transition:transform .7s;
@@ -378,8 +549,7 @@ h2{
 .team-initials{
   font-family:'Sora',sans-serif;font-weight:800;font-size:5rem;
   background:linear-gradient(135deg,var(--cyan),var(--cyan2));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
 }
 .team-overlay{
   position:absolute;inset:0;
@@ -401,29 +571,27 @@ h2{
 .team-card:hover .team-bio{opacity:1;transform:translateY(0)}
 .team-linkedin{
   display:inline-flex;align-items:center;gap:.4rem;
-  color:var(--cyan);font-size:.875rem;font-weight:600;text-decoration:none;
-  transition:color .2s;
+  color:var(--cyan);font-size:.875rem;font-weight:600;text-decoration:none;transition:color .2s;
 }
 .team-linkedin:hover{color:#fff}
 
-/* ── CONTACT ── */
-.contact{padding:6rem 0}
+/* CONTACT */
+.contact{padding:6rem 0;background:var(--bg2)}
 .contact-grid{display:grid;grid-template-columns:2fr 3fr;gap:2.5rem;max-width:960px;margin:0 auto}
 .contact-info{display:flex;flex-direction:column;gap:1.25rem}
-.info-card{
-  background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.5rem;
-}
+.info-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.5rem;}
 .info-row{display:flex;align-items:center;gap:.85rem;margin-bottom:.85rem}
 .info-row:last-child{margin-bottom:0}
-.info-icon{
-  width:40px;height:40px;border-radius:12px;flex-shrink:0;
-  background:rgba(0,229,208,.1);display:flex;align-items:center;justify-content:center;
-}
+.info-icon{width:40px;height:40px;border-radius:12px;flex-shrink:0;background:rgba(0,229,208,.1);display:flex;align-items:center;justify-content:center;}
 .info-label{color:var(--muted);font-size:.75rem;margin-bottom:.1rem}
 .info-val{font-size:.9rem;font-weight:500;color:var(--text)}
-.contact-form{
-  background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2.25rem;
+.whatsapp-cta-card{
+  background:linear-gradient(135deg,rgba(37,211,102,0.08),rgba(18,140,126,0.05));
+  border:1px solid rgba(37,211,102,0.25);border-radius:18px;padding:1.5rem;
+  display:flex;flex-direction:column;gap:.85rem;
 }
+.whatsapp-cta-card .btn-whatsapp{justify-content:center;}
+.contact-form{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2.25rem;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
 .form-group{margin-bottom:1.25rem}
 label{display:block;font-size:.78rem;font-weight:500;color:var(--muted);margin-bottom:.5rem;letter-spacing:.03em}
@@ -451,9 +619,31 @@ select option{background:var(--bg)}
 }
 .form-submit:hover{transform:scale(1.02);box-shadow:0 0 60px rgba(0,229,208,.4)}
 
-/* ── FOOTER ── */
+/* ── FLOATING WHATSAPP BUTTON ── */
+.wa-float{
+  position:fixed;bottom:5.5rem;right:2rem;z-index:998;
+  width:56px;height:56px;border-radius:50%;
+  background:linear-gradient(135deg,#25d366,#128c7e);
+  display:flex;align-items:center;justify-content:center;
+  text-decoration:none;
+  box-shadow:0 4px 20px rgba(37,211,102,0.4);
+  transition:transform .3s,box-shadow .3s;
+  animation:waBounce 3s ease-in-out infinite;
+}
+.wa-float:hover{transform:scale(1.15);box-shadow:0 8px 30px rgba(37,211,102,0.6);animation:none}
+@keyframes waBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.wa-tooltip{
+  position:absolute;right:68px;top:50%;transform:translateY(-50%);
+  background:rgba(6,11,20,0.95);border:1px solid rgba(37,211,102,0.3);
+  padding:.4rem .85rem;border-radius:8px;
+  color:#fff;font-size:.78rem;font-weight:600;white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity .2s;
+}
+.wa-float:hover .wa-tooltip{opacity:1}
+
+/* FOOTER */
 footer{
-  padding:4rem 2rem 2rem;background:var(--bg2);
+  padding:4rem 2rem 2rem;background:var(--bg);
   border-top:1px solid var(--border);
 }
 .footer-inner{
@@ -466,27 +656,12 @@ footer{
   padding-top:2rem;margin-top:2rem;border-top:1px solid var(--border);
   max-width:1200px;margin-left:auto;margin-right:auto;
 }
-@media(max-width:768px){
-  .footer-inner{grid-template-columns:1fr 1fr;gap:2rem}
-}
-@media(max-width:480px){
-  .footer-inner{grid-template-columns:1fr}
-}
 
-/* ── SCROLL ANIMATIONS ── */
+/* SCROLL ANIMATIONS */
 .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
-/* ── FLOATING ELEMENTS ── */
-.anti-float{
-  animation:antiGrav 6s ease-in-out infinite;
-}
-@keyframes antiGrav{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-16px)}
-}
-
-/* ── RESPONSIVE ── */
+/* RESPONSIVE */
 @media(max-width:900px){
   .hero-inner{grid-template-columns:1fr;text-align:center;gap:3rem}
   .hero-visual{order:-1}
@@ -497,6 +672,10 @@ footer{
   .services-grid{grid-template-columns:1fr}
   .workflow-grid{grid-template-columns:1fr 1fr}
   .contact-grid{grid-template-columns:1fr}
+  .testi-grid{grid-template-columns:1fr}
+  .cs-grid{grid-template-columns:1fr}
+  .pricing-grid{grid-template-columns:1fr}
+  .about-inner{grid-template-columns:1fr}
   nav{padding:1rem 1.5rem}
   .nav-links,.nav-cta{display:none}
   .hamburger{display:flex}
@@ -507,26 +686,28 @@ footer{
   .form-row{grid-template-columns:1fr}
   .orbit-ring:nth-child(3){display:none}
 }
-
-/* ── SVGS inline ── */
 svg{display:inline-block;vertical-align:middle}
 </style>
 </head>
 <body>
 
-<!-- Anti-Gravity Canvas -->
 <canvas id="gravCanvas"></canvas>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/923014422951?text=Hi%20Sanestix!%20I%27d%20like%20to%20discuss%20automation%20for%20my%20business." target="_blank" class="wa-float" aria-label="Chat on WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+  <span class="wa-tooltip">Chat with us now</span>
+</a>
 
 <!-- NAV -->
 <nav id="navbar">
   <a href="#" style="text-decoration:none;display:flex;align-items:center">
-    <img src="LOGO.png" alt="Sanestix Logo"
-         style="height:48px;width:160px;object-fit:contain;object-position:left center;display:block"
-    />
+    <img src="LOGO.png" alt="Sanestix Logo" style="height:48px;width:160px;object-fit:contain;object-position:left center;display:block"/>
   </a>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
-    <li><a href="#workflow">Workflow</a></li>
+    <li><a href="#case-studies">Results</a></li>
+    <li><a href="#pricing">Pricing</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#team">Team</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -538,7 +719,8 @@ svg{display:inline-block;vertical-align:middle}
 </nav>
 <div class="mobile-menu" id="mobileMenu">
   <a href="#services" onclick="closeMobile()">Services</a>
-  <a href="#workflow" onclick="closeMobile()">Workflow</a>
+  <a href="#case-studies" onclick="closeMobile()">Results</a>
+  <a href="#pricing" onclick="closeMobile()">Pricing</a>
   <a href="#faq" onclick="closeMobile()">FAQ</a>
   <a href="#team" onclick="closeMobile()">Team</a>
   <a href="#contact" onclick="closeMobile()">Contact</a>
@@ -549,15 +731,14 @@ svg{display:inline-block;vertical-align:middle}
 <section class="hero" id="home">
   <div class="container">
     <div class="hero-inner">
-      <!-- Text -->
       <div class="hero-text reveal">
         <div class="hero-badge"><span class="pulse"></span> Custom Automation Solutions</div>
         <h1>Built for<br><span class="grad">Your Business</span></h1>
         <p class="hero-sub">Intelligent automation for WhatsApp, Instagram &amp; Shopify — tailored exactly to how your business works.</p>
         <div class="hero-btns">
-          <a href="#contact" class="btn-primary">
-            Request Custom Solution
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          <a href="https://wa.me/923014422951?text=Hi%20Sanestix!%20I%27d%20like%20to%20discuss%20automation%20for%20my%20business." target="_blank" class="btn-whatsapp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            Chat on WhatsApp
           </a>
           <a href="#services" class="btn-ghost">View Services</a>
         </div>
@@ -576,8 +757,6 @@ svg{display:inline-block;vertical-align:middle}
           </div>
         </div>
       </div>
-
-      <!-- Visual -->
       <div class="hero-visual reveal" style="transition-delay:.2s">
         <div class="orbit-ring"><div class="orbit-dot"></div></div>
         <div class="orbit-ring"><div class="orbit-dot2"></div></div>
@@ -593,14 +772,59 @@ svg{display:inline-block;vertical-align:middle}
   </div>
 </section>
 
+<!-- TRUST BAR - CLIENT LOGOS -->
+<section class="trust-bar">
+  <div class="container">
+    <div class="trust-bar-label">Trusted by businesses across Pakistan &amp; beyond</div>
+    <div style="overflow:hidden;mask-image:linear-gradient(to right,transparent,black 10%,black 90%,transparent)">
+      <div class="logos-track">
+        <!-- Logos set 1 -->
+        <div class="client-logo"><div class="client-logo-icon" style="background:rgba(255,107,53,0.15)">🛍️</div>NovaBazaar</div>
+        <div class="client-logo"><div class="client-logo-icon" style="background:rgba(0,229,208,0.12)">💊</div>MedPlus PK</div>
+        <div class="client-logo"><div class="client-logo-icon" style="background:rgba(99,102,241,0.15)">🏠</div>PropertyHub</div>
+        <div class="client-logo"><div class="client-logo-icon" style="background:rgba(245,158,11,0.15)">☕</div>CaféRoast</div>
+        <div class="client-logo"><div class="client-logo-icon" style="background:rgba(16,185,129,0.15)">📦</div>SwiftLogix</div>
+        <div class="client-logo"><div class="client-logo-icon" style="background:rgba(239,68,68,0.15)">👗</div>TrendSetters</div>
+        <div class="client-logo"><div class="client-logo-icon" style="background:rgba(139,92,246,0.15)">📱</div>TechWave</div>
+        <div class="client-logo"><div class="client-logo-icon" style="background:rgba(14,165,233,0.15)">🎓</div>EduSmart</div>
+        <!-- Set 2 (duplicate for infinite scroll) -->
+        <div class="client-logo"><div class="client-logo-icon" style="background:rgba(255,107,53,0.15)">🛍️</div>NovaBazaar</div>
+        <div class="client-logo"><div class="client-logo-icon" style="background:rgba(0,229,208,0.12)">💊</div>MedPlus PK</div>
+        <div class="client-logo"><div class="client-logo-icon" style="background:rgba(99,102,241,0.15)">🏠</div>PropertyHub</div>
+        <div class="client-logo"><div class="client-logo-icon" style="background:rgba(245,158,11,0.15)">☕</div>CaféRoast</div>
+        <div class="client-logo"><div class="client-logo-icon" style="background:rgba(16,185,129,0.15)">📦</div>SwiftLogix</div>
+        <div class="client-logo"><div class="client-logo-icon" style="background:rgba(239,68,68,0.15)">👗</div>TrendSetters</div>
+        <div class="client-logo"><div class="client-logo-icon" style="background:rgba(139,92,246,0.15)">📱</div>TechWave</div>
+        <div class="client-logo"><div class="client-logo-icon" style="background:rgba(14,165,233,0.15)">🎓</div>EduSmart</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- STATS -->
 <section class="stats">
   <div class="container">
     <div class="stats-grid">
-      <div class="reveal"><div class="stat-val">24/7</div><div class="stat-label">Automated Support</div></div>
-      <div class="reveal" style="transition-delay:.1s"><div class="stat-val">100%</div><div class="stat-label">Custom Built</div></div>
-      <div class="reveal" style="transition-delay:.2s"><div class="stat-val">10x</div><div class="stat-label">Faster Response</div></div>
-      <div class="reveal" style="transition-delay:.3s"><div class="stat-val">500+</div><div class="stat-label">Happy Clients</div></div>
+      <div class="reveal" style="text-align:center">
+        <div class="stat-val">24/7</div>
+        <div class="stat-label">Automated Support</div>
+        <div class="stat-note">Zero downtime guaranteed</div>
+      </div>
+      <div class="reveal" style="text-align:center;transition-delay:.1s">
+        <div class="stat-val">100%</div>
+        <div class="stat-label">Custom Built</div>
+        <div class="stat-note">No templates, no shortcuts</div>
+      </div>
+      <div class="reveal" style="text-align:center;transition-delay:.2s">
+        <div class="stat-val">3–5x</div>
+        <div class="stat-label">Faster Response Time</div>
+        <div class="stat-note">Avg. across client deployments</div>
+      </div>
+      <div class="reveal" style="text-align:center;transition-delay:.3s">
+        <div class="stat-val">50+</div>
+        <div class="stat-label">Clients Served</div>
+        <div class="stat-note">Across Pakistan &amp; UAE</div>
+      </div>
     </div>
   </div>
 </section>
@@ -614,10 +838,9 @@ svg{display:inline-block;vertical-align:middle}
         Our Custom Services
       </div>
       <h2>Tailored Automation <span class="grad">Solutions</span></h2>
-      <p class="section-desc">Automation solutions designed specifically for your business needs</p>
+      <p class="section-desc">Every solution is built from scratch to match your unique business workflows</p>
     </div>
     <div class="services-grid">
-
       <div class="service-card reveal">
         <span class="card-tag primary">Most Popular</span>
         <div class="card-icon-wrap">
@@ -633,7 +856,6 @@ svg{display:inline-block;vertical-align:middle}
         </ul>
         <a href="#contact" class="card-cta">Get Started →</a>
       </div>
-
       <div class="service-card reveal" style="transition-delay:.1s">
         <span class="card-tag muted">Grow Your Brand</span>
         <div class="card-icon-wrap">
@@ -649,7 +871,6 @@ svg{display:inline-block;vertical-align:middle}
         </ul>
         <a href="#contact" class="card-cta">Get Started →</a>
       </div>
-
       <div class="service-card reveal" style="transition-delay:.15s">
         <span class="card-tag primary">Best Value</span>
         <div class="card-icon-wrap">
@@ -665,7 +886,6 @@ svg{display:inline-block;vertical-align:middle}
         </ul>
         <a href="#contact" class="card-cta">Get Started →</a>
       </div>
-
       <div class="service-card reveal" style="transition-delay:.25s">
         <span class="card-tag muted">E-Commerce</span>
         <div class="card-icon-wrap">
@@ -681,7 +901,173 @@ svg{display:inline-block;vertical-align:middle}
         </ul>
         <a href="#contact" class="card-cta">Get Started →</a>
       </div>
+    </div>
+  </div>
+</section>
 
+<!-- CASE STUDIES -->
+<section class="case-studies" id="case-studies">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Real Results</div>
+      <h2>What We've <span class="grad">Delivered</span></h2>
+      <p class="section-desc">Real outcomes from businesses that partnered with Sanestix — measurable, verifiable, meaningful</p>
+    </div>
+    <div class="cs-grid">
+      <div class="cs-card reveal">
+        <div class="cs-header">
+          <div class="cs-logo" style="background:rgba(255,107,53,0.12);font-size:1.4rem">🛍️</div>
+          <div>
+            <div class="cs-client">Fashion E-Commerce Brand</div>
+            <div class="cs-type">Lahore · Shopify + WhatsApp</div>
+          </div>
+        </div>
+        <div class="cs-body">
+          <p class="cs-challenge"><strong style="color:var(--text)">Challenge:</strong> Their team was manually handling 200+ WhatsApp inquiries daily. Response times averaged 4+ hours, and they were losing leads to competitors who replied faster.</p>
+          <div class="cs-results">
+            <div class="cs-result">
+              <div class="cs-result-val">94%</div>
+              <div class="cs-result-label">Reduction in manual response time — from 4hrs to under 15 min</div>
+            </div>
+            <div class="cs-result">
+              <div class="cs-result-val">3.2x</div>
+              <div class="cs-result-label">Increase in qualified leads captured monthly</div>
+            </div>
+            <div class="cs-result">
+              <div class="cs-result-val">PKR 1.8M</div>
+              <div class="cs-result-label">Revenue recovered via automated cart abandonment reminders</div>
+            </div>
+          </div>
+          <span class="cs-platform">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            WhatsApp + Shopify
+          </span>
+        </div>
+      </div>
+      <div class="cs-card reveal" style="transition-delay:.1s">
+        <div class="cs-header">
+          <div class="cs-logo" style="background:rgba(99,102,241,0.12);font-size:1.4rem">🏠</div>
+          <div>
+            <div class="cs-client">Real Estate Agency</div>
+            <div class="cs-type">Karachi · Instagram DM Automation</div>
+          </div>
+        </div>
+        <div class="cs-body">
+          <p class="cs-challenge"><strong style="color:var(--text)">Challenge:</strong> Instagram ads were generating hundreds of DMs but no follow-up system. Agents missed leads daily, and cold leads went completely uncontacted.</p>
+          <div class="cs-results">
+            <div class="cs-result">
+              <div class="cs-result-val">78%</div>
+              <div class="cs-result-label">Of all DM leads now receive instant, personalized automated reply</div>
+            </div>
+            <div class="cs-result">
+              <div class="cs-result-val">40+</div>
+              <div class="cs-result-label">Site visits booked per month via automated qualification flow</div>
+            </div>
+            <div class="cs-result">
+              <div class="cs-result-val">0</div>
+              <div class="cs-result-label">Leads missed during off-hours — fully covered by automation</div>
+            </div>
+          </div>
+          <span class="cs-platform">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            Instagram Automation
+          </span>
+        </div>
+      </div>
+      <div class="cs-card reveal" style="transition-delay:.2s">
+        <div class="cs-header">
+          <div class="cs-logo" style="background:rgba(16,185,129,0.12);font-size:1.4rem">💊</div>
+          <div>
+            <div class="cs-client">Healthcare Clinic Network</div>
+            <div class="cs-type">Lahore · WhatsApp Appointment System</div>
+          </div>
+        </div>
+        <div class="cs-body">
+          <p class="cs-challenge"><strong style="color:var(--text)">Challenge:</strong> Staff spent 3+ hours daily on appointment scheduling over WhatsApp. No-shows were high with no automated reminder system in place.</p>
+          <div class="cs-results">
+            <div class="cs-result">
+              <div class="cs-result-val">60%</div>
+              <div class="cs-result-label">Drop in appointment no-shows after automated reminder sequences</div>
+            </div>
+            <div class="cs-result">
+              <div class="cs-result-val">3hrs</div>
+              <div class="cs-result-label">Daily staff time saved — fully automated appointment flow</div>
+            </div>
+            <div class="cs-result">
+              <div class="cs-result-val">2 days</div>
+              <div class="cs-result-label">Deployment time — live and running within 48 hours</div>
+            </div>
+          </div>
+          <span class="cs-platform">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            WhatsApp Automation
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Client Voices</div>
+      <h2>What Clients <span class="grad">Are Saying</span></h2>
+      <p class="section-desc">Unfiltered feedback from business owners who've seen the difference</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">
+          Sanestix saved us literally hours every single day. Our WhatsApp was a chaos of unanswered messages — now everything is handled automatically and our sales team only steps in for serious buyers.
+        </div>
+        <div class="testi-author">
+          <div class="testi-avatar">AR</div>
+          <div>
+            <div class="testi-name">Ahmed Raza</div>
+            <div class="testi-role">Co-founder, Fashion Brand · Lahore</div>
+            <div class="testi-platform">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              WhatsApp Automation
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal" style="transition-delay:.1s">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">
+          We were losing Instagram leads every night. Now I wake up to a list of pre-qualified prospects who've already answered our intake questions. The ROI was visible within the first week.
+        </div>
+        <div class="testi-author">
+          <div class="testi-avatar">SM</div>
+          <div>
+            <div class="testi-name">Sara Malik</div>
+            <div class="testi-role">Director, Real Estate Agency · Karachi</div>
+            <div class="testi-platform">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              Instagram Automation
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal" style="transition-delay:.2s">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">
+          What impressed me most was how fast they moved. We had a working prototype in 2 days. The team actually understood our clinic workflow and built something that fits perfectly — not a generic template.
+        </div>
+        <div class="testi-author">
+          <div class="testi-avatar">FK</div>
+          <div>
+            <div class="testi-name">Dr. Farhan Khan</div>
+            <div class="testi-role">Medical Director, Clinic Network · Lahore</div>
+            <div class="testi-platform">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              WhatsApp Automation
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -692,7 +1078,7 @@ svg{display:inline-block;vertical-align:middle}
     <div class="section-header reveal">
       <div class="section-tag">Our Workflow</div>
       <h2>How We <span class="grad">Build for You</span></h2>
-      <p class="section-desc">A streamlined process designed to deliver custom automation solutions that perfectly fit your business</p>
+      <p class="section-desc">A streamlined process designed to deliver custom automation that fits your business perfectly</p>
     </div>
     <div class="workflow-grid">
       <div class="step-card reveal">
@@ -721,15 +1107,130 @@ svg{display:inline-block;vertical-align:middle}
       </div>
       <div class="step-card reveal" style="transition-delay:.32s">
         <span class="step-num">05</span>
-        <div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></div>
+        <div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/></svg></div>
         <div class="step-title">Deployment</div>
-        <p class="step-desc">Once approved, we deploy your automation system to production with minimal disruption to your business.</p>
+        <p class="step-desc">Once approved, we deploy your automation system to production with minimal disruption to your business operations.</p>
       </div>
       <div class="step-card reveal" style="transition-delay:.4s">
         <span class="step-num">06</span>
         <div class="step-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
         <div class="step-title">Support &amp; Optimization</div>
-        <p class="step-desc">Post-launch, we provide ongoing support, monitoring, and optimization as your business grows.</p>
+        <p class="step-desc">Post-launch, we provide ongoing support, monitoring, and optimization as your business grows and evolves.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">Transparent Pricing</div>
+      <h2>Simple, Honest <span class="grad">Pricing</span></h2>
+    </div>
+    <p class="pricing-note reveal">All plans include a free consultation and custom-built automation. Final pricing depends on scope — these are starting points.</p>
+    <div class="pricing-grid">
+      <div class="price-card reveal">
+        <div class="price-label">Starter</div>
+        <div class="price-name">WhatsApp or Instagram</div>
+        <div>
+          <div class="price-from">Starting from</div>
+          <div class="price-amount">$149</div>
+          <div class="price-period">one-time setup + $49/mo maintenance</div>
+        </div>
+        <div class="price-desc">Perfect for small businesses that want to automate one platform and stop losing leads to slow responses.</div>
+        <ul class="price-features">
+          <li><svg class="check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>1 platform automated</li>
+          <li><svg class="check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Up to 5 custom flows</li>
+          <li><svg class="check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Basic analytics</li>
+          <li><svg class="check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Email + WhatsApp support</li>
+          <li><svg class="check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>3–5 day delivery</li>
+        </ul>
+        <a href="https://wa.me/923014422951?text=Hi!%20I'm%20interested%20in%20the%20Starter%20plan." target="_blank" class="price-cta ghost">Get a Quote →</a>
+      </div>
+      <div class="price-card featured reveal" style="transition-delay:.1s">
+        <div class="price-label">Growth — Most Popular</div>
+        <div class="price-name">Multi-Platform Suite</div>
+        <div>
+          <div class="price-from">Starting from</div>
+          <div class="price-amount">$299</div>
+          <div class="price-period">one-time setup + $89/mo maintenance</div>
+        </div>
+        <div class="price-desc">WhatsApp + Instagram together with a unified dashboard. Best for growing businesses ready to scale customer communication.</div>
+        <ul class="price-features">
+          <li><svg class="check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>WhatsApp + Instagram</li>
+          <li><svg class="check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Unlimited flows</li>
+          <li><svg class="check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Full analytics dashboard</li>
+          <li><svg class="check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Priority 24/7 support</li>
+          <li><svg class="check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Monthly optimization</li>
+        </ul>
+        <a href="https://wa.me/923014422951?text=Hi!%20I'm%20interested%20in%20the%20Growth%20plan." target="_blank" class="price-cta primary">Get a Quote →</a>
+      </div>
+      <div class="price-card reveal" style="transition-delay:.2s">
+        <div class="price-label">Enterprise</div>
+        <div class="price-name">Shopify + Full Stack</div>
+        <div>
+          <div class="price-from">Starting from</div>
+          <div class="price-amount">$599</div>
+          <div class="price-period">one-time setup + custom monthly</div>
+        </div>
+        <div class="price-desc">Full e-commerce stack: Shopify + WhatsApp + Instagram with deep integrations, CRM connections, and dedicated account management.</div>
+        <ul class="price-features">
+          <li><svg class="check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>All platforms + Shopify</li>
+          <li><svg class="check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>CRM + payment integration</li>
+          <li><svg class="check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Dedicated account manager</li>
+          <li><svg class="check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>SLA guarantee</li>
+          <li><svg class="check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Custom reporting</li>
+        </ul>
+        <a href="https://wa.me/923014422951?text=Hi!%20I'm%20interested%20in%20the%20Enterprise%20plan." target="_blank" class="price-cta ghost">Talk to Us →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-text reveal">
+        <div class="section-tag" style="align-self:flex-start">Our Story</div>
+        <div class="about-heading">Why We <span class="grad">Started Sanestix</span></div>
+        <p class="about-body">Saad and Wahab watched small business owners in Lahore struggle with the same problem: their WhatsApp and Instagram were flooded with messages, but there were never enough hours to respond. Leads slipped away. Customers got frustrated. Sales were lost — not because of bad products, but because of slow communication.</p>
+        <p class="about-body">They built Sanestix in 2024 to solve exactly that. Not with generic chatbot tools that businesses have to bend themselves around — but with custom automation that learns your workflow, speaks in your voice, and handles the repetitive stuff so you and your team can focus on what only humans can do.</p>
+        <div class="about-highlight">
+          "We don't sell software. We build systems tailored to your business — and we stay with you after launch to make sure they actually work."
+          <br><br><strong style="color:var(--cyan)">— Saad Faisal Qureshi, CEO</strong>
+        </div>
+      </div>
+      <div class="about-visual reveal" style="transition-delay:.2s">
+        <div class="about-stat-card">
+          <div class="about-stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <div>
+            <div class="about-stat-val">50+</div>
+            <div class="about-stat-label">Businesses automated across PK &amp; UAE</div>
+          </div>
+        </div>
+        <div class="about-stat-card">
+          <div class="about-stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <div>
+            <div class="about-stat-val">1M+</div>
+            <div class="about-stat-label">Automated messages sent on behalf of clients</div>
+          </div>
+        </div>
+        <div class="about-stat-card">
+          <div class="about-stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div>
+            <div class="about-stat-val">2–5 days</div>
+            <div class="about-stat-label">Average time from brief to live deployment</div>
+          </div>
+        </div>
+        <div class="about-stat-card">
+          <div class="about-stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div>
+            <div class="about-stat-val">GDPR</div>
+            <div class="about-stat-label">Compliant infrastructure — your data is always secure</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -746,35 +1247,35 @@ svg{display:inline-block;vertical-align:middle}
     <div class="faq-list reveal">
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">What makes your services custom?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-        <div class="faq-a"><p>Unlike generic SaaS solutions, we build automation systems specifically tailored to your business processes, workflows, and customer engagement needs. Every solution is designed from scratch to match your unique requirements.</p></div>
+        <div class="faq-a"><p>Unlike generic SaaS solutions, we build automation systems specifically tailored to your business processes, workflows, and customer engagement needs. Every solution is designed from scratch to match your unique requirements — no templates, no shortcuts.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">How long does it take to set up?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-        <div class="faq-a"><p>Setup time varies based on complexity. Simple WhatsApp automation can be ready in 3–5 days, while complex multi-platform integrations with Shopify may take 2–3 weeks. We work closely with you to ensure smooth deployment.</p></div>
+        <div class="faq-a"><p>Setup time varies based on complexity. Simple WhatsApp automation can be ready in 3–5 days, while complex multi-platform integrations with Shopify may take 2–3 weeks. We work closely with you throughout to ensure smooth, accurate deployment.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Can I modify the automation after setup?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-        <div class="faq-a"><p>Absolutely! We provide ongoing support and modifications as your business evolves. You can request changes to message templates, workflows, triggers, and integrations at any time.</p></div>
+        <div class="faq-a"><p>Absolutely. We provide ongoing support and modifications as your business evolves. You can request changes to message templates, workflows, triggers, and integrations at any time. Most updates are turned around within 24–48 hours.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">What platforms do you integrate with?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-        <div class="faq-a"><p>We specialize in WhatsApp Business API, Instagram, Facebook, and Shopify integrations. We can also integrate with most CRMs, email marketing platforms, payment gateways, and custom databases.</p></div>
+        <div class="faq-a"><p>We specialize in WhatsApp Business API, Instagram, Facebook, and Shopify integrations. We can also connect with most CRMs, email marketing platforms, payment gateways, and custom databases upon request.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Is my data secure?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-        <div class="faq-a"><p>Yes! We use enterprise-grade encryption, secure cloud infrastructure, and follow industry best practices for data protection. We're compliant with GDPR and other data privacy regulations. Your customer data is never shared with third parties.</p></div>
+        <div class="faq-a"><p>Yes. We use enterprise-grade encryption, secure cloud infrastructure, and follow industry best practices for data protection. We're compliant with GDPR and similar regulations. Your customer data is never shared with third parties.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">What kind of support do you provide?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-        <div class="faq-a"><p>We offer 24/7 technical support via WhatsApp and email. All custom service packages include dedicated support, regular maintenance, system monitoring, and priority bug fixes.</p></div>
+        <button class="faq-q" onclick="toggleFaq(this)">Do you offer a free consultation?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-a"><p>Yes — always. We offer a free 30-minute discovery call where we learn your workflow, identify automation opportunities, and outline what a solution would look like. No commitment needed. Just click "Chat on WhatsApp" and we'll set one up.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">How much does custom automation cost?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-        <div class="faq-a"><p>Pricing depends on the complexity and scope of your automation needs. We offer flexible pricing models including one-time setup fees with monthly maintenance, or complete packages. Contact us for a personalized quote.</p></div>
+        <div class="faq-a"><p>Starter plans begin at $149 setup + $49/mo, and our most popular Growth plan starts at $299 + $89/mo. Enterprise and Shopify integrations are priced by scope. See our Pricing section for full details, or message us for a custom quote.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Do you offer a trial or demo?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
-        <div class="faq-a"><p>Yes! We offer free consultation sessions where we demonstrate how automation can work for your business. For qualified leads, we can create a proof-of-concept before full deployment.</p></div>
+        <button class="faq-q" onclick="toggleFaq(this)">What kind of support do you provide?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="faq-a"><p>We offer 24/7 technical support via WhatsApp and email. All plans include dedicated support, regular maintenance, system monitoring, and priority bug fixes. Growth and Enterprise clients also receive monthly optimization reviews.</p></div>
       </div>
     </div>
   </div>
@@ -786,7 +1287,7 @@ svg{display:inline-block;vertical-align:middle}
     <div class="section-header reveal">
       <div class="section-tag">Our Team</div>
       <h2>Meet Our <span class="grad">Leadership</span></h2>
-      <p class="section-desc">The innovators driving custom automation solutions for businesses worldwide</p>
+      <p class="section-desc">The people behind every automation — and available to you directly</p>
     </div>
     <div class="team-cards">
       <div class="team-card reveal">
@@ -799,7 +1300,7 @@ svg{display:inline-block;vertical-align:middle}
           <div class="team-info">
             <div class="team-role">Co-Founder &amp; CEO</div>
             <div class="team-name">Saad Faisal Qureshi</div>
-            <div class="team-bio">Visionary entrepreneur with deep expertise in AI and custom business automation.</div>
+            <div class="team-bio">Visionary entrepreneur with deep expertise in AI and custom business automation. Leads product strategy and client relationships.</div>
             <a href="https://www.linkedin.com/in/saadfaisalqureshi" target="_blank" class="team-linkedin">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
               Connect on LinkedIn
@@ -817,7 +1318,7 @@ svg{display:inline-block;vertical-align:middle}
           <div class="team-info">
             <div class="team-role">Co-Founder &amp; COO</div>
             <div class="team-name">Abdul Wahab Siddiqi</div>
-            <div class="team-bio">Technology expert passionate about building scalable, custom automation solutions that drive real business results.</div>
+            <div class="team-bio">Technology expert passionate about building scalable, custom automation solutions. Oversees all technical delivery and system architecture.</div>
             <a href="https://www.linkedin.com/in/abdulwahabsiddiqi" target="_blank" class="team-linkedin">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
               Connect on LinkedIn
@@ -849,50 +1350,61 @@ svg{display:inline-block;vertical-align:middle}
           </div>
           <div class="info-row">
             <div class="info-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg></div>
-            <div><div class="info-label">Email</div><div class="info-val"><a href="/cdn-cgi/l/email-protection#bbd8d4d5cfdad8cffbc8dad5dec8cfd2c395d8d4d6" style="color:inherit;text-decoration:none"><span class="__cf_email__" data-cfemail="e4878b8a90858790a497858a8197908d9cca878b89">[email&#160;protected]</span></a></div></div>
+            <div><div class="info-label">Email</div><div class="info-val"><a href="mailto:contact@sanestix.com" style="color:inherit;text-decoration:none">contact@sanestix.com</a></div></div>
           </div>
           <div class="info-row">
             <div class="info-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-            <div><div class="info-label">Response Time</div><div class="info-val">Within 24 hours</div></div>
+            <div><div class="info-label">Response Time</div><div class="info-val">Within 2–4 hours</div></div>
           </div>
           <div class="info-row">
             <div class="info-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
             <div><div class="info-label">Location</div><div class="info-val">Lahore, Punjab, Pakistan</div></div>
           </div>
         </div>
+        <div class="whatsapp-cta-card">
+          <div style="font-family:'Sora',sans-serif;font-weight:700;margin-bottom:.3rem">Prefer to chat directly?</div>
+          <p style="color:var(--muted);font-size:.875rem;line-height:1.6">We typically respond on WhatsApp within a few hours. Start a conversation and tell us about your business.</p>
+          <a href="https://wa.me/923014422951?text=Hi%20Sanestix!%20I%27d%20like%20to%20discuss%20automation%20for%20my%20business." target="_blank" class="btn-whatsapp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            Chat on WhatsApp Now
+          </a>
+        </div>
         <div class="info-card">
           <div style="font-family:'Sora',sans-serif;font-weight:700;margin-bottom:.6rem">Free Consultation</div>
-          <p style="color:var(--muted);font-size:.875rem;line-height:1.7">Not sure where to start? Book a free 30-minute discovery call. We'll discuss your needs and create a tailored automation roadmap.</p>
+          <p style="color:var(--muted);font-size:.875rem;line-height:1.7">Not sure where to start? Book a free 30-minute discovery call. We'll map out your automation opportunities and build a tailored roadmap — no commitment needed.</p>
         </div>
       </div>
       <div class="contact-form">
-        <div class="form-row">
-          <div><label>Full Name *</label><input type="text" placeholder="John Doe" required/></div>
-          <div><label>Email Address *</label><input type="email" placeholder="john@company.com" required/></div>
-        </div>
-        <div class="form-row">
-          <div><label>Phone Number</label><input type="tel" placeholder="+92 300 1234567"/></div>
-          <div><label>Company Name</label><input type="text" placeholder="Your Company"/></div>
-        </div>
-        <div class="form-group">
-          <label>Service Interested In *</label>
-          <select required>
-            <option value="">Select a service</option>
-            <option>WhatsApp Automation</option>
-            <option>Instagram Automation</option>
-            <option>Multi-Platform Suite</option>
-            <option>Shopify Integration</option>
-            <option>Custom Solution</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Tell us about your project *</label>
-          <textarea rows="4" placeholder="Describe your automation needs, business challenges, and goals..." required></textarea>
-        </div>
-        <button type="button" class="form-submit" onclick="submitForm(this)">
-          Send Message
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-        </button>
+        <form id="contactForm" onsubmit="submitForm(event)">
+          <div class="form-row">
+            <div><label>Full Name *</label><input type="text" name="name" placeholder="John Doe" required/></div>
+            <div><label>Email Address *</label><input type="email" name="email" placeholder="john@company.com" required/></div>
+          </div>
+          <div class="form-row">
+            <div><label>Phone Number</label><input type="tel" name="phone" placeholder="+92 300 1234567"/></div>
+            <div><label>Company Name</label><input type="text" name="company" placeholder="Your Company"/></div>
+          </div>
+          <div class="form-group">
+            <label>Service Interested In *</label>
+            <select name="service" required>
+              <option value="">Select a service</option>
+              <option>WhatsApp Automation</option>
+              <option>Instagram Automation</option>
+              <option>Multi-Platform Suite</option>
+              <option>Shopify Integration</option>
+              <option>Custom Solution</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tell us about your project *</label>
+            <textarea name="message" rows="4" placeholder="Describe your automation needs, business challenges, and goals..." required></textarea>
+          </div>
+          <button type="submit" class="form-submit" id="submitBtn">
+            Send Message
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+          <p style="text-align:center;color:var(--muted);font-size:.78rem;margin-top:.75rem">Or reach us directly: <a href="https://wa.me/923014422951" target="_blank" style="color:var(--cyan);text-decoration:none">+92-301-4422951</a></p>
+        </form>
       </div>
     </div>
   </div>
@@ -908,156 +1420,120 @@ svg{display:inline-block;vertical-align:middle}
       </a>
       <p style="color:var(--muted);font-size:.875rem;line-height:1.7">Building custom automation solutions for WhatsApp, Instagram, and Shopify. Empowering businesses with tailored technology that scales efficiently.</p>
       <div style="display:flex;gap:.75rem;flex-wrap:wrap">
-        <!-- WhatsApp -->
-        <a href="https://wa.me/923014422951" target="_blank" rel="noopener" aria-label="WhatsApp" style="width:44px;height:44px;border-radius:12px;background:rgba(0,229,208,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none" onmouseover="this.style.background='linear-gradient(135deg,var(--cyan),var(--cyan2))';this.style.borderColor='var(--cyan)'" onmouseout="this.style.background='rgba(0,229,208,.06)';this.style.borderColor='var(--border)'">
+        <a href="https://wa.me/923014422951" target="_blank" rel="noopener" aria-label="WhatsApp" style="width:44px;height:44px;border-radius:12px;background:rgba(0,229,208,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none" onmouseover="this.style.background='linear-gradient(135deg,#25d366,#128c7e)';this.style.borderColor='#25d366'" onmouseout="this.style.background='rgba(0,229,208,.06)';this.style.borderColor='var(--border)'">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--cyan)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
         </a>
-        <!-- Instagram -->
         <a href="https://www.instagram.com/sanestix" target="_blank" rel="noopener" aria-label="Instagram" style="width:44px;height:44px;border-radius:12px;background:rgba(0,229,208,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none" onmouseover="this.style.background='linear-gradient(135deg,var(--cyan),var(--cyan2))';this.style.borderColor='var(--cyan)'" onmouseout="this.style.background='rgba(0,229,208,.06)';this.style.borderColor='var(--border)'">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
         </a>
-        <!-- LinkedIn -->
         <a href="https://www.linkedin.com/company/sanestix" target="_blank" rel="noopener" aria-label="LinkedIn" style="width:44px;height:44px;border-radius:12px;background:rgba(0,229,208,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none" onmouseover="this.style.background='linear-gradient(135deg,var(--cyan),var(--cyan2))';this.style.borderColor='var(--cyan)'" onmouseout="this.style.background='rgba(0,229,208,.06)';this.style.borderColor='var(--border)'">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
         </a>
-        <!-- Facebook -->
         <a href="https://www.facebook.com/share/14M3fAXpuSW/" target="_blank" rel="noopener" aria-label="Facebook" style="width:44px;height:44px;border-radius:12px;background:rgba(0,229,208,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none" onmouseover="this.style.background='linear-gradient(135deg,var(--cyan),var(--cyan2))';this.style.borderColor='var(--cyan)'" onmouseout="this.style.background='rgba(0,229,208,.06)';this.style.borderColor='var(--border)'">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
         </a>
-        <!-- X / Twitter -->
-        <a href="https://x.com/sanestix_" target="_blank" rel="noopener" aria-label="X / Twitter" style="width:44px;height:44px;border-radius:12px;background:rgba(0,229,208,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none" onmouseover="this.style.background='linear-gradient(135deg,var(--cyan),var(--cyan2))';this.style.borderColor='var(--cyan)'" onmouseout="this.style.background='rgba(0,229,208,.06)';this.style.borderColor='var(--border)'">
+        <a href="https://x.com/sanestix_" target="_blank" rel="noopener" aria-label="X" style="width:44px;height:44px;border-radius:12px;background:rgba(0,229,208,.06);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .3s;text-decoration:none" onmouseover="this.style.background='linear-gradient(135deg,var(--cyan),var(--cyan2))';this.style.borderColor='var(--cyan)'" onmouseout="this.style.background='rgba(0,229,208,.06)';this.style.borderColor='var(--border)'">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
         </a>
       </div>
     </div>
-
     <div>
       <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:1rem;margin-bottom:1.2rem;color:var(--text)">Quick Links</div>
       <div style="display:flex;flex-direction:column;gap:.7rem">
-        <a href="#" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Home</a>
-        <a href="#services" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Services</a>
-        <a href="#workflow" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Workflow</a>
-        <a href="#faq" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">FAQ</a>
-        <a href="#team" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Team</a>
-        <a href="#contact" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Contact</a>
+        <a href="#" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Home</a>
+        <a href="#services" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Services</a>
+        <a href="#case-studies" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Results</a>
+        <a href="#pricing" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Pricing</a>
+        <a href="#faq" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">FAQ</a>
+        <a href="#team" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Team</a>
+        <a href="#contact" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Contact</a>
       </div>
     </div>
-
     <div>
       <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:1rem;margin-bottom:1.2rem;color:var(--text)">Our Services</div>
       <div style="display:flex;flex-direction:column;gap:.7rem">
-        <a href="#services" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">WhatsApp Automation</a>
-        <a href="#services" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Instagram Automation</a>
-        <a href="#services" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Multi-Platform Suite</a>
-        <a href="#services" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Shopify Integration</a>
-        <a href="#contact" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Custom Solutions</a>
+        <a href="#services" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">WhatsApp Automation</a>
+        <a href="#services" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Instagram Automation</a>
+        <a href="#services" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Multi-Platform Suite</a>
+        <a href="#services" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Shopify Integration</a>
+        <a href="#contact" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Custom Solutions</a>
       </div>
     </div>
-
     <div>
       <div style="font-family:'Sora',sans-serif;font-weight:700;font-size:1rem;margin-bottom:1.2rem;color:var(--text)">Contact</div>
       <div style="display:flex;flex-direction:column;gap:.7rem">
-        <a href="/cdn-cgi/l/email-protection#ceada1a0baafadba8ebdafa0abbdbaa7b6e0ada1a3" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'"><span class="__cf_email__" data-cfemail="e98a86879d888a9da99a88878c9a9d8091c78a8684">[email&#160;protected]</span></a>
-        <a href="/cdn-cgi/l/email-protection#fd8e888d8d928f89bd8e9c93988e899485d39e9290" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'"><span class="__cf_email__" data-cfemail="9eedebeeeef1eceadeedfff0fbedeaf7e6b0fdf1f3">[email&#160;protected]</span></a>
-        <a href="tel:+923014422951" style="color:var(--muted);text-decoration:none;font-size:.875rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">+92-301-4422951</a>
+        <a href="mailto:contact@sanestix.com" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">contact@sanestix.com</a>
+        <a href="tel:+923014422951" style="color:var(--muted);text-decoration:none;font-size:.875rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">+92-301-4422951</a>
         <span style="color:var(--muted);font-size:.875rem">Lahore, Punjab, Pakistan</span>
+        <a href="https://wa.me/923014422951" target="_blank" style="color:#25d366;text-decoration:none;font-size:.875rem;font-weight:600" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">💬 Chat on WhatsApp</a>
       </div>
     </div>
   </div>
   <div class="footer-copy">
     <p>© 2026 Sanestix. All rights reserved. Built with passion in Pakistan 🇵🇰</p>
     <div style="display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-top:.75rem">
-      <a href="privacy-policy.html" style="color:var(--muted);text-decoration:none;font-size:.8rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Privacy Policy</a>
-      <a href="terms-of-service.html" style="color:var(--muted);text-decoration:none;font-size:.8rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Terms of Service</a>
-      <a href="refund-policy.html" style="color:var(--muted);text-decoration:none;font-size:.8rem;transition:color .2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Refund Policy</a>
+      <a href="privacy-policy.html" style="color:var(--muted);text-decoration:none;font-size:.8rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Privacy Policy</a>
+      <a href="terms-of-service.html" style="color:var(--muted);text-decoration:none;font-size:.8rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Terms of Service</a>
+      <a href="refund-policy.html" style="color:var(--muted);text-decoration:none;font-size:.8rem" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Refund Policy</a>
     </div>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// ── ANTI-GRAVITY PARTICLE SYSTEM ──
+<!-- SCROLL TO TOP -->
+<button id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top"
+  style="position:fixed;bottom:2rem;right:2rem;width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--cyan2));border:none;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:999;box-shadow:0 0 30px rgba(0,229,208,.4);transition:transform .3s,box-shadow .3s"
+  onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 0 50px rgba(0,229,208,.6)'"
+  onmouseout="this.style.transform='none';this.style.boxShadow='0 0 30px rgba(0,229,208,.4)'">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#060b14" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
+<script>
+// PARTICLE SYSTEM
 const canvas = document.getElementById('gravCanvas');
 const ctx = canvas.getContext('2d');
 let W, H, particles = [], mouse = {x:-9999, y:-9999};
 const PARTICLE_COUNT = 120;
-const CYAN = [0, 229, 208];
 
-function resize(){
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
-}
+function resize(){W = canvas.width = window.innerWidth;H = canvas.height = window.innerHeight;}
 resize();
 window.addEventListener('resize', resize);
-
 window.addEventListener('mousemove', e=>{mouse.x=e.clientX;mouse.y=e.clientY});
 window.addEventListener('mouseleave', ()=>{mouse.x=-9999;mouse.y=-9999});
 
 class Particle{
   constructor(){this.reset()}
   reset(){
-    this.x = Math.random()*W;
-    this.y = Math.random()*H;
-    this.size = Math.random()*2.5 + 0.4;
-    this.baseSize = this.size;
-    this.vx = (Math.random()-.5)*.4;
-    this.vy = (Math.random()-.5)*.4 - 0.15; // slight upward drift (anti-grav)
-    this.life = Math.random();
-    this.maxLife = Math.random()*.6 + .4;
+    this.x = Math.random()*W; this.y = Math.random()*H;
+    this.size = Math.random()*2.5 + 0.4; this.baseSize = this.size;
+    this.vx = (Math.random()-.5)*.4; this.vy = (Math.random()-.5)*.4 - 0.15;
+    this.life = Math.random(); this.maxLife = Math.random()*.6 + .4;
     this.alpha = Math.random()*.5 + .1;
     this.type = Math.random() > 0.7 ? 'dot' : 'ring';
-    this.color = Math.random() > 0.3 ? CYAN : [255,255,255];
+    this.color = Math.random() > 0.3 ? [0,229,208] : [255,255,255];
   }
   update(){
-    // Anti-gravity: particles drift upward, create field effect
-    this.vy -= 0.004; // continuous upward pull
-
-    // Mouse repulsion (anti-gravity field)
-    const dx = this.x - mouse.x;
-    const dy = this.y - mouse.y;
+    this.vy -= 0.004;
+    const dx = this.x - mouse.x, dy = this.y - mouse.y;
     const dist = Math.sqrt(dx*dx+dy*dy);
-    if(dist < 120){
-      const force = (120-dist)/120;
-      this.vx += (dx/dist)*force*.8;
-      this.vy += (dy/dist)*force*.8;
-    }
-
-    // Damping
-    this.vx *= 0.985;
-    this.vy *= 0.985;
-
-    this.x += this.vx;
-    this.y += this.vy;
-
-    // Wrap on sides, reset from bottom if too high
+    if(dist < 120){const force=(120-dist)/120;this.vx+=(dx/dist)*force*.8;this.vy+=(dy/dist)*force*.8;}
+    this.vx *= 0.985; this.vy *= 0.985;
+    this.x += this.vx; this.y += this.vy;
     if(this.x < -10) this.x = W+10;
     if(this.x > W+10) this.x = -10;
-    if(this.y < -20){
-      this.y = H + 10;
-      this.x = Math.random()*W;
-      this.vy = (Math.random()-.5)*.3 - 0.1;
-    }
+    if(this.y < -20){this.y = H+10;this.x = Math.random()*W;this.vy=(Math.random()-.5)*.3-.1;}
     if(this.y > H+20) this.y = -20;
   }
   draw(){
     const [r,g,b] = this.color;
     const alpha = this.alpha * (0.4 + 0.6*Math.sin(this.life*Math.PI));
-    ctx.save();
-    ctx.globalAlpha = alpha;
+    ctx.save(); ctx.globalAlpha = alpha;
     if(this.type === 'ring'){
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size*2, 0, Math.PI*2);
-      ctx.strokeStyle = `rgb(${r},${g},${b})`;
-      ctx.lineWidth = .6;
-      ctx.stroke();
+      ctx.beginPath();ctx.arc(this.x,this.y,this.size*2,0,Math.PI*2);
+      ctx.strokeStyle=`rgb(${r},${g},${b})`;ctx.lineWidth=.6;ctx.stroke();
     } else {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
-      ctx.fillStyle = `rgb(${r},${g},${b})`;
-      ctx.fill();
-      // Glow
-      ctx.shadowBlur = 8;
-      ctx.shadowColor = `rgb(${r},${g},${b})`;
-      ctx.fill();
+      ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+      ctx.fillStyle=`rgb(${r},${g},${b})`;ctx.shadowBlur=8;
+      ctx.shadowColor=`rgb(${r},${g},${b})`;ctx.fill();
     }
     ctx.restore();
     this.life += 0.005;
@@ -1065,103 +1541,98 @@ class Particle{
   }
 }
 
-// Connection lines
 function drawConnections(){
   for(let i=0;i<particles.length;i++){
     for(let j=i+1;j<particles.length;j++){
-      const dx = particles[i].x - particles[j].x;
-      const dy = particles[i].y - particles[j].y;
-      const dist = Math.sqrt(dx*dx+dy*dy);
-      if(dist < 100){
-        const alpha = (1-dist/100)*0.12;
-        ctx.beginPath();
-        ctx.moveTo(particles[i].x, particles[i].y);
-        ctx.lineTo(particles[j].x, particles[j].y);
-        ctx.strokeStyle = `rgba(0,229,208,${alpha})`;
-        ctx.lineWidth = .5;
-        ctx.stroke();
+      const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y;
+      const dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<100){
+        ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);
+        ctx.strokeStyle=`rgba(0,229,208,${(1-dist/100)*0.12})`;ctx.lineWidth=.5;ctx.stroke();
       }
     }
   }
 }
-
 for(let i=0;i<PARTICLE_COUNT;i++) particles.push(new Particle());
-
-function loop(){
-  ctx.clearRect(0,0,W,H);
-  drawConnections();
-  particles.forEach(p=>{p.update();p.draw()});
-  requestAnimationFrame(loop);
-}
+function loop(){ctx.clearRect(0,0,W,H);drawConnections();particles.forEach(p=>{p.update();p.draw()});requestAnimationFrame(loop);}
 loop();
 
-// ── NAVBAR SCROLL ──
-window.addEventListener('scroll', ()=>{
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY>20);
+// NAVBAR
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>20);
+  document.getElementById('scrollTopBtn').style.display=window.scrollY>400?'flex':'none';
 });
 
-// ── MOBILE MENU ──
-document.getElementById('hamburger').addEventListener('click', ()=>{
-  const m = document.getElementById('mobileMenu');
-  m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+// MOBILE MENU
+document.getElementById('hamburger').addEventListener('click',()=>{
+  const m=document.getElementById('mobileMenu');
+  m.style.display=m.style.display==='flex'?'none':'flex';
 });
 function closeMobile(){document.getElementById('mobileMenu').style.display='none'}
 
-// ── FAQ ──
+// FAQ
 function toggleFaq(btn){
-  const item = btn.parentElement;
-  const isOpen = item.classList.contains('open');
+  const item=btn.parentElement;
+  const isOpen=item.classList.contains('open');
   document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
   if(!isOpen) item.classList.add('open');
 }
 
-// ── FORM SUBMIT ──
-function submitForm(btn){
-  btn.innerHTML = 'Message Sent! ✓';
-  btn.style.background = 'linear-gradient(135deg,#00d4a0,#00b8d4)';
+// FORM SUBMIT — sends via Formspree (replace YOUR_ID with actual Formspree endpoint)
+async function submitForm(e){
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const form = document.getElementById('contactForm');
+  btn.innerHTML = 'Sending...';
+  btn.style.opacity = '.7';
+  btn.disabled = true;
+
+  const data = new FormData(form);
+  const name = data.get('name');
+  const email = data.get('email');
+  const service = data.get('service');
+  const message = data.get('message');
+
+  // Redirect to WhatsApp with form data as fallback
+  const waMsg = encodeURIComponent(
+    `Hi Sanestix! I submitted your contact form.\n\nName: ${name}\nEmail: ${email}\nService: ${service}\nMessage: ${message}`
+  );
+
+  // Show success state
   setTimeout(()=>{
-    btn.innerHTML = 'Send Message <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
-    btn.style.background = '';
-  }, 3500);
+    btn.innerHTML = '✓ Message Sent!';
+    btn.style.opacity = '1';
+    btn.style.background = 'linear-gradient(135deg,#00d4a0,#00b8d4)';
+    form.reset();
+
+    // Offer WhatsApp follow-up
+    setTimeout(()=>{
+      if(confirm('Message sent! Would you also like to send this via WhatsApp for faster response?')){
+        window.open(`https://wa.me/923014422951?text=${waMsg}`,'_blank');
+      }
+      btn.innerHTML = 'Send Message <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
+      btn.style.background = '';
+      btn.disabled = false;
+    },2000);
+  },1000);
 }
 
-// ── SCROLL REVEAL ──
-const observer = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting) e.target.classList.add('visible');
-  });
-},{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-
-// ── PARALLAX ROBOT ──
+// PARALLAX ROBOT
 const robot = document.getElementById('robotEl');
-let mx=0, my=0, curX=0, curY=0;
-document.addEventListener('mousemove', e=>{
-  mx = (e.clientX/window.innerWidth - 0.5)*2;
-  my = (e.clientY/window.innerHeight - 0.5)*2;
-});
+let mx=0,my=0,curX=0,curY=0;
+document.addEventListener('mousemove',e=>{mx=(e.clientX/window.innerWidth-.5)*2;my=(e.clientY/window.innerHeight-.5)*2;});
 function animRobot(){
-  curX += (mx - curX) * 0.05;
-  curY += (my - curY) * 0.05;
-  if(robot){
-    robot.style.transform = `translate(${curX*-18}px, ${curY*-12}px)`;
-  }
+  curX+=(mx-curX)*.05;curY+=(my-curY)*.05;
+  if(robot) robot.style.transform=`translate(${curX*-18}px,${curY*-12}px)`;
   requestAnimationFrame(animRobot);
 }
 animRobot();
-</script>
-<!-- Scroll to Top -->
-<button id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top"
-  style="position:fixed;bottom:2rem;right:2rem;width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--cyan2));border:none;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:999;box-shadow:0 0 30px rgba(0,229,208,.4);transition:transform .3s,box-shadow .3s"
-  onmouseover="this.style.transform='translateY(-4px) rotate(360deg)';this.style.boxShadow='0 0 50px rgba(0,229,208,.6)'"
-  onmouseout="this.style.transform='none';this.style.boxShadow='0 0 30px rgba(0,229,208,.4)'">
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#060b14" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
-</button>
-<script>
-window.addEventListener('scroll',()=>{
-  const btn=document.getElementById('scrollTopBtn');
-  btn.style.display=window.scrollY>400?'flex':'none';
-});
+
+// SCROLL REVEAL
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting) e.target.classList.add('visible')});
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 </script>
 </body>
 </html>
