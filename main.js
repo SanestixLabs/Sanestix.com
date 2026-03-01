@@ -193,7 +193,8 @@ async function submitForm(e) {
 
   const SHEET_URL = 'https://script.google.com/macros/s/AKfycbx51flwOtRQu5bszbx9hQJVCGlAYpeL23NUDW0haStULYVkAuKiftKNPXLgzwO-hyg/exec';
 
-  const payload = {
+  // Send as URLSearchParams — works reliably with no-cors
+  const payload = new URLSearchParams({
     name:    document.getElementById('fname').value.trim(),
     email:   document.getElementById('femail').value.trim(),
     phone:   document.getElementById('fphone').value.trim(),
@@ -201,14 +202,13 @@ async function submitForm(e) {
     service: document.getElementById('fservice').value,
     message: document.getElementById('fmessage').value.trim(),
     source:  'Website Contact Form'
-  };
+  });
 
   try {
     await fetch(SHEET_URL, {
-      method:  'POST',
-      mode:    'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify(payload)
+      method: 'POST',
+      mode:   'no-cors',
+      body:   payload   // NO custom headers — lets browser set content-type automatically
     });
 
     btn.innerHTML = '✅ Sent! We\'ll call you within 2–4 hours.';
@@ -216,10 +216,9 @@ async function submitForm(e) {
     if (status) status.style.display = 'none';
     form.reset();
 
-    // Bonus: open WhatsApp as a second confirmation channel
     setTimeout(() => {
       const waMsg = encodeURIComponent(
-        `Hi Sanestix! I just submitted the website form.\n\nName: ${payload.name}\nEmail: ${payload.email}\nPackage: ${payload.service}`
+        `Hi Sanestix! New lead just submitted the website form.\n\nName: ${payload.get('name')}\nEmail: ${payload.get('email')}\nPhone: ${payload.get('phone')}\nPackage: ${payload.get('service')}`
       );
       window.open(`https://wa.me/923014422951?text=${waMsg}`, '_blank');
     }, 1500);
@@ -234,7 +233,7 @@ async function submitForm(e) {
     btn.textContent = 'Send Message & Request Free Call';
     btn.disabled = false;
     if (status) {
-      status.textContent = '❌ Error sending. Please WhatsApp us directly at +92-301-4422951';
+      status.textContent = '❌ Error. Please WhatsApp us directly at +92-301-4422951';
       status.style.color = '#ef4444';
       status.style.display = 'block';
     }
