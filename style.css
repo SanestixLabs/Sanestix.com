@@ -146,7 +146,8 @@ section { position: relative; z-index: 1; }
   display: block;
   min-width: 40px;
 }
-nav {
+/* Only target the main navbar, NOT footer nav elements */
+nav#navbar {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
   padding: 0 2rem;
   height: 72px;
@@ -157,15 +158,32 @@ nav {
   border-bottom: 1px solid rgba(0, 229, 208, 0.08);
   transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
 }
-[data-theme="light"] nav {
+/* Reset nav inside footer to normal flow */
+footer nav {
+  position: static !important;
+  height: auto !important;
+  background: none !important;
+  border: none !important;
+  backdrop-filter: none !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.7rem !important;
+  z-index: auto !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  box-shadow: none !important;
+}
+[data-theme="light"] nav#navbar {
   background: rgba(240, 246, 250, 0.95);
 }
-nav.scrolled {
+nav#navbar.scrolled {
   background: rgba(6, 11, 20, 0.98);
   border-bottom-color: rgba(0, 229, 208, 0.14);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
 }
-[data-theme="light"] nav.scrolled {
+[data-theme="light"] nav#navbar.scrolled {
   background: rgba(240, 246, 250, 0.98);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
@@ -183,12 +201,20 @@ nav.scrolled {
   list-style: none;
   flex: 1;
   justify-content: center;
+  /* Ensure nav-links stay inside nav bar */
+  position: static;
+  margin: 0;
+  padding: 0;
 }
+.nav-links li { display: inline-flex; }
 .nav-links a {
   color: var(--muted); text-decoration: none;
   font-size: 0.875rem; font-weight: 500;
   transition: color 0.2s;
   white-space: nowrap;
+  /* Prevent any inherited positioning from breaking layout */
+  position: static;
+  display: inline-block;
 }
 .nav-links a:hover { color: var(--cyan); }
 .nav-right {
@@ -820,8 +846,16 @@ select option { background: var(--bg); }
 /* ============================================================
    FOOTER
    ============================================================ */
-footer { padding: 4rem 2rem 2rem; background: #060b14; border-top: 1px solid rgba(0, 229, 208, 0.1); }
-footer, footer a, footer span, footer p, footer div {
+footer {
+  padding: 4rem 2rem 2rem;
+  background: #060b14;
+  border-top: 1px solid rgba(0, 229, 208, 0.1);
+  --text: #e8f4f8; --text-secondary: #c8dde8; --muted: #5e7d90;
+  --border: rgba(0, 229, 208, 0.12); --border2: rgba(0, 229, 208, 0.25); --cyan: #00e5d0;
+  color: #e8f4f8;
+}
+footer *, footer a, footer span, footer p, footer div,
+footer nav, footer ul, footer li {
   --text: #e8f4f8; --text-secondary: #c8dde8; --muted: #5e7d90;
   --border: rgba(0, 229, 208, 0.12); --border2: rgba(0, 229, 208, 0.25); --cyan: #00e5d0;
 }
@@ -847,7 +881,7 @@ footer, footer a, footer span, footer p, footer div {
 
 /* Mid-point: compress nav before full mobile collapse */
 @media (max-width: 1100px) {
-  nav { padding: 0 1.5rem; }
+  nav#navbar { padding: 0 1.5rem; }
   .nav-links { gap: 1rem; }
   .nav-links a { font-size: 0.82rem; }
   .nav-cta { padding: 0.55rem 1rem; font-size: 0.8rem; }
@@ -881,7 +915,7 @@ footer, footer a, footer span, footer p, footer div {
   .chatbot-text .section-tag { align-self: center; }
   .industries-grid { grid-template-columns: repeat(2, 1fr); }
   .why-grid { grid-template-columns: 1fr 1fr; }
-  nav { padding: 0 1.25rem; }
+  nav#navbar { padding: 0 1.25rem; }
   .nav-links { display: none; }
   .nav-cta { display: none; }
   .theme-toggle-nav { display: none; }
