@@ -8,14 +8,7 @@ function setTheme(t) {
   localStorage.setItem('sanestix-theme', t);
   document.getElementById('btnDark').classList.toggle('active', t === 'dark');
   document.getElementById('btnLight').classList.toggle('active', t === 'light');
-  const nav = document.getElementById('navbar');
-  if (t === 'light') {
-    nav.style.setProperty('--nav-text', '#0d1f2d');
-    nav.style.setProperty('--nav-muted', '#4a7080');
-  } else {
-    nav.style.setProperty('--nav-text', '#e8f4f8');
-    nav.style.setProperty('--nav-muted', '#5e7d90');
-  }
+  // Nav always stays dark — no nav color changes on theme switch
 }
 (function () { setTheme(localStorage.getItem('sanestix-theme') || 'dark'); })();
 
