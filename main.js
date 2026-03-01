@@ -599,6 +599,8 @@ function roundRect(ctx, x, y, w, h, r) {
       ctx.font = `${active ? 10 : 8.5}px serif`; ctx.textAlign = 'center'; ctx.fillText(e.icon, nx, evtY + 3.5); ctx.restore();
       if (active) { ctx.fillStyle = e.col + '0.9)'; ctx.font = 'bold 8px Sora,sans-serif'; ctx.textAlign = 'center'; ctx.fillText(e.label, nx, evtY + 22); }
     });
+    // Cover mid-section to erase any chart/curve drawn underneath
+    ctx.fillStyle = C.bg; ctx.fillRect(0, H * 0.38, W, H * 0.52);
     const cr = 0.5 + 0.5 * Math.sin(t * 2);
     ctx.save(); ctx.globalAlpha = 0.85 + cr * 0.15;
     ctx.fillStyle = 'rgba(251,191,36,0.1)'; ctx.strokeStyle = 'rgba(251,191,36,0.4)'; ctx.lineWidth = 1;
@@ -650,6 +652,8 @@ function roundRect(ctx, x, y, w, h, r) {
       if (s.booked) { ctx.fillStyle = s.col + '0.9)'; ctx.beginPath(); ctx.arc(W - 20, y + sH * 0.5 + wave, 4, 0, Math.PI * 2); ctx.fill(); }
       ctx.restore();
     });
+    // Cover mid-section to erase any chart/curve drawn underneath
+    ctx.fillStyle = C.bg; ctx.fillRect(0, H * 0.42, W, H * 0.48);
     const nf = reminders[notifQ];
     const fadeIn = Math.min(1, notifT / 0.4), fadeOut = notifT > 1.6 ? Math.max(0, 1 - (notifT - 1.6) / 0.4) : 1;
     ctx.save(); ctx.globalAlpha = fadeIn * fadeOut;
