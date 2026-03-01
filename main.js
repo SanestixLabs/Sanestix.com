@@ -191,7 +191,7 @@ async function submitForm(e) {
   btn.textContent = 'Sending...';
   btn.disabled = true;
 
-  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbx51flwOtRQu5bszbx9hQJVCGlAYpeL23NUDW0haStULYVkAuKiftKNPXLgzwO-hyg/exec';
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyeIJHqHxTsDhFm4oTUFt-YU4CjQAziAETRf6gGrRmZ1ucr1oL9XUISQXS2VXS2O4o/exec';
 
   // Send as URLSearchParams — works reliably with no-cors
   const payload = new URLSearchParams({
