@@ -516,9 +516,6 @@ function roundRect(ctx, x, y, w, h, r) {
     if (leadT > 0.8) { activeLead = (activeLead + 1) % leads.length; leadT = 0; }
     const C = ucColors();
     ctx.clearRect(0, 0, W, H); ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
-    ctx.strokeStyle = C.gridLine; ctx.lineWidth = 1;
-    for (let x = 0; x < W; x += 24) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
-    for (let y = 0; y < H; y += 24) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
     const colW = (W - 20) / stages.length, colH = H - 60, colY = 50;
     stages.forEach((s, i) => {
       const cx = 10 + i * colW + colW / 2, x = 10 + i * colW;
@@ -580,11 +577,6 @@ function roundRect(ctx, x, y, w, h, r) {
     const beltY = H * 0.55, beltH = 14;
     ctx.fillStyle = 'rgba(0,229,208,0.05)'; ctx.beginPath(); roundRect(ctx, 0, beltY, W, beltH, 4); ctx.fill();
     ctx.strokeStyle = 'rgba(0,229,208,0.15)'; ctx.lineWidth = 1; ctx.stroke();
-    for (let i = 0; i < 10; i++) {
-      const x = ((t * 40) % (W / 5)) + i * (W / 5) - W / 5;
-      ctx.strokeStyle = 'rgba(0,229,208,0.08)'; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(x, beltY); ctx.lineTo(x + 20, beltY + beltH); ctx.stroke();
-    }
     pkgs = pkgs.filter(p => {
       p.x += p.vx; p.rot += p.rotV; p.alpha = Math.min(1, p.alpha + 0.05); if (p.x > W + 40) return false;
       ctx.save(); ctx.globalAlpha = p.alpha; ctx.translate(p.x, beltY - p.size / 2); ctx.rotate(p.rot);
@@ -640,9 +632,6 @@ function roundRect(ctx, x, y, w, h, r) {
     if (notifT > 2) { notifQ = (notifQ + 1) % reminders.length; notifT = 0; }
     const C = ucColors();
     ctx.clearRect(0, 0, W, H); ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
-    ctx.strokeStyle = C.gridLine; ctx.lineWidth = 1;
-    for (let x = 0; x < W; x += 22) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
-    for (let y = 0; y < H; y += 22) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
     const hg = ctx.createLinearGradient(0, 0, W, 0);
     hg.addColorStop(0, 'rgba(0,229,208,0.1)'); hg.addColorStop(1, 'rgba(0,184,230,0.06)');
     ctx.fillStyle = hg; ctx.beginPath(); roundRect(ctx, 8, 8, W - 16, 26, 8); ctx.fill();
