@@ -530,7 +530,7 @@ function roundRect(ctx, x, y, w, h, r) {
       const i = l.stage, cardX = 13 + i * colW, cardY = colY + 28 + colCount[i] * 34; colCount[i]++;
       const active = li === activeLead, pulse = active ? 0.5 + 0.5 * Math.sin(t * 3) : 0;
       ctx.save();
-      if (active) { ctx.shadowColor = stageColors[i].replace('rgba(', '') + 0.4; ctx.shadowBlur = 10 + pulse * 6; }
+      if (active) { ctx.shadowColor = `${stageColors[i]}0.4)`; ctx.shadowBlur = 10 + pulse * 6; }
       ctx.fillStyle = active ? `${stageColors[i]}0.15)` : 'rgba(255,255,255,0.04)';
       ctx.beginPath(); roundRect(ctx, cardX, cardY, colW - 6, 28, 6); ctx.fill();
       ctx.strokeStyle = active ? `${stageColors[i]}0.5)` : `${stageColors[i]}0.15)`; ctx.lineWidth = active ? 1.5 : 1; ctx.stroke();
@@ -559,7 +559,7 @@ function roundRect(ctx, x, y, w, h, r) {
   let W, H, t = 0, pkgs = [];
   function resize() { const r = canvas.parentElement.getBoundingClientRect(); W = canvas.width = r.width * devicePixelRatio; H = canvas.height = r.height * devicePixelRatio; ctx.scale(devicePixelRatio, devicePixelRatio); W /= devicePixelRatio; H /= devicePixelRatio; }
   resize(); window.addEventListener('resize', resize);
-  function spawnPkg() { pkgs.push({ x: -30, y: H * 0.38 + Math.random() * H * 0.2, vx: 0.9 + Math.random() * 0.5, size: 20 + Math.random() * 12, rot: 0, rotV: (Math.random() - 0.5) * 0.03, alpha: 0 }); }
+  function spawnPkg() { pkgs.push({ x: -30, y: H * 0.55, vx: 0.9 + Math.random() * 0.5, size: 20 + Math.random() * 12, rot: 0, rotV: (Math.random() - 0.5) * 0.03, alpha: 0 }); }
   const events = [
     { icon: '🛒', label: 'Order placed', col: 'rgba(0,229,208,' },
     { icon: '💳', label: 'Payment OK', col: 'rgba(34,197,94,' },
@@ -599,8 +599,7 @@ function roundRect(ctx, x, y, w, h, r) {
       ctx.font = `${active ? 10 : 8.5}px serif`; ctx.textAlign = 'center'; ctx.fillText(e.icon, nx, evtY + 3.5); ctx.restore();
       if (active) { ctx.fillStyle = e.col + '0.9)'; ctx.font = 'bold 8px Sora,sans-serif'; ctx.textAlign = 'center'; ctx.fillText(e.label, nx, evtY + 22); }
     });
-    // Cover mid-section to erase any chart/curve drawn underneath
-    ctx.fillStyle = C.bg; ctx.fillRect(0, H * 0.38, W, H * 0.52);
+    ctx.fillStyle = C.bg; ctx.fillRect(0, evtY + 28, W, beltY - evtY - 28);
     const cr = 0.5 + 0.5 * Math.sin(t * 2);
     ctx.save(); ctx.globalAlpha = 0.85 + cr * 0.15;
     ctx.fillStyle = 'rgba(251,191,36,0.1)'; ctx.strokeStyle = 'rgba(251,191,36,0.4)'; ctx.lineWidth = 1;
@@ -652,8 +651,7 @@ function roundRect(ctx, x, y, w, h, r) {
       if (s.booked) { ctx.fillStyle = s.col + '0.9)'; ctx.beginPath(); ctx.arc(W - 20, y + sH * 0.5 + wave, 4, 0, Math.PI * 2); ctx.fill(); }
       ctx.restore();
     });
-    // Cover mid-section to erase any chart/curve drawn underneath
-    ctx.fillStyle = C.bg; ctx.fillRect(0, H * 0.42, W, H * 0.48);
+    ctx.fillStyle = C.bg; ctx.fillRect(0, H - 34, W, 8);
     const nf = reminders[notifQ];
     const fadeIn = Math.min(1, notifT / 0.4), fadeOut = notifT > 1.6 ? Math.max(0, 1 - (notifT - 1.6) / 0.4) : 1;
     ctx.save(); ctx.globalAlpha = fadeIn * fadeOut;
