@@ -498,274 +498,472 @@ function roundRect(ctx, x, y, w, h, r) {
 })();
 
 
-/* ── UC4: CRM LEAD PIPELINE ── */
+/* ── UC4: CRM LEAD PIPELINE — Radial Network Graph ── */
 (function () {
   const canvas = document.getElementById('ucCanvas4'); if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  let W, H, t = 0, flyLead = null, flyT = 0, flyFrom = 0, flyTo = 1, cycleT = 2;
+  let W, H, t = 0;
   function resize() { const r = canvas.parentElement.getBoundingClientRect(); W = canvas.width = r.width * devicePixelRatio; H = canvas.height = r.height * devicePixelRatio; ctx.scale(devicePixelRatio, devicePixelRatio); W /= devicePixelRatio; H /= devicePixelRatio; }
   resize(); window.addEventListener('resize', resize);
-  const stages = ['New', 'Qualified', 'Proposal', 'Closed'];
-  const cols = ['rgba(0,229,208,', 'rgba(59,130,246,', 'rgba(168,85,247,', 'rgba(34,197,94,'];
-  const leads = [
-    { name: 'Ahmed R.',  score: 92, stage: 0 },
-    { name: 'Sara M.',   score: 78, stage: 1 },
-    { name: 'Farhan K.', score: 85, stage: 2 },
-    { name: 'Nadia A.',  score: 67, stage: 0 },
-    { name: 'Omar S.',   score: 95, stage: 3 },
-    { name: 'Hina T.',   score: 71, stage: 1 },
+
+  const channels = [
+    { label: 'Website', icon: '🌐', col: 'rgba(0,229,208,', angle: -Math.PI * 0.85 },
+    { label: 'WhatsApp', icon: '💬', col: 'rgba(34,197,94,', angle: -Math.PI * 0.5 },
+    { label: 'Instagram', icon: '📷', col: 'rgba(168,85,247,', angle: -Math.PI * 0.15 },
+    { label: 'Chatbot', icon: '🤖', col: 'rgba(59,130,246,', angle: Math.PI * 0.15 },
+    { label: 'Email', icon: '✉️', col: 'rgba(251,191,36,', angle: Math.PI * 0.5 },
   ];
+
+  // Particles traveling from channel nodes to CRM hub
+  let particles = [];
+  let particleTimer = 0;
+  const activeChan = { idx: 0, t: 0 };
+
+  function spawnParticle(chanIdx) {
+    const ch = channels[chanIdx];
+    const r = Math.min(W, H) * 0.34;
+    const cx = W / 2, cy = H / 2 + 4;
+    particles.push({
+      chanIdx,
+      progress: 0,
+      startX: cx + Math.cos(ch.angle) * r,
+      startY: cy + Math.sin(ch.angle) * r,
+      col: ch.col,
+    });
+  }
+
   function draw() {
-    t += 0.016; cycleT += 0.016;
-    if (cycleT > 2.6 && !flyLead) {
-      const movable = leads.filter(l => l.stage < 3);
-      if (movable.length) {
-        const pick = movable[Math.floor(t * 3.7) % movable.length];
-        flyLead = pick; flyFrom = pick.stage; flyTo = Math.min(3, pick.stage + 1);
-        pick.stage = flyTo; flyT = 0;
-      }
-      cycleT = 0;
+    t += 0.016;
+    particleTimer += 0.016;
+
+    if (particleTimer > 0.38) {
+      activeChan.idx = (activeChan.idx + 1) % channels.length;
+      for (let i = 0; i < 3; i++) setTimeout(() => spawnParticle(activeChan.idx), i * 90);
+      particleTimer = 0;
     }
-    if (flyLead) { flyT += 0.04; if (flyT >= 1) flyLead = null; }
+    particles.forEach(p => { p.progress += 0.028; });
+    particles = particles.filter(p => p.progress < 1.15);
+
     const C = ucColors();
     ctx.clearRect(0, 0, W, H); ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
 
-    const colW = (W - 16) / 4;
-    const colY = 36, colH = H - colY - 8;
+    const cx = W / 2, cy = H / 2 + 4;
+    const orbitR = Math.min(W, H) * 0.34;
 
-    /* column backgrounds */
-    stages.forEach((s, i) => {
-      const x = 8 + i * colW;
-      ctx.fillStyle = `${cols[i]}0.05)`; ctx.beginPath(); roundRect(ctx, x + 2, colY, colW - 4, colH, 8); ctx.fill();
-      ctx.strokeStyle = `${cols[i]}0.15)`; ctx.lineWidth = 1; ctx.stroke();
-      ctx.fillStyle = `${cols[i]}0.85)`; ctx.font = 'bold 7.5px Sora,sans-serif'; ctx.textAlign = 'center';
-      ctx.fillText(s.toUpperCase(), x + colW / 2, colY + 13);
-      const cnt = leads.filter(l => l.stage === i).length;
-      ctx.fillStyle = `${cols[i]}0.45)`; ctx.font = '7px Sora,sans-serif';
-      ctx.fillText(cnt + (cnt === 1 ? ' lead' : ' leads'), x + colW / 2, colY + 23);
+    // Draw orbit ring
+    ctx.save();
+    ctx.strokeStyle = 'rgba(0,229,208,0.07)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([3, 8]);
+    ctx.beginPath(); ctx.arc(cx, cy, orbitR, 0, Math.PI * 2); ctx.stroke();
+    ctx.setLineDash([]); ctx.restore();
+
+    // Draw connection lines from channels to center
+    channels.forEach((ch, i) => {
+      const nx = cx + Math.cos(ch.angle) * orbitR;
+      const ny = cy + Math.sin(ch.angle) * orbitR;
+      const isActive = i === activeChan.idx;
+      const alpha = isActive ? 0.35 + 0.25 * Math.sin(t * 6) : 0.1;
+      ctx.strokeStyle = `${ch.col}${alpha})`;
+      ctx.lineWidth = isActive ? 1.5 : 0.8;
+      ctx.setLineDash(isActive ? [] : [3, 6]);
+      ctx.beginPath(); ctx.moveTo(nx, ny); ctx.lineTo(cx, cy); ctx.stroke();
+      ctx.setLineDash([]);
     });
 
-    /* lead cards */
-    const colCount = [0, 0, 0, 0];
-    leads.forEach((l, li) => {
-      if (flyLead && flyLead === l) return;
-      const i = l.stage, x = 10 + i * colW, y = colY + 30 + colCount[i] * 31; colCount[i]++;
-      const glow = 0.5 + 0.5 * Math.sin(t * 1.8 + li * 1.1);
-      ctx.fillStyle = `${cols[i]}0.1)`; ctx.beginPath(); roundRect(ctx, x, y, colW - 8, 27, 5); ctx.fill();
-      ctx.strokeStyle = `${cols[i]}0.2)`; ctx.lineWidth = 1; ctx.stroke();
-      ctx.fillStyle = `${cols[i]}0.9)`; ctx.font = 'bold 7.5px Sora,sans-serif'; ctx.textAlign = 'left';
-      ctx.fillText(l.name, x + 5, y + 11);
-      /* score bar */
-      const bw = (colW - 20) * l.score / 100;
-      ctx.fillStyle = `${cols[i]}0.1)`; ctx.beginPath(); roundRect(ctx, x + 4, y + 17, colW - 20, 4, 2); ctx.fill();
-      ctx.fillStyle = `${cols[i]}${0.45 + glow * 0.35})`; ctx.beginPath(); roundRect(ctx, x + 4, y + 17, bw, 4, 2); ctx.fill();
-    });
-
-    /* flying card arc */
-    if (flyLead && flyT <= 1) {
-      const ease = flyT < 0.5 ? 2 * flyT * flyT : -1 + (4 - 2 * flyT) * flyT;
-      const fx = (8 + flyFrom * colW + colW / 2) + ((8 + flyTo * colW + colW / 2) - (8 + flyFrom * colW + colW / 2)) * ease;
-      const fy = H * 0.5 - Math.sin(Math.PI * flyT) * 32;
+    // Draw particles
+    particles.forEach(p => {
+      const ease = p.progress < 0.5 ? 2 * p.progress * p.progress : -1 + (4 - 2 * p.progress) * p.progress;
+      const px = p.startX + (cx - p.startX) * Math.min(ease, 1);
+      const py = p.startY + (cy - p.startY) * Math.min(ease, 1);
+      const fade = p.progress > 0.85 ? 1 - (p.progress - 0.85) / 0.3 : 1;
       ctx.save();
-      ctx.shadowColor = `${cols[flyTo]}0.8)`; ctx.shadowBlur = 20;
-      ctx.fillStyle = `${cols[flyTo]}0.18)`; ctx.beginPath(); roundRect(ctx, fx - 28, fy - 11, 56, 22, 6); ctx.fill();
-      ctx.strokeStyle = `${cols[flyTo]}1)`; ctx.lineWidth = 1.5; ctx.stroke();
-      ctx.fillStyle = 'rgba(232,244,248,1)'; ctx.font = 'bold 7.5px Sora,sans-serif'; ctx.textAlign = 'center';
-      ctx.fillText(flyLead.name, fx, fy + 4); ctx.restore();
-      /* trail dots */
-      for (let d = 1; d <= 3; d++) {
-        const dt = Math.max(0, flyT - d * 0.07);
-        const dease = dt < 0.5 ? 2 * dt * dt : -1 + (4 - 2 * dt) * dt;
-        const dx = (8 + flyFrom * colW + colW / 2) + ((8 + flyTo * colW + colW / 2) - (8 + flyFrom * colW + colW / 2)) * dease;
-        const dy = H * 0.5 - Math.sin(Math.PI * dt) * 32;
-        ctx.save(); ctx.globalAlpha = (1 - d * 0.28) * (1 - flyT) * 0.7;
-        ctx.fillStyle = `${cols[flyTo]}1)`; ctx.beginPath(); ctx.arc(dx, dy, 3 - d * 0.7, 0, Math.PI * 2); ctx.fill();
-        ctx.restore();
-      }
-    }
+      ctx.globalAlpha = fade * 0.85;
+      ctx.shadowColor = `${p.col}1)`; ctx.shadowBlur = 8;
+      ctx.fillStyle = `${p.col}1)`;
+      ctx.beginPath(); ctx.arc(px, py, 2.5, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+    });
 
-    /* top badge */
+    // Draw channel nodes
+    channels.forEach((ch, i) => {
+      const nx = cx + Math.cos(ch.angle) * orbitR;
+      const ny = cy + Math.sin(ch.angle) * orbitR;
+      const isActive = i === activeChan.idx;
+      const pulse = isActive ? 1 + 0.2 * Math.sin(t * 7) : 1;
+      const nr = (isActive ? 16 : 13) * pulse;
+
+      ctx.save();
+      if (isActive) { ctx.shadowColor = `${ch.col}0.9)`; ctx.shadowBlur = 22; }
+      ctx.fillStyle = `${ch.col}${isActive ? 0.22 : 0.1})`;
+      ctx.beginPath(); ctx.arc(nx, ny, nr, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = `${ch.col}${isActive ? 0.9 : 0.35})`;
+      ctx.lineWidth = isActive ? 1.8 : 1;
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.font = `${isActive ? 13 : 11}px serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText(ch.icon, nx, ny + 4.5);
+
+      // Label
+      const lx = cx + Math.cos(ch.angle) * (orbitR + 22);
+      const ly = cy + Math.sin(ch.angle) * (orbitR + 22);
+      ctx.fillStyle = isActive ? `${ch.col}0.95)` : C.muted;
+      ctx.font = `${isActive ? 'bold ' : ''}7.5px Sora,sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText(ch.label, lx, ly + 3);
+    });
+
+    // Draw CRM hub (center)
+    const hubPulse = 0.5 + 0.5 * Math.sin(t * 2.2);
+    const hubR = 20 + hubPulse * 2;
+    ctx.save();
+    ctx.shadowColor = 'rgba(0,229,208,0.6)'; ctx.shadowBlur = 24 + hubPulse * 10;
+    // Outer glow ring
+    ctx.strokeStyle = `rgba(0,229,208,${0.12 + hubPulse * 0.1})`;
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(cx, cy, hubR + 8, 0, Math.PI * 2); ctx.stroke();
+    // Hub fill
+    const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, hubR);
+    grad.addColorStop(0, 'rgba(0,229,208,0.35)');
+    grad.addColorStop(1, 'rgba(0,229,208,0.08)');
+    ctx.fillStyle = grad;
+    ctx.beginPath(); ctx.arc(cx, cy, hubR, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = `rgba(0,229,208,${0.6 + hubPulse * 0.3})`;
+    ctx.lineWidth = 1.5; ctx.stroke();
+    ctx.restore();
+
+    ctx.fillStyle = 'rgba(0,229,208,0.95)';
+    ctx.font = 'bold 7.5px Sora,sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('CRM', cx, cy - 3);
+    ctx.font = '6.5px Sora,sans-serif';
+    ctx.fillStyle = 'rgba(0,229,208,0.65)';
+    ctx.fillText('HUB', cx, cy + 7);
+
+    // Count badge top
+    const scored = 6 + Math.floor(t * 0.4) % 8;
     const nb = 0.5 + 0.5 * Math.sin(t * 2.5);
     ctx.save(); ctx.globalAlpha = 0.85 + nb * 0.15;
     ctx.fillStyle = 'rgba(34,197,94,0.1)'; ctx.strokeStyle = 'rgba(34,197,94,0.5)'; ctx.lineWidth = 1;
-    ctx.beginPath(); roundRect(ctx, W / 2 - 52, 5, 104, 20, 100); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); roundRect(ctx, W / 2 - 60, 5, 120, 20, 100); ctx.fill(); ctx.stroke();
     ctx.fillStyle = '#22c55e'; ctx.font = 'bold 8px Sora,sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText('⚡ New lead incoming', W / 2, 18); ctx.restore();
+    ctx.fillText(`⚡ ${scored} leads synced today`, W / 2, 18); ctx.restore();
+
     requestAnimationFrame(draw);
   }
   draw();
 })();
 
-/* ── UC5: ECOMMERCE ── */
+/* ── UC5: ECOMMERCE — Animated Order Journey + Revenue Chart ── */
 (function () {
   const canvas = document.getElementById('ucCanvas5'); if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  let W, H, t = 0, phase = 0, phaseT = 0, particles = [];
+  let W, H, t = 0;
   function resize() { const r = canvas.parentElement.getBoundingClientRect(); W = canvas.width = r.width * devicePixelRatio; H = canvas.height = r.height * devicePixelRatio; ctx.scale(devicePixelRatio, devicePixelRatio); W /= devicePixelRatio; H /= devicePixelRatio; }
   resize(); window.addEventListener('resize', resize);
+
   const steps = [
-    { icon: '🛒', label: 'Order placed',    col: 'rgba(0,229,208,'  },
-    { icon: '💳', label: 'Payment OK',      col: 'rgba(34,197,94,'  },
-    { icon: '📦', label: 'Packing...',      col: 'rgba(59,130,246,' },
-    { icon: '🚚', label: 'Shipped!',        col: 'rgba(168,85,247,' },
-    { icon: '⭐', label: 'Review sent',     col: 'rgba(251,191,36,' },
+    { icon: '🛒', label: 'Cart',     col: 'rgba(0,229,208,'  },
+    { icon: '💳', label: 'Paid',     col: 'rgba(34,197,94,'  },
+    { icon: '📦', label: 'Packed',   col: 'rgba(59,130,246,' },
+    { icon: '🚚', label: 'Shipped',  col: 'rgba(168,85,247,' },
+    { icon: '⭐', label: 'Reviewed', col: 'rgba(251,191,36,' },
   ];
-  function spawnParticles(s) {
-    for (let i = 0; i < 6; i++) {
-      particles.push({ x: W / 2, y: H * 0.48, vx: (Math.random() - 0.5) * 2.5, vy: -(0.8 + Math.random() * 1.5), life: 1, size: 2 + Math.random() * 3, col: s.col });
-    }
-  }
+
+  // Revenue bars data — fills over time
+  const barValues = [0.42, 0.58, 0.51, 0.72, 0.65, 0.81, 0.95];
+  const barLabels = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+  let barFill = 0; // 0→1 animation progress
+  let cartPulse = [];
+  let currentStep = 0;
+  let stepT = 0;
+
+  // Abandoned cart recovery popup
+  let recoveryAlpha = 0, recoveryDir = 1;
+
   function draw() {
-    t += 0.016; phaseT += 0.016;
-    if (phaseT > 1.5) { spawnParticles(steps[phase]); phase = (phase + 1) % steps.length; phaseT = 0; }
-    particles = particles.filter(p => { p.x += p.vx; p.y += p.vy; p.vy += 0.04; p.life -= 0.025; return p.life > 0; });
+    t += 0.016;
+    stepT += 0.016;
+    if (stepT > 1.1) { currentStep = (currentStep + 1) % steps.length; stepT = 0; }
+    barFill = Math.min(1, barFill + 0.012);
+
+    recoveryAlpha += recoveryDir * 0.02;
+    if (recoveryAlpha > 1) { recoveryAlpha = 1; recoveryDir = -1; }
+    if (recoveryAlpha < 0.15) { recoveryAlpha = 0.15; recoveryDir = 1; }
+
     const C = ucColors();
     ctx.clearRect(0, 0, W, H); ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
 
-    /* horizontal pipeline */
-    const nY = H * 0.48, spacing = (W - 36) / (steps.length - 1);
+    const topH = H * 0.46;
+    const botH = H - topH - 12;
+
+    // ── TOP: Order journey pipeline ──
+    const nY = topH * 0.54;
+    const spacing = (W - 30) / (steps.length - 1);
+
     steps.forEach((s, i) => {
-      const nx = 18 + i * spacing;
-      const active = i === phase, done = i < phase;
-      /* connector line */
+      const nx = 15 + i * spacing;
+      const done = i < currentStep;
+      const active = i === currentStep;
+      const progress = active ? Math.min(stepT / 1.1, 1) : 0;
+
+      // Connector beam
       if (i < steps.length - 1) {
-        const nx2 = 18 + (i + 1) * spacing;
-        const prog = active ? Math.min(phaseT / 1.5, 1) : done ? 1 : 0;
-        ctx.strokeStyle = done ? s.col + '0.65)' : 'rgba(0,229,208,0.1)';
-        ctx.lineWidth = done ? 2 : 1; ctx.setLineDash(done ? [] : [3, 5]);
-        ctx.beginPath(); ctx.moveTo(nx + 14, nY); ctx.lineTo(nx2 - 14, nY); ctx.stroke(); ctx.setLineDash([]);
-        /* traveling dot */
-        if (active && prog < 1) {
-          const px = nx + 14 + (nx2 - 14 - nx - 14) * prog;
-          ctx.save(); ctx.shadowColor = s.col + '0.9)'; ctx.shadowBlur = 12;
-          ctx.fillStyle = s.col + '1)'; ctx.beginPath(); ctx.arc(px, nY, 4, 0, Math.PI * 2); ctx.fill();
+        const nx2 = 15 + (i + 1) * spacing;
+        const lineProgress = done ? 1 : (active ? progress : 0);
+        // Track line
+        ctx.strokeStyle = 'rgba(0,229,208,0.08)'; ctx.lineWidth = 2;
+        ctx.setLineDash([]);
+        ctx.beginPath(); ctx.moveTo(nx + 15, nY); ctx.lineTo(nx2 - 15, nY); ctx.stroke();
+        if (lineProgress > 0) {
+          const endX = nx + 15 + (nx2 - 15 - (nx + 15)) * lineProgress;
+          ctx.strokeStyle = `${s.col}0.7)`; ctx.lineWidth = 2;
+          ctx.beginPath(); ctx.moveTo(nx + 15, nY); ctx.lineTo(endX, nY); ctx.stroke();
+        }
+        // Traveling dot
+        if (active && progress < 1) {
+          const dotX = nx + 15 + (nx2 - 15 - (nx + 15)) * progress;
+          ctx.save(); ctx.shadowColor = `${s.col}1)`; ctx.shadowBlur = 14;
+          ctx.fillStyle = `${s.col}1)`; ctx.beginPath(); ctx.arc(dotX, nY, 4.5, 0, Math.PI * 2); ctx.fill();
           ctx.restore();
         }
       }
-      /* node ring */
+
+      // Node
+      const nr = active ? 17 + Math.sin(t * 6) * 1.5 : done ? 14 : 12;
       ctx.save();
-      if (active) { ctx.shadowColor = s.col + '0.6)'; ctx.shadowBlur = 18 + Math.sin(t * 4) * 6; }
-      const r = active ? 15 : done ? 12 : 10;
-      ctx.beginPath(); ctx.arc(nx, nY, r, 0, Math.PI * 2);
-      ctx.fillStyle = active ? s.col + '0.18)' : done ? s.col + '0.1)' : 'rgba(255,255,255,0.03)'; ctx.fill();
-      ctx.strokeStyle = active || done ? s.col + '0.75)' : 'rgba(0,229,208,0.15)';
-      ctx.lineWidth = active ? 2 : 1.2; ctx.stroke();
+      if (active) { ctx.shadowColor = `${s.col}0.8)`; ctx.shadowBlur = 20; }
+      ctx.fillStyle = active ? `${s.col}0.22)` : done ? `${s.col}0.13)` : 'rgba(255,255,255,0.03)';
+      ctx.beginPath(); ctx.arc(nx, nY, nr, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = active || done ? `${s.col}0.8)` : 'rgba(0,229,208,0.12)';
+      ctx.lineWidth = active ? 2 : 1; ctx.stroke();
       ctx.restore();
-      /* icon */
+
       ctx.font = `${active ? 14 : 11}px serif`; ctx.textAlign = 'center';
       ctx.fillText(s.icon, nx, nY + 5);
-      /* label below active */
-      if (active) {
-        ctx.fillStyle = s.col + '0.95)'; ctx.font = 'bold 8.5px Sora,sans-serif';
-        ctx.fillText(s.label, nx, nY + 30);
-      }
-      /* checkmark above done */
-      if (!active && done) {
-        ctx.save(); ctx.globalAlpha = 0.6;
-        ctx.fillStyle = s.col + '0.9)'; ctx.font = 'bold 9px Sora,sans-serif';
-        ctx.fillText('✓', nx, nY - 18); ctx.restore();
+
+      // Label
+      ctx.fillStyle = active ? `${s.col}1)` : done ? `${s.col}0.6)` : C.muted;
+      ctx.font = `${active ? 'bold ' : ''}7px Sora,sans-serif`;
+      ctx.fillText(s.label, nx, nY + 26);
+
+      // Checkmark for done
+      if (done) {
+        ctx.save(); ctx.globalAlpha = 0.8;
+        ctx.fillStyle = `${s.col}1)`; ctx.font = 'bold 9px serif';
+        ctx.fillText('✓', nx, nY - 22); ctx.restore();
       }
     });
 
-    /* particles */
-    particles.forEach(p => {
-      ctx.save(); ctx.globalAlpha = p.life * 0.6;
-      ctx.fillStyle = p.col + '1)'; ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
-      ctx.restore();
+    // Step label pill
+    const cs = steps[currentStep];
+    const labelW = 120, labelX = W / 2 - labelW / 2;
+    ctx.save(); ctx.globalAlpha = 0.9;
+    ctx.fillStyle = `${cs.col}0.1)`; ctx.strokeStyle = `${cs.col}0.55)`; ctx.lineWidth = 1;
+    ctx.beginPath(); roundRect(ctx, labelX, 7, labelW, 20, 100); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = `${cs.col}1)`; ctx.font = 'bold 8px Sora,sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText(`${cs.icon} ${cs.label} — processing...`, W / 2, 20); ctx.restore();
+
+    // ── BOTTOM: Mini revenue bars ──
+    const bY = topH + 8;
+    const barCount = barValues.length;
+    const barAreaW = W - 20;
+    const bw = barAreaW / barCount - 4;
+
+    ctx.fillStyle = C.muted; ctx.font = '7px Sora,sans-serif'; ctx.textAlign = 'left';
+    ctx.fillText('Weekly Revenue', 10, bY + 10);
+    ctx.fillStyle = 'rgba(34,197,94,0.9)'; ctx.textAlign = 'right';
+    ctx.font = 'bold 7.5px Sora,sans-serif';
+    ctx.fillText('↑ 23% vs last week', W - 10, bY + 10);
+
+    barValues.forEach((v, i) => {
+      const bx = 10 + i * (bw + 4);
+      const maxH = botH - 28;
+      const fillH = maxH * v * barFill;
+      const by = bY + 14 + maxH - fillH;
+      const isToday = i === 6;
+      const grad = ctx.createLinearGradient(0, by, 0, by + fillH);
+      grad.addColorStop(0, `rgba(0,229,208,${isToday ? 0.9 : 0.5})`);
+      grad.addColorStop(1, `rgba(0,229,208,${isToday ? 0.3 : 0.15})`);
+      ctx.fillStyle = grad;
+      ctx.beginPath(); roundRect(ctx, bx, by, bw, fillH, 3); ctx.fill();
+      if (isToday) {
+        ctx.strokeStyle = 'rgba(0,229,208,0.7)'; ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+      ctx.fillStyle = isToday ? C.cyan : C.muted;
+      ctx.font = `${isToday ? 'bold ' : ''}6.5px Sora,sans-serif`; ctx.textAlign = 'center';
+      ctx.fillText(barLabels[i], bx + bw / 2, bY + 14 + maxH + 9);
     });
 
-    /* bottom badge */
-    const cr = 0.5 + 0.5 * Math.sin(t * 2);
-    ctx.save(); ctx.globalAlpha = 0.85 + cr * 0.15;
-    ctx.fillStyle = 'rgba(251,191,36,0.08)'; ctx.strokeStyle = 'rgba(251,191,36,0.45)'; ctx.lineWidth = 1;
-    ctx.beginPath(); roundRect(ctx, W / 2 - 74, H - 27, 148, 20, 100); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = 'rgba(251,191,36,0.95)'; ctx.font = 'bold 8px Sora,sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText('🛒 Abandoned cart recovered automatically', W / 2, H - 13); ctx.restore();
+    // Cart recovery badge
+    ctx.save(); ctx.globalAlpha = recoveryAlpha;
+    ctx.fillStyle = 'rgba(251,191,36,0.1)'; ctx.strokeStyle = 'rgba(251,191,36,0.5)'; ctx.lineWidth = 1;
+    ctx.shadowColor = 'rgba(251,191,36,0.3)'; ctx.shadowBlur = 8;
+    ctx.beginPath(); roundRect(ctx, W / 2 - 80, H - 24, 160, 18, 100); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = 'rgba(251,191,36,0.95)'; ctx.font = 'bold 7.5px Sora,sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('🛒 Abandoned cart recovered +PKR 4,200', W / 2, H - 11); ctx.restore();
+
     requestAnimationFrame(draw);
   }
   draw();
 })();
 
-/* ── UC6: APPOINTMENT BOOKING ── */
+/* ── UC6: APPOINTMENT BOOKING — Calendar Grid + Live Countdown ── */
 (function () {
   const canvas = document.getElementById('ucCanvas6'); if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  let W, H, t = 0, notifQ = 0, notifT = 0, ripples = [];
+  let W, H, t = 0;
   function resize() { const r = canvas.parentElement.getBoundingClientRect(); W = canvas.width = r.width * devicePixelRatio; H = canvas.height = r.height * devicePixelRatio; ctx.scale(devicePixelRatio, devicePixelRatio); W /= devicePixelRatio; H /= devicePixelRatio; }
   resize(); window.addEventListener('resize', resize);
-  const slots = [
-    { time: '9:00 AM',  label: 'Dr. Farhan', booked: true,  col: 'rgba(34,197,94,'  },
-    { time: '10:30 AM', label: 'Ahmed R.',   booked: true,  col: 'rgba(0,229,208,'  },
-    { time: '12:00 PM', label: 'Available',  booked: false, col: 'rgba(94,125,144,' },
-    { time: '2:00 PM',  label: 'Sara M.',    booked: true,  col: 'rgba(59,130,246,' },
-    { time: '3:30 PM',  label: 'Booking...', booked: false, col: 'rgba(168,85,247,' },
-    { time: '5:00 PM',  label: 'Available',  booked: false, col: 'rgba(94,125,144,' },
+
+  // Calendar: 5 cols (Mon-Fri) x 4 rows (time slots)
+  const days = ['MON', 'TUE', 'WED', 'THU', 'FRI'];
+  const times = ['9:00', '11:00', '2:00', '4:00'];
+
+  // Pre-assigned bookings
+  const booked = [
+    { d: 0, t: 0, name: 'Dr. Farhan', col: 'rgba(34,197,94,' },
+    { d: 0, t: 2, name: 'Sara M.',    col: 'rgba(0,229,208,' },
+    { d: 1, t: 1, name: 'Ahmed R.',   col: 'rgba(168,85,247,' },
+    { d: 2, t: 0, name: 'Nadia A.',   col: 'rgba(59,130,246,' },
+    { d: 2, t: 3, name: 'Omar S.',    col: 'rgba(251,191,36,' },
+    { d: 3, t: 2, name: 'Hina T.',    col: 'rgba(34,197,94,' },
+    { d: 4, t: 1, name: 'Bilal K.',   col: 'rgba(0,229,208,' },
   ];
-  const reminders = [
-    { text: '⏰ Reminder sent → Ahmed'   },
-    { text: '✅ Confirmed → Dr. Farhan'  },
-    { text: '📅 New booking → Sara M.'   },
+
+  // "New booking" animation — sweeps in periodically
+  let sweepCycle = 0, sweepPhase = 0; // sweepPhase: 0=idle, 1=animating
+  const newBookings = [
+    { d: 1, t: 3, name: 'Zara A.',   col: 'rgba(168,85,247,' },
+    { d: 3, t: 0, name: 'Kamran B.', col: 'rgba(251,191,36,' },
+    { d: 4, t: 3, name: 'Fatima R.', col: 'rgba(34,197,94,' },
   ];
+  let newBookIdx = 0, newBookProgress = 0, activeNewBook = null;
+  let reminderBadgeAlpha = 0, reminderBadgeTimer = 0;
+
+  // Stats ring
+  let statsReveal = 0;
+
   function draw() {
-    t += 0.016; notifT += 0.016;
-    if (notifT > 2.2) {
-      notifQ = (notifQ + 1) % reminders.length; notifT = 0;
-      ripples.push({ x: W / 2, y: H - 17, r: 0, life: 1 });
+    t += 0.016; sweepCycle += 0.016; statsReveal = Math.min(1, statsReveal + 0.008);
+
+    if (sweepCycle > 2.4 && sweepPhase === 0) {
+      activeNewBook = newBookings[newBookIdx % newBookings.length];
+      newBookIdx++; newBookProgress = 0; sweepPhase = 1;
     }
-    ripples = ripples.filter(rp => { rp.r += 1.4; rp.life -= 0.03; return rp.life > 0; });
+    if (sweepPhase === 1) {
+      newBookProgress += 0.04;
+      if (newBookProgress >= 1) { sweepPhase = 0; sweepCycle = 0; reminderBadgeAlpha = 1; reminderBadgeTimer = 0; }
+    }
+    reminderBadgeTimer += 0.016;
+    if (reminderBadgeTimer > 2) reminderBadgeAlpha = Math.max(0, reminderBadgeAlpha - 0.04);
+
     const C = ucColors();
     ctx.clearRect(0, 0, W, H); ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
 
-    /* header bar */
-    const hg = ctx.createLinearGradient(0, 0, W, 0);
-    hg.addColorStop(0, 'rgba(0,229,208,0.1)'); hg.addColorStop(1, 'rgba(0,184,230,0.06)');
-    ctx.fillStyle = hg; ctx.beginPath(); roundRect(ctx, 8, 8, W - 16, 24, 7); ctx.fill();
-    ctx.strokeStyle = 'rgba(0,229,208,0.2)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.fillStyle = C.cyan; ctx.font = 'bold 8.5px Sora,sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText("📅  Today's Bookings — AI Scheduler", W / 2, 24);
+    const padL = 30, padT = 30;
+    const gridW = W - padL - 8;
+    const gridH = H - padT - 34;
+    const cellW = gridW / days.length;
+    const cellH = gridH / times.length;
 
-    /* slot rows */
-    const sH = (H - 66) / slots.length;
-    slots.forEach((s, i) => {
-      const y = 38 + i * sH;
-      const isActive = i === notifQ % slots.length;
-      const pulse = isActive && s.booked ? Math.sin(t * 3) * 1.2 : 0;
+    // Grid lines
+    ctx.strokeStyle = 'rgba(0,229,208,0.07)'; ctx.lineWidth = 0.8;
+    for (let i = 0; i <= days.length; i++) {
+      const x = padL + i * cellW;
+      ctx.beginPath(); ctx.moveTo(x, padT); ctx.lineTo(x, padT + gridH); ctx.stroke();
+    }
+    for (let j = 0; j <= times.length; j++) {
+      const y = padT + j * cellH;
+      ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(padL + gridW, y); ctx.stroke();
+    }
+
+    // Day headers
+    days.forEach((d, i) => {
+      const x = padL + i * cellW + cellW / 2;
+      ctx.fillStyle = C.muted; ctx.font = 'bold 7px Sora,sans-serif'; ctx.textAlign = 'center';
+      ctx.fillText(d, x, padT - 8);
+    });
+
+    // Time labels
+    times.forEach((tm, j) => {
+      const y = padT + j * cellH + cellH / 2 + 3;
+      ctx.fillStyle = C.muted; ctx.font = '6.5px Sora,sans-serif'; ctx.textAlign = 'right';
+      ctx.fillText(tm, padL - 3, y);
+    });
+
+    // Draw booked cells
+    booked.forEach(b => {
+      const cx = padL + b.d * cellW + 2;
+      const cy2 = padT + b.t * cellH + 2;
+      const cw = cellW - 4, ch = cellH - 4;
+      ctx.fillStyle = `${b.col}0.15)`;
+      ctx.beginPath(); roundRect(ctx, cx, cy2, cw, ch, 4); ctx.fill();
+      ctx.strokeStyle = `${b.col}0.4)`; ctx.lineWidth = 1; ctx.stroke();
+      ctx.fillStyle = `${b.col}0.9)`; ctx.font = 'bold 6.5px Sora,sans-serif'; ctx.textAlign = 'center';
+      ctx.fillText(b.name, cx + cw / 2, cy2 + ch / 2 + 2.5);
+    });
+
+    // New booking sweep animation
+    if (activeNewBook && sweepPhase === 1) {
+      const b = activeNewBook;
+      const cx = padL + b.d * cellW + 2;
+      const cy2 = padT + b.t * cellH + 2;
+      const cw = cellW - 4, ch = cellH - 4;
+      const ease = newBookProgress < 0.5 ? 2 * newBookProgress * newBookProgress : -1 + (4 - 2 * newBookProgress) * newBookProgress;
+
       ctx.save();
-      if (isActive && s.booked) { ctx.shadowColor = s.col + '0.3)'; ctx.shadowBlur = 8; }
-      ctx.fillStyle = s.booked ? `${s.col}0.1)` : 'rgba(255,255,255,0.02)';
-      ctx.beginPath(); roundRect(ctx, 10, y + 1 + pulse, W - 20, sH - 3, 5); ctx.fill();
-      ctx.strokeStyle = s.booked ? `${s.col}0.28)` : 'rgba(94,125,144,0.1)';
-      ctx.lineWidth = isActive && s.booked ? 1.5 : 1; ctx.stroke();
-      ctx.fillStyle = s.booked ? `${s.col}0.9)` : C.muted;
-      ctx.font = 'bold 8px Sora,sans-serif'; ctx.textAlign = 'left';
-      ctx.fillText(s.time, 16, y + sH * 0.65 + pulse);
-      ctx.fillStyle = s.booked ? C.text : C.muted; ctx.font = '7.5px Sora,sans-serif';
-      ctx.fillText(s.label, 70, y + sH * 0.65 + pulse);
-      if (s.booked) {
-        ctx.fillStyle = s.col + '0.9)'; ctx.beginPath();
-        ctx.arc(W - 18, y + sH * 0.5 + pulse, 3.5, 0, Math.PI * 2); ctx.fill();
+      ctx.shadowColor = `${b.col}0.9)`; ctx.shadowBlur = 18;
+      ctx.fillStyle = `${b.col}${0.1 + ease * 0.2})`;
+      ctx.beginPath(); roundRect(ctx, cx, cy2, cw * ease, ch, 4); ctx.fill();
+      ctx.strokeStyle = `${b.col}${0.5 + ease * 0.4})`; ctx.lineWidth = 1.5; ctx.stroke();
+      if (ease > 0.5) {
+        ctx.fillStyle = `${b.col}${(ease - 0.5) * 2})`; ctx.font = 'bold 6.5px Sora,sans-serif'; ctx.textAlign = 'center';
+        ctx.globalAlpha = (ease - 0.5) * 2;
+        ctx.fillText(b.name, cx + cw / 2, cy2 + ch / 2 + 2.5);
       }
       ctx.restore();
-    });
 
-    /* ripple rings on new notification */
-    ripples.forEach(rp => {
-      ctx.save(); ctx.globalAlpha = rp.life * 0.25;
-      ctx.strokeStyle = 'rgba(34,197,94,0.9)'; ctx.lineWidth = 1.2;
-      ctx.beginPath(); ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2); ctx.stroke();
+      // Scan line effect
+      ctx.save(); ctx.globalAlpha = (1 - newBookProgress) * 0.5;
+      ctx.strokeStyle = `${b.col}1)`; ctx.lineWidth = 1.5;
+      const scanX = cx + cw * ease;
+      ctx.beginPath(); ctx.moveTo(scanX, cy2 - 3); ctx.lineTo(scanX, cy2 + ch + 3); ctx.stroke();
       ctx.restore();
-    });
+    }
 
-    /* notification badge */
-    const nf = reminders[notifQ];
-    const fadeIn = Math.min(1, notifT / 0.35);
-    const fadeOut = notifT > 1.8 ? Math.max(0, 1 - (notifT - 1.8) / 0.4) : 1;
-    ctx.save(); ctx.globalAlpha = fadeIn * fadeOut;
-    ctx.fillStyle = 'rgba(34,197,94,0.1)'; ctx.strokeStyle = 'rgba(34,197,94,0.55)'; ctx.lineWidth = 1.2;
-    ctx.shadowColor = 'rgba(34,197,94,0.3)'; ctx.shadowBlur = 10;
-    ctx.beginPath(); roundRect(ctx, W / 2 - 74, H - 26, 148, 20, 100); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = '#22c55e'; ctx.font = 'bold 7.5px Sora,sans-serif'; ctx.textAlign = 'center'; ctx.shadowBlur = 0;
-    ctx.fillText(nf.text, W / 2, H - 12); ctx.restore();
+    // Stats bar at bottom
+    const statsY = padT + gridH + 8;
+    const totalBooked = booked.length + (newBookIdx > 0 ? Math.min(newBookIdx, newBookings.length) : 0);
+    const pct = Math.min(totalBooked / 12, 1);
+    ctx.fillStyle = 'rgba(0,229,208,0.06)';
+    ctx.beginPath(); roundRect(ctx, padL, statsY, gridW, 13, 6); ctx.fill();
+    ctx.fillStyle = 'rgba(0,229,208,0.25)';
+    ctx.beginPath(); roundRect(ctx, padL, statsY, gridW * pct * statsReveal, 13, 6); ctx.fill();
+    ctx.strokeStyle = 'rgba(0,229,208,0.2)'; ctx.lineWidth = 1; ctx.stroke();
+    ctx.fillStyle = C.cyan; ctx.font = 'bold 7px Sora,sans-serif'; ctx.textAlign = 'left';
+    ctx.fillText(`${totalBooked}/12 slots filled this week`, padL + 5, statsY + 9);
+
+    // Reminder badge
+    if (reminderBadgeAlpha > 0) {
+      ctx.save(); ctx.globalAlpha = reminderBadgeAlpha;
+      ctx.fillStyle = 'rgba(34,197,94,0.12)'; ctx.strokeStyle = 'rgba(34,197,94,0.6)'; ctx.lineWidth = 1;
+      ctx.shadowColor = 'rgba(34,197,94,0.4)'; ctx.shadowBlur = 12;
+      ctx.beginPath(); roundRect(ctx, W / 2 - 74, H - 24, 148, 18, 100); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#22c55e'; ctx.font = 'bold 7.5px Sora,sans-serif'; ctx.textAlign = 'center';
+      ctx.fillText('✅ Auto-reminder sent · No-show prevented', W / 2, H - 11); ctx.restore();
+    }
+
+    // Header bar
+    const hb = 0.5 + 0.5 * Math.sin(t * 1.8);
+    ctx.save(); ctx.globalAlpha = 0.85 + hb * 0.15;
+    ctx.fillStyle = 'rgba(0,229,208,0.06)'; ctx.strokeStyle = 'rgba(0,229,208,0.2)'; ctx.lineWidth = 1;
+    ctx.beginPath(); roundRect(ctx, 8, 4, W - 16, 18, 100); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = C.cyan; ctx.font = 'bold 7.5px Sora,sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('📅 AI Scheduler — Week View', W / 2, 16); ctx.restore();
+
     requestAnimationFrame(draw);
   }
   draw();
