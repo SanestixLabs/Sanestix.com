@@ -497,56 +497,100 @@ function roundRect(ctx, x, y, w, h, r) {
   draw();
 })();
 
+
 /* ── UC4: CRM LEAD PIPELINE ── */
 (function () {
   const canvas = document.getElementById('ucCanvas4'); if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  let W, H, t = 0, activeLead = 0, leadT = 0;
+  let W, H, t = 0, flyLead = null, flyT = 0, flyFrom = 0, flyTo = 1, cycleT = 2;
   function resize() { const r = canvas.parentElement.getBoundingClientRect(); W = canvas.width = r.width * devicePixelRatio; H = canvas.height = r.height * devicePixelRatio; ctx.scale(devicePixelRatio, devicePixelRatio); W /= devicePixelRatio; H /= devicePixelRatio; }
   resize(); window.addEventListener('resize', resize);
   const stages = ['New', 'Qualified', 'Proposal', 'Closed'];
-  const stageColors = ['rgba(0,229,208,', 'rgba(59,130,246,', 'rgba(168,85,247,', 'rgba(34,197,94,'];
+  const cols = ['rgba(0,229,208,', 'rgba(59,130,246,', 'rgba(168,85,247,', 'rgba(34,197,94,'];
   const leads = [
-    { name: 'Ahmed R.', stage: 0, score: 92 }, { name: 'Sara M.', stage: 1, score: 78 },
-    { name: 'Farhan K.', stage: 2, score: 85 }, { name: 'Nadia A.', stage: 0, score: 67 },
-    { name: 'Omar S.', stage: 3, score: 95 }, { name: 'Hina T.', stage: 1, score: 71 },
+    { name: 'Ahmed R.',  score: 92, stage: 0 },
+    { name: 'Sara M.',   score: 78, stage: 1 },
+    { name: 'Farhan K.', score: 85, stage: 2 },
+    { name: 'Nadia A.',  score: 67, stage: 0 },
+    { name: 'Omar S.',   score: 95, stage: 3 },
+    { name: 'Hina T.',   score: 71, stage: 1 },
   ];
   function draw() {
-    t += 0.016; leadT += 0.016;
-    if (leadT > 0.8) { activeLead = (activeLead + 1) % leads.length; leadT = 0; }
+    t += 0.016; cycleT += 0.016;
+    if (cycleT > 2.6 && !flyLead) {
+      const movable = leads.filter(l => l.stage < 3);
+      if (movable.length) {
+        const pick = movable[Math.floor(t * 3.7) % movable.length];
+        flyLead = pick; flyFrom = pick.stage; flyTo = Math.min(3, pick.stage + 1);
+        pick.stage = flyTo; flyT = 0;
+      }
+      cycleT = 0;
+    }
+    if (flyLead) { flyT += 0.04; if (flyT >= 1) flyLead = null; }
     const C = ucColors();
     ctx.clearRect(0, 0, W, H); ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
-    const colW = (W - 20) / stages.length, colH = H - 60, colY = 50;
+
+    const colW = (W - 16) / 4;
+    const colY = 36, colH = H - colY - 8;
+
+    /* column backgrounds */
     stages.forEach((s, i) => {
-      const cx = 10 + i * colW + colW / 2, x = 10 + i * colW;
-      ctx.fillStyle = `${stageColors[i]}0.06)`; ctx.beginPath(); roundRect(ctx, x + 3, colY - 8, colW - 6, colH, 8); ctx.fill();
-      ctx.strokeStyle = `${stageColors[i]}0.18)`; ctx.lineWidth = 1; ctx.stroke();
-      ctx.fillStyle = `${stageColors[i]}0.9)`; ctx.font = 'bold 8.5px Sora,sans-serif'; ctx.textAlign = 'center'; ctx.fillText(s, cx, colY + 8);
-      const count = leads.filter(l => l.stage === i).length;
-      ctx.fillStyle = `${stageColors[i]}0.6)`; ctx.font = '8px Sora,sans-serif'; ctx.fillText(`${count} lead${count !== 1 ? 's' : ''}`, cx, colY + 20);
+      const x = 8 + i * colW;
+      ctx.fillStyle = `${cols[i]}0.05)`; ctx.beginPath(); roundRect(ctx, x + 2, colY, colW - 4, colH, 8); ctx.fill();
+      ctx.strokeStyle = `${cols[i]}0.15)`; ctx.lineWidth = 1; ctx.stroke();
+      ctx.fillStyle = `${cols[i]}0.85)`; ctx.font = 'bold 7.5px Sora,sans-serif'; ctx.textAlign = 'center';
+      ctx.fillText(s.toUpperCase(), x + colW / 2, colY + 13);
+      const cnt = leads.filter(l => l.stage === i).length;
+      ctx.fillStyle = `${cols[i]}0.45)`; ctx.font = '7px Sora,sans-serif';
+      ctx.fillText(cnt + (cnt === 1 ? ' lead' : ' leads'), x + colW / 2, colY + 23);
     });
+
+    /* lead cards */
     const colCount = [0, 0, 0, 0];
     leads.forEach((l, li) => {
-      const i = l.stage, cardX = 13 + i * colW, cardY = colY + 28 + colCount[i] * 34; colCount[i]++;
-      const active = li === activeLead, pulse = active ? 0.5 + 0.5 * Math.sin(t * 3) : 0;
-      ctx.save();
-      if (active) { ctx.shadowColor = `${stageColors[i]}0.4)`; ctx.shadowBlur = 10 + pulse * 6; }
-      ctx.fillStyle = active ? `${stageColors[i]}0.15)` : 'rgba(255,255,255,0.04)';
-      ctx.beginPath(); roundRect(ctx, cardX, cardY, colW - 6, 28, 6); ctx.fill();
-      ctx.strokeStyle = active ? `${stageColors[i]}0.5)` : `${stageColors[i]}0.15)`; ctx.lineWidth = active ? 1.5 : 1; ctx.stroke();
-      ctx.fillStyle = active ? 'rgba(232,244,248,0.95)' : C.muted; ctx.font = `${active ? 'bold ' : ''}8px Sora,sans-serif`;
-      ctx.textAlign = 'left'; ctx.fillText(l.name, cardX + 6, cardY + 12);
-      const bw = (colW - 16) * l.score / 100;
-      ctx.fillStyle = `${stageColors[i]}0.15)`; ctx.beginPath(); roundRect(ctx, cardX + 5, cardY + 17, colW - 16, 5, 2); ctx.fill();
-      ctx.fillStyle = `${stageColors[i]}0.7)`; ctx.beginPath(); roundRect(ctx, cardX + 5, cardY + 17, bw, 5, 2); ctx.fill();
-      ctx.restore();
+      if (flyLead && flyLead === l) return;
+      const i = l.stage, x = 10 + i * colW, y = colY + 30 + colCount[i] * 31; colCount[i]++;
+      const glow = 0.5 + 0.5 * Math.sin(t * 1.8 + li * 1.1);
+      ctx.fillStyle = `${cols[i]}0.1)`; ctx.beginPath(); roundRect(ctx, x, y, colW - 8, 27, 5); ctx.fill();
+      ctx.strokeStyle = `${cols[i]}0.2)`; ctx.lineWidth = 1; ctx.stroke();
+      ctx.fillStyle = `${cols[i]}0.9)`; ctx.font = 'bold 7.5px Sora,sans-serif'; ctx.textAlign = 'left';
+      ctx.fillText(l.name, x + 5, y + 11);
+      /* score bar */
+      const bw = (colW - 20) * l.score / 100;
+      ctx.fillStyle = `${cols[i]}0.1)`; ctx.beginPath(); roundRect(ctx, x + 4, y + 17, colW - 20, 4, 2); ctx.fill();
+      ctx.fillStyle = `${cols[i]}${0.45 + glow * 0.35})`; ctx.beginPath(); roundRect(ctx, x + 4, y + 17, bw, 4, 2); ctx.fill();
     });
+
+    /* flying card arc */
+    if (flyLead && flyT <= 1) {
+      const ease = flyT < 0.5 ? 2 * flyT * flyT : -1 + (4 - 2 * flyT) * flyT;
+      const fx = (8 + flyFrom * colW + colW / 2) + ((8 + flyTo * colW + colW / 2) - (8 + flyFrom * colW + colW / 2)) * ease;
+      const fy = H * 0.5 - Math.sin(Math.PI * flyT) * 32;
+      ctx.save();
+      ctx.shadowColor = `${cols[flyTo]}0.8)`; ctx.shadowBlur = 20;
+      ctx.fillStyle = `${cols[flyTo]}0.18)`; ctx.beginPath(); roundRect(ctx, fx - 28, fy - 11, 56, 22, 6); ctx.fill();
+      ctx.strokeStyle = `${cols[flyTo]}1)`; ctx.lineWidth = 1.5; ctx.stroke();
+      ctx.fillStyle = 'rgba(232,244,248,1)'; ctx.font = 'bold 7.5px Sora,sans-serif'; ctx.textAlign = 'center';
+      ctx.fillText(flyLead.name, fx, fy + 4); ctx.restore();
+      /* trail dots */
+      for (let d = 1; d <= 3; d++) {
+        const dt = Math.max(0, flyT - d * 0.07);
+        const dease = dt < 0.5 ? 2 * dt * dt : -1 + (4 - 2 * dt) * dt;
+        const dx = (8 + flyFrom * colW + colW / 2) + ((8 + flyTo * colW + colW / 2) - (8 + flyFrom * colW + colW / 2)) * dease;
+        const dy = H * 0.5 - Math.sin(Math.PI * dt) * 32;
+        ctx.save(); ctx.globalAlpha = (1 - d * 0.28) * (1 - flyT) * 0.7;
+        ctx.fillStyle = `${cols[flyTo]}1)`; ctx.beginPath(); ctx.arc(dx, dy, 3 - d * 0.7, 0, Math.PI * 2); ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    /* top badge */
     const nb = 0.5 + 0.5 * Math.sin(t * 2.5);
-    ctx.save(); ctx.globalAlpha = 0.8 + nb * 0.2;
-    ctx.fillStyle = 'rgba(34,197,94,0.12)'; ctx.strokeStyle = 'rgba(34,197,94,0.5)'; ctx.lineWidth = 1;
-    ctx.beginPath(); roundRect(ctx, W / 2 - 42, 4, 84, 22, 100); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = '#22c55e'; ctx.font = 'bold 8.5px Sora,sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText('⚡ New lead incoming', W / 2, 18.5); ctx.restore();
+    ctx.save(); ctx.globalAlpha = 0.85 + nb * 0.15;
+    ctx.fillStyle = 'rgba(34,197,94,0.1)'; ctx.strokeStyle = 'rgba(34,197,94,0.5)'; ctx.lineWidth = 1;
+    ctx.beginPath(); roundRect(ctx, W / 2 - 52, 5, 104, 20, 100); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#22c55e'; ctx.font = 'bold 8px Sora,sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('⚡ New lead incoming', W / 2, 18); ctx.restore();
     requestAnimationFrame(draw);
   }
   draw();
@@ -556,56 +600,87 @@ function roundRect(ctx, x, y, w, h, r) {
 (function () {
   const canvas = document.getElementById('ucCanvas5'); if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  let W, H, t = 0, pkgs = [];
+  let W, H, t = 0, phase = 0, phaseT = 0, particles = [];
   function resize() { const r = canvas.parentElement.getBoundingClientRect(); W = canvas.width = r.width * devicePixelRatio; H = canvas.height = r.height * devicePixelRatio; ctx.scale(devicePixelRatio, devicePixelRatio); W /= devicePixelRatio; H /= devicePixelRatio; }
   resize(); window.addEventListener('resize', resize);
-  function spawnPkg() { pkgs.push({ x: -30, y: H * 0.55, vx: 0.9 + Math.random() * 0.5, size: 20 + Math.random() * 12, rot: 0, rotV: (Math.random() - 0.5) * 0.03, alpha: 0 }); }
-  const events = [
-    { icon: '🛒', label: 'Order placed', col: 'rgba(0,229,208,' },
-    { icon: '💳', label: 'Payment OK', col: 'rgba(34,197,94,' },
-    { icon: '📦', label: 'Packing...', col: 'rgba(59,130,246,' },
-    { icon: '🚚', label: 'Shipped!', col: 'rgba(168,85,247,' },
-    { icon: '⭐', label: 'Review sent', col: 'rgba(251,191,36,' },
+  const steps = [
+    { icon: '🛒', label: 'Order placed',    col: 'rgba(0,229,208,'  },
+    { icon: '💳', label: 'Payment OK',      col: 'rgba(34,197,94,'  },
+    { icon: '📦', label: 'Packing...',      col: 'rgba(59,130,246,' },
+    { icon: '🚚', label: 'Shipped!',        col: 'rgba(168,85,247,' },
+    { icon: '⭐', label: 'Review sent',     col: 'rgba(251,191,36,' },
   ];
-  let evtPhase = 0, evtT = 0;
+  function spawnParticles(s) {
+    for (let i = 0; i < 6; i++) {
+      particles.push({ x: W / 2, y: H * 0.48, vx: (Math.random() - 0.5) * 2.5, vy: -(0.8 + Math.random() * 1.5), life: 1, size: 2 + Math.random() * 3, col: s.col });
+    }
+  }
   function draw() {
-    t += 0.016; evtT += 0.016;
-    if (evtT > 1.1) { evtPhase = (evtPhase + 1) % events.length; evtT = 0; }
-    if (Math.random() < 0.02) spawnPkg();
+    t += 0.016; phaseT += 0.016;
+    if (phaseT > 1.5) { spawnParticles(steps[phase]); phase = (phase + 1) % steps.length; phaseT = 0; }
+    particles = particles.filter(p => { p.x += p.vx; p.y += p.vy; p.vy += 0.04; p.life -= 0.025; return p.life > 0; });
     const C = ucColors();
     ctx.clearRect(0, 0, W, H); ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
-    const beltY = H * 0.55, beltH = 14;
-    ctx.fillStyle = 'rgba(0,229,208,0.05)'; ctx.beginPath(); roundRect(ctx, 0, beltY, W, beltH, 4); ctx.fill();
-    ctx.strokeStyle = 'rgba(0,229,208,0.15)'; ctx.lineWidth = 1; ctx.stroke();
-    pkgs = pkgs.filter(p => {
-      p.x += p.vx; p.rot += p.rotV; p.alpha = Math.min(1, p.alpha + 0.05); if (p.x > W + 40) return false;
-      ctx.save(); ctx.globalAlpha = p.alpha; ctx.translate(p.x, beltY - p.size / 2); ctx.rotate(p.rot);
-      ctx.fillStyle = 'rgba(59,130,246,0.15)'; ctx.strokeStyle = 'rgba(59,130,246,0.4)'; ctx.lineWidth = 1;
-      ctx.beginPath(); roundRect(ctx, -p.size / 2, -p.size / 2, p.size, p.size, 4); ctx.fill(); ctx.stroke();
-      ctx.font = `${p.size * 0.6}px serif`; ctx.textAlign = 'center'; ctx.fillText('📦', 0, p.size * 0.22); ctx.restore(); return true;
-    });
-    const evtX = 10, evtW = W - 20, evtY = 18;
-    events.forEach((e, i) => {
-      const nx = evtX + i * (evtW / events.length) + evtW / events.length / 2;
-      const active = i === evtPhase, done = i < evtPhase;
-      if (i < events.length - 1) {
-        ctx.strokeStyle = done ? e.col + '0.6)' : 'rgba(0,229,208,0.1)'; ctx.lineWidth = 1; ctx.setLineDash(done ? [] : [3, 3]);
-        ctx.beginPath(); ctx.moveTo(nx + 8, evtY); ctx.lineTo(nx + (evtW / events.length) - 8, evtY); ctx.stroke(); ctx.setLineDash([]);
+
+    /* horizontal pipeline */
+    const nY = H * 0.48, spacing = (W - 36) / (steps.length - 1);
+    steps.forEach((s, i) => {
+      const nx = 18 + i * spacing;
+      const active = i === phase, done = i < phase;
+      /* connector line */
+      if (i < steps.length - 1) {
+        const nx2 = 18 + (i + 1) * spacing;
+        const prog = active ? Math.min(phaseT / 1.5, 1) : done ? 1 : 0;
+        ctx.strokeStyle = done ? s.col + '0.65)' : 'rgba(0,229,208,0.1)';
+        ctx.lineWidth = done ? 2 : 1; ctx.setLineDash(done ? [] : [3, 5]);
+        ctx.beginPath(); ctx.moveTo(nx + 14, nY); ctx.lineTo(nx2 - 14, nY); ctx.stroke(); ctx.setLineDash([]);
+        /* traveling dot */
+        if (active && prog < 1) {
+          const px = nx + 14 + (nx2 - 14 - nx - 14) * prog;
+          ctx.save(); ctx.shadowColor = s.col + '0.9)'; ctx.shadowBlur = 12;
+          ctx.fillStyle = s.col + '1)'; ctx.beginPath(); ctx.arc(px, nY, 4, 0, Math.PI * 2); ctx.fill();
+          ctx.restore();
+        }
       }
-      ctx.save(); if (active) { ctx.shadowColor = e.col + '0.5)'; ctx.shadowBlur = 14; }
-      ctx.beginPath(); ctx.arc(nx, evtY, active ? 10 : 7, 0, Math.PI * 2);
-      ctx.fillStyle = active || done ? e.col + '0.2)' : 'rgba(0,229,208,0.05)'; ctx.fill();
-      ctx.strokeStyle = active || done ? e.col + '0.7)' : 'rgba(0,229,208,0.15)'; ctx.lineWidth = active ? 2 : 1; ctx.stroke();
-      ctx.font = `${active ? 10 : 8.5}px serif`; ctx.textAlign = 'center'; ctx.fillText(e.icon, nx, evtY + 3.5); ctx.restore();
-      if (active) { ctx.fillStyle = e.col + '0.9)'; ctx.font = 'bold 8px Sora,sans-serif'; ctx.textAlign = 'center'; ctx.fillText(e.label, nx, evtY + 22); }
+      /* node ring */
+      ctx.save();
+      if (active) { ctx.shadowColor = s.col + '0.6)'; ctx.shadowBlur = 18 + Math.sin(t * 4) * 6; }
+      const r = active ? 15 : done ? 12 : 10;
+      ctx.beginPath(); ctx.arc(nx, nY, r, 0, Math.PI * 2);
+      ctx.fillStyle = active ? s.col + '0.18)' : done ? s.col + '0.1)' : 'rgba(255,255,255,0.03)'; ctx.fill();
+      ctx.strokeStyle = active || done ? s.col + '0.75)' : 'rgba(0,229,208,0.15)';
+      ctx.lineWidth = active ? 2 : 1.2; ctx.stroke();
+      ctx.restore();
+      /* icon */
+      ctx.font = `${active ? 14 : 11}px serif`; ctx.textAlign = 'center';
+      ctx.fillText(s.icon, nx, nY + 5);
+      /* label below active */
+      if (active) {
+        ctx.fillStyle = s.col + '0.95)'; ctx.font = 'bold 8.5px Sora,sans-serif';
+        ctx.fillText(s.label, nx, nY + 30);
+      }
+      /* checkmark above done */
+      if (!active && done) {
+        ctx.save(); ctx.globalAlpha = 0.6;
+        ctx.fillStyle = s.col + '0.9)'; ctx.font = 'bold 9px Sora,sans-serif';
+        ctx.fillText('✓', nx, nY - 18); ctx.restore();
+      }
     });
-    ctx.fillStyle = C.bg; ctx.fillRect(0, evtY + 28, W, beltY - evtY - 28);
+
+    /* particles */
+    particles.forEach(p => {
+      ctx.save(); ctx.globalAlpha = p.life * 0.6;
+      ctx.fillStyle = p.col + '1)'; ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+    });
+
+    /* bottom badge */
     const cr = 0.5 + 0.5 * Math.sin(t * 2);
     ctx.save(); ctx.globalAlpha = 0.85 + cr * 0.15;
-    ctx.fillStyle = 'rgba(251,191,36,0.1)'; ctx.strokeStyle = 'rgba(251,191,36,0.4)'; ctx.lineWidth = 1;
-    ctx.beginPath(); roundRect(ctx, W / 2 - 68, H - 30, 136, 22, 100); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = 'rgba(251,191,36,0.95)'; ctx.font = 'bold 8.5px Sora,sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText('🛒 Abandoned cart recovered automatically', W / 2, H - 15); ctx.restore();
+    ctx.fillStyle = 'rgba(251,191,36,0.08)'; ctx.strokeStyle = 'rgba(251,191,36,0.45)'; ctx.lineWidth = 1;
+    ctx.beginPath(); roundRect(ctx, W / 2 - 74, H - 27, 148, 20, 100); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = 'rgba(251,191,36,0.95)'; ctx.font = 'bold 8px Sora,sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('🛒 Abandoned cart recovered automatically', W / 2, H - 13); ctx.restore();
     requestAnimationFrame(draw);
   }
   draw();
@@ -615,51 +690,82 @@ function roundRect(ctx, x, y, w, h, r) {
 (function () {
   const canvas = document.getElementById('ucCanvas6'); if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  let W, H, t = 0;
+  let W, H, t = 0, notifQ = 0, notifT = 0, ripples = [];
   function resize() { const r = canvas.parentElement.getBoundingClientRect(); W = canvas.width = r.width * devicePixelRatio; H = canvas.height = r.height * devicePixelRatio; ctx.scale(devicePixelRatio, devicePixelRatio); W /= devicePixelRatio; H /= devicePixelRatio; }
   resize(); window.addEventListener('resize', resize);
   const slots = [
-    { time: '9:00 AM', label: 'Dr. Farhan', booked: true, col: 'rgba(34,197,94,' },
-    { time: '10:30 AM', label: 'Ahmed R.', booked: true, col: 'rgba(0,229,208,' },
-    { time: '12:00 PM', label: 'Available', booked: false, col: 'rgba(94,125,144,' },
-    { time: '2:00 PM', label: 'Sara M.', booked: true, col: 'rgba(59,130,246,' },
-    { time: '3:30 PM', label: 'Booking...', booked: false, col: 'rgba(168,85,247,' },
-    { time: '5:00 PM', label: 'Available', booked: false, col: 'rgba(94,125,144,' },
+    { time: '9:00 AM',  label: 'Dr. Farhan', booked: true,  col: 'rgba(34,197,94,'  },
+    { time: '10:30 AM', label: 'Ahmed R.',   booked: true,  col: 'rgba(0,229,208,'  },
+    { time: '12:00 PM', label: 'Available',  booked: false, col: 'rgba(94,125,144,' },
+    { time: '2:00 PM',  label: 'Sara M.',    booked: true,  col: 'rgba(59,130,246,' },
+    { time: '3:30 PM',  label: 'Booking...', booked: false, col: 'rgba(168,85,247,' },
+    { time: '5:00 PM',  label: 'Available',  booked: false, col: 'rgba(94,125,144,' },
   ];
-  const reminders = [{ text: '⏰ Reminder sent → Ahmed' }, { text: '✅ Confirmed → Dr. Farhan' }, { text: '📅 New booking → Sara M.' }];
-  let notifQ = 0, notifT = 0;
+  const reminders = [
+    { text: '⏰ Reminder sent → Ahmed'   },
+    { text: '✅ Confirmed → Dr. Farhan'  },
+    { text: '📅 New booking → Sara M.'   },
+  ];
   function draw() {
     t += 0.016; notifT += 0.016;
-    if (notifT > 2) { notifQ = (notifQ + 1) % reminders.length; notifT = 0; }
+    if (notifT > 2.2) {
+      notifQ = (notifQ + 1) % reminders.length; notifT = 0;
+      ripples.push({ x: W / 2, y: H - 17, r: 0, life: 1 });
+    }
+    ripples = ripples.filter(rp => { rp.r += 1.4; rp.life -= 0.03; return rp.life > 0; });
     const C = ucColors();
     ctx.clearRect(0, 0, W, H); ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
+
+    /* header bar */
     const hg = ctx.createLinearGradient(0, 0, W, 0);
     hg.addColorStop(0, 'rgba(0,229,208,0.1)'); hg.addColorStop(1, 'rgba(0,184,230,0.06)');
-    ctx.fillStyle = hg; ctx.beginPath(); roundRect(ctx, 8, 8, W - 16, 26, 8); ctx.fill();
+    ctx.fillStyle = hg; ctx.beginPath(); roundRect(ctx, 8, 8, W - 16, 24, 7); ctx.fill();
     ctx.strokeStyle = 'rgba(0,229,208,0.2)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.fillStyle = C.cyan; ctx.font = 'bold 9px Sora,sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText("📅  Today's Bookings — AI Scheduler", W / 2, 25);
-    const sH = (H - 72) / slots.length;
+    ctx.fillStyle = C.cyan; ctx.font = 'bold 8.5px Sora,sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText("📅  Today's Bookings — AI Scheduler", W / 2, 24);
+
+    /* slot rows */
+    const sH = (H - 66) / slots.length;
     slots.forEach((s, i) => {
-      const y = 40 + i * sH; const active = i === notifQ % slots.length; const wave = active ? Math.sin(t * 3) * 1.5 : 0;
-      ctx.save(); if (active && s.booked) { ctx.shadowColor = s.col + '0.4)'; ctx.shadowBlur = 8; }
+      const y = 38 + i * sH;
+      const isActive = i === notifQ % slots.length;
+      const pulse = isActive && s.booked ? Math.sin(t * 3) * 1.2 : 0;
+      ctx.save();
+      if (isActive && s.booked) { ctx.shadowColor = s.col + '0.3)'; ctx.shadowBlur = 8; }
       ctx.fillStyle = s.booked ? `${s.col}0.1)` : 'rgba(255,255,255,0.02)';
-      ctx.beginPath(); roundRect(ctx, 10, y + 1 + wave, W - 20, sH - 3, 6); ctx.fill();
-      ctx.strokeStyle = s.booked ? `${s.col}0.3)` : 'rgba(94,125,144,0.1)'; ctx.lineWidth = s.booked ? 1.5 : 1; ctx.stroke();
-      ctx.fillStyle = s.booked ? `${s.col}0.9)` : C.muted; ctx.font = 'bold 8.5px Sora,sans-serif'; ctx.textAlign = 'left'; ctx.fillText(s.time, 16, y + sH * 0.62 + wave);
-      ctx.fillStyle = s.booked ? C.text : C.muted; ctx.font = '8px Sora,sans-serif'; ctx.fillText(s.label, 70, y + sH * 0.62 + wave);
-      if (s.booked) { ctx.fillStyle = s.col + '0.9)'; ctx.beginPath(); ctx.arc(W - 20, y + sH * 0.5 + wave, 4, 0, Math.PI * 2); ctx.fill(); }
+      ctx.beginPath(); roundRect(ctx, 10, y + 1 + pulse, W - 20, sH - 3, 5); ctx.fill();
+      ctx.strokeStyle = s.booked ? `${s.col}0.28)` : 'rgba(94,125,144,0.1)';
+      ctx.lineWidth = isActive && s.booked ? 1.5 : 1; ctx.stroke();
+      ctx.fillStyle = s.booked ? `${s.col}0.9)` : C.muted;
+      ctx.font = 'bold 8px Sora,sans-serif'; ctx.textAlign = 'left';
+      ctx.fillText(s.time, 16, y + sH * 0.65 + pulse);
+      ctx.fillStyle = s.booked ? C.text : C.muted; ctx.font = '7.5px Sora,sans-serif';
+      ctx.fillText(s.label, 70, y + sH * 0.65 + pulse);
+      if (s.booked) {
+        ctx.fillStyle = s.col + '0.9)'; ctx.beginPath();
+        ctx.arc(W - 18, y + sH * 0.5 + pulse, 3.5, 0, Math.PI * 2); ctx.fill();
+      }
       ctx.restore();
     });
-    ctx.fillStyle = C.bg; ctx.fillRect(0, H - 34, W, 8);
+
+    /* ripple rings on new notification */
+    ripples.forEach(rp => {
+      ctx.save(); ctx.globalAlpha = rp.life * 0.25;
+      ctx.strokeStyle = 'rgba(34,197,94,0.9)'; ctx.lineWidth = 1.2;
+      ctx.beginPath(); ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2); ctx.stroke();
+      ctx.restore();
+    });
+
+    /* notification badge */
     const nf = reminders[notifQ];
-    const fadeIn = Math.min(1, notifT / 0.4), fadeOut = notifT > 1.6 ? Math.max(0, 1 - (notifT - 1.6) / 0.4) : 1;
+    const fadeIn = Math.min(1, notifT / 0.35);
+    const fadeOut = notifT > 1.8 ? Math.max(0, 1 - (notifT - 1.8) / 0.4) : 1;
     ctx.save(); ctx.globalAlpha = fadeIn * fadeOut;
-    ctx.fillStyle = 'rgba(34,197,94,0.12)'; ctx.strokeStyle = 'rgba(34,197,94,0.5)'; ctx.lineWidth = 1.2;
+    ctx.fillStyle = 'rgba(34,197,94,0.1)'; ctx.strokeStyle = 'rgba(34,197,94,0.55)'; ctx.lineWidth = 1.2;
     ctx.shadowColor = 'rgba(34,197,94,0.3)'; ctx.shadowBlur = 10;
-    ctx.beginPath(); roundRect(ctx, W / 2 - 70, H - 26, 140, 22, 100); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = '#22c55e'; ctx.font = 'bold 8px Sora,sans-serif'; ctx.textAlign = 'center'; ctx.shadowBlur = 0;
-    ctx.fillText(nf.text, W / 2, H - 11); ctx.restore();
+    ctx.beginPath(); roundRect(ctx, W / 2 - 74, H - 26, 148, 20, 100); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#22c55e'; ctx.font = 'bold 7.5px Sora,sans-serif'; ctx.textAlign = 'center'; ctx.shadowBlur = 0;
+    ctx.fillText(nf.text, W / 2, H - 12); ctx.restore();
     requestAnimationFrame(draw);
   }
   draw();
