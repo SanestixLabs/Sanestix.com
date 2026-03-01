@@ -1,206 +1,518 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - Sanestix</title>
-    <meta name="description" content="Sanestix Privacy Policy - How we collect, use, and protect your data.">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Privacy Policy — Sanestix</title>
+  <meta name="description" content="Privacy Policy for Sanestix — AI-Powered Web Development & Automation Agency based in Lahore, Pakistan."/>
+  <link rel="canonical" href="https://www.sanestix.com/privacy-policy.html"/>
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .legal-hero {
+      padding: 140px 0 60px;
+      text-align: center;
+      position: relative;
+    }
+    .legal-hero .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,229,208,0.08);
+      border: 1px solid var(--border2);
+      border-radius: 100px;
+      padding: 6px 18px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--cyan);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .legal-hero h1 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .legal-hero h1 span { color: var(--cyan); }
+    .legal-hero p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .legal-meta {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+    .legal-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .legal-meta-item span { color: var(--cyan); font-weight: 600; }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-            background: #0a0a0a;
-            color: #E5E7EB;
-            line-height: 1.8;
-        }
+    .legal-body {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 24px 100px;
+    }
+    .legal-toc {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 48px;
+    }
+    .legal-toc-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+    .legal-toc ol {
+      list-style: none;
+      counter-reset: toc;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 24px;
+    }
+    @media (max-width: 600px) { .legal-toc ol { grid-template-columns: 1fr; } }
+    .legal-toc li {
+      counter-increment: toc;
+    }
+    .legal-toc li a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+    }
+    .legal-toc li a::before {
+      content: counter(toc, decimal-leading-zero);
+      color: var(--cyan);
+      font-size: 0.75rem;
+      font-weight: 700;
+      min-width: 22px;
+    }
+    .legal-toc li a:hover { color: var(--cyan); }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-        }
-
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem 1.5rem;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
-            border: 2px solid rgba(59, 130, 246, 0.3);
-            border-radius: 10px;
-            margin-bottom: 2rem;
-            transition: all 0.3s ease;
-            color: #3B82F6;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .back-link:hover {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
-            border-color: #3B82F6;
-            transform: translateX(-5px);
-        }
-
-        .back-icon {
-            width: 20px;
-            height: 20px;
-        }
-
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #ffffff, #3B82F6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
-        }
-
-        .last-updated {
-            color: #9CA3AF;
-            margin-bottom: 3rem;
-            font-size: 0.95rem;
-        }
-
-        h2 {
-            font-size: 1.8rem;
-            color: #3B82F6;
-            margin: 3rem 0 1rem;
-        }
-
-        h3 {
-            font-size: 1.3rem;
-            color: #fff;
-            margin: 2rem 0 1rem;
-        }
-
-        p {
-            margin-bottom: 1.5rem;
-            color: #D1D5DB;
-        }
-
-        ul, ol {
-            margin: 1.5rem 0 1.5rem 2rem;
-            color: #D1D5DB;
-        }
-
-        li {
-            margin-bottom: 0.75rem;
-        }
-
-        a {
-            color: #3B82F6;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        a:hover {
-            color: #60A5FA;
-        }
-
-        .highlight-box {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.05));
-            border-left: 4px solid #3B82F6;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            border-radius: 5px;
-        }
-
-        footer {
-            margin-top: 4rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(59, 130, 246, 0.2);
-            text-align: center;
-            color: #9CA3AF;
-        }
-
-        .footer-links {
-            margin-top: 1rem;
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-
-            h2 {
-                font-size: 1.5rem;
-            }
-
-            .container {
-                padding: 2rem 1.5rem;
-            }
-        }
-    </style>
+    .legal-section {
+      margin-bottom: 48px;
+    }
+    .legal-section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .legal-section-num {
+      background: rgba(0,229,208,0.1);
+      border: 1px solid var(--border2);
+      border-radius: 8px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Sora', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--cyan);
+      flex-shrink: 0;
+    }
+    .legal-section h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0;
+    }
+    .legal-section p, .legal-section li {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+    .legal-section ul {
+      padding-left: 0;
+      list-style: none;
+    }
+    .legal-section ul li {
+      padding-left: 20px;
+      position: relative;
+      margin-bottom: 8px;
+    }
+    .legal-section ul li::before {
+      content: '▸';
+      color: var(--cyan);
+      position: absolute;
+      left: 0;
+      font-size: 0.75rem;
+      top: 4px;
+    }
+    .legal-highlight {
+      background: rgba(0,229,208,0.06);
+      border-left: 3px solid var(--cyan);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin: 20px 0;
+    }
+    .legal-highlight p {
+      margin: 0;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .legal-contact-card {
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+      margin-top: 48px;
+    }
+    .legal-contact-card h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .legal-contact-card p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+    .legal-contact-card a.btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--cyan);
+      color: #060b14;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 12px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .legal-contact-card a.btn:hover { opacity: 0.85; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <a href="index.html" class="back-link">
-            <svg class="back-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            Back to Home
-        </a>
 
-        <h1>Privacy Policy</h1>
-        <p class="last-updated">Last Updated: February 7, 2025</p>
+<!-- ── WHATSAPP FLOAT ── -->
+<a href="https://wa.me/923014422951?text=Hi%20Sanestix!%20I'd%20like%20to%20discuss%20an%20AI-powered%20website%20for%20my%20business." target="_blank" rel="noopener" class="wa-float" aria-label="Chat on WhatsApp">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--cyan)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+  <span class="wa-tooltip">Chat with us</span>
+</a>
 
-        <div class="highlight-box">
-            <p><strong>Your privacy matters to us.</strong> This Privacy Policy explains how Sanestix collects, uses, and protects your personal information when you use our automation services.</p>
-        </div>
-
-        <h2>1. Information We Collect</h2>
-        
-        <h3>1.1 Information You Provide</h3>
-        <p>We collect information you provide directly to us, including:</p>
-        <ul>
-            <li>Account information (name, email address, phone number)</li>
-            <li>Business information (company name, website, social media handles)</li>
-            <li>Payment information (processed securely through third-party payment processors)</li>
-            <li>Communication data (messages, support tickets, feedback)</li>
-        </ul>
-
-        <h3>1.2 Automatically Collected Information</h3>
-        <p>When you use our services, we automatically collect:</p>
-        <ul>
-            <li>Usage data (features used, actions taken, time spent)</li>
-            <li>Device information (IP address, browser type, operating system)</li>
-            <li>Log data (access times, pages viewed, links clicked)</li>
-            <li>Cookies and similar tracking technologies</li>
-        </ul>
-
-        <h2>2. How We Use Your Information</h2>
-        <p>We use collected information to:</p>
-        <ul>
-            <li>Provide, maintain, and improve our automation services</li>
-            <li>Process transactions and send service-related communications</li>
-            <li>Respond to your inquiries and provide customer support</li>
-            <li>Monitor and analyze usage patterns and trends</li>
-            <li>Detect, prevent, and address security issues and fraud</li>
-        </ul>
-
-        <h2>3. Data Security</h2>
-        <p>We implement industry-standard security measures including encryption, access controls, and regular security audits to protect your information.</p>
-
-        <h2>4. Contact Us</h2>
-        <p>Questions about this Privacy Policy? Contact us at <a href="mailto:privacy@sanestix.com">privacy@sanestix.com</a></p>
-
-        <footer>
-            <p>&copy; 2025 Sanestix. All rights reserved.</p>
-            <div class="footer-links">
-                <a href="index.html">Home</a> | 
-                <a href="terms-of-service.html">Terms of Service</a> | 
-                <a href="refund-policy.html">Refund Policy</a>
-            </div>
-        </footer>
+<!-- ── NAV ── -->
+<nav id="navbar">
+  <a href="index.html" class="logo" aria-label="Sanestix Home">
+    <img src="LOGO.png" alt="Sanestix" class="nav-logo-img"
+      onerror="this.style.display='none';document.getElementById('logoText').style.display='inline'"/>
+    <span class="logo-text" id="logoText" style="display:none">Sanestix<span class="logo-dot">.</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="index.html#packages">Packages</a></li>
+    <li><a href="index.html#workflow">Process</a></li>
+    <li><a href="index.html#faq">FAQ</a></li>
+    <li><a href="index.html#team">Team</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="theme-toggle-nav" id="themeToggle">
+      <button class="theme-btn active" id="btnDark" onclick="setTheme('dark')" title="Dark Mode">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="theme-btn" id="btnLight" onclick="setTheme('light')" title="Light Mode">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
     </div>
-</body>
-</html>
+    <a href="index.html#contact" class="nav-cta">Free Strategy Call</a>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="legal-hero container">
+  <div class="badge">🔒 Legal Document</div>
+  <h1>Privacy <span>Policy</span></h1>
+  <p>How we collect, use, and protect your personal information when you work with Sanestix.</p>
+  <div class="legal-meta">
+    <div class="legal-meta-item">Effective: <span>January 1, 2026</span></div>
+    <div class="legal-meta-item">Last Updated: <span>March 1, 2026</span></div>
+    <div class="legal-meta-item">Jurisdiction: <span>Pakistan (PECA 2016)</span></div>
+  </div>
+</div>
+
+<!-- ── BODY ── -->
+<div class="legal-body">
+
+  <!-- TOC -->
+  <div class="legal-toc">
+    <div class="legal-toc-title">Table of Contents</div>
+    <ol>
+      <li><a href="#s1">Who We Are</a></li>
+      <li><a href="#s2">Information We Collect</a></li>
+      <li><a href="#s3">How We Use Your Information</a></li>
+      <li><a href="#s4">Information Sharing</a></li>
+      <li><a href="#s5">Data Storage & Security</a></li>
+      <li><a href="#s6">Cookies & Tracking</a></li>
+      <li><a href="#s7">Third-Party Services</a></li>
+      <li><a href="#s8">Your Rights</a></li>
+      <li><a href="#s9">Children's Privacy</a></li>
+      <li><a href="#s10">Changes to This Policy</a></li>
+    </ol>
+  </div>
+
+  <!-- Sections -->
+  <div class="legal-section" id="s1">
+    <div class="legal-section-header">
+      <div class="legal-section-num">01</div>
+      <h2>Who We Are</h2>
+    </div>
+    <p>Sanestix ("we," "us," or "our") is an AI-powered web development and automation agency headquartered in Lahore, Punjab, Pakistan. We provide custom website development, AI chatbot integration, WhatsApp and Instagram automation, CRM integration, eCommerce systems, and related digital services.</p>
+    <p>This Privacy Policy governs how we handle personal information collected through our website at <strong>sanestix.com</strong>, during client engagements, and via our communication channels including WhatsApp, email, and contact forms.</p>
+    <div class="legal-highlight">
+      <p>📬 Data Controller: Sanestix &nbsp;|&nbsp; Lahore, Punjab, Pakistan &nbsp;|&nbsp; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1a7975746e7b796e5a697b747f696e736234797577">[email&#160;protected]</a> &nbsp;|&nbsp; +92-301-4422951</p>
+    </div>
+  </div>
+
+  <div class="legal-section" id="s2">
+    <div class="legal-section-header">
+      <div class="legal-section-num">02</div>
+      <h2>Information We Collect</h2>
+    </div>
+    <p>We collect information you provide directly and information gathered automatically when you visit our website.</p>
+    <p><strong>Information you provide:</strong></p>
+    <ul>
+      <li>Name, email address, phone number, and company name submitted through our contact form or WhatsApp</li>
+      <li>Business details and project requirements you share during strategy calls or consultations</li>
+      <li>Billing information required to process payments (handled by our payment processors — we do not store card details)</li>
+      <li>Communications, feedback, or support requests you send to us</li>
+    </ul>
+    <p><strong>Information collected automatically:</strong></p>
+    <ul>
+      <li>IP address and approximate geolocation</li>
+      <li>Browser type, device type, and operating system</li>
+      <li>Pages visited, time spent on pages, and referring URLs</li>
+      <li>Interaction data with our AI chatbot widget</li>
+    </ul>
+  </div>
+
+  <div class="legal-section" id="s3">
+    <div class="legal-section-header">
+      <div class="legal-section-num">03</div>
+      <h2>How We Use Your Information</h2>
+    </div>
+    <p>We use collected information for the following purposes:</p>
+    <ul>
+      <li>To respond to enquiries and provide the services you request</li>
+      <li>To deliver, maintain, and improve our AI-powered systems and websites</li>
+      <li>To send project updates, invoices, and service-related communications</li>
+      <li>To conduct free strategy calls and deliver custom project proposals</li>
+      <li>To analyse website performance and improve user experience</li>
+      <li>To comply with applicable legal obligations under Pakistani law</li>
+      <li>To follow up on leads with your prior consent</li>
+    </ul>
+    <p>We do not use your data for unsolicited marketing, and we will never sell or rent your personal data to third parties.</p>
+  </div>
+
+  <div class="legal-section" id="s4">
+    <div class="legal-section-header">
+      <div class="legal-section-num">04</div>
+      <h2>Information Sharing</h2>
+    </div>
+    <p>Sanestix does not sell, trade, or rent your personal information to any third party. We may share data only in the following limited circumstances:</p>
+    <ul>
+      <li><strong>Service providers:</strong> Trusted third-party tools we use to operate our business (e.g., cloud hosting, CRM platforms, payment gateways, analytics). These providers are bound by confidentiality obligations.</li>
+      <li><strong>Legal compliance:</strong> When required by Pakistani law, court order, or government authority.</li>
+      <li><strong>Business transfers:</strong> In the event of a merger, acquisition, or sale of assets, your data may be transferred — you will be notified beforehand.</li>
+      <li><strong>With your consent:</strong> Any other sharing requires your explicit permission.</li>
+    </ul>
+  </div>
+
+  <div class="legal-section" id="s5">
+    <div class="legal-section-header">
+      <div class="legal-section-num">05</div>
+      <h2>Data Storage & Security</h2>
+    </div>
+    <p>We implement enterprise-grade security measures to protect your personal information:</p>
+    <ul>
+      <li>All data is encrypted in transit using TLS/SSL protocols</li>
+      <li>Data is stored on secure cloud infrastructure with access controls</li>
+      <li>We conduct regular security audits of our systems</li>
+      <li>Only authorised Sanestix personnel can access client data</li>
+    </ul>
+    <p>We retain personal data for as long as necessary to fulfil the purposes outlined in this policy, typically for the duration of our service engagement plus 2 years for financial records. You may request deletion at any time.</p>
+    <div class="legal-highlight">
+      <p>⚠️ While we take all reasonable precautions, no method of transmission over the internet is 100% secure. We encourage you to use strong passwords and contact us immediately if you suspect any unauthorised access.</p>
+    </div>
+  </div>
+
+  <div class="legal-section" id="s6">
+    <div class="legal-section-header">
+      <div class="legal-section-num">06</div>
+      <h2>Cookies & Tracking</h2>
+    </div>
+    <p>Our website uses cookies and similar tracking technologies to improve your experience:</p>
+    <ul>
+      <li><strong>Essential cookies:</strong> Required for the website to function correctly (e.g., session management)</li>
+      <li><strong>Analytics cookies:</strong> Help us understand how visitors interact with our site (e.g., Google Analytics)</li>
+      <li><strong>Chatbot session cookies:</strong> Enable our AI chatbot to maintain conversation context during your visit</li>
+    </ul>
+    <p>You can control cookie settings through your browser preferences. Disabling certain cookies may affect website functionality. We do not use cookies for cross-site tracking or advertising profiling.</p>
+  </div>
+
+  <div class="legal-section" id="s7">
+    <div class="legal-section-header">
+      <div class="legal-section-num">07</div>
+      <h2>Third-Party Services</h2>
+    </div>
+    <p>We use the following third-party services which may process your data subject to their own privacy policies:</p>
+    <ul>
+      <li><strong>WhatsApp Business API</strong> — for client communication (Meta Privacy Policy applies)</li>
+      <li><strong>Google Analytics</strong> — for website analytics (Google Privacy Policy applies)</li>
+      <li><strong>CRM Platforms</strong> (HubSpot, Zoho, Salesforce, etc.) — used on behalf of clients to manage their leads</li>
+      <li><strong>Payment Gateways</strong> — for processing service fees (provider's policy applies)</li>
+    </ul>
+    <p>We encourage you to review the privacy policies of any third-party services you interact with. We are not responsible for the data practices of external services.</p>
+  </div>
+
+  <div class="legal-section" id="s8">
+    <div class="legal-section-header">
+      <div class="legal-section-num">08</div>
+      <h2>Your Rights</h2>
+    </div>
+    <p>You have the following rights regarding your personal data:</p>
+    <ul>
+      <li><strong>Access:</strong> Request a copy of the personal data we hold about you</li>
+      <li><strong>Correction:</strong> Request correction of inaccurate or incomplete data</li>
+      <li><strong>Deletion:</strong> Request erasure of your personal data ("right to be forgotten")</li>
+      <li><strong>Restriction:</strong> Request that we limit how we process your data</li>
+      <li><strong>Objection:</strong> Object to our processing of your data for marketing purposes</li>
+      <li><strong>Data portability:</strong> Request your data in a structured, machine-readable format</li>
+    </ul>
+    <p>To exercise any of these rights, please contact us at <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="74171b1a001517003407151a1107001d0c5a171b19">[email&#160;protected]</a></strong> or via WhatsApp at +92-301-4422951. We will respond within 30 days.</p>
+  </div>
+
+  <div class="legal-section" id="s9">
+    <div class="legal-section-header">
+      <div class="legal-section-num">09</div>
+      <h2>Children's Privacy</h2>
+    </div>
+    <p>Sanestix's services are intended for businesses and individuals aged 18 and above. We do not knowingly collect personal information from anyone under the age of 18. If you believe a minor has submitted data to us, please contact us immediately at <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e88b87869c898b9ca89b89868d9b9c8190c68b8785">[email&#160;protected]</a> and we will delete such information promptly.</p>
+  </div>
+
+  <div class="legal-section" id="s10">
+    <div class="legal-section-header">
+      <div class="legal-section-num">10</div>
+      <h2>Changes to This Policy</h2>
+    </div>
+    <p>We may update this Privacy Policy from time to time to reflect changes in our practices, technology, or legal requirements. When we make significant changes, we will:</p>
+    <ul>
+      <li>Update the "Last Updated" date at the top of this page</li>
+      <li>Notify active clients via email</li>
+      <li>Post a prominent notice on our website if changes are material</li>
+    </ul>
+    <p>Your continued use of our website or services after changes take effect constitutes your acceptance of the updated policy.</p>
+  </div>
+
+  <!-- Contact Card -->
+  <div class="legal-contact-card">
+    <h3>Questions About Your Privacy?</h3>
+    <p>We're happy to clarify anything in this policy or help you exercise your data rights. Get in touch with us directly.</p>
+    <a href="/cdn-cgi/l/email-protection#70131f1e041113043003111e15030419085e131f1d" class="btn">📧 <span class="__cf_email__" data-cfemail="0764686973666473477466696274736e7f2964686a">[email&#160;protected]</span></a>
+  </div>
+
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-brand-logo" aria-label="Sanestix Home">
+        <img src="LOGO.png" alt="Sanestix" style="height:36px;width:auto;object-fit:contain"
+          onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span style=\'font-weight:800;font-size:1.2rem;color:#e8f4f8\'>Sanestix<span style=\'color:#00e5d0\'>.</span></span>')"/>
+      </a>
+      <p class="footer-desc">Pakistan's AI-powered web development & automation agency. We build intelligent systems that capture leads, run automations, and scale revenue — 24/7, on autopilot.</p>
+      <div class="footer-socials">
+        <a href="https://wa.me/923014422951" target="_blank" rel="noopener" class="social-link" aria-label="WhatsApp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--cyan)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/sanestix" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/company/sanestix" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Quick Links</div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#packages">Packages</a>
+        <a href="index.html#workflow">Our Process</a>
+        <a href="index.html#faq">FAQ</a>
+        <a href="index.html#team">Team</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Legal</div>
+      <div class="footer-links">
+        <a href="privacy-policy.html" style="color:var(--cyan)">Privacy Policy</a>
+        <a href="terms-of-service.html">Terms of Service</a>
+        <a href="refund-policy.html">Refund Policy</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <div class="footer-links">
+        <a href="/cdn-cgi/l/email-protection#30535f5e445153447043515e55434459481e535f5d"><span class="__cf_email__" data-cfemail="3c5f5352485d5f487c4f5d52594f485544125f5351">[email&#160;protected]</span></a>
+        <a href="tel:+923014422951">+92-301-4422951</a>
+        <span style="color:var(--muted)">Lahore, Punjab, Pakistan</span>
+        <a href="https://wa.me/923014422951" target="_blank" rel="noopener" style="color:var(--cyan);font-weight:600">💬 Chat on WhatsApp</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copy">
+    <p>© 2026 Sanestix. All rights reserved. Built with AI &amp; passion in Pakistan 🇵🇰</p>
+    <div class="footer-legal">
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms-of-service.html">Terms of Service</a>
+      <a href="refund-policy.html">Refund Policy</a>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  function setTheme(t) {
+    document.documentElement.setAttr
