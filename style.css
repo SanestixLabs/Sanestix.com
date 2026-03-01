@@ -175,48 +175,33 @@ footer nav {
   right: auto !important;
   box-shadow: none !important;
 }
-[data-theme="light"] nav {
-  background: rgba(240, 246, 250, 0.95);
-}
+/* Nav always stays dark regardless of theme */
 nav.scrolled {
   background: rgba(6, 11, 20, 0.98);
   border-bottom-color: rgba(0, 229, 208, 0.14);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
 }
-[data-theme="light"] nav.scrolled {
-  background: rgba(240, 246, 250, 0.98);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-}
 .logo {
   display: flex; align-items: center; gap: 0.6rem;
-  flex-shrink: 0;
-  min-width: 120px;
+  flex-shrink: 0; min-width: 120px;
   font-weight: 800; font-size: 1.3rem; letter-spacing: -0.03em;
-  color: var(--text); text-decoration: none;
+  color: #e8f4f8; text-decoration: none;
 }
-.logo-text { color: var(--text); font-weight: 800; font-size: 1.3rem; letter-spacing: -0.03em; }
-.logo-dot { color: var(--cyan); }
+.logo-text { color: #e8f4f8; font-weight: 800; font-size: 1.3rem; letter-spacing: -0.03em; }
+.logo-dot { color: #00e5d0; }
 .nav-links {
   display: flex; align-items: center; gap: 1.5rem;
-  list-style: none;
-  flex: 1;
-  justify-content: center;
-  /* Ensure nav-links stay inside nav bar */
-  position: static;
-  margin: 0;
-  padding: 0;
+  list-style: none; flex: 1; justify-content: center;
+  position: static; margin: 0; padding: 0;
 }
 .nav-links li { display: inline-flex; }
 .nav-links a {
-  color: var(--muted); text-decoration: none;
+  color: #5e7d90; text-decoration: none;
   font-size: 0.875rem; font-weight: 500;
-  transition: color 0.2s;
-  white-space: nowrap;
-  /* Prevent any inherited positioning from breaking layout */
-  position: static;
-  display: inline-block;
+  transition: color 0.2s; white-space: nowrap;
+  position: static; display: inline-block;
 }
-.nav-links a:hover { color: var(--cyan); }
+.nav-links a:hover { color: #00e5d0; }
 .nav-right {
   display: flex; align-items: center; gap: 0.75rem;
   flex-shrink: 0;
@@ -245,9 +230,6 @@ nav.scrolled {
 }
 .mobile-menu a { color: #5e7d90; text-decoration: none; font-size: 1rem; font-weight: 500; }
 .mobile-menu a:hover { color: #00e5d0; }
-[data-theme="light"] .mobile-menu { background: rgba(240, 246, 250, 0.98); border-bottom-color: rgba(0, 168, 154, 0.18); }
-[data-theme="light"] .mobile-menu a { color: #4a7080; }
-[data-theme="light"] .mobile-menu a:hover { color: #00a89a; }
 
 /* ============================================================
    HERO
