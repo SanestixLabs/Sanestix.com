@@ -27,11 +27,35 @@ window.addEventListener('scroll', () => {
 });
 
 /* ── HAMBURGER ── */
-document.getElementById('hamburger').onclick = () => {
-  const m = document.getElementById('mobileMenu');
-  m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+const hamburgerBtn = document.getElementById('hamburger');
+const mobileMenuEl = document.getElementById('mobileMenu');
+
+function openMobile() {
+  mobileMenuEl.style.display = 'flex';
+  hamburgerBtn.setAttribute('aria-expanded', 'true');
+}
+function closeMobile() {
+  mobileMenuEl.style.display = 'none';
+  hamburgerBtn.setAttribute('aria-expanded', 'false');
+}
+hamburgerBtn.setAttribute('aria-expanded', 'false');
+hamburgerBtn.onclick = () => {
+  mobileMenuEl.style.display === 'flex' ? closeMobile() : openMobile();
 };
-function closeMobile() { document.getElementById('mobileMenu').style.display = 'none'; }
+
+// Close mobile menu on outside click
+document.addEventListener('click', (e) => {
+  if (mobileMenuEl.style.display === 'flex' &&
+      !mobileMenuEl.contains(e.target) &&
+      !hamburgerBtn.contains(e.target)) {
+    closeMobile();
+  }
+});
+
+// Close mobile menu on resize back to desktop
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 900) closeMobile();
+});
 
 /* ── SCROLL REVEAL ── */
 const observer = new IntersectionObserver(entries => {
