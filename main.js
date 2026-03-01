@@ -191,55 +191,67 @@ async function submitForm(e) {
   btn.textContent = 'Sending...';
   btn.disabled = true;
 
-  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzYN5iuUNnVlC_Lirh87gD76UN0THiglTmYZR2FUe6lTRDTcrV5Cln-4SJ7oypOvg/exec';
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbx51flwOtRQu5bszbx9hQJVCGlAYpeL23NUDW0haStULYVkAuKiftKNPXLgzwO-hyg/exec';
 
-  // Send as URLSearchParams — works reliably with no-cors
-  const payload = new URLSearchParams({
-    name:    document.getElementById('fname').value.trim(),
-    email:   document.getElementById('femail').value.trim(),
-    phone:   document.getElementById('fphone').value.trim(),
-    company: document.getElementById('fcompany').value.trim(),
-    service: document.getElementById('fservice').value,
-    message: document.getElementById('fmessage').value.trim(),
-    source:  'Website Contact Form'
+  const name    = document.getElementById('fname').value.trim();
+  const email   = document.getElementById('femail').value.trim();
+  const phone   = document.getElementById('fphone').value.trim();
+  const company = document.getElementById('fcompany').value.trim();
+  const service = document.getElementById('fservice').value;
+  const message = document.getElementById('fmessage').value.trim();
+
+  // ✅ Method: hidden iframe form POST — bypasses CORS entirely
+  // Google Apps Script receives this perfectly every time
+  const iframe = document.createElement('iframe');
+  iframe.name = 'hidden_iframe';
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+
+  const hiddenForm = document.createElement('form');
+  hiddenForm.method = 'POST';
+  hiddenForm.action = SHEET_URL;
+  hiddenForm.target = 'hidden_iframe'; // posts into the hidden iframe, no redirect
+
+  const fields = { name, email, phone, company, service, message, source: 'Website Contact Form' };
+
+  Object.entries(fields).forEach(([key, value]) => {
+    const input = document.createElement('input');
+    input.type  = 'hidden';
+    input.name  = key;
+    input.value = value;
+    hiddenForm.appendChild(input);
   });
 
-  try {
-    await fetch(SHEET_URL, {
-      method: 'POST',
-      mode:   'no-cors',
-      body:   payload   // NO custom headers — lets browser set content-type automatically
-    });
+  document.body.appendChild(hiddenForm);
+  hiddenForm.submit();
 
-    btn.innerHTML = '✅ Sent! We\'ll call you within 2–4 hours.';
-    btn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
-    if (status) status.style.display = 'none';
-    form.reset();
+  // Cleanup after submission
+  setTimeout(() => {
+    document.body.removeChild(hiddenForm);
+    document.body.removeChild(iframe);
+  }, 5000);
 
-    setTimeout(() => {
-      const waMsg = encodeURIComponent(
-        `Hi Sanestix! New lead just submitted the website form.\n\nName: ${payload.get('name')}\nEmail: ${payload.get('email')}\nPhone: ${payload.get('phone')}\nPackage: ${payload.get('service')}`
-      );
-      window.open(`https://wa.me/923014422951?text=${waMsg}`, '_blank');
-    }, 1500);
+  // Show success immediately (no-cors means we can't wait for response)
+  btn.innerHTML = '✅ Sent! We\'ll call you within 2–4 hours.';
+  btn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
+  if (status) status.style.display = 'none';
+  form.reset();
 
-    setTimeout(() => {
-      btn.innerHTML = 'Send Message &amp; Request Free Call <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
-      btn.style.background = '';
-      btn.disabled = false;
-    }, 5000);
+  // Open WhatsApp after 1.5s
+  setTimeout(() => {
+    const waMsg = encodeURIComponent(
+      `Hi Sanestix! New lead from website:\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nCompany: ${company}\nPackage: ${service}\n\nMessage:\n${message}`
+    );
+    window.open(`https://wa.me/923014422951?text=${waMsg}`, '_blank');
+  }, 1500);
 
-  } catch (err) {
-    btn.textContent = 'Send Message & Request Free Call';
+  // Reset button after 5s
+  setTimeout(() => {
+    btn.innerHTML = 'Send Message &amp; Request Free Call <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
+    btn.style.background = '';
     btn.disabled = false;
-    if (status) {
-      status.textContent = '❌ Error. Please WhatsApp us directly at +92-301-4422951';
-      status.style.color = '#ef4444';
-      status.style.display = 'block';
-    }
-  }
+  }, 5000);
 }
-
 /* ============================================================
    USE CASE CANVAS ANIMATIONS
    ============================================================ */
