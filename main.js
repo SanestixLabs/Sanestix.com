@@ -57,11 +57,82 @@ window.addEventListener('resize', () => {
   if (window.innerWidth > 900) closeMobile();
 });
 
-/* ── SCROLL REVEAL ── */
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+/* ── SCROLL REVEAL (enhanced with left/right/scale variants) ── */
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => revealObserver.observe(el));
+
+/* ── STAT COUNTER ANIMATION ── */
+function animateCounter(el, target, suffix, duration = 1800) {
+  const isFloat = target % 1 !== 0;
+  let start = null;
+  const step = (timestamp) => {
+    if (!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / duration, 1);
+    // Ease out cubic
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = isFloat ? (eased * target).toFixed(1) : Math.floor(eased * target);
+    el.textContent = current + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = target + suffix;
+  };
+  requestAnimationFrame(step);
+}
+
+// Observe stat values and trigger counter when visible
+const statObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const text = el.textContent.trim();
+    // Parse number and suffix: "50+" → 50, "+", "1M+" → 1, "M+", "2–7" → skip
+    const match = text.match(/^(\d+\.?\d*)(.*)/);
+    if (match) {
+      const num = parseFloat(match[1]);
+      const suffix = match[2];
+      animateCounter(el, num, suffix);
+    }
+    statObserver.unobserve(el);
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.stat-val').forEach(el => statObserver.observe(el));
+
+/* ── BUTTON RIPPLE EFFECT ── */
+document.querySelectorAll('.btn-primary, .btn-ghost, .btn-whatsapp, .nav-cta, .price-cta, .form-submit').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    const ripple = document.createElement('span');
+    const rect = this.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height) * 2;
+    ripple.style.cssText = `
+      position:absolute; border-radius:50%; pointer-events:none;
+      width:${size}px; height:${size}px;
+      left:${e.clientX - rect.left - size/2}px;
+      top:${e.clientY - rect.top - size/2}px;
+      background:rgba(255,255,255,0.25);
+      animation:ripple 0.6s linear forwards;
+    `;
+    const prevPosition = this.style.position;
+    if (!prevPosition || prevPosition === 'static') this.style.position = 'relative';
+    this.style.overflow = 'hidden';
+    this.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
+  });
+});
+
+/* ── ADD RIPPLE KEYFRAME DYNAMICALLY ── */
+if (!document.getElementById('rippleStyle')) {
+  const style = document.createElement('style');
+  style.id = 'rippleStyle';
+  style.textContent = '@keyframes ripple { 0% { transform:scale(0); opacity:0.5; } 100% { transform:scale(1); opacity:0; } }';
+  document.head.appendChild(style);
+}
+
 
 /* ── ROBOT EYE TRACKING ── */
 const leftPupil = document.getElementById('leftPupil'),
@@ -187,71 +258,63 @@ async function submitForm(e) {
   const btn = document.getElementById('submitBtn');
   const status = document.getElementById('formStatus');
   const form = document.getElementById('contactForm');
-
+  
   btn.textContent = 'Sending...';
   btn.disabled = true;
+  if (status) { status.style.display = 'none'; }
 
-  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbx51flwOtRQu5bszbx9hQJVCGlAYpeL23NUDW0haStULYVkAuKiftKNPXLgzwO-hyg/exec';
+  // IMPORTANT: Replace 'YOUR_FORM_ID' with your actual Formspree ID from https://formspree.io
+  // Example: 'xpzgkard' => action URL = https://formspree.io/f/xpzgkard
+  const FORMSPREE_ID = 'YOUR_FORM_ID';
 
-  const name    = document.getElementById('fname').value.trim();
-  const email   = document.getElementById('femail').value.trim();
-  const phone   = document.getElementById('fphone').value.trim();
-  const company = document.getElementById('fcompany').value.trim();
-  const service = document.getElementById('fservice').value;
-  const message = document.getElementById('fmessage').value.trim();
-
-  // ✅ Method: hidden iframe form POST — bypasses CORS entirely
-  // Google Apps Script receives this perfectly every time
-  const iframe = document.createElement('iframe');
-  iframe.name = 'hidden_iframe';
-  iframe.style.display = 'none';
-  document.body.appendChild(iframe);
-
-  const hiddenForm = document.createElement('form');
-  hiddenForm.method = 'POST';
-  hiddenForm.action = SHEET_URL;
-  hiddenForm.target = 'hidden_iframe'; // posts into the hidden iframe, no redirect
-
-  const fields = { name, email, phone, company, service, message, source: 'Website Contact Form' };
-
-  Object.entries(fields).forEach(([key, value]) => {
-    const input = document.createElement('input');
-    input.type  = 'hidden';
-    input.name  = key;
-    input.value = value;
-    hiddenForm.appendChild(input);
-  });
-
-  document.body.appendChild(hiddenForm);
-  hiddenForm.submit();
-
-  // Cleanup after submission
-  setTimeout(() => {
-    document.body.removeChild(hiddenForm);
-    document.body.removeChild(iframe);
-  }, 5000);
-
-  // Show success immediately (no-cors means we can't wait for response)
-  btn.innerHTML = '✅ Sent! We\'ll call you within 2–4 hours.';
-  btn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
-  if (status) status.style.display = 'none';
-  form.reset();
-
-  // Open WhatsApp after 1.5s
-  setTimeout(() => {
+  // Fallback: if Formspree not configured, send via WhatsApp
+  if (FORMSPREE_ID === 'YOUR_FORM_ID') {
+    const name = document.getElementById('fname').value;
+    const email = document.getElementById('femail').value;
+    const phone = document.getElementById('fphone').value;
+    const company = document.getElementById('fcompany').value;
+    const service = document.getElementById('fservice').value;
+    const message = document.getElementById('fmessage').value;
     const waMsg = encodeURIComponent(
-      `Hi Sanestix! New lead from website:\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nCompany: ${company}\nPackage: ${service}\n\nMessage:\n${message}`
+      `Hi Sanestix! New inquiry from website:\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nCompany: ${company}\nPackage: ${service}\n\nMessage:\n${message}`
     );
     window.open(`https://wa.me/923014422951?text=${waMsg}`, '_blank');
-  }, 1500);
+    btn.innerHTML = '✅ Opening WhatsApp... We\'ll be in touch!';
+    btn.style.background = 'linear-gradient(135deg,#22c55e,#16a34a)';
+    setTimeout(() => {
+      btn.innerHTML = 'Send Message &amp; Request Free Call <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
+      btn.style.background = ''; btn.disabled = false;
+      form.reset();
+    }, 4000);
+    return;
+  }
 
-  // Reset button after 5s
-  setTimeout(() => {
-    btn.innerHTML = 'Send Message &amp; Request Free Call <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
-    btn.style.background = '';
+  try {
+    const data = new FormData(form);
+    const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+      method: 'POST', body: data, headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      btn.innerHTML = '✅ Message Sent! We\'ll be in touch within 2–4 hours.';
+      btn.style.background = 'linear-gradient(135deg,#22c55e,#16a34a)';
+      if (status) { status.style.display = 'none'; }
+      setTimeout(() => {
+        btn.innerHTML = 'Send Message &amp; Request Free Call <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
+        btn.style.background = ''; btn.disabled = false; form.reset();
+      }, 5000);
+    } else {
+      throw new Error('Form error');
+    }
+  } catch(err) {
+    btn.textContent = 'Send Message & Request Free Call';
     btn.disabled = false;
-  }, 5000);
+    if (status) {
+      status.textContent = '❌ Something went wrong. Please message us on WhatsApp directly.';
+      status.style.color = '#ef4444'; status.style.display = 'block';
+    }
+  }
 }
+
 /* ============================================================
    USE CASE CANVAS ANIMATIONS
    ============================================================ */
