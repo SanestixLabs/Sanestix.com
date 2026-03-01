@@ -146,17 +146,17 @@ section { position: relative; z-index: 1; }
   display: block;
   min-width: 40px;
 }
-/* Only target the main navbar, NOT footer nav elements */
+/* Navbar — ALWAYS dark, ignores light/dark theme toggle */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
   padding: 0 2rem;
   height: 72px;
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-  background: rgba(6, 11, 20, 0.95);
+  background: rgba(6, 11, 20, 0.97) !important;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(0, 229, 208, 0.08);
-  transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
+  border-bottom: 1px solid rgba(0, 229, 208, 0.1) !important;
+  transition: box-shadow 0.4s;
 }
 /* Reset nav inside footer to normal flow */
 footer nav {
