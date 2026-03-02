@@ -158,6 +158,14 @@ animRobot();
 (function () {
   const canvas = document.getElementById('gravCanvas'), ctx = canvas.getContext('2d');
   let W, H, particles = [];
+  let mouse = { x: null, y: null, radius: 120 };
+
+  window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+  window.addEventListener('touchstart', e => { mouse.x = e.touches[0].clientX; mouse.y = e.touches[0].clientY; }, {passive: true});
+  window.addEventListener('touchmove', e => { mouse.x = e.touches[0].clientX; mouse.y = e.touches[0].clientY; }, {passive: true});
+  window.addEventListener('touchend', () => { mouse.x = null; mouse.y = null; });
+
   function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
   resize(); window.addEventListener('resize', resize);
   function Particle() {
@@ -173,6 +181,20 @@ animRobot();
     const c = theme === 'light' ? '0,168,154' : '0,229,208';
     particles.forEach(p => {
       p.pulse += 0.015; p.x += p.vx; p.y += p.vy;
+
+      if (mouse.x !== null && mouse.y !== null) {
+        let dx = p.x - mouse.x;
+        let dy = p.y - mouse.y;
+        let dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < mouse.radius) {
+          let forceDirX = dx / dist;
+          let forceDirY = dy / dist;
+          let force = (mouse.radius - dist) / mouse.radius;
+          p.x += forceDirX * force * 3;
+          p.y += forceDirY * force * 3;
+        }
+      }
+
       if (p.x < 0) p.x = W; if (p.x > W) p.x = 0; if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
       const op = p.opacity * (0.7 + Math.sin(p.pulse) * 0.3);
       ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
