@@ -970,3 +970,157 @@ footer nav, footer ul, footer li {
 @media (min-width: 600px) and (max-width: 900px) {
   .testimonials-grid { grid-template-columns: 1fr 1fr; }
 }
+
+/* ============================================================
+   HERO — SCROLL PARALLAX ENHANCEMENTS
+   ============================================================ */
+
+/* Parallax layers — GPU-accelerated via will-change */
+.hero-parallax-text {
+  will-change: transform, opacity;
+}
+.hero-parallax-visual {
+  will-change: transform;
+}
+
+/* Floating grid lines behind hero */
+.hero-grid-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(0,229,208,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,208,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  will-change: transform;
+}
+
+/* Radial glow that moves on scroll */
+.hero-glow-orb {
+  position: absolute;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,229,208,0.08) 0%, rgba(0,184,230,0.04) 40%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform, opacity;
+}
+
+/* Scan line on hero */
+.hero-scan {
+  position: absolute;
+  left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,229,208,0.3), transparent);
+  pointer-events: none;
+  z-index: 0;
+  animation: heroScanLine 6s linear infinite;
+  will-change: transform;
+}
+@keyframes heroScanLine {
+  0%   { top: 0%; opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* Vertical data stream lines */
+.hero-data-stream {
+  position: absolute;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(0,229,208,0.25), transparent);
+  pointer-events: none;
+  z-index: 0;
+  animation: streamFlow 3s linear infinite;
+  will-change: transform, opacity;
+}
+@keyframes streamFlow {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+/* Hero text scroll state */
+.hero-text {
+  position: relative;
+  z-index: 2;
+}
+.hero-visual {
+  position: relative;
+  z-index: 2;
+}
+
+/* Subtle depth ring around robot on scroll */
+.robot-depth-ring {
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,229,208,0.06);
+  pointer-events: none;
+  will-change: transform, opacity;
+  animation: depthPulse 4s ease-in-out infinite;
+}
+@keyframes depthPulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+
+/* Hero section itself needs relative positioning for overlays */
+.hero { position: relative; overflow: hidden; }
+
+/* Orbit rings parallax-ready */
+.orbit-ring {
+  will-change: transform;
+}
+
+/* Scroll progress indicator on hero */
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  animation: fadeInUp 1s 1.2s both;
+  z-index: 2;
+  pointer-events: none;
+}
+.scroll-mouse {
+  width: 20px;
+  height: 32px;
+  border: 1.5px solid rgba(0,229,208,0.3);
+  border-radius: 10px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 5px;
+}
+.scroll-wheel {
+  width: 3px;
+  height: 6px;
+  background: var(--cyan);
+  border-radius: 2px;
+  animation: scrollWheel 2s ease-in-out infinite;
+}
+@keyframes scrollWheel {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(8px); opacity: 0.3; }
+}
+
+@media (max-width: 768px) {
+  .hero-scroll-hint { display: none; }
+  .hero-grid-overlay { background-size: 40px 40px; }
+}
