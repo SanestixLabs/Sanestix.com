@@ -17,58 +17,6 @@ window.addEventListener('scroll', () => {
   document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
   const btn = document.getElementById('scrollTopBtn');
   btn.style.display = window.scrollY > 400 ? 'flex' : 'none';
-
-  // ── HERO PARALLAX ──
-  const heroEl = document.getElementById('home');
-  if (heroEl) {
-    const heroH = heroEl.offsetHeight;
-    const scrolled = window.scrollY;
-    // Only apply while hero is in view
-    if (scrolled < heroH) {
-      const progress = scrolled / heroH; // 0 → 1
-
-      // Text layer: moves up gently + fades slightly
-      const heroText = document.getElementById('heroText');
-      if (heroText) {
-        heroText.style.transform = `translateY(${scrolled * 0.28}px)`;
-        heroText.style.opacity = 1 - progress * 0.6;
-      }
-
-      // Robot visual: slower upward drift (depth effect)
-      const heroVisual = document.querySelector('.hero-parallax-visual');
-      if (heroVisual) {
-        heroVisual.style.transform = `translateY(${scrolled * 0.12}px)`;
-      }
-
-      // Grid overlay: slides slower for depth
-      const heroGrid = document.getElementById('heroGrid');
-      if (heroGrid) {
-        heroGrid.style.transform = `translateY(${scrolled * 0.18}px)`;
-      }
-
-      // Glow orb: scales down and fades as you scroll
-      const glowOrb = document.getElementById('heroGlowOrb');
-      if (glowOrb) {
-        const scale = 1 - progress * 0.3;
-        glowOrb.style.transform = `translate(-50%, calc(-50% + ${scrolled * 0.15}px)) scale(${scale})`;
-        glowOrb.style.opacity = 1 - progress * 0.7;
-      }
-
-      // Orbit rings: counter-rotate slightly on scroll for 3D feel
-      const orbits = document.querySelectorAll('.orbit-ring');
-      orbits.forEach((ring, i) => {
-        const dir = i % 2 === 0 ? 1 : -1;
-        ring.style.transform = `rotate(${scrolled * 0.04 * dir * (i + 1)}deg)`;
-      });
-
-      // Data cards: drift outward as you scroll
-      const cards = document.querySelectorAll('.robot-data-card');
-      cards.forEach((card, i) => {
-        const drift = scrolled * 0.06 * (i % 2 === 0 ? 1 : -1);
-        card.style.transform = `translateY(${drift}px)`;
-      });
-    }
-  }
 });
 
 /* ── HAMBURGER ── */
@@ -399,646 +347,234 @@ function ucColors() {
 }
 
 /* Shared roundRect helper */
-function roundRect(ctx, x, y, w, h, r) {
-  ctx.beginPath(); ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.arcTo(x + w, y, x + w, y + r, r);
-  ctx.lineTo(x + w, y + h - r); ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
-  ctx.lineTo(x + r, y + h); ctx.arcTo(x, y + h, x, y + h - r, r);
-  ctx.lineTo(x, y + r); ctx.arcTo(x, y, x + r, y, r); ctx.closePath();
-}
 
-/* ── UC1: WEBSITE CHATBOT ── */
+/* ============================================================
+   PROCESS FLOW — Interactive animated step-by-step flow
+   ============================================================ */
 (function () {
-  const canvas = document.getElementById('ucCanvas1'); if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let W, H, t = 0, msgs = [], lastMsgTime = -999;
-  const msgData = [
-    { role: 'user', text: 'Hi, I need pricing info' },
-    { role: 'bot', text: 'Of course! What\'s your budget?' },
-    { role: 'user', text: 'Around PKR 100k–200k' },
-    { role: 'bot', text: 'Starter package is perfect! ✨' },
-    { role: 'bot', text: 'Want me to book a free call?' },
-    { role: 'user', text: 'Yes please!' },
-    { role: 'bot', text: '✅ Booked! Check your email.' },
-  ];
-  function resize() {
-    const r = canvas.parentElement.getBoundingClientRect();
-    W = canvas.width = r.width * devicePixelRatio; H = canvas.height = r.height * devicePixelRatio;
-    ctx.scale(devicePixelRatio, devicePixelRatio); W /= devicePixelRatio; H /= devicePixelRatio;
-  }
-  resize(); window.addEventListener('resize', resize);
-  function draw() {
-    t += 0.016;
-    if (t - lastMsgTime > 1.1 && msgs.length < msgData.length) { msgs.push({ ...msgData[msgs.length], born: t, alpha: 0 }); lastMsgTime = t; }
-    if (t > msgData.length * 1.2 + 3) { msgs = []; t = 0; lastMsgTime = -999; }
-    const C = ucColors();
-    ctx.clearRect(0, 0, W, H); ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
-    ctx.strokeStyle = C.gridLine; ctx.lineWidth = 1;
-    for (let x = 0; x < W; x += 24) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
-    for (let y = 0; y < H; y += 24) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
-    const hg = ctx.createLinearGradient(0, 0, W, 0);
-    hg.addColorStop(0, 'rgba(0,229,208,0.12)'); hg.addColorStop(1, 'rgba(0,184,230,0.08)');
-    ctx.fillStyle = hg; ctx.fillRect(0, 0, W, 38);
-    ctx.fillStyle = C.cyan; ctx.font = 'bold 11px Sora,sans-serif'; ctx.fillText('● Sanestix AI', 12, 24);
-    ctx.fillStyle = '#22c55e'; ctx.font = '10px Sora,sans-serif'; ctx.fillText('Online', W - 60, 24);
-    const maxVisible = 4, startIdx = Math.max(0, msgs.length - maxVisible);
-    const visSlice = msgs.slice(startIdx);
-    visSlice.forEach((m, i) => {
-      m.alpha = Math.min(1, (t - m.born) / 0.4);
-      const isBot = m.role === 'bot';
-      const bw = Math.min(m.text.length * 6.2 + 20, W * 0.62);
-      const bh = 28; const y = 48 + i * 36 + Math.max(0, (4 - visSlice.length) * 9);
-      const x = isBot ? 10 : W - bw - 10;
-      ctx.save(); ctx.globalAlpha = m.alpha;
-      ctx.beginPath(); roundRect(ctx, x, y, bw, bh, 10);
-      ctx.fillStyle = isBot ? 'rgba(0,229,208,0.1)' : 'rgba(255,255,255,0.07)'; ctx.fill();
-      ctx.strokeStyle = isBot ? 'rgba(0,229,208,0.22)' : 'rgba(255,255,255,0.1)'; ctx.lineWidth = 1; ctx.stroke();
-      ctx.fillStyle = C.text; ctx.font = '10.5px Sora,sans-serif'; ctx.fillText(m.text, x + 8, y + 18, bw - 16);
-      ctx.restore();
-    });
-    if (msgs.length < msgData.length) {
-      const p = ((t * 3) % 1) < 0.5;
-      if (p) { ctx.fillStyle = C.cyan; ctx.fillRect(12, H - 26, 2, 16); }
-      ctx.strokeStyle = C.border; ctx.lineWidth = 1;
-      ctx.beginPath(); roundRect(ctx, 8, H - 32, W - 16, 24, 8); ctx.stroke();
+
+  const FLOWS = {
+    0: { // Website
+      label: 'Website Flow',
+      steps: [
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>`, label: 'Visitor Lands', detail: 'Visitor arrives on your website', desc: 'A potential customer lands on your site via search, social, or referral — any time of day or night.', stat: 'Entry Point' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>`, label: 'AI Greets', detail: 'AI chatbot greets instantly', desc: 'Your AI assistant appears within seconds — no wait, no generic form. It opens with a personalised, on-brand message tailored to the page.', stat: '< 2s response' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg>`, label: 'AI Qualifies', detail: 'Intelligent lead qualification', desc: 'The AI asks smart questions to understand budget, intent, and timeline — filtering serious buyers from casual browsers automatically.', stat: '85% qualified' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>`, label: 'Lead Captured', detail: 'Contact details auto-collected', desc: 'Name, email, phone, and project brief are captured naturally through conversation — no cold form abandonment.', stat: '3× more leads' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>`, label: 'CRM Synced', detail: 'Lead lands in your CRM instantly', desc: 'The lead is scored, tagged, and pushed into your CRM pipeline in real time. Your sales team gets an instant notification.', stat: 'Zero manual work' },
+      ]
+    },
+    1: { // WhatsApp
+      label: 'WhatsApp Flow',
+      steps: [
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>`, label: 'Message Received', detail: 'Customer sends WhatsApp message', desc: 'A customer messages your business number — at 2 AM, on a public holiday, any time. The AI is always ready.', stat: '24/7 active' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`, label: 'Instant Reply', detail: 'AI replies within seconds', desc: 'A fully human-sounding reply arrives within 3 seconds. The AI knows your products, tone, pricing, and FAQs — trained specifically on your business.', stat: '94% faster' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>`, label: 'Qualifies Budget', detail: 'Smart qualification conversation', desc: 'Through natural back-and-forth, the AI uncovers budget, timeline, and need — turning a cold enquiry into a warm, scored lead automatically.', stat: 'Auto-qualified' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`, label: 'Books Call', detail: 'Appointment booked automatically', desc: 'If the lead is hot, the AI books a strategy call directly into your calendar — no back-and-forth scheduling emails needed.', stat: 'Auto-scheduled' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`, label: 'CRM + Follow-up', detail: 'Full CRM sync & follow-up sequences', desc: 'Lead data syncs to your CRM instantly. Automated follow-up sequences trigger if no action is taken — no lead ever falls through the cracks.', stat: '0 missed leads' },
+      ]
+    },
+    2: { // Instagram
+      label: 'Instagram Flow',
+      steps: [
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>`, label: 'Comment Trigger', detail: 'Keyword detected in comment', desc: 'Someone comments "price", "info", or any trigger word you define on your post. The AI detects it in real time — even on posts months old.', stat: 'Any post, any time' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>`, label: 'Auto DM Sent', detail: 'Instant personalised DM fires', desc: 'A personalised direct message lands in their inbox within seconds of the comment — before they scroll away, before they forget about you.', stat: 'Instant DM' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>`, label: 'Product Walk-through', detail: 'AI presents options conversationally', desc: 'The AI walks them through your products, pricing, and options — answering questions and handling objections just like your best sales rep would.', stat: '78% engage' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>`, label: 'Info Captured', detail: 'Lead details collected mid-convo', desc: 'Contact details, budget, and interest level are captured naturally through the conversation — no cold form, no friction, no drop-off.', stat: 'Full lead profile' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>`, label: 'Hot Lead in CRM', detail: 'Scored lead pushed to pipeline', desc: 'A hot lead lands in your CRM — tagged with source, engagement score, and full conversation history. Your team picks up exactly where AI left off.', stat: 'Ready to close' },
+      ]
+    },
+    3: { // eCommerce
+      label: 'eCommerce Flow',
+      steps: [
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>`, label: 'Order Placed', detail: 'Customer places an order', desc: 'A customer completes checkout on your store. The AI automation engine fires immediately — no manual action needed from your team.', stat: 'Instant trigger' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg>`, label: 'Confirmation Sent', detail: 'Automated order confirmation', desc: 'A personalised confirmation message is sent instantly via WhatsApp and email — complete with order summary, timeline, and what to expect next.', stat: 'Zero delays' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>`, label: 'Shipping Updates', detail: 'Real-time shipping notifications', desc: 'As the order moves through fulfilment, the AI sends proactive shipping updates — reducing "where is my order?" support tickets to near zero.', stat: '80% fewer tickets' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 002 14.63v3a2 2 0 002 2h16a2 2 0 002-2v-3a2 2 0 00-.97-1.71l-8-4.5a2 2 0 00-2.06 0l-8 4.5z"/><path d="M7 21v-9"/><path d="M17 21v-9"/></svg>`, label: 'Cart Recovery', detail: 'Abandoned cart sequences trigger', desc: 'If a visitor abandons their cart, a timed sequence fires across WhatsApp and email — with a personalised nudge and optional discount to recover the sale.', stat: '32% recovery rate' },
+        { icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>`, label: 'Repeat Purchase', detail: 'Re-engagement campaigns fire', desc: 'Post-delivery follow-ups, review requests, and personalised upsell offers are sent at the perfect time — turning one-time buyers into loyal repeat customers.', stat: '2.4× LTV increase' },
+      ]
     }
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
+  };
 
-/* ── UC2: WHATSAPP AUTOMATION ── */
-(function () {
-  const canvas = document.getElementById('ucCanvas2'); if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let W, H, t = 0, phase = 0, phaseT = 0;
-  function resize() { const r = canvas.parentElement.getBoundingClientRect(); W = canvas.width = r.width * devicePixelRatio; H = canvas.height = r.height * devicePixelRatio; ctx.scale(devicePixelRatio, devicePixelRatio); W /= devicePixelRatio; H /= devicePixelRatio; }
-  resize(); window.addEventListener('resize', resize);
-  const steps = [
-    { icon: '📱', label: 'Customer messages at 2 AM' },
-    { icon: '⚡', label: 'AI replies in 0.3 seconds' },
-    { icon: '🔍', label: 'Qualifies budget & needs' },
-    { icon: '📅', label: 'Books discovery call' },
-    { icon: '✅', label: 'Lead synced to CRM' },
-  ];
-  function draw() {
-    t += 0.016; phaseT += 0.016;
-    if (phaseT > 1.4) { phase = (phase + 1) % steps.length; phaseT = 0; }
-    const C = ucColors();
-    ctx.clearRect(0, 0, W, H); ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
-    ctx.strokeStyle = C.gridLine; ctx.lineWidth = 1;
-    for (let x = 0; x < W; x += 28) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
-    for (let y = 0; y < H; y += 28) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
-    const cx = W / 2, startY = 20, stepH = (H - 40) / steps.length;
-    steps.forEach((s, i) => {
-      const y = startY + i * stepH + stepH / 2;
-      const active = i === phase, done = i < phase;
-      const pulse = active ? 0.5 + 0.5 * Math.sin(t * 4) : 0;
-      if (i < steps.length - 1) {
-        const prog = active ? Math.min(phaseT / 1.4, 1) : done ? 1 : 0;
-        ctx.strokeStyle = done ? C.cyan : 'rgba(0,229,208,0.15)'; ctx.lineWidth = 1.5;
-        ctx.setLineDash(done ? [] : [4, 4]);
-        ctx.beginPath(); ctx.moveTo(cx, y + 14); ctx.lineTo(cx, y + stepH * prog); ctx.stroke();
-        ctx.setLineDash([]);
-        if (active && prog < 1) { ctx.fillStyle = C.cyan; ctx.beginPath(); ctx.arc(cx, y + stepH * prog, 3, 0, Math.PI * 2); ctx.fill(); }
-      }
-      ctx.save();
-      if (active) { ctx.shadowColor = C.cyan; ctx.shadowBlur = 12 + pulse * 8; }
-      ctx.beginPath(); ctx.arc(cx, y, active ? 13 : done ? 11 : 10, 0, Math.PI * 2);
-      const g = ctx.createRadialGradient(cx, y, 0, cx, y, 13);
-      g.addColorStop(0, active || done ? C.cyan : 'rgba(0,229,208,0.2)');
-      g.addColorStop(1, active || done ? C.cyan2 : 'rgba(0,229,208,0.05)');
-      ctx.fillStyle = active || done ? g : 'rgba(0,229,208,0.08)'; ctx.fill();
-      ctx.strokeStyle = active || done ? C.cyan : 'rgba(0,229,208,0.3)'; ctx.lineWidth = 1.5; ctx.stroke();
-      ctx.restore();
-      ctx.font = `${active ? 13 : 11}px serif`; ctx.textAlign = 'center'; ctx.fillText(s.icon, cx, y + 4.5);
-      ctx.textAlign = 'left'; ctx.font = `${active ? 'bold ' : ''}${active ? 11 : 10}px Sora,sans-serif`;
-      ctx.fillStyle = active ? C.text : done ? C.cyan : 'rgba(94,125,144,0.7)';
-      ctx.globalAlpha = active ? 1 : done ? 0.9 : 0.5;
-      ctx.fillText(s.label, cx + 18, y + 4.5); ctx.globalAlpha = 1; ctx.textAlign = 'left';
+  let activeFlow = 0;
+  let activeStep = 0;
+  let autoTimer = null;
+
+  function init() {
+    const tabBtns = document.querySelectorAll('.pf-tab');
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFlow = parseInt(btn.dataset.flow);
+        activeStep = 0;
+        renderFlow();
+        startAuto();
+      });
     });
-    requestAnimationFrame(draw);
+    renderFlow();
+    startAuto();
   }
-  draw();
-})();
 
-/* ── UC3: INSTAGRAM DM ── */
-(function () {
-  const canvas = document.getElementById('ucCanvas3'); if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let W, H, t = 0, hearts = [];
-  function resize() { const r = canvas.parentElement.getBoundingClientRect(); W = canvas.width = r.width * devicePixelRatio; H = canvas.height = r.height * devicePixelRatio; ctx.scale(devicePixelRatio, devicePixelRatio); W /= devicePixelRatio; H /= devicePixelRatio; }
-  resize(); window.addEventListener('resize', resize);
-  function spawnHeart() { hearts.push({ x: Math.random() * W, y: H + 10, vy: -(0.6 + Math.random() * 0.8), vx: (Math.random() - 0.5) * 0.4, life: 1, size: 8 + Math.random() * 10, rot: Math.random() * Math.PI }); }
-  function draw() {
-    t += 0.016; if (Math.random() < 0.04) spawnHeart();
-    const C = ucColors();
-    ctx.clearRect(0, 0, W, H); ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
-    const og = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, Math.max(W, H) * 0.7);
-    og.addColorStop(0, 'rgba(131,58,180,0.08)'); og.addColorStop(0.4, 'rgba(253,29,29,0.05)'); og.addColorStop(0.8, 'rgba(252,176,69,0.04)'); og.addColorStop(1, 'transparent');
-    ctx.fillStyle = og; ctx.fillRect(0, 0, W, H);
-    const pw = 90, ph = 148, px = (W - pw) / 2, py = (H - ph) / 2 - 10;
-    ctx.save(); ctx.shadowColor = 'rgba(131,58,180,0.3)'; ctx.shadowBlur = 20;
-    ctx.strokeStyle = 'rgba(131,58,180,0.4)'; ctx.lineWidth = 1.5;
-    ctx.beginPath(); roundRect(ctx, px, py, pw, ph, 14); ctx.stroke(); ctx.restore();
-    ctx.fillStyle = 'rgba(131,58,180,0.25)'; ctx.beginPath(); roundRect(ctx, px + pw / 2 - 18, py + 4, 36, 6, 3); ctx.fill();
-    const ig = ctx.createLinearGradient(px, 0, px + pw, 0);
-    ig.addColorStop(0, 'rgba(131,58,180,0.3)'); ig.addColorStop(0.5, 'rgba(253,29,29,0.2)'); ig.addColorStop(1, 'rgba(252,176,69,0.3)');
-    ctx.fillStyle = ig; ctx.beginPath(); roundRect(ctx, px + 2, py + 16, pw - 4, 28, 8); ctx.fill();
-    ctx.fillStyle = 'rgba(255,255,255,0.85)'; ctx.font = 'bold 8.5px Sora,sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText('Direct Messages', px + pw / 2, py + 34);
-    const dms = [{ text: 'price?', y: 0, user: true }, { text: 'DM sent! 📩', y: 1, user: false }, { text: 'Check prices →', y: 2, user: false }];
-    dms.forEach((d, i) => {
-      const bx = d.user ? px + 6 : px + pw - 62; const by = py + 52 + i * 26; const bw = 55, bh = 18;
-      const wave = Math.sin(t * 2 + i * 1.2) * 1.5;
-      ctx.fillStyle = d.user ? 'rgba(253,29,29,0.15)' : 'rgba(131,58,180,0.15)';
-      ctx.beginPath(); roundRect(ctx, bx, by + wave, bw, bh, 6); ctx.fill();
-      ctx.strokeStyle = d.user ? 'rgba(253,29,29,0.3)' : 'rgba(131,58,180,0.3)'; ctx.lineWidth = 1; ctx.stroke();
-      ctx.fillStyle = 'rgba(255,255,255,0.9)'; ctx.font = '8px Sora,sans-serif'; ctx.textAlign = 'left'; ctx.fillText(d.text, bx + 5, by + wave + 12);
-    });
-    const bprog = 0.5 + 0.5 * Math.sin(t * 1.5);
-    ctx.save(); ctx.globalAlpha = 0.85 + bprog * 0.15; ctx.shadowColor = C.cyan; ctx.shadowBlur = 8 + bprog * 6;
-    ctx.fillStyle = C.card; ctx.strokeStyle = C.cyan; ctx.lineWidth = 1.2;
-    ctx.beginPath(); roundRect(ctx, px + pw + 8, py + ph / 2 - 14, 72, 28, 8); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = C.cyan; ctx.font = 'bold 8px Sora,sans-serif'; ctx.textAlign = 'center'; ctx.fillText('✅ CRM Synced', px + pw + 44, py + ph / 2 + 4);
-    ctx.restore();
-    hearts = hearts.filter(h => {
-      h.x += h.vx; h.y += h.vy; h.life -= 0.01; if (h.life <= 0 || h.y < -20) return false;
-      ctx.save(); ctx.globalAlpha = h.life * 0.7; ctx.translate(h.x, h.y); ctx.rotate(h.rot);
-      ctx.font = `${h.size}px serif`; ctx.textAlign = 'center'; ctx.fillText('❤️', 0, 0); ctx.restore(); return true;
-    });
-    requestAnimationFrame(draw);
+  function renderFlow() {
+    const flow = FLOWS[activeFlow];
+    renderNodes(flow);
+    renderConnectors(flow);
+    renderDetail(flow, activeStep, false);
+    renderDots(flow);
+    movePacket();
   }
-  draw();
-})();
 
-
-/* ── UC4: CRM LEAD PIPELINE — Radial Network Graph ── */
-(function () {
-  const canvas = document.getElementById('ucCanvas4'); if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let W, H, t = 0;
-  function resize() { const r = canvas.parentElement.getBoundingClientRect(); W = canvas.width = r.width * devicePixelRatio; H = canvas.height = r.height * devicePixelRatio; ctx.scale(devicePixelRatio, devicePixelRatio); W /= devicePixelRatio; H /= devicePixelRatio; }
-  resize(); window.addEventListener('resize', resize);
-
-  const channels = [
-    { label: 'Website', icon: '🌐', col: 'rgba(0,229,208,', angle: -Math.PI * 0.85 },
-    { label: 'WhatsApp', icon: '💬', col: 'rgba(34,197,94,', angle: -Math.PI * 0.5 },
-    { label: 'Instagram', icon: '📷', col: 'rgba(168,85,247,', angle: -Math.PI * 0.15 },
-    { label: 'Chatbot', icon: '🤖', col: 'rgba(59,130,246,', angle: Math.PI * 0.15 },
-    { label: 'Email', icon: '✉️', col: 'rgba(251,191,36,', angle: Math.PI * 0.5 },
-  ];
-
-  // Particles traveling from channel nodes to CRM hub
-  let particles = [];
-  let particleTimer = 0;
-  const activeChan = { idx: 0, t: 0 };
-
-  function spawnParticle(chanIdx) {
-    const ch = channels[chanIdx];
-    const r = Math.min(W, H) * 0.34;
-    const cx = W / 2, cy = H / 2 + 4;
-    particles.push({
-      chanIdx,
-      progress: 0,
-      startX: cx + Math.cos(ch.angle) * r,
-      startY: cy + Math.sin(ch.angle) * r,
-      col: ch.col,
+  function renderNodes(flow) {
+    const container = document.getElementById('pfNodes');
+    if (!container) return;
+    container.innerHTML = flow.steps.map((step, i) => `
+      <div class="pf-node ${i === activeStep ? 'active' : ''}" data-step="${i}">
+        <div class="pf-node-circle">
+          <span class="pf-node-num">${i + 1}</span>
+          ${step.icon}
+        </div>
+        <span class="pf-node-label">${step.label}</span>
+      </div>
+    `).join('');
+    container.querySelectorAll('.pf-node').forEach(node => {
+      node.addEventListener('click', () => {
+        activeStep = parseInt(node.dataset.step);
+        updateActive();
+        clearAuto();
+        startAuto();
+      });
     });
   }
 
-  function draw() {
-    t += 0.016;
-    particleTimer += 0.016;
+  function renderConnectors(flow) {
+    const svg = document.getElementById('pfConnectorSvg');
+    if (!svg) return;
+    // Remove old lines
+    svg.querySelectorAll('.pf-connector-line').forEach(l => l.remove());
 
-    if (particleTimer > 0.38) {
-      activeChan.idx = (activeChan.idx + 1) % channels.length;
-      for (let i = 0; i < 3; i++) setTimeout(() => spawnParticle(activeChan.idx), i * 90);
-      particleTimer = 0;
+    const n = flow.steps.length;
+    const segments = n - 1;
+    const vbW = 1000;
+    const vbH = 120;
+    const nodeY = vbH / 2;
+    const padding = 40;
+    const totalW = vbW - padding * 2;
+
+    for (let i = 0; i < segments; i++) {
+      const x1 = padding + (i / (n - 1)) * totalW;
+      const x2 = padding + ((i + 1) / (n - 1)) * totalW;
+      const cx = (x1 + x2) / 2;
+      const cpY = nodeY - 18;
+
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', `M ${x1} ${nodeY} Q ${cx} ${cpY} ${x2} ${nodeY}`);
+      path.setAttribute('class', `pf-connector-line ${i < activeStep ? 'lit' : ''}`);
+      svg.appendChild(path);
     }
-    particles.forEach(p => { p.progress += 0.028; });
-    particles = particles.filter(p => p.progress < 1.15);
-
-    const C = ucColors();
-    ctx.clearRect(0, 0, W, H); ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
-
-    const cx = W / 2, cy = H / 2 + 4;
-    const orbitR = Math.min(W, H) * 0.34;
-
-    // Draw orbit ring
-    ctx.save();
-    ctx.strokeStyle = 'rgba(0,229,208,0.07)';
-    ctx.lineWidth = 1;
-    ctx.setLineDash([3, 8]);
-    ctx.beginPath(); ctx.arc(cx, cy, orbitR, 0, Math.PI * 2); ctx.stroke();
-    ctx.setLineDash([]); ctx.restore();
-
-    // Draw connection lines from channels to center
-    channels.forEach((ch, i) => {
-      const nx = cx + Math.cos(ch.angle) * orbitR;
-      const ny = cy + Math.sin(ch.angle) * orbitR;
-      const isActive = i === activeChan.idx;
-      const alpha = isActive ? 0.35 + 0.25 * Math.sin(t * 6) : 0.1;
-      ctx.strokeStyle = `${ch.col}${alpha})`;
-      ctx.lineWidth = isActive ? 1.5 : 0.8;
-      ctx.setLineDash(isActive ? [] : [3, 6]);
-      ctx.beginPath(); ctx.moveTo(nx, ny); ctx.lineTo(cx, cy); ctx.stroke();
-      ctx.setLineDash([]);
-    });
-
-    // Draw particles
-    particles.forEach(p => {
-      const ease = p.progress < 0.5 ? 2 * p.progress * p.progress : -1 + (4 - 2 * p.progress) * p.progress;
-      const px = p.startX + (cx - p.startX) * Math.min(ease, 1);
-      const py = p.startY + (cy - p.startY) * Math.min(ease, 1);
-      const fade = p.progress > 0.85 ? 1 - (p.progress - 0.85) / 0.3 : 1;
-      ctx.save();
-      ctx.globalAlpha = fade * 0.85;
-      ctx.shadowColor = `${p.col}1)`; ctx.shadowBlur = 8;
-      ctx.fillStyle = `${p.col}1)`;
-      ctx.beginPath(); ctx.arc(px, py, 2.5, 0, Math.PI * 2); ctx.fill();
-      ctx.restore();
-    });
-
-    // Draw channel nodes
-    channels.forEach((ch, i) => {
-      const nx = cx + Math.cos(ch.angle) * orbitR;
-      const ny = cy + Math.sin(ch.angle) * orbitR;
-      const isActive = i === activeChan.idx;
-      const pulse = isActive ? 1 + 0.2 * Math.sin(t * 7) : 1;
-      const nr = (isActive ? 16 : 13) * pulse;
-
-      ctx.save();
-      if (isActive) { ctx.shadowColor = `${ch.col}0.9)`; ctx.shadowBlur = 22; }
-      ctx.fillStyle = `${ch.col}${isActive ? 0.22 : 0.1})`;
-      ctx.beginPath(); ctx.arc(nx, ny, nr, 0, Math.PI * 2); ctx.fill();
-      ctx.strokeStyle = `${ch.col}${isActive ? 0.9 : 0.35})`;
-      ctx.lineWidth = isActive ? 1.8 : 1;
-      ctx.stroke();
-      ctx.restore();
-
-      ctx.font = `${isActive ? 13 : 11}px serif`;
-      ctx.textAlign = 'center';
-      ctx.fillText(ch.icon, nx, ny + 4.5);
-
-      // Label
-      const lx = cx + Math.cos(ch.angle) * (orbitR + 22);
-      const ly = cy + Math.sin(ch.angle) * (orbitR + 22);
-      ctx.fillStyle = isActive ? `${ch.col}0.95)` : C.muted;
-      ctx.font = `${isActive ? 'bold ' : ''}7.5px Sora,sans-serif`;
-      ctx.textAlign = 'center';
-      ctx.fillText(ch.label, lx, ly + 3);
-    });
-
-    // Draw CRM hub (center)
-    const hubPulse = 0.5 + 0.5 * Math.sin(t * 2.2);
-    const hubR = 20 + hubPulse * 2;
-    ctx.save();
-    ctx.shadowColor = 'rgba(0,229,208,0.6)'; ctx.shadowBlur = 24 + hubPulse * 10;
-    // Outer glow ring
-    ctx.strokeStyle = `rgba(0,229,208,${0.12 + hubPulse * 0.1})`;
-    ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.arc(cx, cy, hubR + 8, 0, Math.PI * 2); ctx.stroke();
-    // Hub fill
-    const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, hubR);
-    grad.addColorStop(0, 'rgba(0,229,208,0.35)');
-    grad.addColorStop(1, 'rgba(0,229,208,0.08)');
-    ctx.fillStyle = grad;
-    ctx.beginPath(); ctx.arc(cx, cy, hubR, 0, Math.PI * 2); ctx.fill();
-    ctx.strokeStyle = `rgba(0,229,208,${0.6 + hubPulse * 0.3})`;
-    ctx.lineWidth = 1.5; ctx.stroke();
-    ctx.restore();
-
-    ctx.fillStyle = 'rgba(0,229,208,0.95)';
-    ctx.font = 'bold 7.5px Sora,sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText('CRM', cx, cy - 3);
-    ctx.font = '6.5px Sora,sans-serif';
-    ctx.fillStyle = 'rgba(0,229,208,0.65)';
-    ctx.fillText('HUB', cx, cy + 7);
-
-    // Count badge top
-    const scored = 6 + Math.floor(t * 0.4) % 8;
-    const nb = 0.5 + 0.5 * Math.sin(t * 2.5);
-    ctx.save(); ctx.globalAlpha = 0.85 + nb * 0.15;
-    ctx.fillStyle = 'rgba(34,197,94,0.1)'; ctx.strokeStyle = 'rgba(34,197,94,0.5)'; ctx.lineWidth = 1;
-    ctx.beginPath(); roundRect(ctx, W / 2 - 60, 5, 120, 20, 100); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = '#22c55e'; ctx.font = 'bold 8px Sora,sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText(`⚡ ${scored} leads synced today`, W / 2, 18); ctx.restore();
-
-    requestAnimationFrame(draw);
   }
-  draw();
-})();
 
-/* ── UC5: ECOMMERCE — Animated Order Journey + Revenue Chart ── */
-(function () {
-  const canvas = document.getElementById('ucCanvas5'); if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let W, H, t = 0;
-  function resize() { const r = canvas.parentElement.getBoundingClientRect(); W = canvas.width = r.width * devicePixelRatio; H = canvas.height = r.height * devicePixelRatio; ctx.scale(devicePixelRatio, devicePixelRatio); W /= devicePixelRatio; H /= devicePixelRatio; }
-  resize(); window.addEventListener('resize', resize);
+  function renderDetail(flow, stepIdx, animate) {
+    const step = flow.steps[stepIdx];
+    const card = document.getElementById('pfDetailCard');
+    if (!card) return;
 
-  const steps = [
-    { icon: '🛒', label: 'Cart',     col: 'rgba(0,229,208,'  },
-    { icon: '💳', label: 'Paid',     col: 'rgba(34,197,94,'  },
-    { icon: '📦', label: 'Packed',   col: 'rgba(59,130,246,' },
-    { icon: '🚚', label: 'Shipped',  col: 'rgba(168,85,247,' },
-    { icon: '⭐', label: 'Reviewed', col: 'rgba(251,191,36,' },
-  ];
+    const doUpdate = () => {
+      document.getElementById('pfDetailIcon').innerHTML = step.icon;
+      document.getElementById('pfDetailLabel').textContent = `Step ${stepIdx + 1} of ${flow.steps.length} — ${flow.label}`;
+      document.getElementById('pfDetailTitle').textContent = step.detail;
+      document.getElementById('pfDetailDesc').textContent = step.desc;
+      document.getElementById('pfDetailStat').textContent = step.stat;
+    };
 
-  // Revenue bars data — fills over time
-  const barValues = [0.42, 0.58, 0.51, 0.72, 0.65, 0.81, 0.95];
-  const barLabels = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-  let barFill = 0; // 0→1 animation progress
-  let cartPulse = [];
-  let currentStep = 0;
-  let stepT = 0;
-
-  // Abandoned cart recovery popup
-  let recoveryAlpha = 0, recoveryDir = 1;
-
-  function draw() {
-    t += 0.016;
-    stepT += 0.016;
-    if (stepT > 1.1) { currentStep = (currentStep + 1) % steps.length; stepT = 0; }
-    barFill = Math.min(1, barFill + 0.012);
-
-    recoveryAlpha += recoveryDir * 0.02;
-    if (recoveryAlpha > 1) { recoveryAlpha = 1; recoveryDir = -1; }
-    if (recoveryAlpha < 0.15) { recoveryAlpha = 0.15; recoveryDir = 1; }
-
-    const C = ucColors();
-    ctx.clearRect(0, 0, W, H); ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
-
-    const topH = H * 0.46;
-    const botH = H - topH - 12;
-
-    // ── TOP: Order journey pipeline ──
-    const nY = topH * 0.54;
-    const spacing = (W - 30) / (steps.length - 1);
-
-    steps.forEach((s, i) => {
-      const nx = 15 + i * spacing;
-      const done = i < currentStep;
-      const active = i === currentStep;
-      const progress = active ? Math.min(stepT / 1.1, 1) : 0;
-
-      // Connector beam
-      if (i < steps.length - 1) {
-        const nx2 = 15 + (i + 1) * spacing;
-        const lineProgress = done ? 1 : (active ? progress : 0);
-        // Track line
-        ctx.strokeStyle = 'rgba(0,229,208,0.08)'; ctx.lineWidth = 2;
-        ctx.setLineDash([]);
-        ctx.beginPath(); ctx.moveTo(nx + 15, nY); ctx.lineTo(nx2 - 15, nY); ctx.stroke();
-        if (lineProgress > 0) {
-          const endX = nx + 15 + (nx2 - 15 - (nx + 15)) * lineProgress;
-          ctx.strokeStyle = `${s.col}0.7)`; ctx.lineWidth = 2;
-          ctx.beginPath(); ctx.moveTo(nx + 15, nY); ctx.lineTo(endX, nY); ctx.stroke();
-        }
-        // Traveling dot
-        if (active && progress < 1) {
-          const dotX = nx + 15 + (nx2 - 15 - (nx + 15)) * progress;
-          ctx.save(); ctx.shadowColor = `${s.col}1)`; ctx.shadowBlur = 14;
-          ctx.fillStyle = `${s.col}1)`; ctx.beginPath(); ctx.arc(dotX, nY, 4.5, 0, Math.PI * 2); ctx.fill();
-          ctx.restore();
-        }
-      }
-
-      // Node
-      const nr = active ? 17 + Math.sin(t * 6) * 1.5 : done ? 14 : 12;
-      ctx.save();
-      if (active) { ctx.shadowColor = `${s.col}0.8)`; ctx.shadowBlur = 20; }
-      ctx.fillStyle = active ? `${s.col}0.22)` : done ? `${s.col}0.13)` : 'rgba(255,255,255,0.03)';
-      ctx.beginPath(); ctx.arc(nx, nY, nr, 0, Math.PI * 2); ctx.fill();
-      ctx.strokeStyle = active || done ? `${s.col}0.8)` : 'rgba(0,229,208,0.12)';
-      ctx.lineWidth = active ? 2 : 1; ctx.stroke();
-      ctx.restore();
-
-      ctx.font = `${active ? 14 : 11}px serif`; ctx.textAlign = 'center';
-      ctx.fillText(s.icon, nx, nY + 5);
-
-      // Label
-      ctx.fillStyle = active ? `${s.col}1)` : done ? `${s.col}0.6)` : C.muted;
-      ctx.font = `${active ? 'bold ' : ''}7px Sora,sans-serif`;
-      ctx.fillText(s.label, nx, nY + 26);
-
-      // Checkmark for done
-      if (done) {
-        ctx.save(); ctx.globalAlpha = 0.8;
-        ctx.fillStyle = `${s.col}1)`; ctx.font = 'bold 9px serif';
-        ctx.fillText('✓', nx, nY - 22); ctx.restore();
-      }
-    });
-
-    // Step label pill
-    const cs = steps[currentStep];
-    const labelW = 120, labelX = W / 2 - labelW / 2;
-    ctx.save(); ctx.globalAlpha = 0.9;
-    ctx.fillStyle = `${cs.col}0.1)`; ctx.strokeStyle = `${cs.col}0.55)`; ctx.lineWidth = 1;
-    ctx.beginPath(); roundRect(ctx, labelX, 7, labelW, 20, 100); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = `${cs.col}1)`; ctx.font = 'bold 8px Sora,sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText(`${cs.icon} ${cs.label} — processing...`, W / 2, 20); ctx.restore();
-
-    // ── BOTTOM: Mini revenue bars ──
-    const bY = topH + 8;
-    const barCount = barValues.length;
-    const barAreaW = W - 20;
-    const bw = barAreaW / barCount - 4;
-
-    ctx.fillStyle = C.muted; ctx.font = '7px Sora,sans-serif'; ctx.textAlign = 'left';
-    ctx.fillText('Weekly Revenue', 10, bY + 10);
-    ctx.fillStyle = 'rgba(34,197,94,0.9)'; ctx.textAlign = 'right';
-    ctx.font = 'bold 7.5px Sora,sans-serif';
-    ctx.fillText('↑ 23% vs last week', W - 10, bY + 10);
-
-    barValues.forEach((v, i) => {
-      const bx = 10 + i * (bw + 4);
-      const maxH = botH - 28;
-      const fillH = maxH * v * barFill;
-      const by = bY + 14 + maxH - fillH;
-      const isToday = i === 6;
-      const grad = ctx.createLinearGradient(0, by, 0, by + fillH);
-      grad.addColorStop(0, `rgba(0,229,208,${isToday ? 0.9 : 0.5})`);
-      grad.addColorStop(1, `rgba(0,229,208,${isToday ? 0.3 : 0.15})`);
-      ctx.fillStyle = grad;
-      ctx.beginPath(); roundRect(ctx, bx, by, bw, fillH, 3); ctx.fill();
-      if (isToday) {
-        ctx.strokeStyle = 'rgba(0,229,208,0.7)'; ctx.lineWidth = 1;
-        ctx.stroke();
-      }
-      ctx.fillStyle = isToday ? C.cyan : C.muted;
-      ctx.font = `${isToday ? 'bold ' : ''}6.5px Sora,sans-serif`; ctx.textAlign = 'center';
-      ctx.fillText(barLabels[i], bx + bw / 2, bY + 14 + maxH + 9);
-    });
-
-    // Cart recovery badge
-    ctx.save(); ctx.globalAlpha = recoveryAlpha;
-    ctx.fillStyle = 'rgba(251,191,36,0.1)'; ctx.strokeStyle = 'rgba(251,191,36,0.5)'; ctx.lineWidth = 1;
-    ctx.shadowColor = 'rgba(251,191,36,0.3)'; ctx.shadowBlur = 8;
-    ctx.beginPath(); roundRect(ctx, W / 2 - 80, H - 24, 160, 18, 100); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = 'rgba(251,191,36,0.95)'; ctx.font = 'bold 7.5px Sora,sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText('🛒 Abandoned cart recovered +PKR 4,200', W / 2, H - 11); ctx.restore();
-
-    requestAnimationFrame(draw);
+    if (animate) {
+      card.classList.add('pf-exit');
+      setTimeout(() => {
+        card.classList.remove('pf-exit');
+        card.classList.add('pf-enter');
+        doUpdate();
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            card.classList.add('pf-enter-active');
+            setTimeout(() => card.classList.remove('pf-enter', 'pf-enter-active'), 350);
+          });
+        });
+      }, 200);
+    } else {
+      doUpdate();
+    }
   }
-  draw();
-})();
 
-/* ── UC6: APPOINTMENT BOOKING — Calendar Grid + Live Countdown ── */
-(function () {
-  const canvas = document.getElementById('ucCanvas6'); if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let W, H, t = 0;
-  function resize() { const r = canvas.parentElement.getBoundingClientRect(); W = canvas.width = r.width * devicePixelRatio; H = canvas.height = r.height * devicePixelRatio; ctx.scale(devicePixelRatio, devicePixelRatio); W /= devicePixelRatio; H /= devicePixelRatio; }
-  resize(); window.addEventListener('resize', resize);
-
-  // Calendar: 5 cols (Mon-Fri) x 4 rows (time slots)
-  const days = ['MON', 'TUE', 'WED', 'THU', 'FRI'];
-  const times = ['9:00', '11:00', '2:00', '4:00'];
-
-  // Pre-assigned bookings
-  const booked = [
-    { d: 0, t: 0, name: 'Dr. Farhan', col: 'rgba(34,197,94,' },
-    { d: 0, t: 2, name: 'Sara M.',    col: 'rgba(0,229,208,' },
-    { d: 1, t: 1, name: 'Ahmed R.',   col: 'rgba(168,85,247,' },
-    { d: 2, t: 0, name: 'Nadia A.',   col: 'rgba(59,130,246,' },
-    { d: 2, t: 3, name: 'Omar S.',    col: 'rgba(251,191,36,' },
-    { d: 3, t: 2, name: 'Hina T.',    col: 'rgba(34,197,94,' },
-    { d: 4, t: 1, name: 'Bilal K.',   col: 'rgba(0,229,208,' },
-  ];
-
-  // "New booking" animation — sweeps in periodically
-  let sweepCycle = 0, sweepPhase = 0; // sweepPhase: 0=idle, 1=animating
-  const newBookings = [
-    { d: 1, t: 3, name: 'Zara A.',   col: 'rgba(168,85,247,' },
-    { d: 3, t: 0, name: 'Kamran B.', col: 'rgba(251,191,36,' },
-    { d: 4, t: 3, name: 'Fatima R.', col: 'rgba(34,197,94,' },
-  ];
-  let newBookIdx = 0, newBookProgress = 0, activeNewBook = null;
-  let reminderBadgeAlpha = 0, reminderBadgeTimer = 0;
-
-  // Stats ring
-  let statsReveal = 0;
-
-  function draw() {
-    t += 0.016; sweepCycle += 0.016; statsReveal = Math.min(1, statsReveal + 0.008);
-
-    if (sweepCycle > 2.4 && sweepPhase === 0) {
-      activeNewBook = newBookings[newBookIdx % newBookings.length];
-      newBookIdx++; newBookProgress = 0; sweepPhase = 1;
-    }
-    if (sweepPhase === 1) {
-      newBookProgress += 0.04;
-      if (newBookProgress >= 1) { sweepPhase = 0; sweepCycle = 0; reminderBadgeAlpha = 1; reminderBadgeTimer = 0; }
-    }
-    reminderBadgeTimer += 0.016;
-    if (reminderBadgeTimer > 2) reminderBadgeAlpha = Math.max(0, reminderBadgeAlpha - 0.04);
-
-    const C = ucColors();
-    ctx.clearRect(0, 0, W, H); ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
-
-    const padL = 30, padT = 30;
-    const gridW = W - padL - 8;
-    const gridH = H - padT - 34;
-    const cellW = gridW / days.length;
-    const cellH = gridH / times.length;
-
-    // Grid lines
-    ctx.strokeStyle = 'rgba(0,229,208,0.07)'; ctx.lineWidth = 0.8;
-    for (let i = 0; i <= days.length; i++) {
-      const x = padL + i * cellW;
-      ctx.beginPath(); ctx.moveTo(x, padT); ctx.lineTo(x, padT + gridH); ctx.stroke();
-    }
-    for (let j = 0; j <= times.length; j++) {
-      const y = padT + j * cellH;
-      ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(padL + gridW, y); ctx.stroke();
-    }
-
-    // Day headers
-    days.forEach((d, i) => {
-      const x = padL + i * cellW + cellW / 2;
-      ctx.fillStyle = C.muted; ctx.font = 'bold 7px Sora,sans-serif'; ctx.textAlign = 'center';
-      ctx.fillText(d, x, padT - 8);
+  function renderDots(flow) {
+    const dots = document.getElementById('pfProgressDots');
+    if (!dots) return;
+    dots.innerHTML = flow.steps.map((_, i) => `
+      <div class="pf-dot ${i === activeStep ? 'active' : ''}" data-step="${i}"></div>
+    `).join('');
+    dots.querySelectorAll('.pf-dot').forEach(dot => {
+      dot.addEventListener('click', () => {
+        activeStep = parseInt(dot.dataset.step);
+        updateActive();
+        clearAuto();
+        startAuto();
+      });
     });
-
-    // Time labels
-    times.forEach((tm, j) => {
-      const y = padT + j * cellH + cellH / 2 + 3;
-      ctx.fillStyle = C.muted; ctx.font = '6.5px Sora,sans-serif'; ctx.textAlign = 'right';
-      ctx.fillText(tm, padL - 3, y);
-    });
-
-    // Draw booked cells
-    booked.forEach(b => {
-      const cx = padL + b.d * cellW + 2;
-      const cy2 = padT + b.t * cellH + 2;
-      const cw = cellW - 4, ch = cellH - 4;
-      ctx.fillStyle = `${b.col}0.15)`;
-      ctx.beginPath(); roundRect(ctx, cx, cy2, cw, ch, 4); ctx.fill();
-      ctx.strokeStyle = `${b.col}0.4)`; ctx.lineWidth = 1; ctx.stroke();
-      ctx.fillStyle = `${b.col}0.9)`; ctx.font = 'bold 6.5px Sora,sans-serif'; ctx.textAlign = 'center';
-      ctx.fillText(b.name, cx + cw / 2, cy2 + ch / 2 + 2.5);
-    });
-
-    // New booking sweep animation
-    if (activeNewBook && sweepPhase === 1) {
-      const b = activeNewBook;
-      const cx = padL + b.d * cellW + 2;
-      const cy2 = padT + b.t * cellH + 2;
-      const cw = cellW - 4, ch = cellH - 4;
-      const ease = newBookProgress < 0.5 ? 2 * newBookProgress * newBookProgress : -1 + (4 - 2 * newBookProgress) * newBookProgress;
-
-      ctx.save();
-      ctx.shadowColor = `${b.col}0.9)`; ctx.shadowBlur = 18;
-      ctx.fillStyle = `${b.col}${0.1 + ease * 0.2})`;
-      ctx.beginPath(); roundRect(ctx, cx, cy2, cw * ease, ch, 4); ctx.fill();
-      ctx.strokeStyle = `${b.col}${0.5 + ease * 0.4})`; ctx.lineWidth = 1.5; ctx.stroke();
-      if (ease > 0.5) {
-        ctx.fillStyle = `${b.col}${(ease - 0.5) * 2})`; ctx.font = 'bold 6.5px Sora,sans-serif'; ctx.textAlign = 'center';
-        ctx.globalAlpha = (ease - 0.5) * 2;
-        ctx.fillText(b.name, cx + cw / 2, cy2 + ch / 2 + 2.5);
-      }
-      ctx.restore();
-
-      // Scan line effect
-      ctx.save(); ctx.globalAlpha = (1 - newBookProgress) * 0.5;
-      ctx.strokeStyle = `${b.col}1)`; ctx.lineWidth = 1.5;
-      const scanX = cx + cw * ease;
-      ctx.beginPath(); ctx.moveTo(scanX, cy2 - 3); ctx.lineTo(scanX, cy2 + ch + 3); ctx.stroke();
-      ctx.restore();
-    }
-
-    // Stats bar at bottom
-    const statsY = padT + gridH + 8;
-    const totalBooked = booked.length + (newBookIdx > 0 ? Math.min(newBookIdx, newBookings.length) : 0);
-    const pct = Math.min(totalBooked / 12, 1);
-    ctx.fillStyle = 'rgba(0,229,208,0.06)';
-    ctx.beginPath(); roundRect(ctx, padL, statsY, gridW, 13, 6); ctx.fill();
-    ctx.fillStyle = 'rgba(0,229,208,0.25)';
-    ctx.beginPath(); roundRect(ctx, padL, statsY, gridW * pct * statsReveal, 13, 6); ctx.fill();
-    ctx.strokeStyle = 'rgba(0,229,208,0.2)'; ctx.lineWidth = 1; ctx.stroke();
-    ctx.fillStyle = C.cyan; ctx.font = 'bold 7px Sora,sans-serif'; ctx.textAlign = 'left';
-    ctx.fillText(`${totalBooked}/12 slots filled this week`, padL + 5, statsY + 9);
-
-    // Reminder badge
-    if (reminderBadgeAlpha > 0) {
-      ctx.save(); ctx.globalAlpha = reminderBadgeAlpha;
-      ctx.fillStyle = 'rgba(34,197,94,0.12)'; ctx.strokeStyle = 'rgba(34,197,94,0.6)'; ctx.lineWidth = 1;
-      ctx.shadowColor = 'rgba(34,197,94,0.4)'; ctx.shadowBlur = 12;
-      ctx.beginPath(); roundRect(ctx, W / 2 - 74, H - 24, 148, 18, 100); ctx.fill(); ctx.stroke();
-      ctx.fillStyle = '#22c55e'; ctx.font = 'bold 7.5px Sora,sans-serif'; ctx.textAlign = 'center';
-      ctx.fillText('✅ Auto-reminder sent · No-show prevented', W / 2, H - 11); ctx.restore();
-    }
-
-    // Header bar
-    const hb = 0.5 + 0.5 * Math.sin(t * 1.8);
-    ctx.save(); ctx.globalAlpha = 0.85 + hb * 0.15;
-    ctx.fillStyle = 'rgba(0,229,208,0.06)'; ctx.strokeStyle = 'rgba(0,229,208,0.2)'; ctx.lineWidth = 1;
-    ctx.beginPath(); roundRect(ctx, 8, 4, W - 16, 18, 100); ctx.fill(); ctx.stroke();
-    ctx.fillStyle = C.cyan; ctx.font = 'bold 7.5px Sora,sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText('📅 AI Scheduler — Week View', W / 2, 16); ctx.restore();
-
-    requestAnimationFrame(draw);
   }
-  draw();
+
+  function movePacket() {
+    const packet = document.getElementById('pfPacket');
+    const container = document.getElementById('pfNodes');
+    if (!packet || !container) return;
+    const nodes = container.querySelectorAll('.pf-node');
+    if (!nodes.length) return;
+    const activeNode = nodes[activeStep];
+    const containerRect = container.closest('.pf-flow-wrap').getBoundingClientRect();
+    const nodeRect = activeNode.getBoundingClientRect();
+    const nodeCenter = nodeRect.left + nodeRect.width / 2 - containerRect.left;
+    packet.style.left = nodeCenter + 'px';
+    packet.style.top = '50%';
+  }
+
+  function updateActive() {
+    const flow = FLOWS[activeFlow];
+    // Update nodes
+    const nodes = document.querySelectorAll('.pf-node');
+    nodes.forEach((n, i) => n.classList.toggle('active', i === activeStep));
+    // Update connectors
+    const lines = document.querySelectorAll('.pf-connector-line');
+    lines.forEach((l, i) => l.classList.toggle('lit', i < activeStep));
+    // Update dots
+    const dots = document.querySelectorAll('.pf-dot');
+    dots.forEach((d, i) => d.classList.toggle('active', i === activeStep));
+    // Update card
+    renderDetail(flow, activeStep, true);
+    // Move packet
+    movePacket();
+  }
+
+  function startAuto() {
+    clearAuto();
+    autoTimer = setInterval(() => {
+      const flow = FLOWS[activeFlow];
+      activeStep = (activeStep + 1) % flow.steps.length;
+      updateActive();
+    }, 2800);
+  }
+
+  function clearAuto() {
+    if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+  }
+
+  // Init when DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  // Re-position packet on resize
+  window.addEventListener('resize', () => {
+    if (document.getElementById('pfNodes')) movePacket();
+  });
+
 })();
