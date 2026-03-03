@@ -188,9 +188,17 @@
 
   <!-- ── HERO ── -->
   <section class="hero" id="home">
-    <div class="container">
+    <!-- Parallax background layers -->
+    <div class="hero-grid-overlay" id="heroGrid"></div>
+    <div class="hero-glow-orb" id="heroGlowOrb"></div>
+    <div class="hero-scan"></div>
+    <div class="hero-data-stream" style="left:15%;height:30vh;animation-delay:0s;animation-duration:4s;"></div>
+    <div class="hero-data-stream" style="left:72%;height:20vh;animation-delay:1.5s;animation-duration:3.5s;"></div>
+    <div class="hero-data-stream" style="left:88%;height:25vh;animation-delay:2.8s;animation-duration:5s;"></div>
+
+    <div class="container" style="position:relative;z-index:2;">
       <div class="hero-inner">
-        <div class="hero-text reveal">
+        <div class="hero-text reveal hero-parallax-text" id="heroText">
           <div class="hero-badge"><span class="pulse"></span> Pakistan's AI Web Development Agency</div>
           <h1>AI-Powered Websites That <span class="grad">Convert Visitors Into Customers 24/7</span></h1>
           <p class="hero-sub">We build intelligent web systems with AI chatbots, WhatsApp & Instagram automation, CRM
@@ -246,8 +254,9 @@
         </div>
 
         <!-- 3D ROBOT -->
-        <div class="hero-visual reveal" style="transition-delay:.2s">
+        <div class="hero-visual reveal hero-parallax-visual" style="transition-delay:.2s">
           <div class="robot-scene" id="robotScene">
+            <div class="robot-depth-ring"></div>
             <div class="orbit-ring">
               <div class="orbit-dot"></div>
             </div>
@@ -380,6 +389,13 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+    <!-- Scroll hint -->
+    <div class="hero-scroll-hint">
+      <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+      <span>Scroll</span>
     </div>
   </section>
 
