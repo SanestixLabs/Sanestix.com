@@ -252,47 +252,41 @@ async function fetchBotReply(userMessage) {
 
   const sessionId = getSessionId();
 
-  // Send message as GET query params — matches your current n8n webhook (GET method, Respond: Immediately)
-  const params = new URLSearchParams({
-    message: userMessage,
-    chatInput: userMessage,
-    sessionId: sessionId,
-    source: 'website_chat'
-  });
-
   try {
-    const response = await fetch(`${N8N_WEBHOOK_URL}?${params.toString()}`, {
-      method: 'GET',
-      headers: { 'Accept': 'application/json' }
+    // Workflow is POST with allowedOrigins: * — send JSON body directly
+    const response = await fetch(N8N_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: userMessage,
+        chatInput: userMessage,
+        sessionId: sessionId,
+        source: 'website_chat'
+      })
     });
 
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
     const data = await response.json();
 
-    // n8n "Respond: Immediately" returns {"message":"Workflow was started"} — means no reply configured yet
-    // Once you add a "Respond to Webhook" node in your workflow, it will return the real reply
-    if (data.message === 'Workflow was started') {
-      // Workflow triggered but no response node set up yet — show a polite holding message
-      chatHistory.push({ role: 'assistant', content: '__workflow_started__' });
-      return '✅ Message received! Our AI is processing your request. You can also reach us instantly on <a href="https://wa.me/923014422951" target="_blank" style="color:var(--cyan)">WhatsApp</a> for a faster reply.';
-    }
-
-    // Parse real reply from n8n Respond to Webhook node
+    // Parse reply — handles { output: "..." } from Respond to Webhook node
     const reply =
-      (Array.isArray(data) && data[0] && (data[0].output || data[0].reply || data[0].message || data[0].text || data[0].response)) ||
-      data.output || data.reply || data.text || data.response || data.answer ||
-      'Thanks for your message! Our team will be in touch shortly. 🙌';
+      data.output ||
+      data.reply ||
+      data.message ||
+      data.text ||
+      data.response ||
+      (Array.isArray(data) && data[0] && (data[0].output || data[0].reply || data[0].message || data[0].text)) ||
+      'Thanks for your message! Our team will be in touch shortly.';
 
     chatHistory.push({ role: 'assistant', content: reply });
     return reply;
 
   } catch (err) {
     console.error('Chatbot webhook error:', err);
-    return 'Got your message! Reach us instantly on <a href="https://wa.me/923014422951" target="_blank" style="color:var(--cyan)">WhatsApp</a> 💬';
+    return 'Got your message! Reach us on <a href="https://wa.me/923014422951" target="_blank" style="color:var(--cyan)">WhatsApp</a> for instant help.';
   }
 }
-
 // Stable session ID per browser session
 function getSessionId() {
   let sid = sessionStorage.getItem('sx_chat_session');
