@@ -223,9 +223,8 @@ function toggleFaq(btn) {
 }
 
 /* ── CHATBOT — n8n Webhook Integration ── */
-const N8N_WEBHOOK_URL = 'https://n8n.sanestix.cloud/webhook/cec27be4-1632-4130-9f4d-8dcd075c40ff';
+const N8N_WEBHOOK_URL = 'https://n8n.sanestix.cloud/webhook/Chatbot';
 
-// Conversation history for multi-turn context
 const chatHistory = [];
 let isBotTyping = false;
 
@@ -247,13 +246,17 @@ function showTyping() {
   return t;
 }
 
+function getSessionId() {
+  let sid = sessionStorage.getItem('sx_chat_session');
+  if (!sid) { sid = 'sx_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8); sessionStorage.setItem('sx_chat_session', sid); }
+  return sid;
+}
+
 async function fetchBotReply(userMessage) {
   chatHistory.push({ role: 'user', content: userMessage });
-
   const sessionId = getSessionId();
 
   try {
-    // Workflow is POST with allowedOrigins: * — send JSON body directly
     const response = await fetch(N8N_WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -266,16 +269,10 @@ async function fetchBotReply(userMessage) {
     });
 
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
     const data = await response.json();
 
-    // Parse reply — handles { output: "..." } from Respond to Webhook node
     const reply =
-      data.output ||
-      data.reply ||
-      data.message ||
-      data.text ||
-      data.response ||
+      data.output || data.reply || data.message || data.text || data.response ||
       (Array.isArray(data) && data[0] && (data[0].output || data[0].reply || data[0].message || data[0].text)) ||
       'Thanks for your message! Our team will be in touch shortly.';
 
@@ -287,12 +284,6 @@ async function fetchBotReply(userMessage) {
     return 'Got your message! Reach us on <a href="https://wa.me/923014422951" target="_blank" style="color:var(--cyan)">WhatsApp</a> for instant help.';
   }
 }
-// Stable session ID per browser session
-function getSessionId() {
-  let sid = sessionStorage.getItem('sx_chat_session');
-  if (!sid) { sid = 'sx_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8); sessionStorage.setItem('sx_chat_session', sid); }
-  return sid;
-}
 
 async function sendDemoMsg() {
   if (isBotTyping) return;
@@ -302,8 +293,7 @@ async function sendDemoMsg() {
   isBotTyping = true;
   const t = showTyping();
   const reply = await fetchBotReply(msg);
-  t.remove();
-  addMsg('bot', reply);
+  t.remove(); addMsg('bot', reply);
   isBotTyping = false;
 }
 
@@ -313,13 +303,11 @@ async function sendQuickReply(msg) {
   isBotTyping = true;
   const t = showTyping();
   const reply = await fetchBotReply(msg);
-  t.remove();
-  addMsg('bot', reply);
+  t.remove(); addMsg('bot', reply);
   isBotTyping = false;
 }
 
-setTimeout(() => addMsg('bot', '👋 Hi! I\'m the Sanestix AI Assistant. Ask me anything about our AI web development services, automation packages, or timelines!'), 600);
-
+setTimeout(() => addMsg('bot', 'Hi! I am the Sanestix AI Assistant. Ask me anything about our AI web development services, automation packages, or timelines!'), 600);
 /* ── CONTACT FORM ── */
 async function submitForm(e) {
   e.preventDefault();
