@@ -248,42 +248,42 @@ function showTyping() {
 }
 
 async function fetchBotReply(userMessage) {
-  // Add to history
   chatHistory.push({ role: 'user', content: userMessage });
 
+  const payload = JSON.stringify({
+    message: userMessage,
+    chatInput: userMessage,
+    history: chatHistory.slice(-10),
+    sessionId: getSessionId(),
+    source: 'website_chat'
+  });
+
   try {
+    // Use text/plain to avoid CORS preflight — n8n receives the body fine
     const response = await fetch(N8N_WEBHOOK_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        message: userMessage,
-        history: chatHistory.slice(-10), // send last 10 turns for context
-        sessionId: getSessionId(),
-        source: 'website_chat'
-      })
+      headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+      body: payload
     });
 
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
     const data = await response.json();
 
-    // Support multiple response shapes from n8n
+    // Handle all common n8n response shapes
     const reply =
-      data.reply ||
-      data.message ||
-      data.text ||
-      data.output ||
-      (Array.isArray(data) && data[0] && (data[0].reply || data[0].message || data[0].text || data[0].output)) ||
-      'Thanks for your message! Our team will follow up shortly.';
+      (Array.isArray(data) && data[0] && (data[0].output || data[0].reply || data[0].message || data[0].text || data[0].response)) ||
+      data.output || data.reply || data.message || data.text || data.response ||
+      'Thanks for your message! Our team will follow up shortly. 🙌';
 
-    // Store assistant reply in history
     chatHistory.push({ role: 'assistant', content: reply });
     return reply;
 
   } catch (err) {
     console.error('Chatbot webhook error:', err);
-    // Graceful fallback
-    return 'Thanks for reaching out! We\'re having a brief technical issue. Please try again in a moment, or reach us directly on <a href="https://wa.me/923014422951" target="_blank" style="color:var(--cyan)">WhatsApp</a> 💬';
+    // Fire-and-forget fallback with no-cors (bypasses CORS, no response readable)
+    try { fetch(N8N_WEBHOOK_URL, { method: 'POST', mode: 'no-cors', body: payload }); } catch (_) {}
+    return 'I received your message! For an instant reply, reach us on <a href="https://wa.me/923014422951" target="_blank" style="color:var(--cyan)">WhatsApp</a> 💬';
   }
 }
 
