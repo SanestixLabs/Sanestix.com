@@ -222,21 +222,13 @@ function toggleFaq(btn) {
   item.classList.toggle('open', !isOpen);
 }
 
-/* ── DEMO CHATBOT ── */
-const demoReplies = {
-  'what services do you offer?': 'We build AI-powered websites, chatbots, WhatsApp & Instagram automation, CRM integration, and full eCommerce systems — all custom-engineered for your business. 🚀',
-  'what are your packages?': 'We have 3 packages:\n\n🔹 Starter — AI Website + Chatbot\n🔹 Growth — Full social automation\n🔹 Enterprise — eCommerce AI System\n\nAll packages are quote-based — reach out for a free estimate!',
-  'how fast is delivery?': 'Most projects go live in 2–7 days. Starter in 5–7 days, Growth in 7–12 days, Enterprise 2–3 weeks. We\'ve even gone live in 48 hours for urgent cases ⚡',
-  'book a free call': 'Absolutely! Book your free 30-min strategy call: 👉 <a href="#contact" style="color:var(--cyan)">Fill out the form below</a> or message us on <a href="https://wa.me/923014422951" target="_blank" style="color:var(--cyan)">WhatsApp</a>.',
-};
-function getReply(msg) {
-  const lower = msg.toLowerCase();
-  for (const [k, v] of Object.entries(demoReplies)) { if (lower.includes(k.split(' ')[0]) || lower === k) return v; }
-  if (lower.includes('price') || lower.includes('cost') || lower.includes('how much')) return 'We work on a custom quote basis — every business is different! Reach out for a free strategy call and we\'ll give you a precise quote tailored to your needs 🎯';
-  if (lower.includes('crm')) return 'We integrate with HubSpot, Zoho, Salesforce, Pipedrive, Notion, Google Sheets, and most other CRMs. If you don\'t have one yet, we\'ll recommend the best fit!';
-  if (lower.includes('whatsapp') || lower.includes('instagram')) return 'Yes! We automate both WhatsApp and Instagram — DM auto-replies, comment triggers, lead qualification, follow-up sequences 📱';
-  return 'Great question! The best way is a quick free call with our team. <a href="#contact" style="color:var(--cyan)">Click here to book yours →</a>';
-}
+/* ── CHATBOT — n8n Webhook Integration ── */
+const N8N_WEBHOOK_URL = 'https://n8n.sanestix.cloud/webhook/cec27be4-1632-4130-9f4d-8dcd075c40ff';
+
+// Conversation history for multi-turn context
+const chatHistory = [];
+let isBotTyping = false;
+
 function addMsg(type, text, delay = 0) {
   setTimeout(() => {
     const msgs = document.getElementById('demoChatMsgs');
@@ -246,6 +238,7 @@ function addMsg(type, text, delay = 0) {
     msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
   }, delay);
 }
+
 function showTyping() {
   const msgs = document.getElementById('demoChatMsgs');
   const t = document.createElement('div'); t.className = 'msg bot'; t.id = 'typing';
@@ -253,19 +246,79 @@ function showTyping() {
   msgs.appendChild(t); msgs.scrollTop = msgs.scrollHeight;
   return t;
 }
-function sendDemoMsg() {
+
+async function fetchBotReply(userMessage) {
+  // Add to history
+  chatHistory.push({ role: 'user', content: userMessage });
+
+  try {
+    const response = await fetch(N8N_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: userMessage,
+        history: chatHistory.slice(-10), // send last 10 turns for context
+        sessionId: getSessionId(),
+        source: 'website_chat'
+      })
+    });
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const data = await response.json();
+
+    // Support multiple response shapes from n8n
+    const reply =
+      data.reply ||
+      data.message ||
+      data.text ||
+      data.output ||
+      (Array.isArray(data) && data[0] && (data[0].reply || data[0].message || data[0].text || data[0].output)) ||
+      'Thanks for your message! Our team will follow up shortly.';
+
+    // Store assistant reply in history
+    chatHistory.push({ role: 'assistant', content: reply });
+    return reply;
+
+  } catch (err) {
+    console.error('Chatbot webhook error:', err);
+    // Graceful fallback
+    return 'Thanks for reaching out! We\'re having a brief technical issue. Please try again in a moment, or reach us directly on <a href="https://wa.me/923014422951" target="_blank" style="color:var(--cyan)">WhatsApp</a> 💬';
+  }
+}
+
+// Stable session ID per browser session
+function getSessionId() {
+  let sid = sessionStorage.getItem('sx_chat_session');
+  if (!sid) { sid = 'sx_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8); sessionStorage.setItem('sx_chat_session', sid); }
+  return sid;
+}
+
+async function sendDemoMsg() {
+  if (isBotTyping) return;
   const input = document.getElementById('demoInput');
   const msg = input.value.trim(); if (!msg) return;
   addMsg('user', msg); input.value = '';
+  isBotTyping = true;
   const t = showTyping();
-  setTimeout(() => { t.remove(); addMsg('bot', getReply(msg)); }, 900 + Math.random() * 600);
+  const reply = await fetchBotReply(msg);
+  t.remove();
+  addMsg('bot', reply);
+  isBotTyping = false;
 }
-function sendQuickReply(msg) {
+
+async function sendQuickReply(msg) {
+  if (isBotTyping) return;
   addMsg('user', msg);
+  isBotTyping = true;
   const t = showTyping();
-  setTimeout(() => { t.remove(); addMsg('bot', getReply(msg)); }, 900 + Math.random() * 600);
+  const reply = await fetchBotReply(msg);
+  t.remove();
+  addMsg('bot', reply);
+  isBotTyping = false;
 }
-setTimeout(() => addMsg('bot', '👋 Hi! I\'m the Sanestix AI Assistant. Ask me about our AI web development services, automation, or timelines!'), 600);
+
+setTimeout(() => addMsg('bot', '👋 Hi! I\'m the Sanestix AI Assistant. Ask me anything about our AI web development services, automation packages, or timelines!'), 600);
 
 /* ── CONTACT FORM ── */
 async function submitForm(e) {
