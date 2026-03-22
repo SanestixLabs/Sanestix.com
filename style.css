@@ -1265,3 +1265,269 @@ footer nav, footer ul, footer li {
 @media (min-width: 600px) and (max-width: 900px) {
   .testimonials-grid { grid-template-columns: 1fr 1fr; }
 }
+
+/* ============================================================
+   NAV PRODUCTS LINK
+   ============================================================ */
+.nav-products-link {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--cyan) !important;
+  font-weight: 600 !important;
+  position: relative;
+  padding: 0.25rem 0.6rem;
+  border-radius: 100px;
+  border: 1px solid rgba(0,229,208,0.2);
+  background: rgba(0,229,208,0.05);
+  transition: all 0.2s !important;
+}
+.nav-products-link:hover {
+  background: rgba(0,229,208,0.12) !important;
+  border-color: rgba(0,229,208,0.4) !important;
+  transform: translateY(-1px);
+}
+.nav-products-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--cyan);
+  animation: pulseAnim 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   SAAS PRODUCTS SECTION
+   ============================================================ */
+.saas-products {
+  padding: 6rem 0;
+  background: var(--bg2);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.4s;
+}
+.saas-products::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 0.3;
+}
+
+.saas-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.saas-card {
+  position: relative;
+  border-radius: 24px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), border-color 0.3s, box-shadow 0.35s;
+}
+.saas-card:hover {
+  transform: translateY(-6px);
+}
+
+.saas-card--featured {
+  border-color: rgba(0,229,208,0.3);
+  background: linear-gradient(145deg, rgba(10,20,40,0.95) 0%, rgba(0,40,50,0.6) 100%);
+}
+[data-theme="light"] .saas-card--featured {
+  background: linear-gradient(145deg, rgba(240,255,253,0.95) 0%, rgba(220,250,248,0.8) 100%);
+}
+.saas-card--featured:hover {
+  border-color: rgba(0,229,208,0.6);
+  box-shadow: 0 20px 60px rgba(0,229,208,0.15), 0 0 0 1px rgba(0,229,208,0.2);
+}
+
+.saas-card--soon {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.saas-card-glow {
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,229,208,0.12) 0%, transparent 70%);
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.saas-card--featured:hover .saas-card-glow {
+  opacity: 1.5;
+}
+
+.saas-card-inner {
+  padding: 2rem;
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.saas-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.saas-logo-wrap {
+  width: 52px; height: 52px;
+  border-radius: 14px;
+  background: rgba(0,229,208,0.08);
+  border: 1px solid rgba(0,229,208,0.2);
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.saas-card--featured:hover .saas-logo-wrap {
+  transform: scale(1.08) rotate(-3deg);
+  box-shadow: 0 0 20px rgba(0,229,208,0.25);
+}
+.saas-logo-wrap--muted {
+  background: rgba(94,125,144,0.08);
+  border-color: rgba(94,125,144,0.2);
+}
+
+.saas-badge {
+  padding: 0.3rem 0.75rem;
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  display: flex; align-items: center; gap: 0.35rem;
+}
+.saas-badge--live {
+  background: rgba(0,229,208,0.1);
+  border: 1px solid rgba(0,229,208,0.3);
+  color: var(--cyan);
+}
+.saas-badge--soon {
+  background: rgba(94,125,144,0.1);
+  border: 1px solid rgba(94,125,144,0.25);
+  color: var(--muted);
+}
+.saas-live-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #22c55e;
+  animation: pulseAnim 1.8s ease-in-out infinite;
+}
+
+.saas-card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.saas-product-name {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--text);
+  line-height: 1;
+}
+
+.saas-product-tagline {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.saas-product-desc {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.7;
+  margin-top: 0.25rem;
+}
+
+.saas-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-top: 0.5rem;
+}
+.saas-features li {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.83rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.saas-coming-soon-hint {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+.saas-card-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+.saas-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.4rem;
+  border-radius: 100px;
+  background: linear-gradient(135deg, var(--cyan), var(--cyan2));
+  color: #060b14;
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+  box-shadow: 0 0 20px rgba(0,229,208,0.25);
+}
+.saas-card--featured:hover .saas-cta-btn {
+  transform: scale(1.04);
+  box-shadow: 0 0 40px rgba(0,229,208,0.45);
+}
+.saas-cta-url {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-family: monospace;
+  letter-spacing: 0.02em;
+}
+
+.saas-deco {
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 200px; height: 130px;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+@keyframes dashFlow {
+  to { stroke-dashoffset: -20; }
+}
+.saas-card--featured .saas-deco path {
+  animation: dashFlow 2.5s linear infinite;
+}
+
+@media (max-width: 900px) {
+  .saas-grid { grid-template-columns: 1fr; }
+  .saas-card--soon { display: none; }
+}
