@@ -619,3 +619,37 @@ function ucColors() {
   });
 
 })();
+
+/* ── SAAS CARD TILT EFFECT ── */
+(function() {
+  function applyTilt(card) {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      const rotX = ((y - cy) / cy) * -6;
+      const rotY = ((x - cx) / cx) * 6;
+      card.style.transform = `translateY(-6px) perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      card.style.transition = 'transform 0.5s cubic-bezier(0.22,1,0.36,1), border-color 0.3s, box-shadow 0.35s';
+      setTimeout(() => { card.style.transition = ''; }, 500);
+    });
+  }
+  document.querySelectorAll('.saas-card--featured').forEach(applyTilt);
+})();
+
+/* ── SCROLL PROGRESS BAR ── */
+(function() {
+  const bar = document.createElement('div');
+  bar.id = 'scrollProgress';
+  bar.style.cssText = 'position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,#00e5d0,#00b8e6);z-index:9999;transition:width 0.1s linear;width:0;pointer-events:none';
+  document.body.appendChild(bar);
+  window.addEventListener('scroll', () => {
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (window.scrollY / docH * 100) + '%';
+  }, { passive: true });
+})();
