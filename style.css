@@ -1327,7 +1327,7 @@ footer nav, footer ul, footer li {
   border: 1px solid var(--border);
   overflow: hidden;
   text-decoration: none;
-  color: inherit;
+  color: var(--text);
   display: block;
   transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), border-color 0.3s, box-shadow 0.35s;
 }
@@ -1530,4 +1530,29 @@ footer nav, footer ul, footer li {
 @media (max-width: 900px) {
   .saas-grid { grid-template-columns: 1fr; }
   .saas-card--soon { display: none; }
+}
+
+/* Fix: ensure saas cards are always visible regardless of reveal state */
+.saas-products .reveal {
+  opacity: 1 !important;
+  transform: none !important;
+}
+/* Re-apply animation only when JS has NOT yet run (first paint before observer) */
+.saas-products .reveal:not(.visible) {
+  opacity: 0;
+  transform: translateY(36px);
+}
+/* Immediately show on load via animation fallback */
+@keyframes saasReveal {
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: none; }
+}
+.saas-products .saas-grid .saas-card {
+  animation: saasReveal 0.75s cubic-bezier(0.22,1,0.36,1) both;
+}
+.saas-products .saas-grid .saas-card:nth-child(1) { animation-delay: 0.1s; }
+.saas-products .saas-grid .saas-card:nth-child(2) { animation-delay: 0.25s; }
+/* Section header also auto-reveals */
+.saas-products .section-header {
+  animation: saasReveal 0.75s cubic-bezier(0.22,1,0.36,1) 0s both;
 }
