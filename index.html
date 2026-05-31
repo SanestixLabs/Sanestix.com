@@ -1249,115 +1249,158 @@
   </section>
 
   <!-- ── INDUSTRIES ── -->
-  <section class="industries">
+  <section class="industries" id="industries" aria-labelledby="industries-title">
+    <div class="industry-particles" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
     <div class="container">
-      <div class="section-header reveal">
-        <div class="section-tag">Industries We Serve</div>
-        <h2>Built for Your <span class="grad">Industry</span></h2>
-        <p class="section-desc">We've deployed AI automation systems across diverse sectors. Every solution is
-          custom-engineered for the specific industry it serves.</p>
+      <div class="section-header industries-header reveal">
+        <div class="section-tag industry-badge"><span></span>INDUSTRIES WE SERVE</div>
+        <h2 id="industries-title">Built for <span class="grad">Every Industry</span></h2>
+        <p class="section-desc">We deploy AI automation systems tailored to each industry's workflows, customer journey,
+          and operational needs.</p>
       </div>
-      <div class="industries-grid reveal">
-        <!-- Fashion & Retail -->
-        <div class="industry-card">
-          <div class="industry-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="1.5"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path
-                d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.57a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.57a2 2 0 00-1.34-2.23z" />
-            </svg>
-          </div>
-          <div class="industry-name">Fashion &amp; Retail</div>
-          <div class="industry-desc">Order automation, product queries, cart recovery</div>
+
+      <div class="industry-rail reveal" aria-label="Industry automation categories">
+        <div class="industry-track">
+          <article class="industry-card glow-card" tabindex="0">
+            <div class="industry-icon">
+              <i data-lucide="shopping-bag" aria-hidden="true"></i>
+            </div>
+            <h3 class="industry-name">Fashion &amp; Retail</h3>
+            <p class="industry-desc">Order automation, product queries, cart recovery, and DM-to-checkout flows.</p>
+            <ul class="industry-capabilities" aria-label="Fashion and Retail capabilities">
+              <li><i data-lucide="check" aria-hidden="true"></i>Cart Recovery</li>
+              <li><i data-lucide="check" aria-hidden="true"></i>Order Updates</li>
+              <li><i data-lucide="check" aria-hidden="true"></i>Product FAQs</li>
+            </ul>
+            <a href="#contact" class="industry-arrow" aria-label="Explore Fashion and Retail automation">
+              <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+            </a>
+          </article>
+
+          <article class="industry-card glow-card" tabindex="0">
+            <div class="industry-icon">
+              <i data-lucide="home" aria-hidden="true"></i>
+            </div>
+            <h3 class="industry-name">Real Estate</h3>
+            <p class="industry-desc">Lead qualification, viewing bookings, pipeline reminders, and buyer follow-ups.</p>
+            <ul class="industry-capabilities" aria-label="Real Estate capabilities">
+              <li><i data-lucide="check" aria-hidden="true"></i>Lead Scoring</li>
+              <li><i data-lucide="check" aria-hidden="true"></i>Viewing Slots</li>
+              <li><i data-lucide="check" aria-hidden="true"></i>CRM Routing</li>
+            </ul>
+            <a href="#contact" class="industry-arrow" aria-label="Explore Real Estate automation">
+              <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+            </a>
+          </article>
+
+          <article class="industry-card glow-card" tabindex="0">
+            <div class="industry-icon">
+              <i data-lucide="heart-pulse" aria-hidden="true"></i>
+            </div>
+            <h3 class="industry-name">Healthcare</h3>
+            <p class="industry-desc">Appointment booking, patient follow-ups, smart triage, and FAQ automation.</p>
+            <ul class="industry-capabilities" aria-label="Healthcare capabilities">
+              <li><i data-lucide="check" aria-hidden="true"></i>Appointments</li>
+              <li><i data-lucide="check" aria-hidden="true"></i>Follow-Ups</li>
+              <li><i data-lucide="check" aria-hidden="true"></i>Patient FAQs</li>
+            </ul>
+            <a href="#contact" class="industry-arrow" aria-label="Explore Healthcare automation">
+              <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+            </a>
+          </article>
+
+          <article class="industry-card glow-card" tabindex="0">
+            <div class="industry-icon">
+              <i data-lucide="graduation-cap" aria-hidden="true"></i>
+            </div>
+            <h3 class="industry-name">Education</h3>
+            <p class="industry-desc">Student inquiries, enrollment flows, fee reminders, and course guidance.</p>
+            <ul class="industry-capabilities" aria-label="Education capabilities">
+              <li><i data-lucide="check" aria-hidden="true"></i>Admissions</li>
+              <li><i data-lucide="check" aria-hidden="true"></i>Fee Flows</li>
+              <li><i data-lucide="check" aria-hidden="true"></i>Student FAQs</li>
+            </ul>
+            <a href="#contact" class="industry-arrow" aria-label="Explore Education automation">
+              <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+            </a>
+          </article>
+
+          <article class="industry-card glow-card" tabindex="0">
+            <div class="industry-icon">
+              <i data-lucide="utensils" aria-hidden="true"></i>
+            </div>
+            <h3 class="industry-name">Food &amp; Restaurants</h3>
+            <p class="industry-desc">Menu questions, reservations, order status, delivery updates, and loyalty prompts.</p>
+            <ul class="industry-capabilities" aria-label="Food and Restaurants capabilities">
+              <li><i data-lucide="check" aria-hidden="true"></i>Reservations</li>
+              <li><i data-lucide="check" aria-hidden="true"></i>Menu FAQs</li>
+              <li><i data-lucide="check" aria-hidden="true"></i>Order Status</li>
+            </ul>
+            <a href="#contact" class="industry-arrow" aria-label="Explore Food and Restaurants automation">
+              <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+            </a>
+          </article>
+
+          <article class="industry-card glow-card" tabindex="0">
+            <div class="industry-icon">
+              <i data-lucide="truck" aria-hidden="true"></i>
+            </div>
+            <h3 class="industry-name">Logistics</h3>
+            <p class="industry-desc">Shipment tracking, quote automation, dispatch alerts, and exception handling.</p>
+            <ul class="industry-capabilities" aria-label="Logistics capabilities">
+              <li><i data-lucide="check" aria-hidden="true"></i>Tracking</li>
+              <li><i data-lucide="check" aria-hidden="true"></i>Quotes</li>
+              <li><i data-lucide="check" aria-hidden="true"></i>Dispatch</li>
+            </ul>
+            <a href="#contact" class="industry-arrow" aria-label="Explore Logistics automation">
+              <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+            </a>
+          </article>
+
+          <article class="industry-card glow-card" tabindex="0">
+            <div class="industry-icon">
+              <i data-lucide="shield-dollar-sign" aria-hidden="true"></i>
+            </div>
+            <h3 class="industry-name">Finance &amp; Insurance</h3>
+            <p class="industry-desc">Lead generation, policy support, quote pre-qualification, and appointment scheduling.</p>
+            <ul class="industry-capabilities" aria-label="Finance and Insurance capabilities">
+              <li><i data-lucide="check" aria-hidden="true"></i>Policy FAQs</li>
+              <li><i data-lucide="check" aria-hidden="true"></i>Lead Intake</li>
+              <li><i data-lucide="check" aria-hidden="true"></i>Scheduling</li>
+            </ul>
+            <a href="#contact" class="industry-arrow" aria-label="Explore Finance and Insurance automation">
+              <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+            </a>
+          </article>
+
+          <article class="industry-card glow-card" tabindex="0">
+            <div class="industry-icon">
+              <i data-lucide="briefcase-business" aria-hidden="true"></i>
+            </div>
+            <h3 class="industry-name">B2B Services</h3>
+            <p class="industry-desc">Discovery calls, proposal flows, client onboarding, and support handoffs.</p>
+            <ul class="industry-capabilities" aria-label="B2B Services capabilities">
+              <li><i data-lucide="check" aria-hidden="true"></i>Discovery</li>
+              <li><i data-lucide="check" aria-hidden="true"></i>Proposals</li>
+              <li><i data-lucide="check" aria-hidden="true"></i>Onboarding</li>
+            </ul>
+            <a href="#contact" class="industry-arrow" aria-label="Explore B2B Services automation">
+              <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+            </a>
+          </article>
         </div>
-        <!-- Real Estate -->
-        <div class="industry-card">
-          <div class="industry-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="1.5"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-              <polyline points="9 22 9 12 15 12 15 22" />
-            </svg>
-          </div>
-          <div class="industry-name">Real Estate</div>
-          <div class="industry-desc">Lead qualification, viewing bookings, pipeline mgmt</div>
-        </div>
-        <!-- Healthcare -->
-        <div class="industry-card">
-          <div class="industry-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="1.5"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-            </svg>
-          </div>
-          <div class="industry-name">Healthcare</div>
-          <div class="industry-desc">Appointment booking, reminders, patient FAQs</div>
-        </div>
-        <!-- Education -->
-        <div class="industry-card">
-          <div class="industry-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="1.5"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" />
-              <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" />
-            </svg>
-          </div>
-          <div class="industry-name">Education</div>
-          <div class="industry-desc">Student inquiries, enrollment flows, fee automation</div>
-        </div>
-        <!-- Food & Restaurants -->
-        <div class="industry-card">
-          <div class="industry-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="1.5"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 8h1a4 4 0 010 8h-1" />
-              <path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z" />
-              <line x1="6" y1="1" x2="6" y2="4" />
-              <line x1="10" y1="1" x2="10" y2="4" />
-              <line x1="14" y1="1" x2="14" y2="4" />
-            </svg>
-          </div>
-          <div class="industry-name">Food &amp; Restaurants</div>
-          <div class="industry-desc">Menu queries, reservations, order status</div>
-        </div>
-        <!-- Logistics -->
-        <div class="industry-card">
-          <div class="industry-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="1.5"
-              stroke-linecap="round" stroke-linejoin="round">
-              <rect x="1" y="3" width="15" height="13" />
-              <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
-              <circle cx="5.5" cy="18.5" r="2.5" />
-              <circle cx="18.5" cy="18.5" r="2.5" />
-            </svg>
-          </div>
-          <div class="industry-name">Logistics</div>
-          <div class="industry-desc">Shipment tracking, quote automation, dispatch</div>
-        </div>
-        <!-- Finance -->
-        <div class="industry-card">
-          <div class="industry-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="1.5"
-              stroke-linecap="round" stroke-linejoin="round">
-              <line x1="12" y1="1" x2="12" y2="23" />
-              <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
-            </svg>
-          </div>
-          <div class="industry-name">Finance &amp; Insurance</div>
-          <div class="industry-desc">Lead gen, policy info, appointment scheduling</div>
-        </div>
-        <!-- B2B -->
-        <div class="industry-card">
-          <div class="industry-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="1.5"
-              stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="7" width="20" height="14" rx="2" />
-              <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16" />
-            </svg>
-          </div>
-          <div class="industry-name">B2B Services</div>
-          <div class="industry-desc">Discovery calls, proposal flows, client onboarding</div>
-        </div>
+      </div>
+
+      <div class="industry-cta-banner reveal">
+        <div class="industry-cta-spark" aria-hidden="true">✨</div>
+        <div class="industry-cta-title">Don't see your industry?</div>
+        <p>We build custom AI systems for every business model.</p>
+        <a href="#contact" class="industry-banner-btn">
+          Book Free Strategy Call
+          <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
       </div>
     </div>
   </section>
@@ -1966,6 +2009,7 @@
     </svg>
   </button>
 
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <script src="main.js"></script>
 </body>
 

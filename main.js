@@ -61,6 +61,42 @@ const revealObserver = new IntersectionObserver(entries => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => revealObserver.observe(el));
 
+/* LUCIDE ICONS + INDUSTRY CARD MICRO-INTERACTIONS */
+if (window.lucide) {
+  window.lucide.createIcons({
+    attrs: {
+      'aria-hidden': 'true'
+    }
+  });
+}
+
+document.querySelectorAll('.industry-track').forEach(track => {
+  if (track.dataset.cloned === 'true') return;
+  [...track.children].forEach(card => {
+    const clone = card.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    clone.setAttribute('tabindex', '-1');
+    clone.querySelectorAll('a, button, [tabindex]').forEach(el => el.setAttribute('tabindex', '-1'));
+    track.appendChild(clone);
+  });
+  track.dataset.cloned = 'true';
+});
+
+document.querySelectorAll('.glow-card').forEach(card => {
+  card.addEventListener('pointermove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    card.style.setProperty('--mx', `${x}%`);
+    card.style.setProperty('--my', `${y}%`);
+  });
+
+  card.addEventListener('pointerleave', () => {
+    card.style.removeProperty('--mx');
+    card.style.removeProperty('--my');
+  });
+});
+
 /* ── STAT COUNTER ANIMATION ── */
 function animateCounter(el, target, suffix, duration = 1800) {
   const isFloat = target % 1 !== 0;
