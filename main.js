@@ -62,6 +62,135 @@ const revealObserver = new IntersectionObserver(entries => {
 document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => revealObserver.observe(el));
 
 /* LUCIDE ICONS + INDUSTRY CARD MICRO-INTERACTIONS */
+document.querySelectorAll('.industry-track').forEach(track => {
+  if (track.dataset.cloned === 'true') return;
+  const originalCards = [...track.children];
+
+  [...originalCards].reverse().forEach(card => {
+    const clone = card.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    clone.setAttribute('tabindex', '-1');
+    clone.querySelectorAll('a, button, [tabindex]').forEach(el => el.setAttribute('tabindex', '-1'));
+    track.prepend(clone);
+  });
+
+  originalCards.forEach(card => {
+    const clone = card.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    clone.setAttribute('tabindex', '-1');
+    clone.querySelectorAll('a, button, [tabindex]').forEach(el => el.setAttribute('tabindex', '-1'));
+    track.appendChild(clone);
+  });
+
+  track.dataset.cloned = 'true';
+  track.dataset.sets = '3';
+});
+
+document.querySelectorAll('.industry-rail').forEach(rail => {
+  const track = rail.querySelector('.industry-track');
+  if (!track || rail.dataset.autoRail === 'true') return;
+
+  let isDragging = false;
+  let dragStartX = 0;
+  let dragStartScroll = 0;
+  let pauseUntil = 0;
+  let lastTs = 0;
+  let isHovering = false;
+  const autoSpeed = window.matchMedia('(max-width: 600px)').matches ? 38 : 30;
+
+  const setWidth = () => track.scrollWidth / (parseInt(track.dataset.sets, 10) || 3);
+  const wrapScroll = () => {
+    const width = setWidth();
+    if (!width) return;
+    if (rail.scrollLeft >= width * 2) rail.scrollLeft -= width;
+    else if (rail.scrollLeft <= 0) rail.scrollLeft += width;
+  };
+
+  const pauseBriefly = (duration = 1400) => {
+    pauseUntil = performance.now() + duration;
+  };
+
+  const autoMove = (ts) => {
+    if (!lastTs) lastTs = ts;
+    const delta = ts - lastTs;
+    lastTs = ts;
+
+    if (!isDragging && !isHovering && ts > pauseUntil) {
+      rail.scrollLeft += autoSpeed * (delta / 1000);
+      wrapScroll();
+    }
+
+    requestAnimationFrame(autoMove);
+  };
+
+  rail.addEventListener('pointerdown', e => {
+    isDragging = true;
+    dragStartX = e.clientX;
+    dragStartScroll = rail.scrollLeft;
+    rail.classList.add('is-dragging');
+    rail.setPointerCapture(e.pointerId);
+    pauseBriefly(2400);
+  });
+
+  rail.addEventListener('pointermove', e => {
+    if (!isDragging) return;
+    const dx = e.clientX - dragStartX;
+    rail.scrollLeft = dragStartScroll - dx;
+    wrapScroll();
+  });
+
+  const stopDragging = e => {
+    if (!isDragging) return;
+    isDragging = false;
+    rail.classList.remove('is-dragging');
+    if (rail.hasPointerCapture(e.pointerId)) rail.releasePointerCapture(e.pointerId);
+    pauseBriefly(1800);
+  };
+
+  rail.addEventListener('pointerup', stopDragging);
+  rail.addEventListener('pointercancel', stopDragging);
+  rail.addEventListener('mouseleave', () => {
+    if (isDragging) {
+      isDragging = false;
+      rail.classList.remove('is-dragging');
+      pauseBriefly(1800);
+    }
+  });
+
+  rail.addEventListener('wheel', e => {
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) return;
+    pauseBriefly(1600);
+    requestAnimationFrame(wrapScroll);
+  }, { passive: true });
+
+  rail.addEventListener('mouseenter', () => {
+    if (window.matchMedia('(hover: hover)').matches) isHovering = true;
+  });
+
+  rail.addEventListener('mouseleave', () => {
+    isHovering = false;
+  });
+
+  rail.addEventListener('focusin', () => {
+    isHovering = true;
+  });
+
+  rail.addEventListener('focusout', () => {
+    isHovering = false;
+    pauseBriefly(900);
+  });
+
+  rail.addEventListener('scroll', () => {
+    if (!isDragging) requestAnimationFrame(wrapScroll);
+  }, { passive: true });
+
+  rail.dataset.autoRail = 'true';
+  requestAnimationFrame(() => {
+    rail.scrollLeft = setWidth();
+  });
+  requestAnimationFrame(autoMove);
+});
+
 if (window.lucide) {
   window.lucide.createIcons({
     attrs: {
@@ -69,18 +198,6 @@ if (window.lucide) {
     }
   });
 }
-
-document.querySelectorAll('.industry-track').forEach(track => {
-  if (track.dataset.cloned === 'true') return;
-  [...track.children].forEach(card => {
-    const clone = card.cloneNode(true);
-    clone.setAttribute('aria-hidden', 'true');
-    clone.setAttribute('tabindex', '-1');
-    clone.querySelectorAll('a, button, [tabindex]').forEach(el => el.setAttribute('tabindex', '-1'));
-    track.appendChild(clone);
-  });
-  track.dataset.cloned = 'true';
-});
 
 document.querySelectorAll('.glow-card').forEach(card => {
   card.addEventListener('pointermove', (e) => {
