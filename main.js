@@ -331,7 +331,7 @@ animRobot();
   function draw() {
     ctx.clearRect(0, 0, W, H);
     const theme = document.documentElement.getAttribute('data-theme');
-    const c = theme === 'light' ? '0,168,154' : '0,229,208';
+    const c = theme === 'light' ? '0,174,220' : '0,229,208';
     particles.forEach(p => {
       p.pulse += 0.015; p.x += p.vx; p.y += p.vy;
 
@@ -530,13 +530,13 @@ async function submitForm(e) {
 function ucColors() {
   const dark = document.documentElement.getAttribute('data-theme') !== 'light';
   return {
-    bg: dark ? '#060c18' : '#ddeef8',
+    bg: dark ? '#060c18' : '#ffffff',
     cyan: '#00e5d0', cyan2: '#00b8e6',
-    card: dark ? 'rgba(0,229,208,0.08)' : 'rgba(0,168,154,0.1)',
-    border: dark ? 'rgba(0,229,208,0.18)' : 'rgba(0,168,154,0.25)',
-    text: dark ? 'rgba(232,244,248,0.9)' : 'rgba(13,31,45,0.9)',
-    muted: dark ? 'rgba(94,125,144,0.8)' : 'rgba(74,112,128,0.7)',
-    gridLine: dark ? 'rgba(0,229,208,0.04)' : 'rgba(0,168,154,0.06)',
+    card: dark ? 'rgba(0,229,208,0.08)' : 'rgba(0,217,255,0.1)',
+    border: dark ? 'rgba(0,229,208,0.18)' : 'rgba(0,174,220,0.25)',
+    text: dark ? 'rgba(232,244,248,0.9)' : 'rgba(17,17,17,0.92)',
+    muted: dark ? 'rgba(94,125,144,0.8)' : 'rgba(98,106,114,0.72)',
+    gridLine: dark ? 'rgba(0,229,208,0.04)' : 'rgba(0,174,220,0.06)',
   };
 }
 

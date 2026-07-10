@@ -29,23 +29,23 @@
 }
 
 [data-theme="light"] {
-  --cyan: #00a89a;
-  --cyan2: #0090b8;
-  --bg: #f0f6fa;
-  --bg2: #e4eef5;
-  --card: rgba(255, 255, 255, 0.92);
+  --cyan: #00d9ff;
+  --cyan2: #00a7d8;
+  --bg: #ffffff;
+  --bg2: #f4f6f8;
+  --card: rgba(255, 255, 255, 0.96);
   --card-solid: #ffffff;
-  --border: rgba(0, 168, 154, 0.15);
-  --border2: rgba(0, 168, 154, 0.35);
-  --text: #0d1f2d;
-  --text-secondary: #1e3a4f;
-  --muted: #4a7080;
-  --glow: 0 0 30px rgba(0, 168, 154, 0.2);
-  --glow2: 0 0 60px rgba(0, 168, 154, 0.1);
-  --input-bg: rgba(0, 0, 0, 0.04);
-  --particle-opacity: 0.4;
-  --nav-bg: rgba(240, 246, 250, 0.95);
-  --nav-bg-scrolled: rgba(240, 246, 250, 0.98);
+  --border: rgba(5, 12, 20, 0.1);
+  --border2: rgba(0, 174, 220, 0.34);
+  --text: #111111;
+  --text-secondary: #2a3036;
+  --muted: #626a72;
+  --glow: 0 10px 34px rgba(0, 174, 220, 0.24);
+  --glow2: 0 0 60px rgba(0, 217, 255, 0.12);
+  --input-bg: rgba(5, 12, 20, 0.035);
+  --particle-opacity: 0.22;
+  --nav-bg: rgba(10, 10, 12, 0.76);
+  --nav-bg-scrolled: rgba(10, 10, 12, 0.88);
 }
 
 /* ── GLOBAL ANIMATION KEYFRAMES ── */
@@ -2201,4 +2201,239 @@ footer nav, footer ul, footer li {
 /* Section header also auto-reveals */
 .saas-products .section-header {
   animation: saasReveal 0.75s cubic-bezier(0.22,1,0.36,1) 0s both;
+}
+
+/* ============================================================
+   10PEARLS-INSPIRED LIGHT THEME
+   White canvas, translucent black navigation, black feature bands,
+   and Sanestix cyan-blue accents in place of purple.
+   ============================================================ */
+[data-theme="light"] body {
+  background: #ffffff;
+}
+
+[data-theme="light"] nav {
+  background: rgba(12, 12, 14, 0.78) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.18);
+}
+
+[data-theme="light"] nav.scrolled {
+  background: rgba(12, 12, 14, 0.9) !important;
+  border-bottom-color: rgba(0, 217, 255, 0.18) !important;
+}
+
+[data-theme="light"] .nav-links a,
+[data-theme="light"] .mobile-menu a {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+[data-theme="light"] .nav-links a:hover,
+[data-theme="light"] .mobile-menu a:hover,
+[data-theme="light"] .nav-products-link {
+  color: #00d9ff !important;
+}
+
+[data-theme="light"] .hamburger {
+  color: #ffffff;
+}
+
+[data-theme="light"] .nav-cta,
+[data-theme="light"] .theme-btn.active {
+  background: linear-gradient(135deg, #00d9ff, #00a7d8);
+  color: #080a0c;
+  box-shadow: 0 12px 30px rgba(0, 174, 220, 0.34);
+}
+
+[data-theme="light"] .mobile-menu {
+  background: rgba(12, 12, 14, 0.96);
+  border-bottom-color: rgba(0, 217, 255, 0.14);
+}
+
+[data-theme="light"] .hero,
+[data-theme="light"] .services,
+[data-theme="light"] .how-it-works,
+[data-theme="light"] .about,
+[data-theme="light"] .testimonials,
+[data-theme="light"] .team,
+[data-theme="light"] .cta-banner {
+  background: #ffffff;
+}
+
+[data-theme="light"] .why-us,
+[data-theme="light"] .pricing,
+[data-theme="light"] .faq,
+[data-theme="light"] .saas-products {
+  background: #f4f6f8;
+}
+
+[data-theme="light"] .service-card,
+[data-theme="light"] .why-card,
+[data-theme="light"] .step-card,
+[data-theme="light"] .price-card,
+[data-theme="light"] .faq-item,
+[data-theme="light"] .testi-card,
+[data-theme="light"] .about-stat-card,
+[data-theme="light"] .saas-card:not(.saas-card--featured) {
+  background: #ffffff;
+  border-color: rgba(7, 15, 22, 0.09);
+  box-shadow: 0 18px 48px rgba(10, 18, 28, 0.07);
+}
+
+[data-theme="light"] .section-tag,
+[data-theme="light"] .hero-badge,
+[data-theme="light"] .card-tag.primary,
+[data-theme="light"] .ai-badge,
+[data-theme="light"] .testi-badge,
+[data-theme="light"] .saas-badge--live {
+  background: rgba(0, 217, 255, 0.1);
+  border-color: rgba(0, 174, 220, 0.3);
+  color: #007fa6;
+}
+
+[data-theme="light"] .btn-primary,
+[data-theme="light"] .price-cta.primary,
+[data-theme="light"] .form-submit,
+[data-theme="light"] .send-btn,
+[data-theme="light"] #scrollTopBtn,
+[data-theme="light"] .saas-cta-btn,
+[data-theme="light"] .industry-primary-cta,
+[data-theme="light"] .industry-banner-btn {
+  background: linear-gradient(135deg, #00d9ff, #00a7d8);
+  color: #080a0c;
+  box-shadow: 0 16px 40px rgba(0, 174, 220, 0.28);
+}
+
+[data-theme="light"] .process-flow {
+  background: #00c9f2;
+  color: #080a0c;
+}
+
+[data-theme="light"] .process-flow .section-desc,
+[data-theme="light"] .process-flow .pf-node-label,
+[data-theme="light"] .process-flow .pf-tab {
+  color: rgba(8, 10, 12, 0.72);
+}
+
+[data-theme="light"] .process-flow .section-tag,
+[data-theme="light"] .process-flow .pf-tab.active {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(8, 10, 12, 0.14);
+  color: #05313e;
+  box-shadow: 0 12px 30px rgba(0, 68, 85, 0.12);
+}
+
+[data-theme="light"] .process-flow .pf-tab,
+[data-theme="light"] .process-flow .pf-node-circle,
+[data-theme="light"] .process-flow .pf-detail-card {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(8, 10, 12, 0.12);
+}
+
+[data-theme="light"] .process-flow .pf-node.active .pf-node-label,
+[data-theme="light"] .process-flow .pf-node.active .pf-node-circle svg {
+  color: #05313e;
+}
+
+[data-theme="light"] .stats,
+[data-theme="light"] .chatbot-section,
+[data-theme="light"] .industries,
+[data-theme="light"] .contact {
+  --text: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.82);
+  --muted: rgba(226, 236, 242, 0.72);
+  --card: rgba(255, 255, 255, 0.055);
+  --card-solid: #141414;
+  --border: rgba(255, 255, 255, 0.1);
+  --border2: rgba(0, 217, 255, 0.34);
+  background: #111111;
+  color: #ffffff;
+}
+
+[data-theme="light"] .stats {
+  border-bottom: 0;
+}
+
+[data-theme="light"] .stats-grid > div:hover,
+[data-theme="light"] .chatbot-live-container,
+[data-theme="light"] .info-card,
+[data-theme="light"] .contact-form,
+[data-theme="light"] .whatsapp-cta-card {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(0, 217, 255, 0.2);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.24);
+}
+
+[data-theme="light"] .chatbot-input-row,
+[data-theme="light"] .msg.user .msg-bubble {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="light"] .industries {
+  --industry-bg-a: #111111;
+  --industry-bg-b: #16191c;
+  --industry-glass: rgba(255, 255, 255, 0.055);
+  --industry-glass-strong: rgba(255, 255, 255, 0.08);
+  --industry-border: rgba(0, 217, 255, 0.18);
+  --industry-border-hot: rgba(0, 217, 255, 0.54);
+  --industry-muted: rgba(226, 236, 242, 0.72);
+  background:
+    radial-gradient(circle at 50% 7%, rgba(0, 217, 255, 0.2), transparent 28rem),
+    linear-gradient(155deg, var(--industry-bg-a) 0%, var(--industry-bg-b) 100%);
+}
+
+[data-theme="light"] .industry-card,
+[data-theme="light"] .industry-cta-banner {
+  background:
+    radial-gradient(circle at var(--mx, 50%) var(--my, 0%), rgba(0, 217, 255, 0.12), transparent 19rem),
+    rgba(255, 255, 255, 0.055);
+  border-color: rgba(0, 217, 255, 0.18);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);
+}
+
+[data-theme="light"] .industry-name,
+[data-theme="light"] .industry-cta-title {
+  color: #ffffff;
+}
+
+[data-theme="light"] .industry-capabilities li {
+  color: rgba(240, 252, 255, 0.9);
+  background: rgba(0, 217, 255, 0.09);
+  border-color: rgba(0, 217, 255, 0.2);
+}
+
+[data-theme="light"] .industry-badge {
+  background: rgba(0, 217, 255, 0.12);
+  border-color: rgba(0, 217, 255, 0.32);
+  color: #89f3ff;
+  box-shadow: 0 0 34px rgba(0, 217, 255, 0.16);
+}
+
+[data-theme="light"] input,
+[data-theme="light"] select,
+[data-theme="light"] textarea {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="light"] .contact input,
+[data-theme="light"] .contact select,
+[data-theme="light"] .contact textarea {
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+[data-theme="light"] .contact select option {
+  background: #111111;
+}
+
+[data-theme="light"] .price-card.featured,
+[data-theme="light"] .saas-card--featured {
+  background: linear-gradient(145deg, rgba(0, 217, 255, 0.14), rgba(255, 255, 255, 0.96));
+  border-color: rgba(0, 174, 220, 0.38);
+}
+
+[data-theme="light"] .wa-float {
+  background: rgba(17, 17, 17, 0.84);
+  border-color: rgba(0, 217, 255, 0.36);
 }
