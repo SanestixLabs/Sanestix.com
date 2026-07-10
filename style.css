@@ -182,7 +182,16 @@ nav.scrolled {
 /* ============================================================
    HERO
    ============================================================ */
-.hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 0 4rem; overflow: hidden; background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.86) 48%, rgba(255,255,255,0.68) 100%), url("hero-bg.png") center/cover no-repeat; }
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 8rem 0 4rem;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(3, 8, 18, 0.88) 0%, rgba(3, 8, 18, 0.68) 44%, rgba(3, 8, 18, 0.28) 100%),
+    url("hero-bg.png") center/cover no-repeat;
+}
 .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
 
 /* Hero entrance animations */
@@ -2380,4 +2389,29 @@ textarea {
 .wa-float {
   background: rgba(17, 17, 17, 0.84);
   border-color: rgba(0, 217, 255, 0.36);
+}
+/* Hero image contrast overrides */
+.hero h1 {
+  color: #ffffff;
+  text-shadow: 0 14px 42px rgba(0, 0, 0, 0.34);
+}
+
+.hero .hero-badge {
+  background: rgba(0, 217, 255, 0.12);
+  border-color: rgba(137, 243, 255, 0.45);
+  color: #89f3ff;
+}
+
+.hero .hero-sub {
+  color: rgba(240, 252, 255, 0.82);
+}
+
+.hero .btn-ghost {
+  color: rgba(240, 252, 255, 0.82);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(137, 243, 255, 0.32);
+}
+
+.hero .platform-pill {
+  color: rgba(240, 252, 255, 0.72);
 }
