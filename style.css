@@ -558,7 +558,7 @@ nav.scrolled {
   overflow: hidden;
   background:
     linear-gradient(90deg, rgba(3, 8, 18, 0.88) 0%, rgba(3, 8, 18, 0.68) 44%, rgba(3, 8, 18, 0.28) 100%),
-    url("hero-bg.png") center/cover no-repeat;
+    url("assets/hero-bg.png") center/cover no-repeat;
 }
 .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
 
