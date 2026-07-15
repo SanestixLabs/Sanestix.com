@@ -277,15 +277,35 @@ if (!document.getElementById('rippleStyle')) {
 
   const phrases = ['smarter automation', 'AI employees', 'effortless scaling', 'modern software'];
   let phraseIndex = 0;
+  let charIndex = 0;
+  let typing = true;
 
-  setInterval(() => {
-    dynamicText.classList.add('is-changing');
-    setTimeout(() => {
-      phraseIndex = (phraseIndex + 1) % phrases.length;
-      dynamicText.textContent = phrases[phraseIndex];
-      dynamicText.classList.remove('is-changing');
-    }, 280);
-  }, 2600);
+  function tick() {
+    const current = phrases[phraseIndex];
+
+    if (typing) {
+      charIndex++;
+      dynamicText.textContent = current.slice(0, charIndex);
+      if (charIndex === current.length) {
+        typing = false;
+        setTimeout(tick, 1500);
+        return;
+      }
+      setTimeout(tick, 60);
+    } else {
+      charIndex--;
+      dynamicText.textContent = current.slice(0, charIndex);
+      if (charIndex === 0) {
+        typing = true;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        setTimeout(tick, 400);
+        return;
+      }
+      setTimeout(tick, 32);
+    }
+  }
+
+  tick();
 })();
 
 /* Move robot into chatbot demo */

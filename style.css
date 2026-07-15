@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap');
+
 /* ============================================================
    SANESTIX — Main Stylesheet
    AI-Powered Web Development & Automation Agency
@@ -2828,13 +2830,42 @@ textarea {
 .hero-title-dynamic {
   display: block;
 }
-.hero-title-dynamic {
-  min-height: 1.08em;
-  transition: opacity 0.28s ease, transform 0.28s ease;
+.hero-title-static {
+  background: #000000;
+  padding: 0.08em 0.3em;
+  border-radius: 6px;
 }
-.hero-title-dynamic.is-changing {
-  opacity: 0;
-  transform: translateY(0.35rem);
+.hero-title-dynamic {
+  min-height: 1.1em;
+  font-family: 'Alex Brush', 'Segoe Script', cursive;
+  font-weight: 700;
+  font-size: 1.5em;
+  line-height: 1;
+  padding: 0.06em 0.05em 0.22em;
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
+  max-width: 100%;
+  background: linear-gradient(100deg, var(--cyan2), var(--cyan) 55%, var(--cyan2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0.6px var(--cyan);
+  color: var(--cyan);
+}
+.hero-title-dynamic::after {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 0.85em;
+  margin-left: 0.1em;
+  background: var(--cyan);
+  animation: cursorBlink 0.8s steps(1) infinite;
+}
+@keyframes cursorBlink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
 }
 .hero-sub {
   max-width: 680px;
