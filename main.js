@@ -275,7 +275,7 @@ if (!document.getElementById('rippleStyle')) {
   const dynamicText = document.getElementById('heroDynamicText');
   if (!dynamicText) return;
 
-  const phrases = ['smarter automation', 'AI employees', 'effortless scaling', 'modern software'];
+  const phrases = ['smarter automation', 'effortless scaling', 'modern software'];
   let phraseIndex = 0;
   let charIndex = 0;
   let typing = true;
