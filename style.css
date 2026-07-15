@@ -2783,3 +2783,145 @@ textarea {
 .hero .platform-pill {
   color: rgba(240, 252, 255, 0.72);
 }
+
+/* Hero revamp and chatbot robot placement */
+.hero {
+  text-align: center;
+  background:
+    linear-gradient(180deg, rgba(3, 8, 18, 0.78) 0%, rgba(3, 8, 18, 0.62) 52%, rgba(3, 8, 18, 0.82) 100%),
+    url("assets/hero-bg.png") center/cover no-repeat;
+}
+.hero-inner {
+  grid-template-columns: 1fr;
+  justify-items: center;
+  gap: 2.5rem;
+}
+.hero-text {
+  max-width: 920px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hero-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  min-height: 9.4rem;
+  font-size: 4.35rem;
+  line-height: 1.04;
+  letter-spacing: 0;
+}
+.hero-title-static,
+.hero-title-dynamic {
+  display: block;
+}
+.hero-title-dynamic {
+  min-height: 1.08em;
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+.hero-title-dynamic.is-changing {
+  opacity: 0;
+  transform: translateY(0.35rem);
+}
+.hero-sub {
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero-btns,
+.platform-pills {
+  justify-content: center;
+}
+.hero .hero-visual {
+  display: none;
+}
+.chatbot-inner {
+  grid-template-columns: minmax(250px, 0.72fr) minmax(280px, 0.95fr) minmax(340px, 1fr);
+  gap: 2.5rem;
+  max-width: 1240px;
+}
+.chatbot-robot-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 410px;
+}
+.chatbot-robot-slot .hero-visual {
+  display: flex;
+  width: 100%;
+  min-height: 410px;
+  animation: fadeInUp 0.8s cubic-bezier(0.22,1,0.36,1) both;
+}
+.chatbot-robot-slot .robot-scene {
+  width: 360px;
+  height: 390px;
+}
+.chatbot-robot-slot .robot-svg-container {
+  width: 260px;
+  height: 310px;
+}
+.chatbot-robot-slot .orbit-ring:nth-child(1) { width: 260px; height: 260px; }
+.chatbot-robot-slot .orbit-ring:nth-child(2) { width: 360px; height: 360px; }
+.chatbot-robot-slot .orbit-ring:nth-child(3) { width: 450px; height: 450px; }
+.chatbot-robot-slot .robot-data-card.top-left { left: -4%; }
+.chatbot-robot-slot .robot-data-card.top-right { right: -7%; }
+.chatbot-robot-slot .robot-data-card.bottom-right { right: -5%; }
+
+@media (max-width: 1100px) {
+  .chatbot-inner {
+    grid-template-columns: 1fr 1fr;
+    max-width: 980px;
+  }
+  .chatbot-text {
+    grid-column: 1 / -1;
+    text-align: center;
+    align-items: center;
+  }
+  .chatbot-text .section-tag,
+  .chatbot-text .btn-primary {
+    align-self: center;
+  }
+  .chatbot-text h2 {
+    text-align: center;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-title {
+    min-height: 7.4rem;
+    font-size: 3.25rem;
+  }
+  .hero .hero-visual {
+    display: none;
+  }
+  .chatbot-inner {
+    grid-template-columns: 1fr;
+  }
+  .chatbot-robot-slot .hero-visual {
+    order: 0;
+    min-height: 300px;
+  }
+  .chatbot-robot-slot {
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-title {
+    min-height: 5.8rem;
+    font-size: 2.35rem;
+  }
+  .chatbot-robot-slot .robot-scene {
+    width: 280px;
+    height: 280px;
+  }
+  .chatbot-robot-slot .robot-svg-container {
+    width: 170px;
+    height: 190px;
+  }
+  .chatbot-robot-slot .robot-data-card {
+    display: none;
+  }
+}

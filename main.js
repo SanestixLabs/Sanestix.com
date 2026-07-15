@@ -270,6 +270,33 @@ if (!document.getElementById('rippleStyle')) {
 }
 
 
+/* Hero dynamic headline */
+(function () {
+  const dynamicText = document.getElementById('heroDynamicText');
+  if (!dynamicText) return;
+
+  const phrases = ['smarter automation', 'AI employees', 'effortless scaling', 'modern software'];
+  let phraseIndex = 0;
+
+  setInterval(() => {
+    dynamicText.classList.add('is-changing');
+    setTimeout(() => {
+      phraseIndex = (phraseIndex + 1) % phrases.length;
+      dynamicText.textContent = phrases[phraseIndex];
+      dynamicText.classList.remove('is-changing');
+    }, 280);
+  }, 2600);
+})();
+
+/* Move robot into chatbot demo */
+(function () {
+  const robotVisual = document.querySelector('.hero-visual');
+  const chatbotSlot = document.getElementById('chatbotRobotSlot');
+  if (!robotVisual || !chatbotSlot) return;
+
+  robotVisual.removeAttribute('style');
+  chatbotSlot.appendChild(robotVisual);
+})();
 /* ── ROBOT EYE TRACKING ── */
 const leftPupil = document.getElementById('leftPupil'),
   rightPupil = document.getElementById('rightPupil'),
