@@ -575,6 +575,52 @@ nav.scrolled {
   position: relative;
   z-index: 1;
 }
+
+/* ── HERO CORNER SIGNATURE / CONTACT BUTTON ── */
+.hero { position: relative; }
+.hero-signature-btn {
+  position: absolute;
+  right: 0;
+  bottom: 9%;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 1rem 2.25rem 1rem 1.75rem;
+  border-radius: 100px 0 0 100px;
+  text-decoration: none;
+  white-space: nowrap;
+  color: #060b14;
+  background: var(--cyan);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  box-shadow: -8px 10px 34px rgba(0, 217, 255, 0.35), 0 4px 14px rgba(0, 0, 0, 0.25);
+  transition: background 0.3s ease, padding-right 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+}
+.signature-btn-icon {
+  flex-shrink: 0;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hero-signature-btn:hover,
+.hero-signature-btn:focus-visible {
+  background: var(--cyan2);
+  padding-right: 2.75rem;
+  box-shadow: -10px 14px 44px rgba(0, 217, 255, 0.5), 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+.hero-signature-btn:hover .signature-btn-icon,
+.hero-signature-btn:focus-visible .signature-btn-icon {
+  transform: rotate(45deg);
+}
+.hero-signature-btn:active { padding-right: 2rem; }
+
+@media (max-width: 900px) {
+  .hero-signature-btn { bottom: 6%; padding: 0.8rem 1.75rem 0.8rem 1.3rem; font-size: 0.85rem; }
+}
+@media (max-width: 600px) {
+  .hero-signature-btn { right: 50%; transform: translateX(50%); bottom: 4%; padding: 0.75rem 1.2rem; border-radius: 100px; font-size: 0.8rem; }
+  .hero-signature-btn:hover, .hero-signature-btn:focus-visible { padding-right: 1.2rem; }
+}
 .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
 
 /* Hero entrance animations */
@@ -1302,35 +1348,21 @@ h2 {
    INDUSTRIES
    ============================================================ */
 .industries {
-  --industry-bg-a: #030b1a;
-  --industry-bg-b: #071529;
-  --industry-glass: rgba(9, 22, 45, 0.72);
-  --industry-glass-strong: rgba(12, 31, 61, 0.82);
-  --industry-border: rgba(0, 229, 255, 0.16);
-  --industry-border-hot: rgba(0, 229, 255, 0.52);
-  --industry-muted: rgba(204, 225, 238, 0.72);
+  --industry-bg-a: #ffffff;
+  --industry-bg-b: #ffffff;
+  --industry-glass: rgba(255, 255, 255, 0.85);
+  --industry-glass-strong: rgba(255, 255, 255, 0.96);
+  --industry-border: rgba(0, 168, 190, 0.18);
+  --industry-border-hot: rgba(0, 168, 190, 0.46);
+  --industry-muted: rgba(43, 68, 84, 0.76);
   padding: 7.5rem 0;
   background:
-    radial-gradient(circle at 50% 7%, rgba(0, 229, 255, 0.18), transparent 28rem),
-    radial-gradient(circle at 12% 35%, rgba(0, 229, 208, 0.1), transparent 24rem),
-    linear-gradient(155deg, var(--industry-bg-a) 0%, var(--industry-bg-b) 100%);
+    radial-gradient(circle at 50% 0%, rgba(0, 184, 214, 0.08), transparent 32rem),
+    radial-gradient(circle at 8% 40%, rgba(0, 229, 208, 0.06), transparent 26rem),
+    #ffffff;
   overflow: hidden;
   isolation: isolate;
   transition: background 0.4s;
-}
-
-.industries {
-  --industry-bg-a: #f4fbff;
-  --industry-bg-b: #eaf7fb;
-  --industry-glass: rgba(255, 255, 255, 0.78);
-  --industry-glass-strong: rgba(255, 255, 255, 0.92);
-  --industry-border: rgba(0, 168, 190, 0.2);
-  --industry-border-hot: rgba(0, 168, 190, 0.48);
-  --industry-muted: rgba(43, 68, 84, 0.76);
-  background:
-    radial-gradient(circle at 50% 7%, rgba(0, 184, 214, 0.2), transparent 28rem),
-    radial-gradient(circle at 10% 38%, rgba(0, 229, 208, 0.12), transparent 24rem),
-    linear-gradient(155deg, var(--industry-bg-a) 0%, var(--industry-bg-b) 100%);
 }
 
 .industries::before {
@@ -1339,18 +1371,11 @@ h2 {
   inset: 0;
   z-index: -2;
   background-image:
-    linear-gradient(rgba(0, 229, 255, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 229, 255, 0.04) 1px, transparent 1px);
+    linear-gradient(rgba(0, 126, 150, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 126, 150, 0.05) 1px, transparent 1px);
   background-size: 88px 88px;
   mask-image: radial-gradient(circle at top, black 0%, transparent 72%);
-  opacity: 0.55;
-}
-
-.industries::before {
-  background-image:
-    linear-gradient(rgba(0, 126, 150, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 126, 150, 0.06) 1px, transparent 1px);
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
 .industry-particles {
@@ -1365,9 +1390,9 @@ h2 {
   width: 5px;
   height: 5px;
   border-radius: 999px;
-  background: #00e5ff;
-  box-shadow: 0 0 22px rgba(0, 229, 255, 0.85);
-  opacity: 0.42;
+  background: #00b8d6;
+  box-shadow: 0 0 18px rgba(0, 184, 214, 0.55);
+  opacity: 0.35;
   animation: industryFloat 9s ease-in-out infinite;
 }
 
@@ -1391,17 +1416,10 @@ h2 {
   width: min(720px, 100vw);
   height: 320px;
   transform: translateX(-50%);
-  background: radial-gradient(circle, rgba(0, 229, 255, 0.2), transparent 68%);
+  background: radial-gradient(circle, rgba(0, 184, 214, 0.1), transparent 68%);
   filter: blur(10px);
   pointer-events: none;
   z-index: -1;
-}
-
-.industry-badge {
-  border-color: rgba(0, 229, 255, 0.34);
-  background: linear-gradient(180deg, rgba(0, 229, 255, 0.16), rgba(2, 13, 31, 0.72));
-  box-shadow: 0 0 34px rgba(0, 229, 255, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  color: #79f6ff;
 }
 
 .industry-badge {
@@ -1485,8 +1503,8 @@ h2 {
   display: block;
   border: 1px solid var(--industry-border);
   border-radius: 24px;
-  background: #07111d;
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);
+  background: #ffffff;
+  box-shadow: 0 18px 50px rgba(4, 30, 46, 0.09);
   overflow: hidden;
   text-align: left;
   cursor: default;
@@ -1511,13 +1529,32 @@ h2 {
 .industry-card:focus-visible {
   border-color: var(--industry-border-hot);
   transform: translateY(-7px);
-  box-shadow: 0 28px 90px rgba(0, 217, 255, 0.18), 0 22px 70px rgba(0, 0, 0, 0.26);
+  box-shadow: 0 28px 90px rgba(0, 168, 190, 0.16), 0 20px 60px rgba(4, 30, 46, 0.12);
   outline: none;
 }
 
-.industry-card::before,
-.industry-card::after {
+.industry-card::before {
   content: none;
+}
+
+.industry-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(3, 14, 26, 0) 40%, rgba(2, 10, 20, 0.8) 100%);
+  pointer-events: none;
+  transition: inset 0.34s cubic-bezier(0.22,1,0.36,1), width 0.34s cubic-bezier(0.22,1,0.36,1), height 0.34s cubic-bezier(0.22,1,0.36,1), border-radius 0.34s cubic-bezier(0.22,1,0.36,1);
+}
+
+.industry-card:hover::after,
+.industry-card:focus-visible::after,
+.industry-card:focus-within::after {
+  inset: 1rem auto 1rem 1rem;
+  width: 42%;
+  height: calc(100% - 2rem);
+  border-radius: 18px;
 }
 
 .industry-image {
@@ -1581,7 +1618,7 @@ h2 {
 .industry-card:hover .industry-name,
 .industry-card:focus-visible .industry-name,
 .industry-card:focus-within .industry-name {
-  color: #ffffff;
+  color: #062236;
   font-size: 1.38rem;
   text-shadow: none;
 }
@@ -1708,22 +1745,19 @@ h2 {
   align-items: center;
   gap: 1.1rem;
   margin-top: 1.35rem;
-  padding: 1.2rem;
-  border: 1px solid rgba(0, 229, 255, 0.2);
+  padding: 1.2rem 1.4rem;
+  border: 1px solid rgba(0, 145, 170, 0.18);
   border-radius: 24px;
   background:
-    linear-gradient(90deg, rgba(0, 229, 255, 0.1), transparent 48%, rgba(0, 229, 208, 0.08)),
-    rgba(7, 20, 42, 0.82);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 20px 70px rgba(0, 0, 0, 0.24);
-  backdrop-filter: blur(18px);
+    linear-gradient(90deg, rgba(0, 184, 214, 0.08), transparent 48%, rgba(0, 229, 208, 0.08)),
+    #ffffff;
+  box-shadow: 0 20px 60px rgba(4, 30, 46, 0.08);
+  transition: box-shadow 0.3s, transform 0.3s;
 }
 
-.industry-cta-banner {
-  border-color: rgba(0, 145, 170, 0.2);
-  background:
-    linear-gradient(90deg, rgba(0, 184, 214, 0.12), transparent 48%, rgba(0, 229, 208, 0.12)),
-    rgba(255, 255, 255, 0.82);
-  box-shadow: inset 0 1px 0 #fff, 0 24px 70px rgba(0, 80, 115, 0.12);
+.industry-cta-banner:hover {
+  box-shadow: 0 24px 70px rgba(0, 168, 190, 0.14);
+  transform: translateY(-2px);
 }
 
 .industry-cta-spark {
@@ -1739,12 +1773,8 @@ h2 {
 }
 
 .industry-cta-title {
-  color: #fff;
-  font-weight: 800;
-}
-
-.industry-cta-title {
   color: #062236;
+  font-weight: 800;
 }
 
 .industry-cta-banner p {
@@ -2115,6 +2145,19 @@ footer nav, footer ul, footer li {
     width: 100%;
     height: 100%;
     border-radius: 0;
+  }
+  .industry-card:hover::after,
+  .industry-card:focus-visible::after,
+  .industry-card:focus-within::after {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+  .industry-card:hover .industry-name,
+  .industry-card:focus-visible .industry-name,
+  .industry-card:focus-within .industry-name {
+    color: #ffffff;
   }
   .industry-card:hover .industry-content,
   .industry-card:focus-visible .industry-content,
@@ -2602,7 +2645,6 @@ nav.scrolled {
 
 .stats,
 .chatbot-section,
-.industries,
 .contact {
   --text: #ffffff;
   --text-secondary: rgba(255, 255, 255, 0.82);
@@ -2635,44 +2677,10 @@ nav.scrolled {
   border-color: rgba(255, 255, 255, 0.12);
 }
 
-.industries {
-  --industry-bg-a: #111111;
-  --industry-bg-b: #16191c;
-  --industry-glass: rgba(255, 255, 255, 0.055);
-  --industry-glass-strong: rgba(255, 255, 255, 0.08);
-  --industry-border: rgba(0, 217, 255, 0.18);
-  --industry-border-hot: rgba(0, 217, 255, 0.54);
-  --industry-muted: rgba(226, 236, 242, 0.72);
+.industry-card {
   background:
-    radial-gradient(circle at 50% 7%, rgba(0, 217, 255, 0.2), transparent 28rem),
-    linear-gradient(155deg, var(--industry-bg-a) 0%, var(--industry-bg-b) 100%);
-}
-
-.industry-card,
-.industry-cta-banner {
-  background:
-    radial-gradient(circle at var(--mx, 50%) var(--my, 0%), rgba(0, 217, 255, 0.12), transparent 19rem),
-    rgba(255, 255, 255, 0.055);
-  border-color: rgba(0, 217, 255, 0.18);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);
-}
-
-.industry-name,
-.industry-cta-title {
-  color: #ffffff;
-}
-
-.industry-capabilities li {
-  color: rgba(240, 252, 255, 0.9);
-  background: rgba(0, 217, 255, 0.09);
-  border-color: rgba(0, 217, 255, 0.2);
-}
-
-.industry-badge {
-  background: rgba(0, 217, 255, 0.12);
-  border-color: rgba(0, 217, 255, 0.32);
-  color: #89f3ff;
-  box-shadow: 0 0 34px rgba(0, 217, 255, 0.16);
+    radial-gradient(circle at var(--mx, 50%) var(--my, 0%), rgba(0, 168, 190, 0.07), transparent 19rem),
+    #ffffff;
 }
 
 input,
