@@ -1551,8 +1551,6 @@ h2 {
   overflow-x: auto;
   overflow-y: visible;
   padding: 0.75rem 0 1.25rem;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
   cursor: grab;
   scrollbar-width: none;
   touch-action: pan-y;
@@ -1581,7 +1579,6 @@ h2 {
 
 .industry-card {
   position: relative;
-  min-height: 312px;
   display: block;
   border: 1px solid var(--industry-border);
   border-radius: 24px;
@@ -1597,6 +1594,7 @@ h2 {
 .industry-track .industry-card {
   flex: 0 0 286px;
   width: 286px;
+  height: 508px;
   margin-right: 1.1rem;
 }
 
@@ -1605,6 +1603,7 @@ h2 {
 .industry-track .industry-card:focus-within {
   flex-basis: 520px;
   width: 520px;
+  height: 508px;
 }
 
 .industry-card:hover,
@@ -1823,28 +1822,63 @@ h2 {
 
 .industry-cta-banner {
   display: grid;
-  grid-template-columns: auto minmax(180px, 0.75fr) minmax(260px, 1fr) auto;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 1.1rem;
+  gap: 1.25rem;
   margin-top: 1.35rem;
-  padding: 1.2rem 1.4rem;
+  padding: 1.5rem 1.75rem;
   border: 1px solid rgba(0, 145, 170, 0.18);
   border-radius: 24px;
   background:
     linear-gradient(90deg, rgba(0, 184, 214, 0.08), transparent 48%, rgba(0, 229, 208, 0.08)),
     #ffffff;
   box-shadow: 0 20px 60px rgba(4, 30, 46, 0.08);
-  transition: box-shadow 0.3s, transform 0.3s;
+  transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
 }
 
 .industry-cta-banner:hover {
-  box-shadow: 0 24px 70px rgba(0, 168, 190, 0.14);
+  box-shadow: 0 24px 70px rgba(0, 168, 190, 0.16);
   transform: translateY(-2px);
+  border-color: rgba(0, 168, 190, 0.32);
+}
+
+.industry-banner-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  padding: 0.85rem 1.5rem;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  text-decoration: none;
+  background: linear-gradient(135deg, var(--cyan), var(--cyan2));
+  color: #062236;
+  box-shadow: 0 12px 30px rgba(0, 174, 220, 0.28);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.industry-banner-btn svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.25s;
+}
+
+.industry-banner-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(0, 174, 220, 0.38);
+}
+
+.industry-banner-btn:hover svg {
+  transform: translateX(3px);
 }
 
 .industry-cta-spark {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1852,17 +1886,33 @@ h2 {
   background: rgba(0, 229, 255, 0.1);
   border: 1px solid rgba(0, 229, 255, 0.22);
   box-shadow: 0 0 30px rgba(0, 229, 255, 0.16);
+  color: #00a7c4;
+}
+
+.industry-cta-spark svg {
+  width: 24px;
+  height: 24px;
+  stroke-width: 2;
+}
+
+.industry-cta-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
 }
 
 .industry-cta-title {
   color: #062236;
   font-weight: 800;
+  font-size: 1.05rem;
 }
 
-.industry-cta-banner p {
+.industry-cta-copy p {
   margin: 0;
   color: var(--industry-muted);
   line-height: 1.6;
+  font-size: 0.9rem;
 }
 
 @keyframes industryFloat {
@@ -2160,15 +2210,17 @@ footer nav, footer ul, footer li {
   .industry-track .industry-card {
     flex-basis: 300px;
     width: 300px;
+    height: 533px;
   }
   .industry-track .industry-card:hover,
   .industry-track .industry-card:focus-visible,
   .industry-track .industry-card:focus-within {
     flex-basis: 460px;
     width: 460px;
+    height: 533px;
   }
   .industry-cta-banner { grid-template-columns: auto 1fr; }
-  .industry-cta-banner p,
+  .industry-cta-copy,
   .industry-banner-btn { grid-column: 1 / -1; }
   .why-grid { grid-template-columns: 1fr 1fr; }
   nav { padding: 0 1.25rem; }
@@ -2203,9 +2255,7 @@ footer nav, footer ul, footer li {
     overflow-y: visible;
     margin: 0 -1.25rem 1.25rem;
     width: calc(100% + 2.5rem);
-    padding: 0.5rem 0 1.25rem;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
-    mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+    padding: 0.5rem 1.25rem 1.25rem;
     scrollbar-width: none;
   }
   .industry-rail::-webkit-scrollbar { display: none; }
@@ -2219,8 +2269,9 @@ footer nav, footer ul, footer li {
   .industry-track .industry-card:focus-within {
     flex-basis: min(82vw, 330px);
     width: min(82vw, 330px);
+    aspect-ratio: 9 / 16;
+    height: auto;
     margin-right: 0.9rem;
-    min-height: 320px;
     border-radius: 20px;
   }
   .industry-card:hover .industry-image,
@@ -2267,7 +2318,6 @@ footer nav, footer ul, footer li {
     max-width: 0;
     opacity: 0;
   }
-  .industry-primary-cta,
   .industry-banner-btn { width: 100%; }
   .industry-cta-banner { grid-template-columns: 1fr; text-align: center; justify-items: center; }
   .cta-banner-btns { flex-direction: column; align-items: center; }
