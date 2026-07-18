@@ -3194,129 +3194,155 @@ textarea {
 .saas-deco path { stroke: rgba(0, 0, 0, 0.08) !important; }
 .saas-deco circle { fill: rgba(0, 0, 0, 0.1) !important; }
 
+
 /* ============================================================
-   SERVICES — 3D Rotating Carousel (monochrome, hover to reveal)
+   SERVICES — 3D Rotating Carousel (monochrome, hover/tap to reveal)
+   Works as a true 3D ring at every screen size; only the card
+   size, ring radius, and animation speed scale down for mobile.
    ============================================================ */
 .svc-orbit-section { padding-top: 1rem; }
 
-/* ---- Base / mobile-first: simple accessible stacked cards ---- */
-.svc-orbit-wrap { position: relative; width: 100%; }
-.svc-orbit-ring { display: grid; grid-template-columns: 1fr; gap: 1.1rem; }
-.svc-orbit-card { position: relative; }
-.svc-orbit-card-inner {
+.svc-orbit-wrap {
+  --w: 168px;
+  --h: 222px;
+  --radius: 190px;
   position: relative;
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 1.6rem 1.5rem;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, background 0.3s ease;
+  display: flex; align-items: center; justify-content: center;
+  width: 100%;
+  height: 340px;
+  perspective: 950px;
 }
+
+.svc-orbit-ring {
+  position: relative;
+  width: var(--w); height: var(--h);
+  transform-style: preserve-3d;
+  animation: svcOrbitSpin 26s linear infinite;
+  will-change: transform;
+}
+.svc-orbit-ring:hover,
+.svc-orbit-ring.is-paused { animation-play-state: paused; }
+
+@keyframes svcOrbitSpin {
+  from { transform: rotateX(-8deg) rotateY(0deg); }
+  to   { transform: rotateX(-8deg) rotateY(360deg); }
+}
+
+.svc-orbit-card {
+  position: absolute; inset: 0;
+  transform: rotateY(calc((360deg / var(--quantity)) * var(--index))) translateZ(var(--radius));
+}
+
+.svc-orbit-card-inner {
+  position: absolute; inset: 0;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(17, 17, 17, 0.14);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  box-shadow: 0 16px 38px rgba(10, 15, 20, 0.1);
+  padding: 1.15rem 1rem;
+  display: flex; flex-direction: column;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.45s ease, border-color 0.45s ease, background 0.45s ease;
+}
+.svc-orbit-card:hover .svc-orbit-card-inner,
+.svc-orbit-card.is-active .svc-orbit-card-inner {
+  transform: translateZ(30px) scale(1.08);
+  border-color: rgba(17, 17, 17, 0.5);
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 24px 54px rgba(10, 15, 20, 0.2);
+}
+
 .svc-orbit-icon {
-  width: 44px; height: 44px; border-radius: 12px;
+  width: 34px; height: 34px; border-radius: 10px;
   background: rgba(17, 17, 17, 0.05);
   border: 1px solid rgba(17, 17, 17, 0.08);
   display: flex; align-items: center; justify-content: center;
-  color: var(--text); margin-bottom: 1rem; flex-shrink: 0;
+  color: var(--text); margin-bottom: 0.6rem; flex-shrink: 0;
 }
-.svc-orbit-front h3 { font-size: 1.05rem; font-weight: 700; margin: 0 0 0.3rem; letter-spacing: -0.01em; }
-.svc-orbit-count { font-size: 0.76rem; color: var(--muted); font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase; }
-.svc-orbit-back { margin-top: 1.1rem; padding-top: 1.1rem; border-top: 1px dashed var(--border); }
-.svc-orbit-back h4 { display: none; }
-.svc-orbit-back ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
-.svc-orbit-back li {
-  font-size: 0.85rem; color: var(--muted); display: flex; align-items: center; gap: 0.55rem; line-height: 1.4;
+.svc-orbit-icon svg { width: 17px; height: 17px; }
+
+.svc-orbit-front {
+  position: absolute; inset: 0;
+  padding: 1.15rem 1rem;
+  display: flex; flex-direction: column; justify-content: center;
+  opacity: 1; transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
-.svc-orbit-back li::before {
-  content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--text); flex-shrink: 0; opacity: 0.55;
+.svc-orbit-card:hover .svc-orbit-front,
+.svc-orbit-card.is-active .svc-orbit-front { opacity: 0; transform: translateY(-8px); pointer-events: none; }
+
+.svc-orbit-front h3 { font-size: 0.86rem; font-weight: 700; margin: 0 0 0.25rem; letter-spacing: -0.01em; line-height: 1.25; }
+.svc-orbit-count { font-size: 0.62rem; color: var(--muted); font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase; }
+
+.svc-orbit-back {
+  position: absolute; inset: 0;
+  padding: 1.15rem 1rem;
+  display: flex; flex-direction: column;
+  opacity: 0; transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 0.35s ease 0.05s, transform 0.35s ease 0.05s;
 }
+.svc-orbit-card:hover .svc-orbit-back,
+.svc-orbit-card.is-active .svc-orbit-back { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+.svc-orbit-back h4 { font-size: 0.78rem; font-weight: 700; margin: 0 0 0.55rem; letter-spacing: -0.01em; }
+.svc-orbit-back ul { list-style: none; display: flex; flex-direction: column; gap: 0.32rem; overflow-y: auto; max-height: 118px; padding-right: 3px; }
+.svc-orbit-back li { font-size: 0.66rem; color: var(--muted); display: flex; align-items: center; gap: 0.4rem; line-height: 1.3; }
+.svc-orbit-back li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--text); flex-shrink: 0; opacity: 0.55; }
+.svc-orbit-back ul::-webkit-scrollbar { width: 3px; }
+.svc-orbit-back ul::-webkit-scrollbar-thumb { background: rgba(17, 17, 17, 0.2); border-radius: 10px; }
+
 .svc-orbit-cta {
-  margin-top: 1.1rem; display: inline-flex; align-items: center; gap: 0.3rem;
-  font-size: 0.85rem; font-weight: 700; color: var(--text); text-decoration: none;
+  margin-top: auto; padding-top: 0.6rem; display: inline-flex; align-items: center; gap: 0.3rem;
+  font-size: 0.66rem; font-weight: 700; color: var(--text); text-decoration: none;
   border-bottom: 1.5px solid var(--text); padding-bottom: 2px; width: max-content; transition: opacity 0.2s;
 }
 .svc-orbit-cta:hover { opacity: 0.6; }
-.svc-orbit-hint { display: none; }
 
-/* ---- Desktop enhancement: real 3D rotating ring ---- */
+.svc-orbit-hint {
+  display: block; text-align: center; margin-top: 1.1rem;
+  font-size: 0.78rem; color: var(--muted); letter-spacing: 0.01em;
+  padding: 0 1rem;
+}
+
+/* ---- Large phones / small tablets ---- */
+@media (min-width: 481px) {
+  .svc-orbit-wrap { --w: 208px; --h: 268px; --radius: 230px; height: 400px; perspective: 1150px; }
+  .svc-orbit-card-inner { padding: 1.4rem 1.25rem; border-radius: 18px; }
+  .svc-orbit-front, .svc-orbit-back { padding: 1.4rem 1.25rem; }
+  .svc-orbit-icon { width: 38px; height: 38px; }
+  .svc-orbit-icon svg { width: 19px; height: 19px; }
+  .svc-orbit-front h3 { font-size: 0.95rem; }
+  .svc-orbit-back h4 { font-size: 0.86rem; }
+  .svc-orbit-back li { font-size: 0.72rem; }
+  .svc-orbit-back ul { max-height: 140px; }
+}
+
+/* ---- Tablets ---- */
+@media (min-width: 700px) {
+  .svc-orbit-wrap { --w: 240px; --h: 310px; --radius: 265px; height: 480px; perspective: 1400px; animation-duration: 30s; }
+  .svc-orbit-ring { animation-duration: 30s; }
+}
+
+/* ---- Desktop ---- */
 @media (min-width: 900px) {
-  .svc-orbit-wrap {
-    --w: 270px;
-    --h: 340px;
-    --radius: 300px;
-    display: flex; align-items: center; justify-content: center;
-    height: 560px;
-    perspective: 1700px;
-  }
-  .svc-orbit-ring {
-    display: block;
-    position: relative;
-    width: var(--w); height: var(--h);
-    transform-style: preserve-3d;
-    animation: svcOrbitSpin 34s linear infinite;
-    will-change: transform;
-  }
-  .svc-orbit-ring:hover { animation-play-state: paused; }
-
-  @keyframes svcOrbitSpin {
-    from { transform: rotateX(-8deg) rotateY(0deg); }
-    to   { transform: rotateX(-8deg) rotateY(360deg); }
-  }
-
-  .svc-orbit-card {
-    position: absolute; inset: 0;
-    transform: rotateY(calc((360deg / var(--quantity)) * var(--index))) translateZ(var(--radius));
-  }
-
-  .svc-orbit-card-inner {
-    position: absolute; inset: 0;
-    border-radius: 22px;
-    background: rgba(255, 255, 255, 0.6);
-    border: 1px solid rgba(17, 17, 17, 0.14);
-    backdrop-filter: blur(12px) saturate(140%);
-    -webkit-backdrop-filter: blur(12px) saturate(140%);
-    box-shadow: 0 24px 60px rgba(10, 15, 20, 0.1);
-    padding: 2.1rem 1.85rem;
-    display: flex; flex-direction: column;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.45s ease, border-color 0.45s ease, background 0.45s ease;
-  }
-  .svc-orbit-card:hover .svc-orbit-card-inner {
-    transform: translateZ(46px) scale(1.09);
-    border-color: rgba(17, 17, 17, 0.5);
-    background: rgba(255, 255, 255, 0.96);
-    box-shadow: 0 34px 80px rgba(10, 15, 20, 0.2);
-  }
-
-  .svc-orbit-front {
-    position: absolute; inset: 0;
-    padding: 2.1rem 1.85rem;
-    display: flex; flex-direction: column; justify-content: center;
-    opacity: 1; transform: translateY(0);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
-  .svc-orbit-card:hover .svc-orbit-front { opacity: 0; transform: translateY(-10px); pointer-events: none; }
-
-  .svc-orbit-back {
-    position: absolute; inset: 0;
-    padding: 2.1rem 1.85rem;
-    margin: 0; border: none;
-    display: flex; flex-direction: column;
-    opacity: 0; transform: translateY(10px);
-    pointer-events: none;
-    transition: opacity 0.35s ease 0.05s, transform 0.35s ease 0.05s;
-  }
-  .svc-orbit-card:hover .svc-orbit-back { opacity: 1; transform: translateY(0); pointer-events: auto; }
-  .svc-orbit-back h4 { display: block; font-size: 1.02rem; font-weight: 700; margin: 0 0 1rem; letter-spacing: -0.01em; }
-  .svc-orbit-back ul { overflow-y: auto; max-height: 175px; padding-right: 4px; }
-  .svc-orbit-back ul::-webkit-scrollbar { width: 4px; }
-  .svc-orbit-back ul::-webkit-scrollbar-thumb { background: rgba(17, 17, 17, 0.2); border-radius: 10px; }
-  .svc-orbit-cta { margin-top: auto; padding-top: 1rem; }
-
-  .svc-orbit-hint {
-    display: block; text-align: center; margin-top: 1.5rem;
-    font-size: 0.85rem; color: var(--muted); letter-spacing: 0.01em;
-  }
+  .svc-orbit-wrap { --w: 270px; --h: 340px; --radius: 300px; height: 560px; perspective: 1700px; }
+  .svc-orbit-ring { animation-duration: 34s; }
+  .svc-orbit-card-inner { padding: 2.1rem 1.85rem; border-radius: 22px; }
+  .svc-orbit-front, .svc-orbit-back { padding: 2.1rem 1.85rem; }
+  .svc-orbit-icon { width: 44px; height: 44px; border-radius: 12px; }
+  .svc-orbit-icon svg { width: 22px; height: 22px; }
+  .svc-orbit-front h3 { font-size: 1.05rem; margin-bottom: 0.3rem; }
+  .svc-orbit-count { font-size: 0.76rem; }
+  .svc-orbit-back h4 { font-size: 1.02rem; margin-bottom: 1rem; }
+  .svc-orbit-back ul { max-height: 175px; gap: 0.55rem; }
+  .svc-orbit-back li { font-size: 0.85rem; gap: 0.55rem; }
+  .svc-orbit-back li::before { width: 5px; height: 5px; }
+  .svc-orbit-cta { font-size: 0.85rem; padding-top: 1rem; }
+  .svc-orbit-hint { font-size: 0.85rem; margin-top: 1.5rem; }
 }
 
 @media (min-width: 1120px) {

@@ -842,3 +842,36 @@ function ucColors() {
     bar.style.width = (window.scrollY / docH * 100) + '%';
   }, { passive: true });
 })();
+
+/* ── SERVICES ORBIT — tap-to-pause for touch devices ── */
+(function() {
+  const ring = document.querySelector('.svc-orbit-ring');
+  if (!ring) return;
+  const cards = ring.querySelectorAll('.svc-orbit-card');
+
+  function closeAll() {
+    cards.forEach(c => c.classList.remove('is-active'));
+    ring.classList.remove('is-paused');
+  }
+
+  cards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      // Only intercept on touch/coarse-pointer devices; desktop relies on :hover.
+      if (window.matchMedia('(hover: hover)').matches) return;
+      const alreadyActive = card.classList.contains('is-active');
+      closeAll();
+      if (!alreadyActive) {
+        card.classList.add('is-active');
+        ring.classList.add('is-paused');
+      } else {
+        e.preventDefault();
+      }
+      // Prevent the "Get a Quote" link from firing on the tap that opens the card.
+      if (!alreadyActive) e.preventDefault();
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!ring.contains(e.target)) closeAll();
+  });
+})();
