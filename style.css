@@ -1,5 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+/* NOTE ON "Pangea": Pangea (by Fontwerk) is a paid, licensed typeface — it
+   is not distributed via Google Fonts or any free CDN, so it can't be
+   @imported here. --font-desc below points at 'Pangea' first; if you own
+   a license, drop the WOFF2 files into an /assets/fonts folder and add an
+   @font-face block near the top of this file (see the commented example
+   just above :root) to activate it. Until then, browsers will silently
+   fall back to the next font in the stack, so the site still looks
+   intentional rather than broken. */
+/*
+@font-face {
+  font-family: 'Pangea';
+  src: url('assets/fonts/Pangea-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+*/
 
 /* ============================================================
    SANESTIX — Main Stylesheet
@@ -8,6 +25,8 @@
 
 /* VARIABLES */
 :root {
+  --font-heading: 'Instrument Serif', serif;
+  --font-desc: 'Pangea', 'DM Sans', 'Sora', sans-serif;
   --transition-theme: background 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
   --cyan: #00d9ff;
   --cyan2: #00a7d8;
@@ -93,6 +112,40 @@ section { position: relative; z-index: 1; }
    since that pairing (solid highlight + Alex Brush) is already dialed in. */
 .font-instrument-serif { font-family: 'Instrument Serif', serif; }
 .font-instrument-serif-italic { font-family: 'Instrument Serif', serif; font-style: italic; }
+
+/* ============================================================
+   GLOBAL TYPOGRAPHY — Headings & Descriptions
+   Hero h1 stays at Instrument Serif's natural regular weight
+   with open tracking (already dialed in via .glass-hero
+   .hero-title-static). Section headings (h2) are bold, per
+   request — this covers the full list of section titles
+   ("From Visitor to Closed Deal, Automatically", "The AI-First
+   Difference", etc.), since every one of them is an <h2>.
+   h3–h6 (card titles, mega-menu headings) stay at regular
+   weight to match the hero's proportions. !important is used
+   deliberately: dozens of component rules set their own weight +
+   tight negative letter-spacing tuned for the old sans-serif,
+   and those need to be overridden everywhere for a consistent
+   look. All description / body-copy text uses Pangea (see
+   licensing note at top of file).
+   ============================================================ */
+h1, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+}
+h2 {
+  font-family: var(--font-heading);
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+}
+p,
+[class*="-desc"],
+.hero-sub,
+.footer-cta-sub,
+.testi-quote {
+  font-family: var(--font-desc);
+}
 
 /* ============================================================
    LIQUID GLASS
@@ -846,10 +899,10 @@ nav.scrolled {
   50% { opacity: 0.8; transform: scale(1.4); box-shadow: 0 0 0 6px rgba(0,229,208,0); }
 }
 h1 {
-  font-weight: 800;
+  font-weight: 400;
   font-size: clamp(2.8rem, 5vw, 4.6rem);
-  line-height: 1.0;
-  letter-spacing: -0.04em;
+  line-height: 1.05;
+  letter-spacing: 0;
   margin-bottom: 1.25rem;
 }
 .grad {
@@ -970,10 +1023,10 @@ h1 {
   margin-bottom: 1.2rem;
 }
 h2 {
-  font-weight: 800;
+  font-weight: 400;
   font-size: clamp(2.2rem, 3.5vw, 3.2rem);
-  letter-spacing: -0.04em;
-  line-height: 1.05;
+  letter-spacing: 0;
+  line-height: 1.1;
   margin-bottom: 1rem;
 }
 .section-desc { color: var(--muted); max-width: 520px; margin: 0 auto; line-height: 1.7; font-size: 0.95rem; }
@@ -2334,7 +2387,7 @@ footer nav, footer ul, footer li {
   .hero-btns { justify-content: center; gap: 0.75rem; }
   .hero-btns a { font-size: 0.82rem; padding: 0.75rem 1.3rem; }
   .platform-pills { justify-content: center; gap: 1rem; }
-  h1 { font-size: clamp(2.4rem, 8vw, 3.5rem); letter-spacing: -0.03em; }
+  h1 { font-size: clamp(2.4rem, 8vw, 3.5rem); letter-spacing: 0; }
   .orbit-ring:nth-child(1) { width: 200px; height: 200px; }
   .orbit-ring:nth-child(2) { width: 280px; height: 280px; }
   .orbit-ring:nth-child(3) { display: none; }
