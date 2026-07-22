@@ -154,12 +154,16 @@ p,
 .team-bio {
   font-family: var(--font-desc);
   font-size: 1rem !important;
-  line-height: 1.75 !important;
+  line-height: 1.7 !important;
 }
+/* Bigger treatment reserved for the main intro paragraph under
+   each section heading (e.g. "We engineer AI-powered revenue
+   machines...") and the hero subtitle — not card/nav copy. */
+.section-desc,
 .hero-sub {
   font-family: var(--font-desc);
   font-size: 1.15rem !important;
-  line-height: 1.75 !important;
+  line-height: 1.8 !important;
 }
 label,
 [class*="-badge"],
@@ -173,6 +177,13 @@ label,
 .svc-orbit-count,
 .pf-tab {
   font-family: var(--font-technical) !important;
+}
+/* "-static" contains the substring "-stat", so the wildcard
+   rule above unintentionally catches the hero headline — force
+   it back to Instrument Serif, as in the original design. */
+.hero-title-static,
+.glass-hero .hero-title-static {
+  font-family: 'Instrument Serif', serif !important;
 }
 
 /* ============================================================
