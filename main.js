@@ -15,10 +15,12 @@ const mobileMenuEl = document.getElementById('mobileMenu');
 
 function openMobile() {
   mobileMenuEl.style.display = 'flex';
+  hamburgerBtn.classList.add('active');
   hamburgerBtn.setAttribute('aria-expanded', 'true');
 }
 function closeMobile() {
   mobileMenuEl.style.display = 'none';
+  hamburgerBtn.classList.remove('active');
   hamburgerBtn.setAttribute('aria-expanded', 'false');
 }
 hamburgerBtn.setAttribute('aria-expanded', 'false');
