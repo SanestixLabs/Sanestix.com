@@ -1,23 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
-/* NOTE ON "Pangea": Pangea (by Fontwerk) is a paid, licensed typeface — it
-   is not distributed via Google Fonts or any free CDN, so it can't be
-   @imported here. --font-desc below points at 'Pangea' first; if you own
-   a license, drop the WOFF2 files into an /assets/fonts folder and add an
-   @font-face block near the top of this file (see the commented example
-   just above :root) to activate it. Until then, browsers will silently
-   fall back to the next font in the stack, so the site still looks
-   intentional rather than broken. */
-/*
-@font-face {
-  font-family: 'Pangea';
-  src: url('assets/fonts/Pangea-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-*/
-
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+/* NOTE ON BODY FONT: description / body-copy text uses Outfit,
+   imported above via Google Fonts and set through --font-desc.
+   Headings keep using Instrument Serif (--font-heading) —
+   unaffected by this. Pangea (a paid Fontwerk typeface) is no
+   longer referenced; if you'd like to switch to it later, drop
+   the licensed WOFF2 files into /assets/fonts, add an @font-face
+   block, and update --font-desc accordingly. */
 /* ============================================================
    SANESTIX — Main Stylesheet
    AI-Powered Web Development & Automation Agency
@@ -26,7 +17,8 @@
 /* VARIABLES */
 :root {
   --font-heading: 'Instrument Serif', serif;
-  --font-desc: 'Pangea', 'DM Sans', 'Sora', sans-serif;
+  --font-desc: 'Outfit', 'DM Sans', 'Sora', sans-serif;
+  --font-technical: 'Space Grotesk', 'DM Sans', sans-serif;
   --transition-theme: background 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
   --cyan: #00d9ff;
   --cyan2: #00a7d8;
@@ -72,7 +64,7 @@ html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100%; }
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'DM Sans', 'Sora', sans-serif;
+  font-family: 'Outfit', 'DM Sans', 'Sora', sans-serif;
   overflow-x: hidden;
   max-width: 100%;
   min-height: 100vh;
@@ -121,15 +113,21 @@ section { position: relative; z-index: 1; }
    request — this covers the full list of section titles
    ("From Visitor to Closed Deal, Automatically", "The AI-First
    Difference", etc.), since every one of them is an <h2>.
-   h3–h6 (card titles, mega-menu headings) stay at regular
-   weight to match the hero's proportions. !important is used
-   deliberately: dozens of component rules set their own weight +
-   tight negative letter-spacing tuned for the old sans-serif,
-   and those need to be overridden everywhere for a consistent
-   look. All description / body-copy text uses Pangea (see
-   licensing note at top of file).
+   h3–h6 (card titles, mega-menu headings, service names) use
+   Space Grotesk as "small headlines" — everything below h2 is
+   a component-level heading rather than a page headline, so it
+   sits with the labels/badges/technical group instead of
+   Instrument Serif. !important is used deliberately: dozens of
+   component rules set their own weight + tight negative
+   letter-spacing tuned for the old sans-serif, and those need
+   to be overridden everywhere for a consistent look. All
+   description / body-copy text uses Outfit at a larger base
+   size (1rem, hero-sub at 1.15rem — dozens of component rules
+   set their own smaller font-size, hence !important here too).
+   Labels, metrics, badges, tags, pills, and other technical UI
+   text use Space Grotesk (--font-technical).
    ============================================================ */
-h1, h3, h4, h5, h6 {
+h1 {
   font-family: var(--font-heading);
   font-weight: 400 !important;
   letter-spacing: 0 !important;
@@ -139,12 +137,42 @@ h2 {
   font-weight: 700 !important;
   letter-spacing: 0 !important;
 }
+h3, h4, h5, h6 {
+  font-family: var(--font-technical);
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+}
 p,
 [class*="-desc"],
-.hero-sub,
+[class*="-features"] li,
 .footer-cta-sub,
-.testi-quote {
+.testi-quote,
+.about-body,
+.chatbot-body,
+.saas-card-body,
+.pf-detail-body,
+.team-bio {
   font-family: var(--font-desc);
+  font-size: 1rem !important;
+  line-height: 1.75 !important;
+}
+.hero-sub {
+  font-family: var(--font-desc);
+  font-size: 1.15rem !important;
+  line-height: 1.75 !important;
+}
+label,
+[class*="-badge"],
+[class*="-label"],
+[class*="-tag"],
+[class*="-pill"],
+[class*="-stat"],
+.saas-product-name,
+.team-name,
+.pf-detail-title,
+.svc-orbit-count,
+.pf-tab {
+  font-family: var(--font-technical) !important;
 }
 
 /* ============================================================
