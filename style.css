@@ -133,9 +133,13 @@ h1 {
   letter-spacing: 0 !important;
 }
 h2 {
-  font-family: var(--font-heading);
+  font-family: var(--font-technical);
   font-weight: 700 !important;
   letter-spacing: 0 !important;
+}
+/* Footer keeps the editorial Instrument Serif treatment */
+.footer-cta-title {
+  font-family: var(--font-heading) !important;
 }
 h3, h4, h5, h6 {
   font-family: var(--font-technical);
@@ -3029,40 +3033,6 @@ nav.scrolled {
   background: linear-gradient(135deg, #00d9ff, #00a7d8);
   color: #080a0c;
   box-shadow: 0 16px 40px rgba(0, 174, 220, 0.28);
-}
-
-.process-flow {
-  background: #00c9f2;
-  color: #080a0c;
-}
-
-.process-flow .section-desc,
-.process-flow .pf-node-label,
-.process-flow .pf-tab {
-  color: rgba(8, 10, 12, 0.72);
-}
-
-.process-flow .pf-tab.active {
-  background: rgba(255, 255, 255, 0.88);
-  border-color: rgba(8, 10, 12, 0.14);
-  color: #05313e;
-  box-shadow: 0 12px 30px rgba(0, 68, 85, 0.12);
-}
-
-.process-flow .section-tag {
-  color: #05313e;
-}
-
-.process-flow .pf-tab,
-.process-flow .pf-node-circle,
-.process-flow .pf-detail-card {
-  background: rgba(255, 255, 255, 0.92);
-  border-color: rgba(8, 10, 12, 0.12);
-}
-
-.process-flow .pf-node.active .pf-node-label,
-.process-flow .pf-node.active .pf-node-circle svg {
-  color: #05313e;
 }
 
 .stats,
