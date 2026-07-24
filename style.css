@@ -1125,83 +1125,69 @@ h2 {
 /* ============================================================
    STATS BAR
    ============================================================ */
-.stats { padding: 5rem 0; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+.stats { padding: 3.25rem 0; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+.stats .container { max-width: 920px; }
 .stats::before {
   content: ''; position: absolute; left: -100%; top: 0; bottom: 0; width: 60%;
   background: linear-gradient(90deg, transparent, rgba(0,229,208,0.04), transparent);
   animation: scanLine 5s linear infinite;
 }
-.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; text-align: center; }
 
-/* ── Uiverse-inspired glowing stat cards ── */
-.stat-outer {
-  position: relative;
-  border-radius: 16px;
-  padding: 1px;
-  min-height: 200px;
-  background: radial-gradient(circle 230px at 0% 0%, rgba(255,255,255,0.9), #0c0d0d);
-  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
-}
-.stat-outer:hover { transform: translateY(-6px); }
-.stat-dot {
-  width: 5px; aspect-ratio: 1;
-  position: absolute;
-  background-color: #fff;
-  box-shadow: 0 0 10px #ffffff;
-  border-radius: 100px;
-  z-index: 2;
-  right: 10%; top: 10%;
-  animation: statMoveDot 6s linear infinite;
-}
-@keyframes statMoveDot {
-  0%, 100% { top: 10%; right: 10%; }
-  25%  { top: 10%; right: calc(100% - 28px); }
-  50%  { top: calc(100% - 24px); right: calc(100% - 28px); }
-  75%  { top: calc(100% - 24px); right: 10%; }
-}
-.stat-card {
-  z-index: 1;
-  width: 100%; height: 100%;
-  min-height: 200px;
-  border-radius: 15px;
-  border: solid 1px #202222;
-  background: radial-gradient(circle 260px at 0% 0%, #3a3a3a, #0c0d0d);
-  display: flex; align-items: center; justify-content: center;
-  flex-direction: column; gap: 0.15rem;
-  position: relative;
+/* Single continuous rail used on every screen size: content is duplicated
+   once in the markup and the track animates from 0 to -50%, so the loop
+   is seamless and always appears to move from right to left. */
+.stats-marquee {
   overflow: hidden;
-  padding: 1.5rem 1rem;
-  color: #fff;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
 }
-.stat-ray {
-  width: 220px; height: 45px;
-  border-radius: 100px;
-  position: absolute;
-  background-color: #c7c7c7;
-  opacity: 0.35;
-  box-shadow: 0 0 50px #ffffff;
-  filter: blur(10px);
-  transform-origin: 10%;
-  top: 0; left: 0;
-  transform: rotate(40deg);
-  pointer-events: none;
+.stats-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: statsMarquee 34s linear infinite;
 }
-.stat-value {
+@keyframes statsMarquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Drop-cap style stat: oversized number anchors the left, copy flows beside it.
+   Same padding/gap at every breakpoint so labels never collide. */
+.stat-item {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 0.85rem;
+  position: relative;
+  z-index: 1;
+  padding: 0 1.75rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+}
+.stat-copy { display: flex; flex-direction: column; gap: 0.2rem; flex: 0 0 auto; white-space: nowrap; }
+.stat-val {
+  font-family: var(--font-technical);
   font-weight: 800;
-  font-size: clamp(2rem, 4vw, 2.85rem);
-  line-height: 1.1;
-  background: linear-gradient(45deg, #000000 4%, #ffffff, #000000);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  margin-bottom: 0.15rem;
-  position: relative; z-index: 1;
+  font-size: clamp(2.75rem, 4.2vw, 3.75rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  flex-shrink: 0;
 }
-.stat-label { color: rgba(255,255,255,0.82); font-size: 0.85rem; font-weight: 600; position: relative; z-index: 1; }
-.stat-note { color: rgba(255,255,255,0.5); font-size: 0.7rem; margin-top: 0.2rem; position: relative; z-index: 1; }
-.stat-line { position: absolute; background-color: #2c2c2c; }
-.stat-line.topl { top: 10%; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, #888888 30%, #1d1f1f 70%); }
-.stat-line.bottoml { bottom: 10%; left: 0; width: 100%; height: 1px; }
-.stat-line.leftl { left: 10%; top: 0; width: 1px; height: 100%; background: linear-gradient(180deg, #747474 30%, #222424 70%); }
-.stat-line.rightl { right: 10%; top: 0; width: 1px; height: 100%; }
+.stat-label {
+  font-family: var(--font-technical);
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.3;
+  color: rgba(255, 255, 255, 0.92);
+}
+.stat-note {
+  font-family: var(--font-desc);
+  font-weight: 400;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.7);
+}
 
 /* ============================================================
    USE CASES
@@ -2483,7 +2469,6 @@ footer nav, footer ul, footer li {
   .orbit-ring:nth-child(1) { width: 200px; height: 200px; }
   .orbit-ring:nth-child(2) { width: 280px; height: 280px; }
   .orbit-ring:nth-child(3) { display: none; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .services-grid { grid-template-columns: 1fr; }
   .workflow-grid { grid-template-columns: 1fr 1fr; }
   .contact-grid { grid-template-columns: 1fr; }
@@ -2530,7 +2515,6 @@ footer nav, footer ul, footer li {
   .hero-btns { flex-direction: column; align-items: center; gap: 0.65rem; }
   .hero-btns a { width: 100%; max-width: 280px; justify-content: center; }
   .workflow-grid { grid-template-columns: 1fr; }
-  .stats-grid { grid-template-columns: 1fr 1fr; }
   .form-row { grid-template-columns: 1fr; }
   .container { padding: 0 1.25rem; }
   h1 { font-size: clamp(2.1rem, 9vw, 3rem); }
