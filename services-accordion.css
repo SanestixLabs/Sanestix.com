@@ -81,7 +81,7 @@
   background: linear-gradient(135deg, var(--cyan), var(--cyan2));
   transform: scaleY(0);
   transform-origin: bottom;
-  transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+  transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: -1;
 }
 .svc-acc-header:hover::before,
@@ -93,7 +93,7 @@
 .svc-acc-item.active .svc-acc-num,
 .svc-acc-item.active .svc-acc-title {
   color: #060b14;
-  transition: color 0.3s ease;
+  transition: color 0.18s ease;
 }
 .svc-acc-header:hover .svc-acc-toggle,
 .svc-acc-item.active .svc-acc-toggle {
@@ -112,14 +112,14 @@
   font-size: 1.05rem;
   letter-spacing: 0.02em;
   color: var(--muted);
-  transition: color 0.3s ease;
+  transition: color 0.18s ease;
 }
 .svc-acc-title {
   flex: 1;
   min-width: 0;
   margin: 0;
   font-size: clamp(1.15rem, 2vw, 1.5rem);
-  transition: color 0.3s ease;
+  transition: color 0.18s ease;
 }
 
 .svc-acc-toggle {
@@ -129,7 +129,7 @@
   height: 42px;
   border-radius: 50%;
   background: rgba(0, 229, 208, 0.08);
-  transition: background 0.3s ease;
+  transition: background 0.2s ease;
 }
 .svc-acc-toggle .bar {
   position: absolute;
@@ -137,19 +137,22 @@
   background: var(--cyan);
   border-radius: 2px;
   transform: translate(-50%, -50%);
-  transition: transform 0.3s ease, background 0.3s ease;
+  transition: transform 0.3s ease, background 0.2s ease;
 }
 .svc-acc-toggle .bar-h { width: 14px; height: 2px; }
 .svc-acc-toggle .bar-v { width: 2px; height: 14px; }
 .svc-acc-item.active .svc-acc-toggle .bar-v { transform: translate(-50%, -50%) scaleY(0); }
 
-/* Expandable panel */
+/* Expandable panel — max-height is set to the panel's exact measured
+   pixel height by JS when opened (see services-accordion.js), and back
+   to 0 when closed. This avoids relying on grid-template-rows' "auto
+   minimum size" behavior, which wasn't reliably collapsing closed
+   panels to zero in every browser and let text peek out below rows. */
 .svc-acc-panel {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.svc-acc-item.active .svc-acc-panel { max-height: 46rem; }
 
 .svc-acc-panel-inner {
   display: flex;

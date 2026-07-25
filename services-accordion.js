@@ -109,19 +109,47 @@
         '</div>' +
       '</section>';
 
+    function closePanel(item) {
+      var panel = item.querySelector('.svc-acc-panel');
+      item.classList.remove('active');
+      item.querySelector('.svc-acc-header').setAttribute('aria-expanded', 'false');
+      panel.style.maxHeight = '0px';
+    }
+
+    function openPanel(item) {
+      var panel = item.querySelector('.svc-acc-panel');
+      item.classList.add('active');
+      item.querySelector('.svc-acc-header').setAttribute('aria-expanded', 'true');
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+    }
+
+    var allItems = mount.querySelectorAll('.svc-acc-item');
+
+    // Set the default-open panel's height immediately (no animation on load)
+    allItems.forEach(function (item) {
+      var panel = item.querySelector('.svc-acc-panel');
+      panel.style.maxHeight = item.classList.contains('active') ? panel.scrollHeight + 'px' : '0px';
+    });
+
     mount.querySelectorAll('.svc-acc-header').forEach(function (header) {
       header.addEventListener('click', function () {
         var item = header.closest('.svc-acc-item');
         var wasActive = item.classList.contains('active');
 
-        mount.querySelectorAll('.svc-acc-item.active').forEach(function (openItem) {
-          openItem.classList.remove('active');
-          openItem.querySelector('.svc-acc-header').setAttribute('aria-expanded', 'false');
+        allItems.forEach(function (openItem) {
+          if (openItem.classList.contains('active')) closePanel(openItem);
         });
 
-        if (!wasActive) {
-          item.classList.add('active');
-          header.setAttribute('aria-expanded', 'true');
+        if (!wasActive) openPanel(item);
+      });
+    });
+
+    // Keep the open panel's height accurate if content reflows (e.g. resize)
+    window.addEventListener('resize', function () {
+      allItems.forEach(function (item) {
+        if (item.classList.contains('active')) {
+          var panel = item.querySelector('.svc-acc-panel');
+          panel.style.maxHeight = panel.scrollHeight + 'px';
         }
       });
     });
