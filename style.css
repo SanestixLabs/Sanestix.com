@@ -3448,7 +3448,7 @@ textarea {
 }
 
 .saas-card:hover::after {
-  transform: scale(30);
+  transform: scale(46);
 }
 
 .saas-card-inner {
@@ -3547,6 +3547,15 @@ textarea {
 
 .saas-product-tagline { color: #555555 !important; }
 .saas-card:hover .saas-product-tagline { color: rgba(255, 255, 255, 0.75) !important; }
+
+.saas-card--soon .saas-product-name,
+.saas-card--soon .saas-product-desc,
+.saas-card--soon .saas-coming-soon-hint {
+  color: var(--muted);
+}
+.saas-card--soon:hover .saas-product-name { color: #ffffff !important; }
+.saas-card--soon:hover .saas-product-desc { color: rgba(255, 255, 255, 0.85) !important; }
+.saas-card--soon:hover .saas-coming-soon-hint { color: rgba(255, 255, 255, 0.7) !important; }
 
 .saas-features li svg { stroke: #111111 !important; }
 .saas-card:hover .saas-features li svg { stroke: #ffffff !important; }
