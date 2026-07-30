@@ -1,9 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
 /* NOTE ON BODY FONT: description / body-copy text uses Outfit,
-   imported above via Google Fonts and set through --font-desc.
+   loaded in HTML head via Google Fonts and set through --font-desc.
    Headings keep using Instrument Serif (--font-heading) —
    unaffected by this. Pangea (a paid Fontwerk typeface) is no
    longer referenced; if you'd like to switch to it later, drop
