@@ -137,6 +137,19 @@ h2 {
 .footer-cta-title {
   font-family: var(--font-heading) !important;
 }
+/* contact.html: page-level H1 that visually plays the role of a
+   section-header title (not a hero title). Reuses the existing
+   h2 section-header treatment exactly so the visual design is
+   unchanged after promoting this heading to an H1 for a correct
+   document outline. */
+.section-title-h1 {
+  font-family: var(--font-technical) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+  font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
 h3, h4, h5, h6 {
   font-family: var(--font-technical);
   font-weight: 600 !important;
@@ -2564,6 +2577,7 @@ footer nav, footer ul, footer li {
   .nav-cta { display: none; }
   .hamburger { display: flex; align-items: center; justify-content: center; }
   h2 { font-size: clamp(1.9rem, 6vw, 2.8rem); }
+  .section-title-h1 { font-size: clamp(1.9rem, 6vw, 2.8rem); }
   .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
 }
 @media (max-width: 600px) {
