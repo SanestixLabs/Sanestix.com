@@ -2426,7 +2426,7 @@ footer {
   position: relative;
   overflow: hidden;
   padding: 5rem 2rem 2rem;
-  background: #060b14 url('assets/footer-bg.png') center top / cover no-repeat;
+  background: #060b14 url('assets/media/footer-bg.png') center top / cover no-repeat;
   border-top: 1px solid rgba(0, 229, 208, 0.1);
   --text: #e8f4f8; --text-secondary: #c8dde8; --muted: #5e7d90;
   --border: rgba(0, 229, 208, 0.12); --border2: rgba(0, 229, 208, 0.25); --cyan: #00e5d0;
