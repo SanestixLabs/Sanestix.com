@@ -7,6 +7,8 @@
   <meta name="description" content="Refund Policy for Sanestix — AI-Powered Web Development & Automation Agency. Our commitment to fair, transparent refund handling."/>
   <link rel="canonical" href="https://www.sanestix.com/refund-policy.html"/>
   <link rel="icon" type="image/png" href="assets/favicon.png"/>
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="msapplication-config" content="/browserconfig.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet"/>
@@ -311,6 +313,24 @@
       transition: opacity 0.2s;
     }
     .legal-contact-card a.btn:hover { opacity: 0.85; }
+    /* Mobile nav fix — make .nav-links visible when toggled open */
+    @media (max-width: 900px) {
+      .nav-links.open {
+        display: flex !important;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--card, #0a1428);
+        border: 1px solid var(--border, rgba(0,229,208,0.12));
+        border-radius: 0 0 16px 16px;
+        padding: 1rem;
+        gap: 0.5rem;
+        z-index: 999;
+      }
+      .nav-links.open a { color: var(--text, #e8f4f8); font-size: 0.95rem; padding: 0.5rem 0; }
+    }
     .legal-contact-card a.btn.secondary {
       background: transparent;
       border: 1px solid var(--border2);

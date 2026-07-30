@@ -1778,8 +1778,8 @@ h2 {
 .industries-header {
   position: relative;
   display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
+  flex-direction: row;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 2.5rem;
   flex-wrap: wrap;
@@ -1788,7 +1788,7 @@ h2 {
 }
 .industries-header h2 {
   margin: 0;
-  text-align: right;
+  text-align: left;
 }
 .industries-header .section-desc {
   margin: 0;
