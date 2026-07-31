@@ -4,7 +4,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <base href="/" />
   <title>{{ title | default("Sanestix | AI-Powered Web Development & Automation Agency") }}</title>
   <meta name="description" content="{{ description | default('Sanestix builds AI-powered websites...') }}" />
   <meta name="keywords"
@@ -13,27 +12,27 @@
   <meta name="robots" content="index, follow" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Sanestix — AI-Powered Web Development & Automation Agency" />
+  <meta property="og:title" content="{{ ogTitle | default('Sanestix — AI-Powered Web Development & Automation Agency') }}" />
   <meta property="og:description"
-    content="Custom AI-powered websites with chatbot, WhatsApp & Instagram automation, CRM, and eCommerce. Built for Pakistani & UAE businesses." />
+    content="{{ ogDescription | default('Custom AI-powered websites with chatbot, WhatsApp & Instagram automation, CRM, and eCommerce. Built for Pakistani & UAE businesses.') }}" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.sanestix.com/" />
-  <meta property="og:image" content="https://www.sanestix.com/assets/og/og-image-enhanced.jpg" />
+  <meta property="og:url" content="https://www.sanestix.com{{ page.url }}" />
+  <meta property="og:image" content="{{ ogImage | default('https://www.sanestix.com/assets/og/og-image-enhanced.jpg') }}" />
   <meta property="og:site_name" content="Sanestix" />
   <meta property="og:locale" content="en_PK" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@sanestix_" />
-  <meta name="twitter:title" content="Sanestix — AI-Powered Web Development & Automation Agency" />
+  <meta name="twitter:title" content="{{ ogTitle | default('Sanestix — AI-Powered Web Development & Automation Agency') }}" />
   <meta name="twitter:description"
-    content="AI websites, chatbots, WhatsApp & Instagram automation for Pakistani businesses." />
-  <meta name="twitter:image" content="https://www.sanestix.com/assets/og/twitter-image-enhanced.jpg" />
+    content="{{ ogDescription | default('AI websites, chatbots, WhatsApp & Instagram automation for Pakistani businesses.') }}" />
+  <meta name="twitter:image" content="{{ twitterImage | default(ogImage) | default('https://www.sanestix.com/assets/og/twitter-image-enhanced.jpg') }}" />
 
-  <link rel="canonical" href="https://www.sanestix.com/" />
-  <link rel="shortcut icon" href="assets/icons/favicon.ico" type="image/x-icon" />
-  <link rel="icon" type="image/png" href="assets/icons/favicon.png" />
-  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+  <link rel="canonical" href="{{ canonicalUrl | default('https://www.sanestix.com' + page.url) }}" />
+  <link rel="shortcut icon" href="/assets/icons/favicon.ico" type="image/x-icon" />
+  <link rel="icon" type="image/png" href="/assets/icons/favicon.png" />
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -93,9 +92,10 @@
     rel="stylesheet" />
 
   <!-- Styles -->
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="client-logo-rail.css" />
-  <link rel="stylesheet" href="services-accordion.css" />
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/client-logo-rail.css" />
+  <link rel="stylesheet" href="/services-accordion.css" />
+  <link rel="stylesheet" href="/services-pages.css" />
 </head>
 
 <body>
@@ -120,13 +120,13 @@
   </button>
 
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
-  <script src="client-logo-rail.js" defer></script>
-  <script src="services-accordion.js" defer></script>
-  <script src="js/navigation.js" defer></script>
-  <script src="js/animations.js" defer></script>
-  <script src="js/interactions.js" defer></script>
-  <script src="js/chatbot.js" defer></script>
-  <script src="js/forms.js" defer></script>
+  <script src="/client-logo-rail.js" defer></script>
+  <script src="/services-accordion.js" defer></script>
+  <script src="/js/navigation.js" defer></script>
+  <script src="/js/animations.js" defer></script>
+  <script src="/js/interactions.js" defer></script>
+  <script src="/js/chatbot.js" defer></script>
+  <script src="/js/forms.js" defer></script>
 </body>
 
 </html>

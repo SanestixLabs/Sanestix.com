@@ -1,0 +1,59 @@
+{# ============================================================
+   SERVICE GROUP PAGE BODY
+   Shared body for every /services/<group>/ landing page. The
+   thin page file (e.g. src/services/ai-solutions/index.html)
+   just sets `groupSlug` in its front matter and includes this.
+
+   Note: Nunjucks includes share the calling template's context
+   automatically, so section components are fed by setting plain
+   variables right before each `{% include %}` (Nunjucks has no
+   Jinja-style `include ... with {...}` syntax).
+   ============================================================ #}
+{% set group = services.groupsBySlug[groupSlug] %}
+
+{% set breadcrumbs = [
+  { label: "Home", url: "/" },
+  { label: "Services", url: "/services/" },
+  { label: group.name }
+] %}
+{% set heroKicker = "Services / " + group.name %}
+{% set heroHeadline = group.heroHeadline %}
+{% set heroDescription = group.heroDescription %}
+{% set heroImageSrc = "/assets/images/services/" + group.imageDir + "/hero.jpg" %}
+{% set heroImageAlt = group.name + " — Sanestix" %}
+{% include "components/service-hero.njk" %}
+
+<section class="svc-overview">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>{{ group.overviewTitle }}</h2>
+    </div>
+    <div class="svc-overview-inner reveal">
+      {% for para in group.overviewParagraphs %}
+      <p>{{ para }}</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% include "components/service-category-grid.njk" %}
+
+{% set items = group.process %}
+{% set heading = "How We Deliver " + group.name %}
+{% set subheading = "A clear, proven process from first conversation to a live, monitored system." %}
+{% set sectionId = "process" %}
+{% include "components/service-process.njk" %}
+
+{% set items = group.benefits %}
+{% set heading = 'Why ' + group.name + ' With <span class="grad">Sanestix</span>' %}
+{% set subheading = "Every engagement is engineered for reliability, security, and measurable results." %}
+{% set sectionId = "benefits" %}
+{% include "components/service-benefits.njk" %}
+
+{% set items = group.technologies %}
+{% set heading = 'Technologies We <span class="grad">Work With</span>' %}
+{% set subheading = "The right tools for the job — chosen around your requirements, not a fixed stack." %}
+{% set sectionId = "" %}
+{% include "components/service-technology.njk" %}
+
+{% include "components/cta-banner.njk" %}

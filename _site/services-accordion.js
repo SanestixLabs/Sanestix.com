@@ -21,42 +21,48 @@
       icon: 'code',
       title: 'Software Development',
       desc: 'Custom software built around how your business actually operates — from lean MVPs to full-scale platforms that hold up under real usage.',
-      bullets: ['Custom Software Development', 'SaaS Development', 'MVP Development', 'Legacy Application Modernization']
+      bullets: ['Custom Software Development', 'SaaS Development', 'MVP Development', 'Legacy Application Modernization'],
+      href: '/services/software-development/'
     },
     {
       icon: 'bolt',
       title: 'Automation Solutions',
       desc: 'End-to-end automation that captures, qualifies, and converts leads across every channel — WhatsApp, voice, chat, and beyond — without manual effort.',
-      bullets: ['AI Calling Agent', 'AI Website Development', 'Smart Chatbot Integration', 'WhatsApp Automation', 'Instagram Automation', 'CRM Integration', 'E-Commerce Automation', 'Lead Generation Systems', 'Custom Workflows']
+      bullets: ['AI Calling Agent', 'AI Website Development', 'Smart Chatbot Integration', 'WhatsApp Automation', 'Instagram Automation', 'CRM Integration', 'E-Commerce Automation', 'Lead Generation Systems', 'Custom Workflows'],
+      href: '/services/automation-solutions/'
     },
     {
       icon: 'grid',
       title: 'AI Solutions',
       desc: 'Build intelligent products using AI, machine learning, and advanced data engineering — systems that learn and improve, not just automate fixed rules.',
-      bullets: ['Custom AI Development', 'Machine Learning Solutions', 'Computer Vision', 'AI Integration Services']
+      bullets: ['Custom AI Development', 'Machine Learning Solutions', 'Computer Vision', 'AI Integration Services'],
+      href: '/services/ai-solutions/'
     },
     {
       icon: 'spark',
       title: 'Generative & Agentic AI',
       desc: 'Deploy autonomous agents and generative systems that plan, decide, and act on their own to get real work done.',
-      bullets: ['Generative AI Development', 'AI Agents', 'LLM Integration', 'RAG & Knowledge Systems']
+      bullets: ['Generative AI Development', 'AI Agents', 'LLM Integration', 'RAG & Knowledge Systems'],
+      href: '/services/generative-agentic-ai/'
     },
     {
       icon: 'phone',
       title: 'Mobile App Development',
       desc: 'Native and cross-platform apps engineered for performance, retention, and scale, from first release through growth.',
-      bullets: ['Android Application', 'iOS Application', 'Cross-Platform Apps', 'Flutter Development']
+      bullets: ['Android Application', 'iOS Application', 'Cross-Platform Apps', 'Flutter Development'],
+      href: '/services/mobile-app-development/'
     },
     {
       icon: 'globe',
       title: 'Web Development',
       desc: 'Fast, conversion-focused websites and web apps built to perform under real traffic, not just look good in a demo.',
-      bullets: ['Custom Websites', 'WordPress Development', 'Shopify Development', 'Web Application Development']
+      bullets: ['Custom Websites', 'WordPress Development', 'Shopify Development', 'Web Application Development'],
+      href: '/services/web-development/'
     }
   ];
 
   var DEFAULT_OPEN_INDEX = 0;
-  var CTA_HREF = 'contact.html';
+  var CTA_HREF = '/contact.html';
 
   function pad(n) { return String(n).padStart(2, '0'); }
 
@@ -79,7 +85,7 @@
             '<div class="svc-acc-body">' +
               '<p>' + service.desc + '</p>' +
               '<ul class="svc-acc-bullets">' + buildBullets(service.bullets) + '</ul>' +
-              '<a href="' + CTA_HREF + '" class="svc-acc-more">Learn More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
+              '<a href="' + (service.href || CTA_HREF) + '" class="svc-acc-more">Learn More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>' +
             '</div>' +
           '</div>' +
         '</div>' +

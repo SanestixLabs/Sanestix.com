@@ -1,0 +1,37 @@
+---
+layout: base.njk
+title: "Services | AI, Software, Mobile, Web & Automation — Sanestix"
+description: "Explore Sanestix's full range of services: AI Solutions, Generative & Agentic AI, Software Development, Mobile Apps, Web Development, and Automation Solutions."
+ogTitle: "Services | Sanestix"
+ogDescription: "Explore Sanestix's full range of services: AI Solutions, Generative & Agentic AI, Software Development, Mobile Apps, Web Development, and Automation Solutions."
+---
+{% set breadcrumbs = [
+  { label: "Home", url: "/" },
+  { label: "Services" }
+] %}
+{% set heroKicker = "Services" %}
+{% set heroHeadline = "Everything we build, in one place" %}
+{% set heroDescription = "Six service groups, twenty-nine specialized capabilities — from custom AI and autonomous agents to software, mobile, web, and full-channel automation." %}
+{% set heroImageSrc = "/assets/images/services/hero.jpg" %}
+{% set heroImageAlt = "Sanestix Services" %}
+{% include "components/service-hero.njk" %}
+
+<section class="svc-cat-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Our <span class="grad">Service Groups</span></h2>
+      <p class="section-desc">Each group covers a set of specialized services — explore any of them for full detail.</p>
+    </div>
+    <div class="svc-hub-grid">
+      {% for group in services.groups %}
+      <a href="/services/{{ group.slug }}/" class="svc-hub-card reveal" style="transition-delay:{{ loop.index0 * 0.08 }}s">
+        <div class="svc-hub-card-title">{{ group.name }}</div>
+        <p class="svc-hub-card-desc">{{ group.navBlurb }}</p>
+        <span class="svc-hub-card-count">{{ group.categories.length }} Services →</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% include "components/cta-banner.njk" %}

@@ -1,0 +1,33 @@
+{# ============================================================
+   SERVICE PROCESS
+   Reuses the site's existing `.workflow-grid` / `.step-card`
+   styles (defined in style.css for the homepage "How It Works").
+   Expects:
+   - items (array of {title, desc})
+   - heading (string, may include `<span class="grad">`)
+   - subheading (string, optional)
+   - sectionId (string, optional anchor id)
+   ============================================================ #}
+<section class="how-it-works"{% if sectionId %} id="{{ sectionId }}"{% endif %}>
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>{{ heading | safe }}</h2>
+      {% if subheading %}<p class="section-desc">{{ subheading }}</p>{% endif %}
+    </div>
+    <div class="workflow-grid">
+      {% for item in items %}
+      <div class="step-card reveal" style="transition-delay:{{ loop.index0 * 0.08 }}s">
+        <span class="step-num">{{ "0" if loop.index < 10 else "" }}{{ loop.index }}</span>
+        <div class="step-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 18 22 12 16 6"/>
+            <polyline points="8 6 2 12 8 18"/>
+          </svg>
+        </div>
+        <div class="step-title">{{ item.title }}</div>
+        <p class="step-desc">{{ item.desc }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,32 @@
+{# ============================================================
+   SERVICE BENEFITS / CAPABILITIES
+   Reuses the site's existing `.why-grid` / `.why-card` styles
+   (defined in style.css for the homepage "Why Choose Us" section).
+   Expects:
+   - items (array of {title, desc})
+   - heading (string, may include `<span class="grad">`)
+   - subheading (string, optional)
+   - sectionId (string, optional anchor id)
+   ============================================================ #}
+<section class="why-us"{% if sectionId %} id="{{ sectionId }}"{% endif %}>
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>{{ heading | safe }}</h2>
+      {% if subheading %}<p class="section-desc">{{ subheading }}</p>{% endif %}
+    </div>
+    <div class="why-grid">
+      {% for item in items %}
+      <div class="why-card reveal" style="transition-delay:{{ loop.index0 * 0.08 }}s">
+        <div class="why-card-accent"></div>
+        <div class="why-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <div class="why-title">{{ item.title }}</div>
+        <div class="why-desc">{{ item.desc }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

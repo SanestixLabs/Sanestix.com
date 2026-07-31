@@ -1,0 +1,79 @@
+{# ============================================================
+   SERVICE CATEGORY PAGE BODY
+   Shared body for every /services/<group>/<category>/ detail
+   page. The thin page file just sets `categorySlug` in its front
+   matter and includes this.
+   ============================================================ #}
+{% set category = services.categoriesBySlug[categorySlug] %}
+{% set group = services.groupsBySlug[category.groupSlug] %}
+
+{% set breadcrumbs = [
+  { label: "Home", url: "/" },
+  { label: "Services", url: "/services/" },
+  { label: group.name, url: "/services/" + group.slug + "/" },
+  { label: category.name }
+] %}
+{% set heroKicker = category.heroKicker %}
+{% set heroHeadline = category.heroHeadline %}
+{% set heroDescription = category.heroDescription %}
+{% set heroImageSrc = "/assets/images/services/" + group.imageDir + "/" + category.slug + ".jpg" %}
+{% set heroImageAlt = category.name + " — Sanestix" %}
+{% include "components/service-hero.njk" %}
+
+<section class="svc-intro">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>{{ category.introTitle }}</h2>
+    </div>
+    <div class="svc-intro-inner reveal">
+      {% for para in category.introParagraphs %}
+      <p>{{ para }}</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% set items = category.whatWeBuild %}
+{% set heading = 'What We <span class="grad">Build</span>' %}
+{% set subheading = null %}
+{% set sectionId = "what-we-build" %}
+{% set altBg = true %}
+{% include "components/service-simple-grid.njk" %}
+
+{% set items = category.capabilities %}
+{% set heading = 'Capabilities &amp; <span class="grad">Features</span>' %}
+{% set subheading = "Every " + category.name + " engagement includes these core capabilities." %}
+{% set sectionId = "capabilities" %}
+{% include "components/service-benefits.njk" %}
+
+{% set items = category.useCases %}
+{% set heading = 'Use <span class="grad">Cases</span>' %}
+{% set subheading = null %}
+{% set sectionId = "use-cases" %}
+{% set altBg = true %}
+{% include "components/service-simple-grid.njk" %}
+
+{% set items = category.process %}
+{% set heading = 'Our <span class="grad">Process</span>' %}
+{% set subheading = "A clear, structured delivery process for " + category.name + "." %}
+{% set sectionId = "process" %}
+{% include "components/service-process.njk" %}
+
+{% set items = category.technology %}
+{% set heading = 'Technology &amp; <span class="grad">Integration</span>' %}
+{% set subheading = "The tools and platforms we typically use to deliver this service." %}
+{% include "components/service-technology.njk" %}
+
+{% set items = category.whySanestix %}
+{% set heading = 'Why <span class="grad">Sanestix</span>' %}
+{% set subheading = null %}
+{% set sectionId = "why-sanestix" %}
+{% set altBg = false %}
+{% include "components/service-simple-grid.njk" %}
+
+{% set items = category.faq %}
+{% set heading = 'Frequently Asked <span class="grad">Questions</span>' %}
+{% set subheading = "Everything you need to know about " + category.name + "." %}
+{% include "components/service-faq.njk" %}
+
+{% include "components/cta-banner.njk" %}

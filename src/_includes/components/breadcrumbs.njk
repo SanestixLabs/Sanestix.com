@@ -1,0 +1,18 @@
+{# ============================================================
+   BREADCRUMBS
+   Usage: set `breadcrumbs` to an array of {label, url} before
+   including this file. The last item is rendered as the current
+   (non-linked) page.
+   ============================================================ #}
+{% if breadcrumbs and breadcrumbs.length %}
+<nav class="svc-breadcrumb" aria-label="Breadcrumb">
+  {% for crumb in breadcrumbs %}
+    {% if not loop.last %}
+      <a href="{{ crumb.url }}">{{ crumb.label }}</a>
+      <span class="svc-crumb-sep" aria-hidden="true">/</span>
+    {% else %}
+      <span class="svc-crumb-current" aria-current="page">{{ crumb.label }}</span>
+    {% endif %}
+  {% endfor %}
+</nav>
+{% endif %}

@@ -1,0 +1,27 @@
+{# ============================================================
+   SERVICE SIMPLE GRID
+   Generic 2-column content grid used for sections like
+   "What We Build" and "Use Cases" on category detail pages.
+   Expects:
+   - items (array of {title, desc})
+   - heading (string, may include `<span class="grad">`)
+   - subheading (string, optional)
+   - sectionId (string, optional anchor id)
+   - altBg (boolean, optional — use the alternate section background)
+   ============================================================ #}
+<section class="svc-content-section{% if altBg %} alt{% endif %}"{% if sectionId %} id="{{ sectionId }}"{% endif %}>
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>{{ heading | safe }}</h2>
+      {% if subheading %}<p class="section-desc">{{ subheading }}</p>{% endif %}
+    </div>
+    <div class="svc-simple-grid">
+      {% for item in items %}
+      <div class="svc-simple-card reveal" style="transition-delay:{{ loop.index0 * 0.06 }}s">
+        <div class="svc-simple-card-title">{{ item.title }}</div>
+        <div class="svc-simple-card-desc">{{ item.desc }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
