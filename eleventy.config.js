@@ -1,6 +1,6 @@
 module.exports = function(eleventyConfig) {
   // Copy assets and static files
-  eleventyConfig.addPassthroughCopy("src/assets");
+  eleventyConfig.addPassthroughCopy({ "assets": "assets" });
   eleventyConfig.addPassthroughCopy("src/js");
   eleventyConfig.addPassthroughCopy("src/public");
   eleventyConfig.addPassthroughCopy("src/*.css");
