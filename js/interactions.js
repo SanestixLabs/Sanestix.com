@@ -1,57 +1,6 @@
 /* ============================================================
-   SANESTIX — Main JavaScript
+   SANESTIX — Interactive Elements
    ============================================================ */
-
-/* ── NAV SCROLL ── */
-window.addEventListener('scroll', () => {
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
-  const btn = document.getElementById('scrollTopBtn');
-  btn.style.display = window.scrollY > 400 ? 'flex' : 'none';
-});
-
-/* ── HAMBURGER ── */
-const hamburgerBtn = document.getElementById('hamburger');
-const mobileMenuEl = document.getElementById('mobileMenu');
-
-function openMobile() {
-  mobileMenuEl.style.display = 'flex';
-  hamburgerBtn.classList.add('active');
-  hamburgerBtn.setAttribute('aria-expanded', 'true');
-}
-function closeMobile() {
-  mobileMenuEl.style.display = 'none';
-  hamburgerBtn.classList.remove('active');
-  hamburgerBtn.setAttribute('aria-expanded', 'false');
-}
-hamburgerBtn.setAttribute('aria-expanded', 'false');
-hamburgerBtn.onclick = () => {
-  mobileMenuEl.style.display === 'flex' ? closeMobile() : openMobile();
-};
-
-// Close mobile menu on outside click
-document.addEventListener('click', (e) => {
-  if (mobileMenuEl.style.display === 'flex' &&
-      !mobileMenuEl.contains(e.target) &&
-      !hamburgerBtn.contains(e.target)) {
-    closeMobile();
-  }
-});
-
-// Close mobile menu on resize back to desktop
-window.addEventListener('resize', () => {
-  if (window.innerWidth > 900) closeMobile();
-});
-
-/* ── SCROLL REVEAL (enhanced with left/right/scale variants) ── */
-const revealObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      revealObserver.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => revealObserver.observe(el));
 
 /* LUCIDE ICONS + INDUSTRY CARD MICRO-INTERACTIONS */
 document.querySelectorAll('.industry-track').forEach(track => {
@@ -206,41 +155,6 @@ document.querySelectorAll('.glow-card').forEach(card => {
   });
 });
 
-/* ── STAT COUNTER ANIMATION ── */
-function animateCounter(el, target, suffix, duration = 1800) {
-  const isFloat = target % 1 !== 0;
-  let start = null;
-  const step = (timestamp) => {
-    if (!start) start = timestamp;
-    const progress = Math.min((timestamp - start) / duration, 1);
-    // Ease out cubic
-    const eased = 1 - Math.pow(1 - progress, 3);
-    const current = isFloat ? (eased * target).toFixed(1) : Math.floor(eased * target);
-    el.textContent = current + suffix;
-    if (progress < 1) requestAnimationFrame(step);
-    else el.textContent = target + suffix;
-  };
-  requestAnimationFrame(step);
-}
-
-// Observe stat values and trigger counter when visible
-const statObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    const el = e.target;
-    const text = el.textContent.trim();
-    // Parse number and suffix: "50+" → 50, "+", "1M+" → 1, "M+", "2–7" → skip
-    const match = text.match(/^(\d+\.?\d*)(.*)/);
-    if (match) {
-      const num = parseFloat(match[1]);
-      const suffix = match[2];
-      animateCounter(el, num, suffix);
-    }
-    statObserver.unobserve(el);
-  });
-}, { threshold: 0.5 });
-document.querySelectorAll('.stat-val').forEach(el => statObserver.observe(el));
-
 /* ── BUTTON RIPPLE EFFECT ── */
 document.querySelectorAll('.btn-primary, .btn-ghost, .btn-whatsapp, .nav-cta, .price-cta, .form-submit').forEach(btn => {
   btn.addEventListener('click', function(e) {
@@ -271,140 +185,6 @@ if (!document.getElementById('rippleStyle')) {
   document.head.appendChild(style);
 }
 
-
-/* Hero dynamic headline */
-(function () {
-  const dynamicText = document.getElementById('heroDynamicText');
-  if (!dynamicText) return;
-
-  const phrases = ['smarter automation', 'effortless scaling', 'modern software'];
-  let phraseIndex = 0;
-  let charIndex = 0;
-  let typing = true;
-
-  function tick() {
-    const current = phrases[phraseIndex];
-
-    if (typing) {
-      charIndex++;
-      dynamicText.textContent = current.slice(0, charIndex);
-      if (charIndex === current.length) {
-        typing = false;
-        setTimeout(tick, 1500);
-        return;
-      }
-      setTimeout(tick, 60);
-    } else {
-      charIndex--;
-      dynamicText.textContent = current.slice(0, charIndex);
-      if (charIndex === 0) {
-        typing = true;
-        phraseIndex = (phraseIndex + 1) % phrases.length;
-        setTimeout(tick, 400);
-        return;
-      }
-      setTimeout(tick, 32);
-    }
-  }
-
-  tick();
-})();
-
-/* Move robot into chatbot demo */
-(function () {
-  const robotVisual = document.querySelector('.hero-visual');
-  const chatbotSlot = document.getElementById('chatbotRobotSlot');
-  if (!robotVisual || !chatbotSlot) return;
-
-  robotVisual.removeAttribute('style');
-  chatbotSlot.appendChild(robotVisual);
-})();
-/* ── ROBOT EYE TRACKING ── */
-const leftPupil = document.getElementById('leftPupil'),
-  rightPupil = document.getElementById('rightPupil'),
-  robot3D = document.getElementById('robot3D');
-const L_EYE = { x: 80, y: 74 }, R_EYE = { x: 120, y: 74 }, EYE_R = 5;
-let mX = window.innerWidth / 2, mY = window.innerHeight / 2, curRX = 0, curRY = 0, tgtRX = 0, tgtRY = 0;
-document.addEventListener('mousemove', e => { mX = e.clientX; mY = e.clientY; });
-function eyeTarget(ec, er) {
-  const svg = document.getElementById('robotSVG');
-  if (!svg) return { x: 0, y: 0 };
-  const r = svg.getBoundingClientRect(), sx = 200 / r.width, sy = 220 / r.height;
-  const lx = (mX - r.left) * sx, ly = (mY - r.top) * sy;
-  const dx = lx - ec.x, dy = ly - ec.y, d = Math.sqrt(dx * dx + dy * dy), f = Math.min(d / 60, 1), a = Math.atan2(dy, dx);
-  return { x: Math.cos(a) * f * er, y: Math.sin(a) * f * er };
-}
-function animRobot() {
-  const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
-  tgtRY = (mX - cx) / cx * 18; tgtRX = -(mY - cy) / cy * 10;
-  curRX += (tgtRX - curRX) * 0.06; curRY += (tgtRY - curRY) * 0.06;
-  if (robot3D) robot3D.style.transform = `rotateX(${curRX}deg) rotateY(${curRY}deg)`;
-  const lt = eyeTarget(L_EYE, EYE_R), rt = eyeTarget(R_EYE, EYE_R);
-  if (leftPupil) { leftPupil.setAttribute('cx', L_EYE.x + lt.x); leftPupil.setAttribute('cy', L_EYE.y + lt.y); }
-  if (rightPupil) { rightPupil.setAttribute('cx', R_EYE.x + rt.x); rightPupil.setAttribute('cy', R_EYE.y + rt.y); }
-  requestAnimationFrame(animRobot);
-}
-animRobot();
-
-/* ── PARTICLE CANVAS ── */
-(function () {
-  const canvas = document.getElementById('gravCanvas'), ctx = canvas.getContext('2d');
-  let W, H, particles = [];
-  let mouse = { x: null, y: null, radius: 120 };
-
-  window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
-  window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
-  window.addEventListener('touchstart', e => { mouse.x = e.touches[0].clientX; mouse.y = e.touches[0].clientY; }, {passive: true});
-  window.addEventListener('touchmove', e => { mouse.x = e.touches[0].clientX; mouse.y = e.touches[0].clientY; }, {passive: true});
-  window.addEventListener('touchend', () => { mouse.x = null; mouse.y = null; });
-
-  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-  resize(); window.addEventListener('resize', resize);
-  function Particle() {
-    this.x = Math.random() * W; this.y = Math.random() * H;
-    this.vx = (Math.random() - 0.5) * 0.4; this.vy = (Math.random() - 0.5) * 0.4;
-    this.size = Math.random() * 1.8 + 0.4; this.opacity = Math.random() * 0.5 + 0.2;
-    this.pulse = Math.random() * Math.PI * 2;
-  }
-  for (let i = 0; i < 90; i++) particles.push(new Particle());
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    const c = '0,174,220';
-    particles.forEach(p => {
-      p.pulse += 0.015; p.x += p.vx; p.y += p.vy;
-
-      if (mouse.x !== null && mouse.y !== null) {
-        let dx = p.x - mouse.x;
-        let dy = p.y - mouse.y;
-        let dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < mouse.radius) {
-          let forceDirX = dx / dist;
-          let forceDirY = dy / dist;
-          let force = (mouse.radius - dist) / mouse.radius;
-          p.x += forceDirX * force * 3;
-          p.y += forceDirY * force * 3;
-        }
-      }
-
-      if (p.x < 0) p.x = W; if (p.x > W) p.x = 0; if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
-      const op = p.opacity * (0.7 + Math.sin(p.pulse) * 0.3);
-      ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${c},${op})`; ctx.fill();
-    });
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y, dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 130) {
-          ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(${c},${(1 - dist / 130) * 0.12})`; ctx.lineWidth = 0.7; ctx.stroke();
-        }
-      }
-    }
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
-
 /* ── FAQ ── */
 function toggleFaq(btn) {
   const item = btn.parentElement;
@@ -413,154 +193,8 @@ function toggleFaq(btn) {
   item.classList.toggle('open', !isOpen);
 }
 
-/* ── CHATBOT — n8n Webhook Integration ── */
-const N8N_WEBHOOK_URL = 'https://n8n.sanestix.cloud/webhook/Chatbot';
-
-const chatHistory = [];
-let isBotTyping = false;
-
-function addMsg(type, text, delay = 0) {
-  setTimeout(() => {
-    const msgs = document.getElementById('demoChatMsgs');
-    const div = document.createElement('div'); div.className = `msg ${type}`;
-    const initials = type === 'bot' ? 'SX' : 'You';
-    div.innerHTML = `<div class="msg-avatar">${initials}</div><div><div class="msg-bubble">${text}</div><span class="msg-time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span></div>`;
-    msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
-  }, delay);
-}
-
-function showTyping() {
-  const msgs = document.getElementById('demoChatMsgs');
-  const t = document.createElement('div'); t.className = 'msg bot'; t.id = 'typing';
-  t.innerHTML = '<div class="msg-avatar">SX</div><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
-  msgs.appendChild(t); msgs.scrollTop = msgs.scrollHeight;
-  return t;
-}
-
-function getSessionId() {
-  let sid = sessionStorage.getItem('sx_chat_session');
-  if (!sid) { sid = 'sx_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8); sessionStorage.setItem('sx_chat_session', sid); }
-  return sid;
-}
-
-async function fetchBotReply(userMessage) {
-  chatHistory.push({ role: 'user', content: userMessage });
-  const sessionId = getSessionId();
-
-  try {
-    const response = await fetch(N8N_WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        message: userMessage,
-        chatInput: userMessage,
-        sessionId: sessionId,
-        source: 'website_chat'
-      })
-    });
-
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const data = await response.json();
-
-    const reply =
-      data.output || data.reply || data.message || data.text || data.response ||
-      (Array.isArray(data) && data[0] && (data[0].output || data[0].reply || data[0].message || data[0].text)) ||
-      'Thanks for your message! Our team will be in touch shortly.';
-
-    chatHistory.push({ role: 'assistant', content: reply });
-    return reply;
-
-  } catch (err) {
-    console.error('Chatbot webhook error:', err);
-    return 'Got your message! Reach us on <a href="https://wa.me/923014422951" target="_blank" style="color:var(--cyan)">WhatsApp</a> for instant help.';
-  }
-}
-
-async function sendDemoMsg() {
-  if (isBotTyping) return;
-  const input = document.getElementById('demoInput');
-  const msg = input.value.trim(); if (!msg) return;
-  addMsg('user', msg); input.value = '';
-  isBotTyping = true;
-  const t = showTyping();
-  const reply = await fetchBotReply(msg);
-  t.remove(); addMsg('bot', reply);
-  isBotTyping = false;
-}
-
-async function sendQuickReply(msg) {
-  if (isBotTyping) return;
-  addMsg('user', msg);
-  isBotTyping = true;
-  const t = showTyping();
-  const reply = await fetchBotReply(msg);
-  t.remove(); addMsg('bot', reply);
-  isBotTyping = false;
-}
-
-setTimeout(() => addMsg('bot', 'Hi! I am the Sanestix AI Assistant. Ask me anything about our AI web development services, automation packages, or timelines!'), 600);
-/* ── CONTACT FORM ── */
-async function submitForm(e) {
-  e.preventDefault();
-  const btn = document.getElementById('submitBtn');
-  const status = document.getElementById('formStatus');
-  const form = document.getElementById('contactForm');
-  
-  btn.textContent = 'Sending...';
-  btn.disabled = true;
-  if (status) { status.style.display = 'none'; }
-
-  // IMPORTANT: Replace 'YOUR_FORM_ID' with your actual Formspree ID from https://formspree.io
-  // Example: 'xpzgkard' => action URL = https://formspree.io/f/xpzgkard
-  const FORMSPREE_ID = 'YOUR_FORM_ID';
-
-  // Fallback: if Formspree not configured, send via WhatsApp
-  if (FORMSPREE_ID === 'YOUR_FORM_ID') {
-    const name = document.getElementById('fname').value;
-    const email = document.getElementById('femail').value;
-    const phone = document.getElementById('fphone').value;
-    const company = document.getElementById('fcompany').value;
-    const service = document.getElementById('fservice').value;
-    const message = document.getElementById('fmessage').value;
-    const waMsg = encodeURIComponent(
-      `Hi Sanestix! New inquiry from website:\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nCompany: ${company}\nPackage: ${service}\n\nMessage:\n${message}`
-    );
-    window.open(`https://wa.me/923014422951?text=${waMsg}`, '_blank');
-    btn.innerHTML = '✅ Opening WhatsApp... We\'ll be in touch!';
-    btn.style.background = 'linear-gradient(135deg,#22c55e,#16a34a)';
-    setTimeout(() => {
-      btn.innerHTML = 'Send Message &amp; Request Free Call <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
-      btn.style.background = ''; btn.disabled = false;
-      form.reset();
-    }, 4000);
-    return;
-  }
-
-  try {
-    const data = new FormData(form);
-    const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-      method: 'POST', body: data, headers: { 'Accept': 'application/json' }
-    });
-    if (res.ok) {
-      btn.innerHTML = '✅ Message Sent! We\'ll be in touch within 2–4 hours.';
-      btn.style.background = 'linear-gradient(135deg,#22c55e,#16a34a)';
-      if (status) { status.style.display = 'none'; }
-      setTimeout(() => {
-        btn.innerHTML = 'Send Message &amp; Request Free Call <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
-        btn.style.background = ''; btn.disabled = false; form.reset();
-      }, 5000);
-    } else {
-      throw new Error('Form error');
-    }
-  } catch(err) {
-    btn.textContent = 'Send Message & Request Free Call';
-    btn.disabled = false;
-    if (status) {
-      status.textContent = '❌ Something went wrong. Please message us on WhatsApp directly.';
-      status.style.color = '#ef4444'; status.style.display = 'block';
-    }
-  }
-}
+// Expose globally
+window.toggleFaq = toggleFaq;
 
 /* ============================================================
    USE CASE CANVAS ANIMATIONS
@@ -577,8 +211,6 @@ function ucColors() {
     gridLine: 'rgba(0,174,220,0.06)',
   };
 }
-
-/* Shared roundRect helper */
 
 /* ============================================================
    PROCESS FLOW — Interactive animated step-by-step flow
@@ -634,6 +266,8 @@ function ucColors() {
 
   function init() {
     const tabBtns = document.querySelectorAll('.pf-tab');
+    if(tabBtns.length === 0) return;
+    
     tabBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         tabBtns.forEach(b => b.classList.remove('active'));
@@ -831,18 +465,6 @@ function ucColors() {
     });
   }
   document.querySelectorAll('.saas-card--featured').forEach(applyTilt);
-})();
-
-/* ── SCROLL PROGRESS BAR ── */
-(function() {
-  const bar = document.createElement('div');
-  bar.id = 'scrollProgress';
-  bar.style.cssText = 'position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,#00e5d0,#00b8e6);z-index:9999;transition:width 0.1s linear;width:0;pointer-events:none';
-  document.body.appendChild(bar);
-  window.addEventListener('scroll', () => {
-    const docH = document.documentElement.scrollHeight - window.innerHeight;
-    bar.style.width = (window.scrollY / docH * 100) + '%';
-  }, { passive: true });
 })();
 
 /* ── SERVICES ORBIT — tap-to-pause for touch devices ── */
