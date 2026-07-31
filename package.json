@@ -1,0 +1,25 @@
+{
+  "name": "sanestix.com",
+  "version": "1.0.0",
+  "description": "",
+  "main": "client-logo-rail.js",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SanestixLabs/Sanestix.com.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/SanestixLabs/Sanestix.com/issues"
+  },
+  "homepage": "https://github.com/SanestixLabs/Sanestix.com#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6"
+  }
+}

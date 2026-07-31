@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ title | default("Sanestix | AI-Powered Web Development & Automation Agency") }}</title>
+  <meta name="description" content="{{ description | default('Sanestix builds AI-powered websites...') }}" />
+  <meta name="keywords"
+    content="AI web development Lahore, AI chatbot Pakistan, WhatsApp automation Pakistan, Instagram automation, CRM integration Pakistan, eCommerce automation, AI agency Lahore, web development agency Pakistan" />
+  <meta name="author" content="Sanestix" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Sanestix — AI-Powered Web Development & Automation Agency" />
+  <meta property="og:description"
+    content="Custom AI-powered websites with chatbot, WhatsApp & Instagram automation, CRM, and eCommerce. Built for Pakistani & UAE businesses." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.sanestix.com/" />
+  <meta property="og:image" content="https://www.sanestix.com/assets/og/og-image-enhanced.jpg" />
+  <meta property="og:site_name" content="Sanestix" />
+  <meta property="og:locale" content="en_PK" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@sanestix_" />
+  <meta name="twitter:title" content="Sanestix — AI-Powered Web Development & Automation Agency" />
+  <meta name="twitter:description"
+    content="AI websites, chatbots, WhatsApp & Instagram automation for Pakistani businesses." />
+  <meta name="twitter:image" content="https://www.sanestix.com/assets/og/twitter-image-enhanced.jpg" />
+
+  <link rel="canonical" href="https://www.sanestix.com/" />
+  <link rel="shortcut icon" href="assets/icons/favicon.ico" type="image/x-icon" />
+  <link rel="icon" type="image/png" href="assets/icons/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Sanestix",
+    "url": "https://www.sanestix.com",
+    "logo": "https://www.sanestix.com/assets/logo/LOGO.png",
+    "description": "AI-Powered Web Development & Automation Agency based in Lahore, Pakistan. We build AI websites, chatbots, WhatsApp automation, Instagram automation, CRM integration, and eCommerce systems.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Lahore",
+      "addressRegion": "Punjab",
+      "addressCountry": "PK"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "31.5204",
+      "longitude": "74.3587"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+92-301-4422951",
+      "contactType": "Customer Service",
+      "email": "contact@sanestix.com",
+      "availableLanguage": ["English", "Urdu"]
+    },
+    "sameAs": [
+      "https://www.instagram.com/sanestix",
+      "https://www.linkedin.com/company/sanestix",
+      "https://www.facebook.com/share/14M3fAXpuSW/",
+      "https://x.com/sanestix_"
+    ],
+    "founder": [
+      {
+        "@type": "Person",
+        "name": "Saad Faisal Qureshi",
+        "jobTitle": "Co-Founder & CEO"
+      },
+      {
+        "@type": "Person",
+        "name": "Abdul Wahab Siddiqi",
+        "jobTitle": "Co-Founder & COO"
+      }
+    ],
+    "areaServed": ["PK", "AE", "GB"],
+    "serviceType": ["AI Web Development", "Chatbot Integration", "WhatsApp Automation", "Instagram Automation", "CRM Integration", "eCommerce Development"]
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="client-logo-rail.css" />
+  <link rel="stylesheet" href="services-accordion.css" />
+</head>
+
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <canvas id="gravCanvas"></canvas>
+
+  
+  {% include "components/whatsapp.njk" %}
+  {% include "components/navbar.njk" %}
+
+  <main id="main-content" tabindex="-1">
+    {{ content | safe }}
+  </main>
+
+  {% include "components/footer.njk" %}
+  
+<button id="scrollTopBtn" class="liquid-glass" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5"
+      stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 15l-6-6-6 6" />
+    </svg>
+  </button>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+  <script src="client-logo-rail.js" defer></script>
+  <script src="services-accordion.js" defer></script>
+  <script src="js/navigation.js" defer></script>
+  <script src="js/animations.js" defer></script>
+  <script src="js/interactions.js" defer></script>
+  <script src="js/chatbot.js" defer></script>
+  <script src="js/forms.js" defer></script>
+</body>
+
+</html>
