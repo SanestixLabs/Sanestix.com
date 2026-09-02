@@ -1,2 +1,16 @@
+# Dependencies
 node_modules/
+
+# Build output
 _site/
+
+# Editor settings
+.vscode/
+
+# Environment variables
+.env
+.env.*
+
+# OS files
+.DS_Store
+Thumbs.db
