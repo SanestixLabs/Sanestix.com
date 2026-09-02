@@ -4162,7 +4162,11 @@ footer li {
 .footer-copy {
   position: relative;
   z-index: 1;
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
   color: var(--muted);
   font-size: 0.8rem;
   padding-top: 2rem;
@@ -4175,9 +4179,10 @@ footer li {
 .footer-legal {
   display: flex;
   gap: 1.5rem;
-  justify-content: center;
   flex-wrap: wrap;
-  margin-top: 0.75rem;
+}
+.footer-copy p {
+  margin: 0;
 }
 .footer-legal a {
   color: var(--muted);
