@@ -1,0 +1,20 @@
+{# ============================================================
+   SERVICE TECHNOLOGY
+   Expects:
+   - items (array of strings, e.g. ["Python", "PyTorch", ...])
+   - heading (string, may include `<span class="grad">`)
+   - subheading (string, optional)
+   ============================================================ #}
+<section class="svc-tech-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>{{ heading | safe }}</h2>
+      {% if subheading %}<p class="section-desc">{{ subheading }}</p>{% endif %}
+    </div>
+    <div class="svc-tech-grid reveal">
+      {% for tech in items %}
+      <span class="svc-tech-pill">{{ tech }}</span>
+      {% endfor %}
+    </div>
+  </div>
+</section>

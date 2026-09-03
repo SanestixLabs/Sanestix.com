@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    <!-- Home Page -->
+    <url>
+        <loc>https://www.sanestix.com/</loc>
+        <lastmod>2026-07-30</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- Contact Page -->
+    <url>
+        <loc>https://www.sanestix.com/contact.html</loc>
+        <lastmod>2026-07-30</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Privacy Policy -->
+    <url>
+        <loc>https://www.sanestix.com/privacy-policy.html</loc>
+        <lastmod>2026-07-30</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.4</priority>
+    </url>
+
+    <!-- Refund Policy -->
+    <url>
+        <loc>https://www.sanestix.com/refund-policy.html</loc>
+        <lastmod>2026-07-30</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.4</priority>
+    </url>
+
+    <!-- Terms of Service -->
+    <url>
+        <loc>https://www.sanestix.com/terms-of-service.html</loc>
+        <lastmod>2026-07-30</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.4</priority>
+    </url>
+
+    <!-- Services Architecture -->
+    <url>
+        <loc>https://www.sanestix.com/services/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/ai-solutions/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/ai-solutions/custom-ai-development/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/ai-solutions/machine-learning-solutions/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/ai-solutions/computer-vision/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/ai-solutions/ai-integration-services/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/generative-agentic-ai/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/generative-agentic-ai/generative-ai-development/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/generative-agentic-ai/ai-agents/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/generative-agentic-ai/llm-integration/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/generative-agentic-ai/rag-knowledge-systems/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/software-development/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/software-development/custom-software-development/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/software-development/saas-development/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/software-development/mvp-development/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/software-development/legacy-application-modernization/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/mobile-app-development/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/mobile-app-development/android-application/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/mobile-app-development/ios-application/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/mobile-app-development/cross-platform-apps/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/mobile-app-development/flutter-development/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/web-development/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/web-development/custom-websites/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/web-development/wordpress-development/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/web-development/shopify-development/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/web-development/web-application-development/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/automation-solutions/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/automation-solutions/ai-calling-agent/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/automation-solutions/ai-website-development/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/automation-solutions/smart-chatbot-integration/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/automation-solutions/whatsapp-automation/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/automation-solutions/instagram-automation/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/automation-solutions/crm-integration/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/automation-solutions/e-commerce-automation/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/automation-solutions/lead-generation-systems/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>https://www.sanestix.com/services/automation-solutions/custom-workflows/</loc>
+        <lastmod>2026-07-31</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+</urlset>

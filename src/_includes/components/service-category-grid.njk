@@ -1,0 +1,35 @@
+{# ============================================================
+   SERVICE CATEGORY GRID
+   Renders a grid of category cards for a service group's landing
+   page. Expects `group` (an object from services.groups) in scope.
+   ============================================================ #}
+<section class="svc-cat-section" id="categories">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>{{ group.name }} <span class="grad">Services</span></h2>
+      <p class="section-desc">Explore each service under {{ group.name }} in detail.</p>
+    </div>
+    <div class="svc-cat-grid">
+      {% for cat in group.categories %}
+      <a href="/services/{{ group.slug }}/{{ cat.slug }}/" class="svc-cat-card reveal" style="transition-delay:{{ loop.index0 * 0.06 }}s">
+        <div class="svc-cat-media">
+          <img src="/assets/images/services/{{ group.imageDir }}/{{ cat.slug }}.jpg" alt="{{ cat.name }}" loading="lazy"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="svc-visual-fallback" style="display:none">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="svc-cat-body">
+          <h3 class="svc-cat-name">{{ cat.name }}</h3>
+          <p class="svc-cat-desc">{{ cat.shortDesc }}</p>
+          <span class="svc-cat-link">Explore Service
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>

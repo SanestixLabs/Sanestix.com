@@ -1,0 +1,32 @@
+{# ============================================================
+   SERVICE FAQ
+   Reuses the site's existing `.faq-list` / `.faq-item` styles and
+   the global `toggleFaq()` function (js/interactions.js), same as
+   the homepage FAQ section.
+   Expects:
+   - items (array of {q, a})
+   - heading (string, may include `<span class="grad">`)
+   - subheading (string, optional)
+   ============================================================ #}
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>{{ heading | safe }}</h2>
+      {% if subheading %}<p class="section-desc">{{ subheading }}</p>{% endif %}
+    </div>
+    <div class="faq-list reveal">
+      {% for item in items %}
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">{{ item.q }}
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        <div class="faq-a">
+          <p>{{ item.a }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
