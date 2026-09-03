@@ -36,15 +36,11 @@
   flex: 0 0 auto;
   width: 120px;
   height: 120px;
-  border-radius: 22px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  background: #f7f8fa;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1.1rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .client-logo-tile img {
@@ -53,12 +49,17 @@
   width: auto;
   height: auto;
   object-fit: contain;
-  border-radius: 10px;
   display: block;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+
+.client-logo-tile:hover img {
+  filter: grayscale(0%);
 }
 
 @media (max-width: 600px) {
   .client-logo-section { padding: 2.25rem 0; }
-  .client-logo-tile { width: 88px; height: 88px; padding: 0.8rem; border-radius: 18px; }
+  .client-logo-tile { width: 88px; height: 88px; padding: 0.8rem; }
   .client-logo-track { gap: 1.25rem; }
 }
