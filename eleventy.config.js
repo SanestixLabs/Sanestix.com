@@ -9,6 +9,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/*.txt");
   eleventyConfig.addPassthroughCopy("src/*.webmanifest");
   eleventyConfig.addPassthroughCopy("src/CNAME");
+  eleventyConfig.addPassthroughCopy("src/.nojekyll");
 
   // Disable automatic ignoring of certain things if needed, but defaults are fine
 
