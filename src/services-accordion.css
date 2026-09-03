@@ -1,0 +1,228 @@
+/* ============================================================
+   SERVICES ACCORDION
+   Shared component, loaded on index.html via services-accordion.js.
+   White background, numbered accordion rows (one open at a time),
+   matching the site's existing light-section typography system.
+   ============================================================ */
+.svc-acc-section {
+  background: #ffffff;
+  padding: 6rem 0;
+}
+
+/* Top row: heading left, description + CTA right */
+.svc-acc-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 3.5rem;
+}
+.svc-acc-top h2 { margin: 0; }
+.svc-acc-meta {
+  display: flex;
+  align-items: flex-end;
+  gap: 2.25rem;
+  flex-wrap: wrap;
+}
+.svc-acc-desc {
+  max-width: 300px;
+  margin: 0;
+  color: var(--muted);
+}
+.svc-acc-cta {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: 100px;
+  background: linear-gradient(135deg, var(--cyan), var(--cyan2));
+  color: #060b14;
+  font-family: var(--font-technical);
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 0 24px rgba(0, 229, 208, 0.3);
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s cubic-bezier(0.22,1,0.36,1);
+}
+.svc-acc-cta:hover {
+  transform: scale(1.05) translateY(-1px);
+  box-shadow: 0 0 48px rgba(0, 229, 208, 0.5);
+}
+.svc-acc-cta svg { flex-shrink: 0; }
+
+/* Accordion list */
+.svc-acc-list { border-top: 1px solid var(--border); }
+.svc-acc-item { border-bottom: 1px solid var(--border); }
+
+.svc-acc-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  width: 100%;
+  padding: 1.85rem 1.5rem;
+  margin: 0 -1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  overflow: hidden;
+  isolation: isolate;
+}
+.svc-acc-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--cyan), var(--cyan2));
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+.svc-acc-header:hover::before,
+.svc-acc-item.active .svc-acc-header::before {
+  transform: scaleY(1);
+}
+.svc-acc-header:hover .svc-acc-num,
+.svc-acc-header:hover .svc-acc-title,
+.svc-acc-item.active .svc-acc-num,
+.svc-acc-item.active .svc-acc-title {
+  color: #060b14;
+  transition: color 0.18s ease;
+}
+.svc-acc-header:hover .svc-acc-toggle,
+.svc-acc-item.active .svc-acc-toggle {
+  background: rgba(6, 11, 20, 0.14);
+}
+.svc-acc-header:hover .svc-acc-toggle .bar,
+.svc-acc-item.active .svc-acc-toggle .bar {
+  background: #060b14;
+}
+
+.svc-acc-num {
+  flex-shrink: 0;
+  width: 3rem;
+  font-family: var(--font-technical);
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  transition: color 0.18s ease;
+}
+.svc-acc-title {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  transition: color 0.18s ease;
+}
+
+.svc-acc-toggle {
+  position: relative;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(0, 229, 208, 0.08);
+  transition: background 0.2s ease;
+}
+.svc-acc-toggle .bar {
+  position: absolute;
+  top: 50%; left: 50%;
+  background: var(--cyan);
+  border-radius: 2px;
+  transform: translate(-50%, -50%);
+  transition: transform 0.3s ease, background 0.2s ease;
+}
+.svc-acc-toggle .bar-h { width: 14px; height: 2px; }
+.svc-acc-toggle .bar-v { width: 2px; height: 14px; }
+.svc-acc-item.active .svc-acc-toggle .bar-v { transform: translate(-50%, -50%) scaleY(0); }
+
+/* Expandable panel — max-height is set to the panel's exact measured
+   pixel height by JS when opened (see services-accordion.js), and back
+   to 0 when closed. This avoids relying on grid-template-rows' "auto
+   minimum size" behavior, which wasn't reliably collapsing closed
+   panels to zero in every browser and let text peek out below rows. */
+.svc-acc-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.svc-acc-panel-inner {
+  display: flex;
+  gap: 2.75rem;
+  align-items: flex-start;
+  padding: 0.25rem 0 2.75rem;
+}
+.svc-acc-visual {
+  flex: 0 0 260px;
+  aspect-ratio: 4 / 3;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(0, 229, 208, 0.14), rgba(0, 184, 230, 0.05));
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.svc-acc-visual svg { width: 30%; height: 30%; color: var(--cyan); }
+
+.svc-acc-body { flex: 1; min-width: 0; }
+.svc-acc-body p { max-width: 580px; margin: 0 0 1.4rem; }
+
+.svc-acc-bullets {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem 2rem;
+  list-style: none;
+  margin: 0 0 1.6rem;
+  padding: 0;
+}
+.svc-acc-bullets li {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-technical);
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--text);
+}
+.svc-acc-bullets li::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+  flex-shrink: 0;
+}
+
+.svc-acc-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--cyan);
+  font-family: var(--font-technical);
+  font-weight: 700;
+  font-size: 0.92rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.svc-acc-more svg { transition: transform 0.25s cubic-bezier(0.22,1,0.36,1); }
+.svc-acc-more:hover svg { transform: translateX(4px); }
+
+@media (max-width: 900px) {
+  .svc-acc-panel-inner { flex-direction: column; gap: 1.5rem; }
+  .svc-acc-visual { width: 100%; flex: none; aspect-ratio: 16 / 9; }
+}
+@media (max-width: 600px) {
+  .svc-acc-section { padding: 3.5rem 0; }
+  .svc-acc-top { align-items: flex-start; margin-bottom: 2.5rem; padding-bottom: 1.75rem; }
+  .svc-acc-desc { max-width: none; }
+  .svc-acc-header { gap: 1rem; padding: 1.35rem 0; }
+  .svc-acc-num { width: 2.1rem; font-size: 0.9rem; }
+  .svc-acc-bullets { grid-template-columns: 1fr; }
+}
